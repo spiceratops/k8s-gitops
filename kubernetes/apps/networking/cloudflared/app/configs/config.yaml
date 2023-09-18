@@ -1,0 +1,16 @@
+---
+originRequest:
+  http2Origin: true
+
+ingress:
+  - hostname: ${PRIVATE_DOMAIN}
+    service: https://ingress-nginx-controller.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: ingress.${PRIVATE_DOMAIN}
+
+  - hostname: "*.${PRIVATE_DOMAIN}"
+    service: https://ingress-nginx-controller.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: ingress.${PRIVATE_DOMAIN}
+
+  - service: http_status:404

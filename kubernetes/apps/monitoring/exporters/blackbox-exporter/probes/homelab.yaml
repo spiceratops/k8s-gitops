@@ -1,0 +1,17 @@
+---
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: homelab
+  namespace: monitoring
+spec:
+  module: icmp
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - unifi.${PRIVATE_DOMAIN}
+        - nas.${PRIVATE_DOMAIN}
+        - ups.${PRIVATE_DOMAIN}
+        - pdu.${PRIVATE_DOMAIN}

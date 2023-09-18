@@ -1,0 +1,21 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: &email ${PRIVATE_EMAIL}
+    privateKeySecretRef:
+      name: letsencrypt-production
+    solvers:
+      - dns01:
+          cloudflare:
+            email: *email
+            apiTokenSecretRef:
+              name: cloudflare-secret
+              key: api-token
+        selector:
+          dnsZones:
+            - ${PRIVATE_DOMAIN}

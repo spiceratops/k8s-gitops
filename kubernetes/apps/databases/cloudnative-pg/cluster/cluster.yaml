@@ -1,0 +1,60 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+  namespace: databases
+  annotations:
+    kyverno.io/ignore: "true"
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:15.2
+  inheritedMetadata:
+    labels:
+      kube-image-keeper.enix.io/image-caching-policy: ignore
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 25Gi
+    storageClass: ${CLUSTER_STORAGE_HOSTPATH}
+  superuserSecret:
+    name: cloudnative-pg-secret
+  postgresql:
+    parameters:
+      max_connections: "600"
+      shared_buffers: 512MB
+  monitoring:
+    enablePodMonitor: true
+  backup:
+    retentionPolicy: 14d
+    barmanObjectStore:
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: s3://postgresql/
+      endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
+      serverName: postgres-v2
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg-secret
+          key: AWS_ACCESS_KEY_ID
+        secretAccessKey:
+          name: cloudnative-pg-secret
+          key: AWS_SECRET_ACCESS_KEY
+  externalClusters:
+    - name: postgres-v1
+      barmanObjectStore:
+        wal:
+          compression: bzip2
+          maxParallel: 8
+        destinationPath: s3://postgresql/
+        endpointURL: https://s3.${SECRET_DOMAIN}:9000
+        s3Credentials:
+          accessKeyId:
+            name: cloudnative-pg
+            key: aws-access-key-id
+          secretAccessKey:
+            name: cloudnative-pg
+            key: aws-secret-access-key
+  bootstrap:
+    recovery:
+      source: postgres-v1

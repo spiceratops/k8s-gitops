@@ -1,0 +1,160 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 48.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    cleanPrometheusOperatorObjectNames: true
+    alertmanager:
+      ingress:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          hajimari.io/appName: Alertmanager
+          hajimari.io/icon: fluent:alert-16-filled
+        hosts:
+          - &am-host am.${PRIVATE_DOMAIN}
+        paths:
+          - /
+        tls:
+          - hosts:
+              - *am-host
+      alertmanagerSpec:
+        replicas: 3
+        useExistingSecret: true
+        configSecret: alertmanager-secret
+        podAntiAffinity: hard
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+              resources:
+                requests:
+                  storage: 1Gi
+    grafana:
+      enabled: false
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
+    kubeStateMetrics:
+      enabled: true
+    kube-state-metrics:
+      metricLabelsAllowlist:
+        - "pods=[*]"
+        - "deployments=[*]"
+        - "persistentvolumeclaims=[*]"
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels: ["node"]
+            targetLabel: instance
+    kubeApiServer:
+      enabled: true
+    kubeControllerManager:
+      enabled: true
+      endpoints: &cp
+        - 10.0.0.10
+        - 10.0.0.11
+        - 10.0.0.12
+    kubeEtcd:
+      enabled: true
+      endpoints: *cp
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
+    kubeProxy:
+      enabled: false
+      endpoints: *cp
+    kubeScheduler:
+      enabled: true
+      endpoints: *cp
+    prometheus:
+      ingress:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          hajimari.io/appName: Prometheus
+          hajimari.io/icon: simple-icons:prometheus
+        hosts:
+          - &prometheus-host prometheus.${PRIVATE_DOMAIN}
+        paths:
+          - /
+        tls:
+          - hosts:
+              - *prometheus-host
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
+      prometheusSpec:
+        replicas: 3
+        replicaExternalLabelName: __replica__
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        enableAdminAPI: true
+        walCompression: true
+        enableFeatures:
+          - auto-gomaxprocs
+          - memory-snapshot-on-shutdown
+          - new-service-discovery-manager
+        thanos:
+          image: quay.io/thanos/thanos:v0.31.0
+          objectStorageConfig:
+            name: thanos-objstore-secret
+            key: objstore.yml
+        retention: 7d
+        retentionSize: 15GB
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+              resources:
+                requests:
+                  storage: 20Gi
+        resources:
+          requests:
+            cpu: 150m
+            memory: 2000Mi
+          limits:
+            memory: 7000Mi
