@@ -11,7 +11,5 @@ spec:
   targets:
     staticConfig:
       static:
-        - unifi.${PRIVATE_DOMAIN}
+        - opnsense.${PRIVATE_DOMAIN}
         - nas.${PRIVATE_DOMAIN}
-        - ups.${PRIVATE_DOMAIN}
-        - pdu.${PRIVATE_DOMAIN}
