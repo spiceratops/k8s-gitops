@@ -21,63 +21,63 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: cp01.k8s.${domainName}
-    ipAddress: 10.0.0.11
+  - hostname: k8s-cp01.${domainName}
+    ipAddress: 192.168.10.201
     installDisk: /dev/sda
     controlPlane: true
     disableSearchDomain: true
     nameservers:
-      - 10.0.0.1
+      - 192.168.10.1
     nodeLabels: &masterLabels
       topology.kubernetes.io/region: *cluster
       topology.kubernetes.io/zone: cp
 
-  - hostname: cp02.k8s.${domainName}
-    ipAddress: 10.0.0.12
+  - hostname: k8s-cp02.${domainName}
+    ipAddress: 192.168.10.202
     installDisk: /dev/sda
     controlPlane: true
     disableSearchDomain: true
     nameservers:
-      - 10.0.0.1
+      - 192.168.10.1
     nodeLabels: *masterLabels
 
-  - hostname: cp03.k8s.${domainName}
-    ipAddress: 10.0.0.13
+  - hostname: k8s-cp03.${domainName}
+    ipAddress: 192.168.10.203
     installDisk: /dev/sda
     controlPlane: true
     disableSearchDomain: true
     nameservers:
-      - 10.0.0.1
+      - 192.168.10.1
     nodeLabels: *masterLabels
 
-  - hostname: wk01.k8s.${domainName}
-    ipAddress: 10.0.0.21
+  - hostname: k8s-wk01.${domainName}
+    ipAddress: 192.168.10.204
     installDisk: /dev/sda
     controlPlane: false
     disableSearchDomain: true
     nameservers:
-      - 10.0.0.1
+      - 192.168.10.1
     nodeLabels: &workerLabels
       node-role.kubernetes.io/worker: worker
       topology.kubernetes.io/region: *cluster
       topology.kubernetes.io/zone: wk
 
-  - hostname: wk02.k8s.${domainName}
-    ipAddress: 10.0.0.22
+  - hostname: k8s-wk02.${domainName}
+    ipAddress: 192.168.10.205
     installDisk: /dev/sda
     controlPlane: false
     disableSearchDomain: true
     nameservers:
-      - 10.0.0.1
+      - 192.168.10.1
     nodeLabels: *workerLabels
 
-  - hostname: wk03.k8s.${domainName}
-    ipAddress: 10.0.0.23
+  - hostname: k8s-wk03.${domainName}
+    ipAddress: 192.168.10.206
     installDisk: /dev/sda
     controlPlane: false
     disableSearchDomain: true
     nameservers:
-      - 10.0.0.1
+      - 192.168.10.1
     nodeLabels: *workerLabels
 
 controlPlane:
@@ -90,7 +90,7 @@ controlPlane:
         extraArgs:
           listen-metrics-urls: http://0.0.0.0:2381
         advertisedSubnets:
-          - 10.0.0.0/24
+          - 192.168.10.0/24
       controllerManager:
         extraArgs:
           bind-address: 0.0.0.0
@@ -140,7 +140,7 @@ controlPlane:
           - ip: 192.168.10.10
             aliases:
               - nas.${domainName}
-          - ip: 10.0.3.4
+          - ip: 192.168.11.4
             aliases:
               - vector.${domainName}
           - ip: 192.168.10.1
@@ -156,7 +156,7 @@ controlPlane:
           rotate-server-certificates: true
         nodeIP:
           validSubnets:
-            - 10.0.0.0/24
+            - 192.168.10.0/24
       files:
         - content: |
             [plugins."io.containerd.grpc.v1.cri"]
@@ -166,7 +166,7 @@ controlPlane:
           op: create
         - content: |
             TS_AUTHKEY=${tsauthkey}
-            TS_ROUTES=10.0.3.0/24
+            TS_ROUTES=192.168.11.0/24
             TS_KUBE_SECRET: tailscale-state
           permissions: 0o644
           path: /var/etc/tailscale/auth.env
