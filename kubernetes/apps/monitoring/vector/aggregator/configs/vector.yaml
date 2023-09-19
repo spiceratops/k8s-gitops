@@ -59,7 +59,8 @@ transforms:
       r4 = replace(r3, "192.168.10.204", "k8s-wk01")
       r5 = replace(r4, "192.168.10.205", "k8s-wk02")
       r6 = replace(r5, "192.168.10.206", "k8s-wk03")
-      .node = r6
+      r7 = replace(r6, "192.168.10.207", "k8s-wk04")
+      .node = r7
 
   talos_service_transform:
     type: remap
@@ -72,8 +73,9 @@ transforms:
       r4 = replace(r3, "192.168.10.204", "k8s-wk01")
       r5 = replace(r4, "192.168.10.205", "k8s-wk02")
       r6 = replace(r5, "192.168.10.206", "k8s-wk03")
-      r7 = replace(r6, r'10.*', "talos")
-      .node = r7
+      r7 = replace(r6, "192.168.10.207", "k8s-wk04")
+      r8 = replace(r7, r'10.*', "talos")
+      .node = r8
 
   unifi_kernel_transform:
     type: remap

@@ -1,14 +1,12 @@
 ---
-clusterName: &cluster k8s
-
-clusterPodNets:
-  - 10.244.0.0/16
-clusterSvcNets:
-  - 10.245.0.0/16
+clusterName: k8s
 
 talosVersion: v1.5.2
-kubernetesVersion: 1.28.2
+kubernetesVersion: v1.28.2
 endpoint: https://k8s.${domainName}:6443
+
+cniConfig:
+  name: none
 
 additionalApiServerCertSans:
   - ${clusterEndpointIP}
@@ -17,162 +15,122 @@ additionalMachineCertSans:
   - ${clusterEndpointIP}
   - k8s.${domainName}
 
-cniConfig:
-  name: none
-
 nodes:
-  - hostname: k8s-cp01.${domainName}
+  - hostname: k8s-cp01
     ipAddress: 192.168.10.201
-    installDisk: /dev/sda
     controlPlane: true
-    disableSearchDomain: true
-    nameservers:
-      - 192.168.10.1
-    nodeLabels: &masterLabels
-      topology.kubernetes.io/region: *cluster
-      topology.kubernetes.io/zone: cp
-
-  - hostname: k8s-cp02.${domainName}
+    installDisk: /dev/sda
+  - hostname: k8s-cp02
     ipAddress: 192.168.10.202
-    installDisk: /dev/sda
     controlPlane: true
-    disableSearchDomain: true
-    nameservers:
-      - 192.168.10.1
-    nodeLabels: *masterLabels
-
-  - hostname: k8s-cp03.${domainName}
+    installDisk: /dev/sda
+  - hostname: k8s-cp03
     ipAddress: 192.168.10.203
-    installDisk: /dev/sda
     controlPlane: true
-    disableSearchDomain: true
-    nameservers:
-      - 192.168.10.1
-    nodeLabels: *masterLabels
-
-  - hostname: k8s-wk01.${domainName}
-    ipAddress: 192.168.10.204
     installDisk: /dev/sda
+  - hostname: k8s-wk01
+    ipAddress: 192.168.10.211
     controlPlane: false
-    disableSearchDomain: true
-    nameservers:
-      - 192.168.10.1
-    nodeLabels: &workerLabels
-      node-role.kubernetes.io/worker: worker
-      topology.kubernetes.io/region: *cluster
-      topology.kubernetes.io/zone: wk
-
-  - hostname: k8s-wk02.${domainName}
-    ipAddress: 192.168.10.205
     installDisk: /dev/sda
+  - hostname: k8s-wk02
+    ipAddress: 192.168.10.212
     controlPlane: false
-    disableSearchDomain: true
-    nameservers:
-      - 192.168.10.1
-    nodeLabels: *workerLabels
-
-  - hostname: k8s-wk03.${domainName}
-    ipAddress: 192.168.10.206
     installDisk: /dev/sda
+  - hostname: k8s-wk03
+    ipAddress: 192.168.10.213
     controlPlane: false
-    disableSearchDomain: true
-    nameservers:
-      - 192.168.10.1
-    nodeLabels: *workerLabels
+    installDisk: /dev/sda
+  - hostname: k8s-wk04
+    ipAddress: 192.168.10.214
+    controlPlane: false
+    installDisk: /dev/sda
 
 controlPlane:
-  inlinePatch:
-    cluster:
-      allowSchedulingOnMasters: true
-      proxy:
-        disabled: true
-      etcd:
-        extraArgs:
-          listen-metrics-urls: http://0.0.0.0:2381
-        advertisedSubnets:
-          - 192.168.10.0/24
-      controllerManager:
-        extraArgs:
-          bind-address: 0.0.0.0
-      scheduler:
-        extraArgs:
-          bind-address: 0.0.0.0
-      apiServer:
-        admissionControl: null
-      discovery:
-        registries:
-          service:
-            disabled: true
-    machine: &machine
-      install:
-        image: ghcr.io/siderolabs/talos:v1.5.2
-        extensions:
-          - image: ghcr.io/siderolabs/i915-ucode:20230804
-          - image: ghcr.io/siderolabs/intel-ucode:20230808
-          - image: ghcr.io/siderolabs/tailscale:1.44.0
-        legacyBIOSSupport: true
-        extraKernelArgs:
-          - talos.logging.kernel=udp://vector.${domainName}:6001/
-      features:
-        kubePrism:
-          enabled: true
-          port: 7445
-      logging:
-        destinations:
-          - endpoint: udp://vector.${domainName}:6002/
-            format: json_lines
-      sysctls:
-        fs.inotify.max_user_watches: 1048576
-        fs.inotify.max_user_instances: 8192
-        kernel.randomize_va_space: 0
-        net.core.netdev_max_backlog: 30000
-        net.core.rmem_max: 67108864
-        net.core.wmem_max: 67108864
-        net.ipv4.tcp_rmem: 4096 87380 33554432
-        net.ipv4.tcp_wmem: 4096 65536 33554432
-        net.ipv4.tcp_tw_reuse: 1
-        net.ipv4.tcp_window_scaling: 1
-      network:
-        extraHostEntries:
-          - ip: ${clusterEndpointIP}
-            aliases:
-              - k8s.${domainName}
-          - ip: 192.168.10.10
-            aliases:
-              - nas.${domainName}
-          - ip: 192.168.11.4
-            aliases:
-              - vector.${domainName}
-          - ip: 192.168.10.1
-            aliases:
-              - opnsense.${domainName}
-      time:
-        disabled: false
-        servers:
-          - opnsense.${domainName}
-      kubelet:
-        extraArgs:
-          feature-gates: GracefulNodeShutdown=true
-          rotate-server-certificates: true
-        nodeIP:
-          validSubnets:
-            - 192.168.10.0/24
-      files:
-        - content: |
-            [plugins."io.containerd.grpc.v1.cri"]
-              enable_unprivileged_ports = true
-              enable_unprivileged_icmp = true
-          path: /etc/cri/conf.d/20-customization.part
-          op: create
-        - content: |
-            TS_AUTHKEY=${tsauthkey}
-            TS_ROUTES=192.168.11.0/24
-            TS_KUBE_SECRET: tailscale-state
-          permissions: 0o644
-          path: /var/etc/tailscale/auth.env
-          op: create
+  patches:
+    - |-
+      cluster:
+        allowSchedulingOnMasters: true
+        apiServer:
+        controllerManager:
+          extraArgs:
+            bind-address: 0.0.0.0
+        discovery:
+          registries:
+            service:
+              disabled: true
+        proxy:
+          disabled: true
+        scheduler:
+          extraArgs:
+            bind-address: 0.0.0.0
+
+      machine:
+        install:
+          extensions:
+            - image: ghcr.io/siderolabs/intel-ucode:20230808
+        features:
+          kubePrism:
+            enabled: true
+            port: 7445
+        files:
+          - content: |
+              [plugins."io.containerd.grpc.v1.cri"]
+                enable_unprivileged_ports = true
+                enable_unprivileged_icmp = true
+            path: /var/cri/conf.d/allow-unpriv-ports.toml
+            op: create
+        kubelet:
+          extraArgs:
+            feature-gates: GracefulNodeShutdown=true
+            rotate-server-certificates: "true"
+        network:
+          extraHostEntries:
+            - ip: ${clusterEndpointIP}
+              aliases:
+                - k8s.${domainName}
+        sysctls:
+          fs.inotify.max_user_watches: "1048576"
+          fs.inotify.max_user_instances: "8192"
+        time:
+          disabled: false
+          servers:
+            - 192.168.10.1
+        nodeLabels:
+          topology.kubernetes.io/zone: "cp"
 
 worker:
-  inlinePatch:
-    machine:
-      <<: *machine
+  patches:
+    - |-
+      machine:
+        install:
+          extensions:
+            - image: ghcr.io/siderolabs/intel-ucode:20230808
+        features:
+          kubePrism:
+            enabled: true
+            port: 7445
+        files:
+          - content: |
+              [plugins."io.containerd.grpc.v1.cri"]
+                enable_unprivileged_ports = true
+                enable_unprivileged_icmp = true
+            path: /var/cri/conf.d/allow-unpriv-ports.toml
+            op: create
+        kubelet:
+          extraArgs:
+            feature-gates: GracefulNodeShutdown=true
+            rotate-server-certificates: "true"
+        network:
+          extraHostEntries:
+            - ip: ${clusterEndpointIP}
+              aliases:
+                - k8s.${domainName}
+        sysctls:
+          fs.inotify.max_user_watches: "1048576"
+          fs.inotify.max_user_instances: "8192"
+        time:
+          disabled: false
+          servers:
+            - 192.168.10.1
+        nodeLabels:
+          topology.kubernetes.io/zone: "wk"

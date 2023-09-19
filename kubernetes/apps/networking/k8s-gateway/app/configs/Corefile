@@ -9,12 +9,13 @@
     }
     prometheus :9153
     hosts {
-        10.0.0.10 k8s-cp01.${PRIVATE_DOMAIN}
-        192.168.10.201 k8s-cp02.${PRIVATE_DOMAIN}
-        192.168.10.202 k8s-cp03.${PRIVATE_DOMAIN}
-        10.0.0.20 k8s-wk01.${PRIVATE_DOMAIN}
-        192.168.10.204 k8s-wk02.${PRIVATE_DOMAIN}
-        192.168.10.205 k8s-wk03.${PRIVATE_DOMAIN}
+        192.168.10.201 k8s-cp01.${PRIVATE_DOMAIN}
+        192.168.10.202 k8s-cp02.${PRIVATE_DOMAIN}
+        192.168.10.203 k8s-cp03.${PRIVATE_DOMAIN}
+        192.168.10.204 k8s-wk01.${PRIVATE_DOMAIN}
+        192.168.10.205 k8s-wk02.${PRIVATE_DOMAIN}
+        192.168.10.206 k8s-wk03.${PRIVATE_DOMAIN}
+        192.168.10.207 k8s-wk04.${PRIVATE_DOMAIN}
         fallthrough ${PRIVATE_DOMAIN}
     }
     k8s_gateway ${PRIVATE_DOMAIN} {
