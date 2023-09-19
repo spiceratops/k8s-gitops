@@ -3,7 +3,7 @@ name: "Flux Diff"
 
 on:
   pull_request:
-    branches: ["master"]
+    branches: ["main"]
     paths: ["kubernetes/**.yaml"]
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
         uses: allenporter/flux-local/action/diff@efbe055c6dc2a63d1102db582632d2aa03696664 # 3.1.1
         id: diff
         with:
-          live-branch: master
+          live-branch: main
           sources: k8s-gitops
           path: "${{ matrix.path }}"
           resource: "${{ matrix.resource }}"

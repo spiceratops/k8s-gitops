@@ -4,7 +4,7 @@ name: "Publish Terraform"
 on:
   workflow_dispatch:
   push:
-    branches: ["master"]
+    branches: ["main"]
     paths: ["terraform/**"]
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
           token: "${{ steps.generate-token.outputs.token }}"
 
       - name: Setup Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
+        uses: Homebrew/actions/setup-homebrew@main
 
       - name: Setup Tools
         shell: bash
@@ -56,4 +56,4 @@ jobs:
 
       - name: Tag manifests
         shell: bash
-        run: flux tag artifact oci://${{ steps.generate-tag.outputs.tag }} --tag master
+        run: flux tag artifact oci://${{ steps.generate-tag.outputs.tag }} --tag main
