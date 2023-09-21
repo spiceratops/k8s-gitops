@@ -9,12 +9,6 @@ route:
   receiver: pushover
   repeat_interval: 12h
   routes:
-    - receiver: heartbeat
-      group_wait: 0s
-      group_interval: 2m
-      repeat_interval: 2m
-      matchers:
-        - alertname =~ "Watchdog"
     - receiver: "null"
       matchers:
         - alertname =~ "InfoInhibitor"
@@ -31,10 +25,6 @@ inhibit_rules:
       - severity = "warning"
 
 receivers:
-  - name: heartbeat
-    webhook_configs:
-      - send_resolved: true
-        url: "{{ .UPTIMEROBOT_HEARTBEAT_URL }}"
   - name: "null"
   - name: pushover
     pushover_configs:
