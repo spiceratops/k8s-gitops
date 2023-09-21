@@ -52,12 +52,6 @@ nodes:
     installDisk: /dev/sda
     nameservers:
       - 192.168.10.1
-  - hostname: k8s-wk04
-    ipAddress: 192.168.10.214
-    controlPlane: false
-    installDisk: /dev/sda
-    nameservers:
-      - 192.168.10.1
 
 controlPlane:
   patches:
