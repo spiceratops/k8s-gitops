@@ -17,7 +17,7 @@ spec:
     size: 25Gi
     storageClass: ${CLUSTER_STORAGE_HOSTPATH}
   superuserSecret:
-    name: cloudnative-pg-secret
+    name: cloudnative-pg
   postgresql:
     parameters:
       max_connections: "600"
