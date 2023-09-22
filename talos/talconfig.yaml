@@ -79,6 +79,8 @@ controlPlane:
         install:
           extensions:
             - image: ghcr.io/siderolabs/intel-ucode:20230808
+            - image: ghcr.io/siderolabs/i915-ucode:20230804
+            - image: ghcr.io/siderolabs/qemu-guest-agent:8.1.0
           extraKernelArgs:
             - talos.logging.kernel=udp://vector.${domainName}:6001/
         features:
@@ -134,6 +136,8 @@ worker:
         install:
           extensions:
             - image: ghcr.io/siderolabs/intel-ucode:20230808
+            - image: ghcr.io/siderolabs/i915-ucode:20230804
+            - image: ghcr.io/siderolabs/qemu-guest-agent:8.1.0
           extraKernelArgs:
             - talos.logging.kernel=udp://vector.${domainName}:6001/
         features:

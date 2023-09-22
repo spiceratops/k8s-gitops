@@ -1,0 +1,86 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: hajimari
+  namespace: home
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: hajimari
+      version: 2.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: hajimari-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    env:
+      TZ: ${TIMEZONE}
+    hajimari:
+      title: Apps
+      lightTheme: cloud
+      darkTheme: espresso
+      alwaysTargetBlank: true
+      showGreeting: false
+      showAppGroups: false
+      showAppStatus: false
+      showBookmarkGroups: false
+      showGlobalBookmarks: false
+      showAppUrls: true
+      defaultEnable: true
+      namespaceSelector:
+        matchNames:
+          - default
+          - flux-system
+          - home
+          - kube-system
+          - media
+          - monitoring
+          - networking
+          - rook-ceph
+          - security
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          hajimari.io/enable: "false"
+        hosts:
+          - host: &host ${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+          - host: &host2 www.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+          - host: &host3 apps.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+              - *host2
+              - *host3
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: hajimari-settings
+    persistence:
+      data:
+        enabled: true
+        type: emptyDir
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128M
