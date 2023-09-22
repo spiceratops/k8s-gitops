@@ -1,7 +1,7 @@
 ---
 clusterName: k8s
 
-talosVersion: v1.5.2
+talosVersion: v1.5.3
 kubernetesVersion: v1.28.2
 endpoint: https://k8s.${domainName}:6443
 
