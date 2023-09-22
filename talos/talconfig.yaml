@@ -92,6 +92,10 @@ controlPlane:
                 enable_unprivileged_icmp = true
             path: /var/cri/conf.d/allow-unpriv-ports.toml
             op: create
+        logging:
+          destinations:
+            - endpoint: udp://vector.${domainName}:6002/
+              format: json_lines
         kubelet:
           extraArgs:
             feature-gates: GracefulNodeShutdown=true
@@ -101,6 +105,18 @@ controlPlane:
             - ip: ${clusterEndpointIP}
               aliases:
                 - k8s.${domainName}
+            - ip: 192.168.10.10
+              aliases:
+                - nas.${domainName}
+            - ip: 192.168.10.10
+              aliases:
+                - s3.${domainName}
+            - ip: 192.168.11.4
+              aliases:
+                - vector.${domainName}
+            - ip: 192.168.10.1
+              aliases:
+                - opnsense.${domainName}
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
@@ -131,6 +147,10 @@ worker:
                 enable_unprivileged_icmp = true
             path: /var/cri/conf.d/allow-unpriv-ports.toml
             op: create
+        logging:
+          destinations:
+            - endpoint: udp://vector.${domainName}:6002/
+              format: json_lines
         kubelet:
           extraArgs:
             feature-gates: GracefulNodeShutdown=true
@@ -140,6 +160,18 @@ worker:
             - ip: ${clusterEndpointIP}
               aliases:
                 - k8s.${domainName}
+            - ip: 192.168.10.10
+              aliases:
+                - nas.${domainName}
+            - ip: 192.168.10.10
+              aliases:
+                - s3.${domainName}
+            - ip: 192.168.11.4
+              aliases:
+                - vector.${domainName}
+            - ip: 192.168.10.1
+              aliases:
+                - opnsense.${domainName}
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
