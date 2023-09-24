@@ -1,0 +1,138 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app omada
+  namespace: networking
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+    global:
+      nameOverride: *app
+    image:
+      repository: mbentley/omada-controller
+      tag: "5.12"
+    env:
+      TZ: "${TIMEZONE}"
+      MANAGE_HTTP_PORT: "8088"
+      MANAGE_HTTPS_PORT: "8043"
+      PORTAL_HTTP_PORT: "8088"
+      PORTAL_HTTPS_PORT: "8843"
+      SHOW_SERVER_LOGS: "true"
+      SHOW_MONGODB_LOGS: "true"
+    service:
+      main:
+        enabled: true
+        ports:
+          http:
+            enabled: true
+            port: 8043
+            targetPort: 8043
+            protocol: TCP
+      controller:
+        enabled: true
+        externalTrafficPolicy: Local
+        type: LoadBalancer
+        loadBalancerIP: ${OMADA_LB_IP}
+        ports:
+          mgmt-8088-tcp:
+            enabled: true
+            port: 8088
+            targetPort: 8088
+            protocol: TCP
+          mgmt-8043-tcp:
+            enabled: true
+            port: 8043
+            targetPort: 8043
+            protocol: TCP
+          portal-8843-tcp:
+            enabled: true
+            port: 8843
+            targetPort: 8843
+            protocol: TCP
+          eap-discovery:
+            enabled: true
+            port: 29810
+            targetPort: 29810
+            protocol: UDP
+          old-eap-mgmt:
+            enabled: true
+            port: 29811
+            targetPort: 29811
+            protocol: TCP
+          old-eap-adopt:
+            enabled: true
+            port: 29812
+            targetPort: 29812
+            protocol: TCP
+          old-eap-upgrade:
+            enabled: true
+            port: 29813
+            targetPort: 29813
+            protocol: TCP
+          eap-adopt:
+            enabled: true
+            port: 29814
+            targetPort: 29814
+            protocol: TCP
+          init-check:
+            enabled: true
+            port: 27001
+            targetPort: 27001
+            protocol: UDP
+          db-access:
+            enabled: true
+            port: 27217
+            targetPort: 27217
+            protocol: TCP
+    ingress:
+      main:
+        enabled: true
+        primary: true
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+          nginx.ingress.kubernetes.io/proxy-ssl-verify: "off"
+          nginx.ingress.kubernetes.io/upstream-vhost: omada.${PRIVATE_DOMAIN}:8043
+          nginx.ingress.kubernetes.io/use-regex: "true"
+          nginx.ingress.kubernetes.io/proxy-redirect-from: "~https://(.+):8043/(.+)/login$"
+          nginx.ingress.kubernetes.io/proxy-redirect-to: "https://$1/$2/login"
+        hosts:
+          - host: &host omada.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      data:
+        enabled: true
+        existingClaim: omada-data
+        mountPath: /opt/tplink/EAPController/data
+      work:
+        enabled: true
+        mountPath: /opt/tplink/EAPController/work
+        existingClaim: omada-work
+      logs:
+        enabled: true
+        mountPath: /opt/tplink/EAPController/logs
+        existingClaim: omada-logs
