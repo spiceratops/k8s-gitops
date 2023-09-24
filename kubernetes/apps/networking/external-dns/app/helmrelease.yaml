@@ -27,6 +27,11 @@ spec:
   values:
     provider: cloudflare
     env:
+      - name: CF_API_EMAIL
+        valueFrom:
+          secretKeyRef:
+            name: external-dns-secret
+            key: api-email
       - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
