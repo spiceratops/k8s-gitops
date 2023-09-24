@@ -22,36 +22,78 @@ nodes:
     installDisk: /dev/sda
     nameservers:
       - 192.168.10.1
+  - interface: eth0
+    addresses:
+      - 192.168.10.201/23
+    mtu: 1500
+    routes:
+      - network: 0.0.0.0/0
+        gateway: 192.168.10.1
   - hostname: k8s-cp02
     ipAddress: 192.168.10.202
     controlPlane: true
     installDisk: /dev/sda
     nameservers:
       - 192.168.10.1
+  - interface: eth0
+    addresses:
+      - 192.168.10.202/23
+    mtu: 1500
+    routes:
+      - network: 0.0.0.0/0
+        gateway: 192.168.10.1
   - hostname: k8s-cp03
     ipAddress: 192.168.10.203
     controlPlane: true
     installDisk: /dev/sda
     nameservers:
       - 192.168.10.1
+  - interface: eth0
+    addresses:
+      - 192.168.10.203/23
+    mtu: 1500
+    routes:
+      - network: 0.0.0.0/0
+        gateway: 192.168.10.1
   - hostname: k8s-wk01
     ipAddress: 192.168.10.211
     controlPlane: false
     installDisk: /dev/sda
     nameservers:
       - 192.168.10.1
+  - interface: eth0
+    addresses:
+      - 192.168.10.211/23
+    mtu: 1500
+    routes:
+      - network: 0.0.0.0/0
+        gateway: 192.168.10.1
   - hostname: k8s-wk02
     ipAddress: 192.168.10.212
     controlPlane: false
     installDisk: /dev/sda
     nameservers:
       - 192.168.10.1
+  - interface: eth0
+    addresses:
+      - 192.168.10.212/23
+    mtu: 1500
+    routes:
+      - network: 0.0.0.0/0
+        gateway: 192.168.10.1
   - hostname: k8s-wk03
     ipAddress: 192.168.10.213
     controlPlane: false
     installDisk: /dev/sda
     nameservers:
       - 192.168.10.1
+  - interface: eth0
+    addresses:
+      - 192.168.10.213/23
+    mtu: 1500
+    routes:
+      - network: 0.0.0.0/0
+        gateway: 192.168.10.1
 
 controlPlane:
   patches:
