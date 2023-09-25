@@ -8,3 +8,9 @@ labels:
   - pairs:
       app.kubernetes.io/name: ingress-nginx
       app.kubernetes.io/instance: ingress-nginx
+configMapGenerator:
+  - name: cloudflare-proxied-networks
+    files:
+      - ./configs/cloudflare-proxied-networks.txt
+generatorOptions:
+  disableNameSuffixHash: true
