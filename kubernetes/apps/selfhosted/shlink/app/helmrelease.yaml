@@ -42,7 +42,7 @@ spec:
       tag: 3.6.4-non-root
     env:
       TIMEZONE: ${TIMEZONE}
-      PORT: &port 80
+      PORT: &port 7196
       IS_HTTPS_ENABLED: true
       DEFAULT_DOMAIN: &host ln.${PRIVATE_DOMAIN}
       REDIS_PUB_SUB_ENABLED: true
