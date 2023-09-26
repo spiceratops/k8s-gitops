@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-external-ingress
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/networking/external-ingress/ingress
+  path: ./kubernetes/apps/networking/external-ingress/app
   prune: true
   sourceRef:
     kind: GitRepository
