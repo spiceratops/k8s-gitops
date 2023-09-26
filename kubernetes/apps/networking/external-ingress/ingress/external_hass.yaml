@@ -29,7 +29,7 @@ metadata:
   namespace: networking
 spec:
   ports:
-    - name: https
-      port: 443
+    - name: http
+      port: 8123
   type: ExternalName
   externalName: ${LAN_SERVER_HASS_IP}
