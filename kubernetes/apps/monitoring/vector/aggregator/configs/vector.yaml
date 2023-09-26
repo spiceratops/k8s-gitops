@@ -58,7 +58,7 @@ transforms:
       r3 = replace(r2, "192.168.10.203", "k8s-cp03")
       r4 = replace(r3, "192.168.10.204", "k8s-wk01")
       r5 = replace(r4, "192.168.10.205", "k8s-wk02")
-      r5 = replace(r6, "192.168.10.206", "k8s-wk03")
+      r6 = replace(r5, "192.168.10.206", "k8s-wk03")
       .node = r6
 
   talos_service_transform:
