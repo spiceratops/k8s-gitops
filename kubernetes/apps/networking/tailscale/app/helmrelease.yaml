@@ -75,3 +75,5 @@ spec:
       fsGroupChangePolicy: OnRootMismatch
     serviceAccount:
       name: tailscale
+    podAnnotations:
+      secret.reloader.stakater.com/reload: tailscale-secret
