@@ -24,11 +24,8 @@ nodes:
       - 192.168.10.1
   - interface: eth0
     addresses:
-      - 192.168.10.201/23
+      - 192.168.10.201/24
     mtu: 1500
-    routes:
-      - network: 0.0.0.0/0
-        gateway: 192.168.10.1
   - hostname: k8s-cp02
     ipAddress: 192.168.10.202
     controlPlane: true
@@ -37,11 +34,8 @@ nodes:
       - 192.168.10.1
   - interface: eth0
     addresses:
-      - 192.168.10.202/23
+      - 192.168.10.202/24
     mtu: 1500
-    routes:
-      - network: 0.0.0.0/0
-        gateway: 192.168.10.1
   - hostname: k8s-cp03
     ipAddress: 192.168.10.203
     controlPlane: true
@@ -50,11 +44,8 @@ nodes:
       - 192.168.10.1
   - interface: eth0
     addresses:
-      - 192.168.10.203/23
+      - 192.168.10.203/24
     mtu: 1500
-    routes:
-      - network: 0.0.0.0/0
-        gateway: 192.168.10.1
   - hostname: k8s-wk01
     ipAddress: 192.168.10.211
     controlPlane: false
@@ -63,11 +54,8 @@ nodes:
       - 192.168.10.1
   - interface: eth0
     addresses:
-      - 192.168.10.211/23
+      - 192.168.10.211/24
     mtu: 1500
-    routes:
-      - network: 0.0.0.0/0
-        gateway: 192.168.10.1
   - hostname: k8s-wk02
     ipAddress: 192.168.10.212
     controlPlane: false
@@ -76,11 +64,8 @@ nodes:
       - 192.168.10.1
   - interface: eth0
     addresses:
-      - 192.168.10.212/23
+      - 192.168.10.212/24
     mtu: 1500
-    routes:
-      - network: 0.0.0.0/0
-        gateway: 192.168.10.1
   - hostname: k8s-wk03
     ipAddress: 192.168.10.213
     controlPlane: false
@@ -89,11 +74,8 @@ nodes:
       - 192.168.10.1
   - interface: eth0
     addresses:
-      - 192.168.10.213/23
+      - 192.168.10.213/24
     mtu: 1500
-    routes:
-      - network: 0.0.0.0/0
-        gateway: 192.168.10.1
 
 controlPlane:
   patches:
@@ -149,25 +131,16 @@ controlPlane:
             - ip: ${clusterEndpointIP}
               aliases:
                 - k8s.${domainName}
-            - ip: 192.168.10.10
-              aliases:
-                - nas.${domainName}
-            - ip: 192.168.10.10
-              aliases:
-                - s3.${domainName}
             - ip: 192.168.11.4
               aliases:
                 - vector.${domainName}
-            - ip: 192.168.10.1
-              aliases:
-                - opnsense.${domainName}
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
         time:
           disabled: false
           servers:
-            - 192.168.10.1
+            - 192.168.1.1
         nodeLabels:
           topology.kubernetes.io/zone: "cp"
 
@@ -206,24 +179,15 @@ worker:
             - ip: ${clusterEndpointIP}
               aliases:
                 - k8s.${domainName}
-            - ip: 192.168.10.10
-              aliases:
-                - nas.${domainName}
-            - ip: 192.168.10.10
-              aliases:
-                - s3.${domainName}
             - ip: 192.168.11.4
               aliases:
                 - vector.${domainName}
-            - ip: 192.168.10.1
-              aliases:
-                - opnsense.${domainName}
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
         time:
           disabled: false
           servers:
-            - 192.168.10.1
+            - 192.168.1.1
         nodeLabels:
           topology.kubernetes.io/zone: "wk"
