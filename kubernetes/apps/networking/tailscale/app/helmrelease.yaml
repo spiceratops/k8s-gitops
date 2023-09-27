@@ -38,7 +38,7 @@ spec:
       SA_NAME: tailscale
       TS_USERSPACE: true
       TS_ROUTES: |-
-        ${LAN_SERVER_IP_CIDR},${CILIUM_LB_CIDR},${CLUSTER_SERVICE_IP_CIDR}
+        ${CILIUM_LB_CIDR},${CLUSTER_SERVICE_IP_CIDR}
     envFrom:
       - secretRef:
           name: tailscale-secret
