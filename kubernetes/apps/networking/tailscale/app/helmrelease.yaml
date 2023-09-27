@@ -30,7 +30,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/tailscale/tailscale
-      tag: v1.46.1
+      tag: v1.48.2
     env:
       TZ: ${TIMEZONE}
       PORT: &port ${TAILNET_PUBLIC_PORT}
@@ -38,7 +38,8 @@ spec:
       SA_NAME: tailscale
       TS_USERSPACE: true
       TS_ROUTES: |-
-        ${CILIUM_LB_CIDR}
+        ${LAN_SERVER_IP_CIDR},${CILIUM_LB_CIDR}
+      TS_EXTRA_ARGS: --accept-routes
     envFrom:
       - secretRef:
           name: tailscale-secret
