@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./rbac.yaml
-  - ./externalsecret.yaml
-  - ./helmrelease.yaml
+  # - ./externalsecret.yaml
+  # - ./helmrelease.yaml
 labels:
   - pairs:
       app.kubernetes.io/name: tailscale
