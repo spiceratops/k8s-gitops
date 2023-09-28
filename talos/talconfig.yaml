@@ -7,7 +7,7 @@ clusterSvcNets:
   - 10.245.0.0/16
 
 talosVersion: v1.5.3
-kubernetesVersion: 1.28.2
+kubernetesVersion: v1.28.2
 endpoint: https://k8s.${domainName}:6443
 
 additionalApiServerCertSans:
@@ -114,13 +114,12 @@ controlPlane:
             disabled: true
     machine: &machine
       install:
-        image: ghcr.io/siderolabs/talos:v1.5.3
+        image: ghcr.io/siderolabs/installer:v1.5.3
         extensions:
           - image: ghcr.io/siderolabs/intel-ucode:20230808
           - image: ghcr.io/siderolabs/i915-ucode:20230804
           - image: ghcr.io/siderolabs/qemu-guest-agent:8.1.0
           - image: ghcr.io/siderolabs/tailscale:1.44.0
-        legacyBIOSSupport: true
         extraKernelArgs:
           - talos.logging.kernel=udp://vector.${domainName}:6001/
       features:
@@ -134,14 +133,6 @@ controlPlane:
       sysctls:
         fs.inotify.max_user_watches: 1048576
         fs.inotify.max_user_instances: 8192
-        kernel.randomize_va_space: 0
-        net.core.netdev_max_backlog: 30000
-        net.core.rmem_max: 67108864
-        net.core.wmem_max: 67108864
-        net.ipv4.tcp_rmem: 4096 87380 33554432
-        net.ipv4.tcp_wmem: 4096 65536 33554432
-        net.ipv4.tcp_tw_reuse: 1
-        net.ipv4.tcp_window_scaling: 1
       network:
         extraHostEntries:
           - ip: ${clusterEndpointIP}
@@ -166,7 +157,7 @@ controlPlane:
             [plugins."io.containerd.grpc.v1.cri"]
               enable_unprivileged_ports = true
               enable_unprivileged_icmp = true
-          path: /etc/cri/conf.d/20-customization.part
+          path: /var/cri/conf.d/allow-unpriv-ports.toml
           op: create
         - content: |
             TS_AUTHKEY=${TS_AUTHKEY}
@@ -176,7 +167,7 @@ controlPlane:
             TS_USERSPACE: true
             TS_ROUTES: |-
               192.168.15.0/24,10.245.0.0/16
-          permissions: 0o644
+          permissions: 0644
           path: /var/etc/tailscale/auth.env
           op: create
 
