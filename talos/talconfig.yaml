@@ -66,6 +66,9 @@ nodes:
     disableSearchDomain: true
     nameservers:
       - 192.168.10.1
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
     nodeLabels: &workerLabels
       node-role.kubernetes.io/worker: worker
       topology.kubernetes.io/region: *cluster
@@ -78,6 +81,9 @@ nodes:
     disableSearchDomain: true
     nameservers:
       - 192.168.10.1
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
     nodeLabels: *workerLabels
 
   - hostname: k8s-wk03.${domainName}
@@ -87,11 +93,16 @@ nodes:
     disableSearchDomain: true
     nameservers:
       - 192.168.10.1
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
     nodeLabels: *workerLabels
 
 controlPlane:
   inlinePatch:
     cluster:
+      extraManifests:
+        - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
       allowSchedulingOnMasters: true
       proxy:
         disabled: true
@@ -119,7 +130,7 @@ controlPlane:
           - image: ghcr.io/siderolabs/intel-ucode:20230808
           - image: ghcr.io/siderolabs/i915-ucode:20230804
           - image: ghcr.io/siderolabs/qemu-guest-agent:8.1.0
-          - image: ghcr.io/siderolabs/tailscale:1.44.0
+          # - image: ghcr.io/siderolabs/tailscale:1.44.0
         extraKernelArgs:
           - talos.logging.kernel=udp://vector.${domainName}:6001/
       features:
@@ -159,17 +170,17 @@ controlPlane:
               enable_unprivileged_icmp = true
           path: /var/cri/conf.d/allow-unpriv-ports.toml
           op: create
-        - content: |
-            TS_AUTHKEY=${TS_AUTHKEY}
-            PORT: 41642
-            TS_KUBE_SECRET: tailscale-state
-            SA_NAME: tailscale
-            TS_USERSPACE: true
-            TS_ROUTES: |-
-              192.168.15.0/24,10.245.0.0/16
-          permissions: 0644
-          path: /var/etc/tailscale/auth.env
-          op: create
+        # - content: |
+        #     TS_AUTHKEY=${TS_AUTHKEY}
+        #     PORT: 41642
+        #     TS_KUBE_SECRET: tailscale-state
+        #     SA_NAME: tailscale
+        #     TS_USERSPACE: true
+        #     TS_ROUTES: |-
+        #       192.168.15.0/24,10.245.0.0/16
+        #   permissions: 0644
+        #   path: /var/etc/tailscale/auth.env
+        #   op: create
 
 worker:
   inlinePatch:

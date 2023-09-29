@@ -45,6 +45,7 @@ spec:
       enabled: true
       strategy: node
       externalProvisioner:
+        image: registry.k8s.io/sig-storage/csi-provisioner:v3.6.0
         extraArgs:
           - --leader-election=false
           - --node-deployment=true
@@ -74,7 +75,7 @@ spec:
             path: *path
             type: DirectoryOrCreate
       nodeSelector:
-        topology.kubernetes.io/zone: wk
+        topology.kubernetes.io/zone: w
     driver:
       config:
         driver: local-hostpath
@@ -82,6 +83,6 @@ spec:
         local-hostpath:
           shareBasePath: *path
           controllerBasePath: *path
-          dirPermissionsMode: "0777"
+          dirPermissionsMode: "0770"
           dirPermissionsUser: 0
           dirPermissionsGroup: 0
