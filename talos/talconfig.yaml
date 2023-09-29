@@ -109,8 +109,6 @@ controlPlane:
       etcd:
         extraArgs:
           listen-metrics-urls: http://0.0.0.0:2381
-        advertisedSubnets:
-          - 192.168.10.0/24
       controllerManager:
         extraArgs:
           bind-address: 0.0.0.0
@@ -160,9 +158,6 @@ controlPlane:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true
           rotate-server-certificates: true
-        nodeIP:
-          validSubnets:
-            - 192.168.10.0/24
       files:
         - content: |
             [plugins."io.containerd.grpc.v1.cri"]
