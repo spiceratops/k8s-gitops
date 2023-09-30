@@ -31,8 +31,8 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-    nodeLabels: &masterLabels
-      topology.kubernetes.io/region: *cluster
+    nodeLabels:
+      topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
 
   - hostname: k8s-cp02.${domainName}
@@ -45,7 +45,9 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-    nodeLabels: *masterLabels
+    nodeLabels:
+      topology.kubernetes.io/region: k8s
+      topology.kubernetes.io/zone: cp
 
   - hostname: k8s-cp03.${domainName}
     ipAddress: 192.168.10.203
@@ -57,7 +59,9 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-    nodeLabels: *masterLabels
+    nodeLabels:
+      topology.kubernetes.io/region: k8s
+      topology.kubernetes.io/zone: cp
 
   - hostname: k8s-wk01.${domainName}
     ipAddress: 192.168.10.211
@@ -69,9 +73,9 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-    nodeLabels: &workerLabels
+    nodeLabels:
       node-role.kubernetes.io/worker: worker
-      topology.kubernetes.io/region: *cluster
+      topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
 
   - hostname: k8s-wk02.${domainName}
@@ -84,7 +88,10 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-    nodeLabels: *workerLabels
+    nodeLabels:
+      node-role.kubernetes.io/worker: worker
+      topology.kubernetes.io/region: k8s
+      topology.kubernetes.io/zone: wk
 
   - hostname: k8s-wk03.${domainName}
     ipAddress: 192.168.10.213
@@ -96,7 +103,10 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-    nodeLabels: *workerLabels
+    nodeLabels:
+      node-role.kubernetes.io/worker: worker
+      topology.kubernetes.io/region: k8s
+      topology.kubernetes.io/zone: wk
 
 controlPlane:
   inlinePatch:
