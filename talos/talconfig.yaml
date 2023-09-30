@@ -160,6 +160,24 @@ controlPlane:
           - ip: 192.168.15.4
             aliases:
               - vector.${domainName}
+          - ip: 192.168.10.10
+            aliases:
+              - nas.${domainName}
+          - ip: 192.168.10.10
+            aliases:
+              - s3.${domainName}
+          - ip: 192.168.10.1
+            aliases:
+              - opnsense.${domainName}
+          - ip: 192.168.1.107
+            aliases:
+              - home.${domainName}
+          - ip: 192.168.1.252
+            aliases:
+              - pve.${domainName}
+          - ip: 192.168.1.241
+            aliases:
+              - pve-hass.${domainName}
       time:
         disabled: false
         servers:
