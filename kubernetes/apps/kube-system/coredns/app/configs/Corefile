@@ -8,12 +8,13 @@
         class error
     }
     prometheus :9153
-    forward ${LOCAL_DOMAIN} 192.168.10.1
+    forward ${PRIVATE_DOMAIN} ${BLOCKY_LB_IP}
     kubernetes cluster.local in-addr.arpa ip6.arpa {
         pods insecure
         fallthrough in-addr.arpa ip6.arpa
     }
-    forward . 192.168.10.1 {
+    forward . tls://1.1.1.1 tls://1.0.0.1 {
+        tls_servername cloudflare-dns.com
         health_check 5s
     }
     cache 300

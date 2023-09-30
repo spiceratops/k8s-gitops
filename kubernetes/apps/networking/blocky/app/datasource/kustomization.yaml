@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: networking
+resources:
+  - ./externalsecret.yaml
+configMapGenerator:
+  - name: blocky-datasource-tpl
+    files:
+      - ./datasource.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+labels:
+  - pairs:
+      app.kubernetes.io/name: blocky
+      app.kubernetes.io/instance: blocky

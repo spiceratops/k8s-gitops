@@ -21,7 +21,7 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: k8s-cp01.${domainName}
+  - hostname: cp01.k8s.${domainName}
     ipAddress: 192.168.10.201
     installDisk: /dev/sda
     controlPlane: true
@@ -35,7 +35,7 @@ nodes:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
 
-  - hostname: k8s-cp02.${domainName}
+  - hostname: cp02.k8s.${domainName}
     ipAddress: 192.168.10.202
     installDisk: /dev/sda
     controlPlane: true
@@ -49,7 +49,7 @@ nodes:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
 
-  - hostname: k8s-cp03.${domainName}
+  - hostname: cp03.k8s.${domainName}
     ipAddress: 192.168.10.203
     installDisk: /dev/sda
     controlPlane: true
@@ -63,7 +63,7 @@ nodes:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
 
-  - hostname: k8s-wk01.${domainName}
+  - hostname: wk01.k8s.${domainName}
     ipAddress: 192.168.10.211
     installDisk: /dev/sda
     controlPlane: false
@@ -78,7 +78,7 @@ nodes:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
 
-  - hostname: k8s-wk02.${domainName}
+  - hostname: wk02.k8s.${domainName}
     ipAddress: 192.168.10.212
     installDisk: /dev/sda
     controlPlane: false
@@ -93,7 +93,7 @@ nodes:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
 
-  - hostname: k8s-wk03.${domainName}
+  - hostname: wk03.k8s.${domainName}
     ipAddress: 192.168.10.213
     installDisk: /dev/sda
     controlPlane: false
@@ -117,6 +117,8 @@ controlPlane:
       etcd:
         extraArgs:
           listen-metrics-urls: http://0.0.0.0:2381
+        advertisedSubnets:
+          - 192.168.10.0/24
       controllerManager:
         extraArgs:
           bind-address: 0.0.0.0
@@ -136,7 +138,6 @@ controlPlane:
           - image: ghcr.io/siderolabs/intel-ucode:20230808
           - image: ghcr.io/siderolabs/i915-ucode:20230804
           - image: ghcr.io/siderolabs/qemu-guest-agent:8.1.0
-          # - image: ghcr.io/siderolabs/tailscale:1.44.0
         extraKernelArgs:
           - talos.logging.kernel=udp://vector.${domainName}:6001/
       features:
@@ -160,22 +161,7 @@ controlPlane:
               - vector.${domainName}
           - ip: 192.168.10.10
             aliases:
-              - nas.${domainName}
-          - ip: 192.168.10.10
-            aliases:
               - s3.${domainName}
-          - ip: 192.168.10.1
-            aliases:
-              - opnsense.${domainName}
-          - ip: 192.168.1.107
-            aliases:
-              - home.${domainName}
-          - ip: 192.168.1.252
-            aliases:
-              - pve.${domainName}
-          - ip: 192.168.1.241
-            aliases:
-              - pve-hass.${domainName}
       time:
         disabled: false
         servers:
@@ -184,6 +170,9 @@ controlPlane:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true
           rotate-server-certificates: true
+        nodeIP:
+          validSubnets:
+            - 192.168.10.0/24
       files:
         - content: |
             [plugins."io.containerd.grpc.v1.cri"]
@@ -191,17 +180,6 @@ controlPlane:
               enable_unprivileged_icmp = true
           path: /var/cri/conf.d/allow-unpriv-ports.toml
           op: create
-        # - content: |
-        #     TS_AUTHKEY=${TS_AUTHKEY}
-        #     PORT: 41642
-        #     TS_KUBE_SECRET: tailscale-state
-        #     SA_NAME: tailscale
-        #     TS_USERSPACE: true
-        #     TS_ROUTES: |-
-        #       192.168.15.0/24,10.245.0.0/16
-        #   permissions: 0644
-        #   path: /var/etc/tailscale/auth.env
-        #   op: create
 
 worker:
   inlinePatch:

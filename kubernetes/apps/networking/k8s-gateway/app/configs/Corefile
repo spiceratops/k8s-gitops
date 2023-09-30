@@ -8,9 +8,32 @@
         class error
     }
     prometheus :9153
+    hosts {
+        192.168.10.201 cp01.k8s.${PRIVATE_DOMAIN}
+        192.168.10.202 cp02.k8s.${PRIVATE_DOMAIN}
+        192.168.10.203 cp03.k8s.${PRIVATE_DOMAIN}
+        192.168.10.211 wk01.k8s.${PRIVATE_DOMAIN}
+        192.168.10.212 wk02.k8s.${PRIVATE_DOMAIN}
+        192.168.10.213 wk03.k8s.${PRIVATE_DOMAIN}
+        192.168.10.10 nas.${PRIVATE_DOMAIN}
+        192.168.10.10 s3.${PRIVATE_DOMAIN}
+        192.168.1.11 pve1.${PRIVATE_DOMAIN}
+        192.168.1.12 pve2.${PRIVATE_DOMAIN}
+        192.168.1.13 pve3.${PRIVATE_DOMAIN}
+        192.168.1.241 pve-hass.${PRIVATE_DOMAIN}
+        192.168.1.107 home.${PRIVATE_DOMAIN}
+        192.168.1.245 omada.${PRIVATE_DOMAIN}
+        192.168.1.248 unifi.${PRIVATE_DOMAIN}
+        fallthrough ${PRIVATE_DOMAIN}
+    }
     k8s_gateway ${PRIVATE_DOMAIN} {
         apex k8s-gateway.networking
         resources Ingress Service
+        fallthrough ${PRIVATE_DOMAIN}
+    }
+    forward ${PRIVATE_DOMAIN} tls://1.1.1.1 tls://1.0.0.1 {
+        tls_servername cloudflare-dns.com
+        health_check 5s
     }
     cache 300
     loop
