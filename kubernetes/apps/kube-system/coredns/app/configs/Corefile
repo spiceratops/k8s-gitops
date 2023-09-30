@@ -8,15 +8,6 @@
     class error
     }
   prometheus: 9153
-    hosts {
-    192.168.10.10 nas.${ PRIVATE_DOMAIN }
-    192.168.10.10 s3.${ PRIVATE_DOMAIN }
-    192.168.1.100 pve.${ PRIVATE_DOMAIN }
-    192.168.1.107 home.${ PRIVATE_DOMAIN }
-    192.168.10.30 pbs.${ PRIVATE_DOMAIN }
-    192.168.1.241 pve - hass.${ PRIVATE_DOMAIN }
-        fallthrough ${ PRIVATE_DOMAIN }
-  }
     forward ${ LOCAL_DOMAIN } 192.168.10.1
     kubernetes cluster.local in -addr.arpa ip6.arpa {
         pods insecure
