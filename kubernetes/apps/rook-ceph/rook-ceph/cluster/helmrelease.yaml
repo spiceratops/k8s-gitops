@@ -63,13 +63,13 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: k8s-wk01
+          - name: wk01
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SKC3000S1024G_50026B76863B2B62
-          - name: k8s-wk02
+          - name: wk02
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SKC3000S1024G_50026B76863B2A0C
-          - name: k8s-wk03
+          - name: wk03
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SKC3000S1024G_50026B76863B29EF
       placement:
