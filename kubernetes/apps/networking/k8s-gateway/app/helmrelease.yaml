@@ -44,9 +44,9 @@ spec:
             port: 9153
       dns:
         enabled: true
-        type: LoadBalancer
+        type: ClusterIP
         externalTrafficPolicy: ""
-        loadBalancerIP: ${K8S_GATEWAY_IP}
+        clusterIP: ${K8S_GATEWAY_IP}
         ports:
           dns-tcp:
             enabled: true
