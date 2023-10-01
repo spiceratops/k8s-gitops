@@ -53,12 +53,12 @@ transforms:
     inputs:
       - talos_kernel_logs
     source: |-
-      r1 = replace!(.__host, "192.168.10.201", "k8s-cp01")
-      r2 = replace(r1, "192.168.10.202", "k8s-cp02")
-      r3 = replace(r2, "192.168.10.203", "k8s-cp03")
-      r4 = replace(r3, "192.168.10.204", "k8s-wk01")
-      r5 = replace(r4, "192.168.10.205", "k8s-wk02")
-      r6 = replace(r5, "192.168.10.206", "k8s-wk03")
+      r1 = replace!(.__host, "192.168.10.201", "cp01")
+      r2 = replace(r1, "192.168.10.202", "cp02")
+      r3 = replace(r2, "192.168.10.203", "cp03")
+      r4 = replace(r3, "192.168.10.204", "wk01")
+      r5 = replace(r4, "192.168.10.205", "wk02")
+      r6 = replace(r5, "192.168.10.206", "wk03")
       .node = r6
 
   talos_service_transform:
@@ -66,12 +66,12 @@ transforms:
     inputs:
       - talos_service_logs
     source: |-
-      r1 = replace!(.__host, "192.168.10.201", "k8s-cp01")
-      r2 = replace(r1, "192.168.10.202", "k8s-cp02")
-      r3 = replace(r2, "192.168.10.203", "k8s-cp03")
-      r4 = replace(r3, "192.168.10.204", "k8s-wk01")
-      r5 = replace(r4, "192.168.10.205", "k8s-wk02")
-      r6 = replace(r5, "192.168.10.206", "k8s-wk03")
+      r1 = replace!(.__host, "192.168.10.201", "cp01")
+      r2 = replace(r1, "192.168.10.202", "cp02")
+      r3 = replace(r2, "192.168.10.203", "cp03")
+      r4 = replace(r3, "192.168.10.204", "wk01")
+      r5 = replace(r4, "192.168.10.205", "wk02")
+      r6 = replace(r5, "192.168.10.206", "wk03")
       r7 = replace(r6, r'10.*', "talos")
       .node = r7
 
