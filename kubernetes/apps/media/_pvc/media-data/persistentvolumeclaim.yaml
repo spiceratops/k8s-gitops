@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: media
+  name: media-data
   namespace: media
 spec:
-  storageClassName: media
-  volumeName: media
+  storageClassName: media-data
+  volumeName: media-data
   accessModes:
     - ReadWriteMany
   resources:

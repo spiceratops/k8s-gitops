@@ -64,7 +64,7 @@ spec:
         mountPath: /config
       media:
         enabled: true
-        existingClaim: media
+        existingClaim: media-data
       transcode:
         enabled: true
         type: emptyDir

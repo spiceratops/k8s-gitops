@@ -2,7 +2,7 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: media
+  name: media-data
 provisioner: nfs
 parameters:
   archiveOnDelete: "false"

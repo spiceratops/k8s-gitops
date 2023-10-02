@@ -76,7 +76,7 @@ spec:
         existingClaim: bazarr-config
       media:
         enabled: true
-        existingClaim: media
+        existingClaim: media-data
       scripts:
         enabled: true
         type: configMap
