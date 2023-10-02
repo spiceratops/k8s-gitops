@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app pgadmin
+  namespace: databases
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: redis
+      version: 17.15.5
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: dpage/pgadmin4
+      tag: "7.4"
+    env:
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
+    envFrom:
+      - secretRef:
+          name: pgadmin-secret
+    initContainers:
+      volume-permissions:
+        image: dpage/pgadmin4:7.4
+        command: ["/bin/chown", "-R", "5050:5050", "/var/lib/pgadmin"]
+        volumeMounts:
+          - name: config
+            mountPath: /var/lib/pgadmin
+        securityContext:
+          runAsUser: 0
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          hajimari.io/icon: mdi:database
+        hosts:
+          - host: &host pgadmin.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: pgadmin-config
+        mountPath: /var/lib/pgadmin
+    resources:
+      requests:
+        cpu: 50m
+        memory: 100Mi
+      limits:
+        memory: 500Mi
