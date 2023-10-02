@@ -42,7 +42,7 @@ spec:
       tag: v0.5.0
     env:
       TZ: ${TIMEZONE}
-      LLDAP_HTTP_PORT: &http-port 80
+      LLDAP_HTTP_PORT: &http-port 8016
       LLDAP_HTTP_URL: https://lldap.${PRIVATE_DOMAIN}
       LLDAP_LDAP_PORT: &ldap-port 389
       LLDAP_LDAP_BASE_DN: dc=home,dc=arpa
@@ -61,6 +61,9 @@ spec:
             port: *http-port
           ldap:
             enabled: true
+            type: LoadBalancer
+            annotations:
+              io.cilium/lb-ipam-ips: ${LLDAP_LB_IP}
             port: *ldap-port
     ingress:
       main:
