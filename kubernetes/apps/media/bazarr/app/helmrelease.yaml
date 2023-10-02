@@ -74,7 +74,7 @@ spec:
       config:
         enabled: true
         existingClaim: bazarr-config
-      media:
+      media-data:
         enabled: true
         existingClaim: media-data
       scripts:

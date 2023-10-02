@@ -62,7 +62,7 @@ spec:
         enabled: true
         existingClaim: jellyfin-config
         mountPath: /config
-      media:
+      media-data:
         enabled: true
         existingClaim: media-data
       transcode:
