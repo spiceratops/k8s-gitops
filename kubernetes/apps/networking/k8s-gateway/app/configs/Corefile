@@ -13,7 +13,7 @@
         resources Ingress Service
         fallthrough ${PRIVATE_DOMAIN}
     }
-    forward ${PRIVATE_DOMAIN} tls://192.168.10.1 {
+    forward ${PRIVATE_DOMAIN} 192.168.10.1 {
         health_check 5s
     }
     cache 300
