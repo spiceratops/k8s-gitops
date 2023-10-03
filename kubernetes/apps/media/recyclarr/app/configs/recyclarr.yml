@@ -17,6 +17,43 @@ sonarr:
     replace_existing_custom_formats: true
     quality_definition:
       type: series
+
+    quality_profiles:
+      - name: Best Available
+        min_format_score: 0
+        qualities:
+          - name: Bluray-2160p
+          - name: WEB 2160p
+            qualities:
+              - WEBRip-2160p
+              - WEBDL-2160p
+          - name: Bluray-1080p
+          - name: WEB 1080p
+            qualities:
+              - WEBRip-1080p
+              - WEBDL-1080p
+          - name: Bluray-720p
+          - name: WEB 720p
+            qualities:
+              - WEBRip-720p
+              - WEBDL-720p
+          - name: HDTV-1080p
+          - name: HDTV-720p
+          - name: DVD
+          - name: Bluray-480p
+          - name: WEB 480p
+            qualities:
+              - WEBRip-480p
+              - WEBDL-480p
+          - name: SDTV
+        quality_sort: top
+        reset_unmatched_scores:
+          enabled: true
+        upgrade:
+          allowed: true
+          until_quality: Bluray-2160p
+          until_score: 999999999
+
     custom_formats:
       - trash_ids:
           - 7878c33f1963fefb3d6c8657d46c2f0a # DV HDR10
@@ -68,7 +105,6 @@ sonarr:
           - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
         quality_profiles:
           - name: Best Available
-            reset_unmatched_scores: true
 
 radarr:
   standard:
@@ -79,6 +115,36 @@ radarr:
     replace_existing_custom_formats: true
     quality_definition:
       type: movie
+
+    quality_profiles:
+      - name: Best Available
+        min_format_score: 0
+        qualities:
+          - name: Remux-2160p
+          - name: Bluray-2160p
+          - name: WEB 2160p
+            qualities:
+              - WEBRip-2160p
+              - WEBDL-2160p
+          - name: Remux-1080p
+          - name: Bluray-1080p
+          - name: WEB 1080p
+            qualities:
+              - WEBRip-1080p
+              - WEBDL-1080p
+          - name: HDTV-1080p
+          - name: Bluray-720p
+          - name: WEB 720p
+            qualities:
+              - WEBRip-480p
+              - WEBDL-480p
+        quality_sort: top
+        reset_unmatched_scores:
+          enabled: true
+        upgrade:
+          allowed: true
+          until_quality: Remux-2160p
+          until_score: 999999999
     custom_formats:
       - trash_ids:
           - ff5bc9e8ce91d46c997ca3ac6994d6f8 # UHD FraMeSToR (set to 0, 1 or 3200)
@@ -138,7 +204,6 @@ radarr:
           - dc98083864ea246d05a42df0d05f81cc # x265 (720/1080p)
         quality_profiles:
           - name: Best Available
-            reset_unmatched_scores: true
       - trash_ids:
           - 1c7d7b04b15cc53ea61204bebbcc1ee2 # HQ
         quality_profiles:
@@ -150,3 +215,18 @@ radarr:
         quality_profiles:
           - name: Best Available
             score: 0
+
+      # HQ Release Groups
+      - trash_ids:
+          - 3a3ff47579026e76d6504ebea39390de # Remux Tier 01
+          - 9f98181fe5a3fbeb0cc29340da2a468a # Remux Tier 02
+          - 4d74ac4c4db0b64bff6ce0cffef99bf0 # UHD Blueray Tier 01
+          - a58f517a70193f8e578056642178419d # UDH Bluray Tier 02
+          - e71939fae578037e7aed3ee219bbe7c1 # UDH BluRay Tier 03
+          - ed27ebfef2f323e964fb1f61391bcb35 # HD BluRay Tier 01
+          - c20c8647f2746a1f4c4262b0fbbeeeae # HD BluRay Tier 02
+          - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
+          - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
+          - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
+        quality_profiles:
+          - name: Best Available
