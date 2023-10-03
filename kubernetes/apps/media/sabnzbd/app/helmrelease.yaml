@@ -95,7 +95,7 @@ spec:
         enabled: true
         type: emptyDir
     nodeSelector:
-      topology.kubernetes.io/zone: w
+      topology.kubernetes.io/zone: wk
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
