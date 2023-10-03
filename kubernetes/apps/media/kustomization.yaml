@@ -6,3 +6,4 @@ resources:
   - ./_pvc/ks.yaml
   - ./bazarr/ks.yaml
   - ./jellyfin/ks.yaml
+  - ./sabnzbd/ks.yaml
