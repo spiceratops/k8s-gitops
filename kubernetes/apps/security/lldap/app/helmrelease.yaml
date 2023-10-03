@@ -44,7 +44,7 @@ spec:
       TZ: ${TIMEZONE}
       LLDAP_HTTP_PORT: &http-port 8016
       LLDAP_HTTP_URL: https://lldap.${PRIVATE_DOMAIN}
-      LLDAP_LDAP_PORT: &ldap-port 389
+      LLDAP_LDAP_PORT: &ldap-port 3899
       LLDAP_LDAP_BASE_DN: dc=home,dc=arpa
       LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET: true
       LLDAP_SMTP_OPTIONS__SERVER: smtp-relay.networking.svc.cluster.local
