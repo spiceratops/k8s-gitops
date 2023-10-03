@@ -104,3 +104,5 @@ spec:
         memory: 100Mi
       limits:
         memory: 500Mi
+    nodeSelector:
+      topology.kubernetes.io/zone: wk
