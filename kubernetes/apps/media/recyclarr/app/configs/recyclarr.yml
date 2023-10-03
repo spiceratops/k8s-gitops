@@ -9,7 +9,7 @@
 # https://github.com/rcdailey/trash-updater/wiki/Configuration-Reference
 
 sonarr:
-  standard:
+  sonarr:
     base_url: http://sonarr.media.svc.cluster.local:8989
     api_key: !env_var SONARR_API_KEY
 
@@ -107,7 +107,7 @@ sonarr:
           - name: Best Available
 
 radarr:
-  standard:
+  radarr:
     base_url: http://radarr.media.svc.cluster.local:7878
     api_key: !env_var RADARR_API_KEY
 
