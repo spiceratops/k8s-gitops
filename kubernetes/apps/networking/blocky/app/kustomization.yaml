@@ -5,7 +5,7 @@ namespace: networking
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./datasource
+  # - ./datasource
 configMapGenerator:
   - name: blocky-config-tpl
     files:

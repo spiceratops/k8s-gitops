@@ -56,19 +56,19 @@ blocking:
   whiteLists:
     suspicious:
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
-      - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.txt
+      - https://raw.githubusercontent.com/spiceratops/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.txt
     ads:
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
-      - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.txt
+      - https://raw.githubusercontent.com/spiceratops/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.txt
     trackers:
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
-      - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.txt
+      - https://raw.githubusercontent.com/spiceratops/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.txt
     misc:
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
-      - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.txt
+      - https://raw.githubusercontent.com/spiceratops/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.txt
     other:
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
-      - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.txt
+      - https://raw.githubusercontent.com/spiceratops/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.txt
   clientGroupsBlock:
     default:
       - suspicious
@@ -90,10 +90,10 @@ redis:
     - redis-node-1.redis-headless.databases.svc.cluster.local:26379
     - redis-node-2.redis-headless.databases.svc.cluster.local:26379
 
-queryLog:
-  type: postgresql
-  target: postgresql://{{ .POSTGRES_USER }}:{{ .POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/blocky
-  logRetentionDays: 10
+# queryLog:
+#   type: postgresql
+#   target: postgresql://{{ .POSTGRES_USER }}:{{ .POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/blocky
+#   logRetentionDays: 10
 
 prometheus:
   enable: true
