@@ -8,7 +8,7 @@
         class error
     }
     prometheus :9153
-    forward ${PRIVATE_DOMAIN} 192.168.1.1
+    forward ${PRIVATE_DOMAIN} ${BLOCKY_LB_IP}
     kubernetes cluster.local in-addr.arpa ip6.arpa {
         pods insecure
         fallthrough in-addr.arpa ip6.arpa

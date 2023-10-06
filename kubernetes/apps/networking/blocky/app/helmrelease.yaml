@@ -52,7 +52,7 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${BLOCKY_LB_IP}
-          external-dns.alpha.kubernetes.io/hostname: dns.${PRIVATE_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: dns1.${PRIVATE_DOMAIN}
         labels:
           io.cilium/lb-ipam-layer2: "true"
         ports:
