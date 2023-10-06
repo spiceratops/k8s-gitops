@@ -77,9 +77,6 @@ blocking:
       - misc
       - other
 
-clientLookup:
-  upstream: 192.168.10.1
-
 caching:
   minTime: 5m
   prefetching: true
