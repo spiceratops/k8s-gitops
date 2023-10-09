@@ -79,7 +79,7 @@ spec:
             enabled: true
             port: 9000
     persistence:
-      config:
+      api-data:
         enabled: true
         mountPath: /app/data
         existingClaim: mealie-config
