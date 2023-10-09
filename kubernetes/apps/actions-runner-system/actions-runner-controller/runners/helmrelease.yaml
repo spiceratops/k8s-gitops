@@ -37,7 +37,7 @@ spec:
       spec:
         containers:
           - name: runner
-            image: ghcr.io/onedr0p/github-actions-runner:rolling@sha256:b595cf0735825bfb5f2da427da993b128b64f10cd3d8e5631a0e67546155f1eb
+            image: ghcr.io/onedr0p/github-actions-runner:rolling@sha256:612d3a8bd46e16cca8ff672a9e30018e28d8e898b780d37550cba760fcfcd4d8
   valuesFrom:
     - kind: Secret
       name: actions-runner-controller-secret
