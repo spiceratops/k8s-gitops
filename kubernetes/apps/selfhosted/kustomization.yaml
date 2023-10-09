@@ -7,3 +7,4 @@ resources:
   - ./libreddit/ks.yaml
   - ./nostr-relay/ks.yaml
   - ./shlink/ks.yaml
+  - ./mealie/ks.yaml
