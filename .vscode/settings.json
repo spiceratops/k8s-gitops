@@ -23,7 +23,7 @@
   },
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
-  "editor.fontFamily": "FiraCode Nerd Font",
+  "editor.fontFamily": "MesloLGS NF",
   "editor.fontLigatures": true,
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
@@ -36,7 +36,4 @@
   ],
   "explorer.autoReveal": false,
   "files.trimTrailingWhitespace": true,
-  "yaml.schemas": {
-    "https://raw.githubusercontent.com/dcermak/vscode-rke-cluster-config/main/schemas/cluster.yml.json": "file:///home/stewart/repos/k8s-gitops/kubernetes/apps/databases/cloudnative-pg/cluster/cluster.yaml"
-  }
 }
