@@ -1,5 +1,5 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  username: "bunnings-bot[bot]",
-  gitAuthor: "bunnings-bot <bunnings-bot[bot]@users.noreply.github.com>",
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "username": "bunnings-bot[bot]",
+  "gitAuthor": "bunnings-bot <bunnings-bot[bot]@users.noreply.github.com>",
 }
