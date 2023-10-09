@@ -131,3 +131,4 @@ customDNS:
     unifi-web.${PRIVATE_DOMAIN}: 192.168.1.220
     unifi.${PRIVATE_DOMAIN}: 192.168.1.248
     docker.${PRIVATE_DOMAIN}: 192.168.1.220
+    opnsense.${PRIVATE_DOMAIN}: 192.168.1.1
