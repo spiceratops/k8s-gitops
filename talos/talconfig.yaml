@@ -27,7 +27,8 @@ nodes:
     controlPlane: true
     disableSearchDomain: true
     nameservers:
-      - 192.168.10.1
+      - 192.168.1.253
+      - 192.168.15.53
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -41,7 +42,8 @@ nodes:
     controlPlane: true
     disableSearchDomain: true
     nameservers:
-      - 192.168.10.1
+      - 192.168.1.253
+      - 192.168.15.53
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -55,7 +57,8 @@ nodes:
     controlPlane: true
     disableSearchDomain: true
     nameservers:
-      - 192.168.10.1
+      - 192.168.1.253
+      - 192.168.15.53
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -69,7 +72,8 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     nameservers:
-      - 192.168.10.1
+      - 192.168.1.253
+      - 192.168.15.53
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -84,7 +88,8 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     nameservers:
-      - 192.168.10.1
+      - 192.168.1.253
+      - 192.168.15.53
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -99,7 +104,8 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     nameservers:
-      - 192.168.10.1
+      - 192.168.1.253
+      - 192.168.15.53
     networkInterfaces:
       - interface: eth0
         dhcp: true
