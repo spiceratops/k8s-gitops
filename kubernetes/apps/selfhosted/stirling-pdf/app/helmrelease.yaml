@@ -25,9 +25,16 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/frooodle/s-pdf
-      tag: 0.10.3@sha256:3133c462ff752a83643900688c289c1a9af42e121a888972568fd45aaed43202
+      tag: 0.14.4
+    env:
+      TZ: ${TIMEZONE}
+      SYSTEM_DEFAULTLOCALE: en_AU
     service:
       main:
         ports:
