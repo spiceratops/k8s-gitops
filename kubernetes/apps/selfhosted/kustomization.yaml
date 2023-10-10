@@ -8,4 +8,4 @@ resources:
   - ./nostr-relay/ks.yaml
   - ./shlink/ks.yaml
   - ./mealie/ks.yaml
-  - ./stirling-pdf/ks.yaml
+  # - ./stirling-pdf/ks.yaml
