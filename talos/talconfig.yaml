@@ -26,9 +26,6 @@ nodes:
     installDisk: /dev/sda
     controlPlane: true
     disableSearchDomain: true
-    nameservers:
-      - 192.168.1.253
-      - 192.168.15.53
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -56,9 +53,6 @@ nodes:
     installDisk: /dev/sda
     controlPlane: true
     disableSearchDomain: true
-    nameservers:
-      - 192.168.1.253
-      - 192.168.15.53
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -71,9 +65,6 @@ nodes:
     installDisk: /dev/sda
     controlPlane: false
     disableSearchDomain: true
-    nameservers:
-      - 192.168.1.253
-      - 192.168.15.53
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -87,9 +78,6 @@ nodes:
     installDisk: /dev/sda
     controlPlane: false
     disableSearchDomain: true
-    nameservers:
-      - 192.168.1.253
-      - 192.168.15.53
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -103,9 +91,6 @@ nodes:
     installDisk: /dev/sda
     controlPlane: false
     disableSearchDomain: true
-    nameservers:
-      - 192.168.1.253
-      - 192.168.15.53
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -171,7 +156,7 @@ controlPlane:
       time:
         disabled: false
         servers:
-          - 192.168.1.1
+          - time.cloudflare.com
       kubelet:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true
