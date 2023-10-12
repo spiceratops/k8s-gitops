@@ -62,9 +62,9 @@ spec:
         existingClaim: media-data
     resources:
       requests:
-        memory: 2048Mi
+        memory: 500Mi
         cpu: 10m
       limits:
-        memory: 2048Mi
+        memory: 2000Mi
     nodeSelector:
       topology.kubernetes.io/zone: wk
