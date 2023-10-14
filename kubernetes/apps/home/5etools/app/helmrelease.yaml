@@ -45,7 +45,6 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          external-dns.alpha.kubernetes.io/target: "ingress.${PRIVATE_DOMAIN}"
           hajimari.io/icon: mdi:dice-d20
         hosts:
           - host: &host dndtools.${PRIVATE_DOMAIN}
