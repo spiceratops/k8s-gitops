@@ -64,11 +64,3 @@ spec:
                       envFrom:
                         - secretRef:
                             name: *secret
-  resources:
-    requests:
-      cpu: 50m
-      memory: 100Mi
-    limits:
-      memory: 500Mi
-  nodeSelector:
-    topology.kubernetes.io/zone: wk
