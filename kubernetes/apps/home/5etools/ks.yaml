@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-5etools
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/gaming/5etools/app
+  path: ./kubernetes/apps/home/5etools/app
   prune: true
   sourceRef:
     kind: GitRepository
