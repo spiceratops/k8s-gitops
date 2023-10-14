@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: jafner/5etools-docker
-      tag: 11.313.0
+      tag: latest
     env:
       TIMEZONE: ${TIMEZONE}
       SOURCE: "GITHUB"
