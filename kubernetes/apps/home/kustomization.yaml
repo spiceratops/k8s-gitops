@@ -5,4 +5,4 @@ resources:
   - ./namespace.yaml
   - ./hajimari/ks.yaml
   - ./thelounge/ks.yaml
-  # - ./5etools/ks.yaml
+  - ./dndtools/ks.yaml

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: 5etools
+  name: dndtools
   namespace: home
 spec:
   interval: 30m
@@ -56,7 +56,7 @@ spec:
               - *host
       config:
         enabled: true
-        existingClaim: 5etools-config
+        existingClaim: dndtools-config
         mountPath: /usr/local/apache2/htdocs
     resources:
       requests:

@@ -8,5 +8,5 @@ resources:
   - ./volsync.yaml
 labels:
   - pairs:
-      app.kubernetes.io/name: 5etools
-      app.kubernetes.io/instance: 5etools
+      app.kubernetes.io/name: dndtools
+      app.kubernetes.io/instance: dndtools

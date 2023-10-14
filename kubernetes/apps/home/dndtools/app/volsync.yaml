@@ -2,19 +2,19 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: 5etools-restic
+  name: dndtools-restic
   namespace: home
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: 5etools-restic-secret
+    name: dndtools-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/5etools"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/dndtools"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -25,16 +25,16 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: 5etools
+  name: dndtools
   namespace: home
 spec:
-  sourcePVC: 5etools-config
+  sourcePVC: dndtools-config
   trigger:
     schedule: "0 8 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 10
-    repository: 5etools-restic-secret
+    repository: dndtools-restic-secret
     cacheCapacity: 8Gi
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
