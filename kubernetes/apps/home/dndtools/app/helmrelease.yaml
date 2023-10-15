@@ -34,7 +34,7 @@ spec:
       tag: latest
     env:
       TIMEZONE: ${TIMEZONE}
-      SOURCE: "GITHUB"
+      SOURCE: "GITHUB-NOIMG"
     service:
       main:
         ports:
