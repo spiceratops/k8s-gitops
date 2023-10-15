@@ -42,7 +42,6 @@ spec:
           ALLOW_SIGNUP: false
           SMTP_HOST: smtp-relay.networking.svc.cluster.local
           SMTP_PORT: 2525
-          SMTP_AUTH_STRATEGY: NONE
           SMTP_FROM_NAME: Recipes
           SMTP_FROM_EMAIL: "${SMTP_USER}"
         ports:
