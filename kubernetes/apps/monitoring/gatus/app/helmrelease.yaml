@@ -59,7 +59,7 @@ spec:
         ingressClassName: nginx
         annotations:
           hajimari.io/icon: material-symbols:detector-status
-          external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
+          # external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
         hosts:
           - host: &host status.${PRIVATE_DOMAIN}
             paths:

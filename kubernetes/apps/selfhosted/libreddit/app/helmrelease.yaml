@@ -44,7 +44,7 @@ spec:
         ingressClassName: nginx
         annotations:
           hajimari.io/icon: simple-icons:reddit
-          external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
+          # external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
         hosts:
           - host: &host zeddit.${PRIVATE_DOMAIN}
             paths:

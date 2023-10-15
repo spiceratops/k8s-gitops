@@ -124,7 +124,7 @@ spec:
         ingressClassName: nginx
         annotations:
           hajimari.io/icon: mdi:shield-account
-          external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
+          # external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
         hosts:
           - host: &host auth.${PRIVATE_DOMAIN}
             paths:
