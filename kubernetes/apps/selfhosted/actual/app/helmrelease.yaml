@@ -42,7 +42,7 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         annotations:
-          hajimari.io/icon: simple-icons:finance
+          hajimari.io/icon: mdi:finance
         hosts:
           - host: &host actual.${PRIVATE_DOMAIN}
             paths:
