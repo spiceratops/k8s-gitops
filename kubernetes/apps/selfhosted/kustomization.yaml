@@ -11,3 +11,4 @@ resources:
   # - ./stirling-pdf/ks.yaml
   - ./miniflux/ks.yaml
   - ./windmill/ks.yaml
+  - ./actual/ks.yaml
