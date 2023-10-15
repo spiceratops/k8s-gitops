@@ -37,7 +37,7 @@ spec:
           API_PORT: 9000
           TZ: ${TIMEZONE}
           TOKEN_TIME: 720 # 24 hours * 30 days
-          BASE_URL: "https://recipes.${PUBLIC_DOMAIN}"
+          BASE_URL: "https://recipes.${PRIVATE_DOMAIN}"
           AUTO_BACKUP_ENABLED: true
           ALLOW_SIGNUP: false
           SMTP_HOST: smtp-relay.networking.svc.cluster.local
