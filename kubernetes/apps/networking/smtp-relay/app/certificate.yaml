@@ -5,7 +5,7 @@ metadata:
   name: smtp-relay
   namespace: networking
 spec:
-  secretName: smtp-relay-tls
+  secretName: tls.smtp-relay
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
