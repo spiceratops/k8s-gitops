@@ -30,7 +30,7 @@ spec:
     hajimari:
       title: Apps
       lightTheme: cloud
-      darkTheme: espresso
+      darkTheme: tron
       alwaysTargetBlank: true
       showGreeting: false
       showAppGroups: false
@@ -43,6 +43,7 @@ spec:
         matchNames:
           - default
           - flux-system
+          - gaming
           - home
           - kube-system
           - media
@@ -50,6 +51,7 @@ spec:
           - networking
           - rook-ceph
           - security
+          - selfhosted
     ingress:
       main:
         enabled: true
