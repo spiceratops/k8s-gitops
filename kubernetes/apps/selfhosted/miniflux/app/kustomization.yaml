@@ -16,5 +16,5 @@ generatorOptions:
   disableNameSuffixHash: true
 labels:
   - pairs:
-      app.kubernetes.io/name: libreddit
-      app.kubernetes.io/instance: libreddit
+      app.kubernetes.io/name: miniflux
+      app.kubernetes.io/instance: miniflux
