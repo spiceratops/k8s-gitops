@@ -26,8 +26,8 @@ spec:
     keepHistory: false
   values:
     image:
-      repository: ghcr.io/onedr0p/navidrome
-      tag: 0.49.3@sha256:5ce3d0c20b1c8bac22f8644edf18e4fd85a49fc41f1c9ad07171a1625dc2a21b
+      repository: ghcr.io/navidrome/navidrome
+      tag: 0.49.3@sha256:11a24da08977ebfa4a9a71f8c878d822ffaae74a019f274a75dc6386d523da86
     env:
       TZ: "${TIMEZONE}"
       ND_DATAFOLDER: /config
@@ -40,6 +40,9 @@ spec:
       ND_REVERSEPROXYWHITELIST: "192.168.0.0/16"
       ND_SCANSCHEDULE: "@every 1h"
       ND_SESSIONTIMEOUT: 24h
+    envFrom:
+      - secretRef:
+          name: navidrome-secret
     service:
       main:
         ports:
