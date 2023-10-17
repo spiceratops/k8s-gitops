@@ -48,7 +48,7 @@ spec:
     persistence:
       library:
         enabled: true
-        existingClaim: immich
+        existingClaim: immich-nfs
         mountPath: /usr/src/app/upload
       cache:
         enabled: true

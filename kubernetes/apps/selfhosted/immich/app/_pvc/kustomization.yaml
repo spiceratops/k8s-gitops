@@ -7,5 +7,5 @@ resources:
   - ./persistentvolumeclaim.yaml
 labels:
   - pairs:
-      app.kubernetes.io/name: pvc-immich
-      app.kubernetes.io/instance: pvc-immich
+      app.kubernetes.io/name: pvc-immich-nfs
+      app.kubernetes.io/instance: pvc-immich-nfs
