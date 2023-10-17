@@ -12,4 +12,4 @@ resources:
   - ./miniflux/ks.yaml
   - ./windmill/ks.yaml
   - ./actual/ks.yaml
-  - ./immich/ks.yaml
+  # - ./immich/ks.yaml
