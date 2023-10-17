@@ -9,7 +9,7 @@ resources:
   - ./shlink/ks.yaml
   - ./mealie/ks.yaml
   # - ./stirling-pdf/ks.yaml
-  # - ./miniflux/ks.yaml
+  - ./miniflux/ks.yaml
   - ./windmill/ks.yaml
   - ./actual/ks.yaml
   - ./immich/ks.yaml
