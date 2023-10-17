@@ -2,19 +2,19 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: immich-typesense-restic
+  name: immich-machine-learning-restic
   namespace: selfhosted
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: immich-typesense-restic-secret
+    name: immich-machine-learning-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/immich-typesense"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/immich-machine-learning"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -25,16 +25,16 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: immich-typesense
+  name: immich-machine-learning
   namespace: selfhosted
 spec:
-  sourcePVC: immich-typesense-config
+  sourcePVC: immich-machine-learning-cache
   trigger:
     schedule: "0 8 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 10
-    repository: immich-typesense-restic-secret
+    repository: immich-machine-learning-restic-secret
     cacheCapacity: 8Gi
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
