@@ -6,7 +6,6 @@ resources:
   - ./_pvc
   - ./configmap.yaml
   - ./externalsecret.yaml
-  - ./configs/gatus.yaml
   - ./microservices
   - ./machine-learning
   - ./server
