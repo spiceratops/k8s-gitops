@@ -39,7 +39,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/miniflux/miniflux
-      tag: 2.0.48
+      tag: 2.0.49
     env:
       BASE_URL: https://miniflux.${PRIVATE_DOMAIN}
       CREATE_ADMIN: "1"
@@ -69,7 +69,8 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
+          # external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
+          hajimari.io/icon: mdi:rss
         hosts:
           - host: &host "miniflux.${PRIVATE_DOMAIN}"
             paths:
