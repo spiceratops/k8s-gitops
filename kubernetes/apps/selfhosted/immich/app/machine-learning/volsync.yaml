@@ -1,0 +1,48 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: immich-typesense-restic
+  namespace: selfhosted
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: immich-typesense-restic-secret
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/immich-typesense"
+        RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
+        AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
+        AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
+  dataFrom:
+    - extract:
+        key: volsync-restic-template
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: immich-typesense
+  namespace: selfhosted
+spec:
+  sourcePVC: immich-typesense-config
+  trigger:
+    schedule: "0 8 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 10
+    repository: immich-typesense-restic-secret
+    cacheCapacity: 8Gi
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      daily: 10
+      within: 3d

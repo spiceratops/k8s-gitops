@@ -5,10 +5,7 @@ metadata:
   name: cluster-apps-immich
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: cluster-apps-cloudnative-pg-cluster
-    - name: cluster-apps-external-secrets-stores
-  path: ./kubernetes/apps/selfohsted/immich/app
+  path: ./kubernetes/apps/selfhosted/immich/app
   prune: true
   sourceRef:
     kind: GitRepository

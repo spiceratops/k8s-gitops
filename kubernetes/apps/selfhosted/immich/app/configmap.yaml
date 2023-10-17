@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: immich-configmap
+  namespace: selfhosted
+data:
+  DB_PORT: "5432"
+  LOG_LEVEL: log
+  NODE_ENV: "production"
+  REDIS_URL: ioredis://ewogICJzZW50aW5lbHMiOiBbCiAgICB7CiAgICAgICJob3N0IjogInJlZGlzLW5vZGUtMC5yZWRpcy1oZWFkbGVzcy5kYXRhYmFzZXMuc3ZjLmNsdXN0ZXIubG9jYWwiLAogICAgICAicG9ydCI6IDI2Mzc5CiAgICB9LAogICAgewogICAgICAiaG9zdCI6ICJyZWRpcy1ub2RlLTEucmVkaXMtaGVhZGxlc3MuZGF0YWJhc2VzLnN2Yy5jbHVzdGVyLmxvY2FsIiwKICAgICAgInBvcnQiOiAyNjM3OQogICAgfSwKICAgIHsKICAgICAgImhvc3QiOiAicmVkaXMtbm9kZS0yLnJlZGlzLWhlYWRsZXNzLmRhdGFiYXNlcy5zdmMuY2x1c3Rlci5sb2NhbCIsCiAgICAgICJwb3J0IjogMjYzNzkKICAgIH0KICBdLAogICJuYW1lIjogInJlZGlzLW1hc3RlciIKfQ
+  TYPESENSE_HOST: immich-typesense.selfhosted.svc.cluster.local
+  TYPESENSE_PORT: "8108"
+  TYPESENSE_PROTOCOL: http
+  TYPESENSE_DATA_DIR: /config
+  TRANSFORMERS_CACHE: /usr/src/app/.transformers_cache
+  IMMICH_WEB_URL: http://immich-web.selfhosted.svc.cluster.local:3000
+  IMMICH_SERVER_URL: http://immich-server.selfhosted.svc.cluster.local:3001
+  IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.selfhosted.svc.cluster.local:3003

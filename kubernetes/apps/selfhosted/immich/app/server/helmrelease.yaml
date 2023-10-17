@@ -1,0 +1,90 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: immich-server
+  namespace: selfhosted
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: immich-typesense
+  values:
+    controller:
+      replicas: 2
+      strategy: RollingUpdate
+      annotations:
+        reloader.stakater.com/auto: "true"
+    initContainers:
+      01-init-db:
+        image: ghcr.io/onedr0p/postgres-init:14.9
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - secretRef:
+              name: immich-secret
+    image:
+      repository: ghcr.io/immich-app/immich-server
+      tag: v1.82.0@sha256:b8368f3a58940f383fd8c4f91389100797ab9df1a66f7cff71d9413ffe1a29d2
+    command: /bin/sh
+    args:
+      - ./start-server.sh
+    env:
+      TZ: ${TIMEZONE}
+    envFrom:
+      - secretRef:
+          name: immich-secret
+      - configMapRef:
+          name: immich-configmap
+    service:
+      main:
+        ports:
+          http:
+            port: 3001
+    persistence:
+      library:
+        enabled: true
+        existingClaim: immich
+        mountPath: /usr/src/app/upload
+      geocoding-dump:
+        enabled: true
+        type: emptyDir
+        mountPath: /usr/src/app/.reverse-geocoding-dump
+      transformers-cache:
+        enabled: true
+        type: emptyDir
+        mountPath: /usr/src/app/.transformers_cache
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: *app
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
+      limits:
+        memory: 500Mi

@@ -1,0 +1,99 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: immich-server
+  namespace: selfhosted
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: immich-server
+  values:
+    controller:
+      replicas: 1
+      strategy: RollingUpdate
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/immich-app/immich-web
+      tag: v1.82.0@sha256:027a317afa4f2e3d7b661f4186888f5f4a7aab1ca7151e7324912163c0ee8535
+    command: /bin/sh
+    args:
+      - ./entrypoint.sh
+    env:
+      TZ: ${TIMEZONE}
+    envFrom:
+      - secretRef:
+          name: immich-secret
+      - configMapRef:
+          name: immich-configmap
+    service:
+      main:
+        ports:
+          http:
+            port: 3000
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          hajimari.io/icon: mdi:image-album
+          hajimari.io/appName: "Photos (Immich)"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            rewrite /api/(.*) /$1 break;
+          nignx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          nginx.ingress.kubernetes.io/proxy-body-size: "0"
+        hosts:
+          - host: &host photos.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+              - path: /api
+                pathType: Prefix
+                service:
+                  name: immich-server
+                  port: 3001
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      library:
+        enabled: true
+        existingClaim: immich
+        mountPath: /usr/src/app/upload
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: *app
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
+      limits:
+        memory: 250Mi
