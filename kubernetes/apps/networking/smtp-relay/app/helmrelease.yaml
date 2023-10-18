@@ -75,12 +75,12 @@ spec:
         medium: Memory
         sizeLimit: 1Gi
         mountPath: /dev/shm
-      tls:
-        enabled: true
-        type: secret
-        name: tls.smtp-relay
-        mountpath: /tls
-        readOnly: true
+      # tls:
+      #   enabled: true
+      #   type: secret
+      #   name: tls.smtp-relay
+      #   mountpath: /tls
+      #   readOnly: true
     podAnnotations:
       reloader.stakater.com/auto: "true"
     topologySpreadConstraints:
