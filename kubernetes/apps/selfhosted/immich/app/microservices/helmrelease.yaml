@@ -46,6 +46,9 @@ spec:
           name: immich-secret
       - configMapRef:
           name: immich-configmap
+    service:
+      main:
+        enabled: false
     persistence:
       library:
         enabled: true
