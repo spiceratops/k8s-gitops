@@ -39,6 +39,9 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        strategy: RollingUpdate
+        pod:
+          enableServiceLinks: false
         containers:
           main:
             image:
@@ -79,9 +82,3 @@ spec:
         tls:
           - hosts:
               - *host
-    persistence:
-      images:
-        existingClaim: wallabag-config
-        globalMounts:
-          - path: /var/www/wallabag/web/assets
-            subPath: *app
