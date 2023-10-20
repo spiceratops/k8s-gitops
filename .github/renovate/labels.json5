@@ -90,6 +90,15 @@
       "addLabels": [
         "renovate/pip"
       ]
+    },
+    {
+      "matchDatasources": [
+        "grafana-dashboards",
+        "custom.grafana-dashboards"
+      ],
+      "addLabels": [
+        "renovate/grafana-dashboard"
+      ]
     }
   ]
 }

@@ -190,6 +190,16 @@
       ],
       "semanticCommitType": "fix",
       "semanticCommitScope": "github-action"
+    },
+    {
+      "matchDatasources": [
+        "custom.grafana-dashboards"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "grafana-dashboard"
     }
   ]
 }
