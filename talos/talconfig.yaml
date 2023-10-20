@@ -38,9 +38,6 @@ nodes:
     installDisk: /dev/sda
     controlPlane: true
     disableSearchDomain: true
-    nameservers:
-      - 192.168.1.253
-      - 192.168.15.53
     networkInterfaces:
       - interface: eth0
         dhcp: true
