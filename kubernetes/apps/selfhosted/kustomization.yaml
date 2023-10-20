@@ -13,4 +13,4 @@ resources:
   - ./windmill/ks.yaml
   - ./actual/ks.yaml
   - ./immich/ks.yaml
-  - ./wallabag/ks.yaml
+  # - ./wallabag/ks.yaml

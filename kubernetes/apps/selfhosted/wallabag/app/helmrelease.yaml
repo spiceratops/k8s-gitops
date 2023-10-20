@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,23 +32,32 @@ spec:
         envFrom: &envFrom
           - secretRef:
               name: wallabag-secret
-    controller:
-      replicas: 1
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: wallabag/wallabag
-      tag: 2.6.7
-    env:
-      TIMEZONE: ${TIMEZONE}
-      SYMFONY__ENV__DOMAIN_NAME: https://wallabag.${PRIVATE_DOMAIN}
-      SYMFONY__ENV__SERVER_NAME: Wallabag
-      SYMFONY__ENV__FOSUSER_REGISTRATION: "false"
-      SYMFONY__ENV__FOSUSER_CONFIRMATION: "false"
-      POPULATE_DATABASE: "true"
-    envFrom: *envFrom
-    enableServiceLinks: false
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1001
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: wallabag/wallabag
+              tag: 2.6.7
+            envFrom: *envFrom
+            env:
+              TIMEZONE: ${TIMEZONE}
+              SYMFONY__ENV__DOMAIN_NAME: https://wallabag.${PRIVATE_DOMAIN}
+              SYMFONY__ENV__SERVER_NAME: Wallabag
+              SYMFONY__ENV__FOSUSER_REGISTRATION: "false"
+              SYMFONY__ENV__FOSUSER_CONFIRMATION: "false"
+              POPULATE_DATABASE: "true"
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100M
+              limits:
+                memory: 250M
     service:
       main:
         ports:
@@ -70,18 +79,9 @@ spec:
         tls:
           - hosts:
               - *host
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 250Mi
-    nodeSelector:
-      topology.kubernetes.io/zone: wk
+    persistence:
+      images:
+        existingClaim: wallabag-config
+        globalMounts:
+          - path: /var/www/wallabag/web/assets
+            subPath: *app
