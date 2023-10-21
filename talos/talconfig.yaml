@@ -121,7 +121,7 @@ controlPlane:
             disabled: true
     machine: &machine
       install:
-        image: factory.talos.dev/installer/2548faa3b70844d54991887ef134c132f6ef5130061e0ec70646d5396aec934d:v1.5.4
+        image: factory.talos.dev/installer/16d02845ea799ee0a354c6a5badfdc3134e819ccbcd209ca1d1d231c30f09dbb:v1.5.4
       features:
         kubePrism:
           enabled: true
