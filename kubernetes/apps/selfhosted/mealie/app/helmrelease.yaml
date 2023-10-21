@@ -25,31 +25,17 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: docker.io/hkotel/mealie
-      tag: frontend-v1.0.0-RC1.1
-    additionalContainers:
-      api:
-        name: mealie-api
-        image: docker.io/hkotel/mealie:api-v1.0.0-RC1.1
+    initContainers:
+      01-init-db:
+        image: ghcr.io/onedr0p/postgres-init:14.9
         imagePullPolicy: IfNotPresent
-        env:
-          API_PORT: 9000
-          TZ: ${TIMEZONE}
-          TOKEN_TIME: 720 # 24 hours * 30 days
-          BASE_URL: "https://recipes.${PRIVATE_DOMAIN}"
-          AUTO_BACKUP_ENABLED: true
-          ALLOW_SIGNUP: false
-          SMTP_HOST: smtp.${PRIVATE_DOMAIN}
-          SMTP_PORT: 2525
-          SMTP_FROM_NAME: Recipes
-          SMTP_FROM_EMAIL: "${SMTP_USER}"
-        ports:
-          - name: api
-            containerPort: 9000
-        volumeMounts:
-          - name: api-data
-            mountPath: /app/data/
+        envFrom: &envFrom
+          - secretRef:
+              name: mealie-secret
+    image:
+      repository: ghcr.io/mealie-recipes/mealie
+      tag: v1.0.0-RC1.1
+    envFrom: *envFrom
     env:
       TZ: "${TIMEZONE}"
       # Light Mode Config
@@ -68,6 +54,15 @@ spec:
       THEME_DARK_INFO: "#1976D2"
       THEME_DARK_WARNING: "#FF6D00"
       THEME_DARK_ERROR: "#EF5350"
+      TOKEN_TIME: 720 # 24 hours * 30 days
+      BASE_URL: "https://recipes.${PRIVATE_DOMAIN}"
+      AUTO_BACKUP_ENABLED: true
+      ALLOW_SIGNUP: false
+      SMTP_HOST: smtp.${PRIVATE_DOMAIN}
+      SMTP_PORT: 2525
+      SMTP_FROM_NAME: Recipes
+      SMTP_FROM_EMAIL: "${SMTP_USER}"
+      SMTP_AUTH_STRATEGY: "NONE"
     service:
       main:
         ports:
