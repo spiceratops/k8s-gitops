@@ -15,3 +15,4 @@ resources:
   - ./reloader/ks.yaml
   - ./snapshot-controller/ks.yaml
   - ./volsync/ks.yaml
+  - ./nvidia-device-plugin/ks.yaml
