@@ -93,3 +93,4 @@ tasks:
     desc: Deletes succeeded pods
     cmds:
       - kubectl delete pods --field-selector status.phase=Succeeded -A --ignore-not-found=true
+# To add for getting democratic local path pvcs for a node - kubectl get pvc -A -o json| jq '.items[].metadata|select(.annotations."volume.kubernetes.io/selected-node"=="wk03")|.name'

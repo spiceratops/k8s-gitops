@@ -17,3 +17,4 @@ resources:
   - ./jellyseer/ks.yaml
   - ./navidrome/ks.yaml
   - ./wizarr/ks.yaml
+  - ./lidarr/ks.yaml

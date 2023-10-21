@@ -1,0 +1,120 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: lidarr
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    initContainers:
+      01-init-db:
+        image: ghcr.io/onedr0p/postgres-init:14.9
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - secretRef:
+              name: lidarr-secret
+    controller:
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: youegraillot/lidarr-on-steroids
+      tag: 1.5.1
+    env:
+      TZ: ${TIMEZONE}
+      AUTOCONFIG: true
+    envFrom:
+      - secretRef:
+          name: lidarr-secret
+    service:
+      main:
+        ports:
+          http:
+            port: &port 8686
+          deemix:
+            port: &port2 6595
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /ping
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          hajimari.io/icon: mdi:headphones
+        hosts:
+          - host: &host lidarr.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+      deemix:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          hajimari.io/icon: mdi:headphones
+        hosts:
+          - host: &host deemix.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: *port2
+        tls:
+          - hosts:
+              - *host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+    persistence:
+      config:
+        enabled: true
+        existingClaim: lidarr-config
+      config_deemix:
+        enabled: true
+        existingClaim: deemix-config
+      media-data:
+        enabled: true
+        existingClaim: media-data
+    resources:
+      requests:
+        cpu: 10m
+        memory: 250Mi
+      limits:
+        memory: 2000Mi
+    nodeSelector:
+      topology.kubernetes.io/zone: wk
