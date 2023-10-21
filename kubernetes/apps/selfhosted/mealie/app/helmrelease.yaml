@@ -27,11 +27,11 @@ spec:
   values:
     image:
       repository: docker.io/hkotel/mealie
-      tag: frontend-v1.0.0beta-5
+      tag: frontend-v1.0.0-RC1.1
     additionalContainers:
       api:
         name: mealie-api
-        image: docker.io/hkotel/mealie:api-v1.0.0beta-5
+        image: docker.io/hkotel/mealie:api-v1.0.0-RC1.1
         imagePullPolicy: IfNotPresent
         env:
           API_PORT: 9000
