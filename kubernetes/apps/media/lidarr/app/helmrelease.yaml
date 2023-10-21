@@ -104,7 +104,7 @@ spec:
       config:
         enabled: true
         existingClaim: lidarr-config
-      config_deemix:
+      config-deemix:
         enabled: true
         existingClaim: deemix-config
       media-data:
