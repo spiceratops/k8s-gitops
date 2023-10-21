@@ -52,7 +52,6 @@ spec:
             mountPath: /app/data/
     env:
       TZ: "${TIMEZONE}"
-      API_URL: "http://mealie-api.selfhosted.svc.cluster.local:9000"
       # Light Mode Config
       THEME_LIGHT_PRIMARY: "#005AE6"
       THEME_LIGHT_ACCENT: "#FEBF00"
