@@ -5,6 +5,7 @@ namespace: selfhosted
 resources:
   - ./pvc.yaml
   - ./helmrelease.yaml
+  - ./volsync.yaml
 labels:
   - pairs:
       app.kubernetes.io/name: immich-typesense
