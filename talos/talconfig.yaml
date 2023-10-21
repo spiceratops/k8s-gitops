@@ -6,8 +6,8 @@ clusterPodNets:
 clusterSvcNets:
   - 10.245.0.0/16
 
-talosVersion: v1.5.3
-kubernetesVersion: v1.28.2
+talosVersion: v1.5.4
+kubernetesVersion: v1.28.3
 endpoint: https://k8s.${domainName}:6443
 
 additionalApiServerCertSans:
@@ -121,13 +121,7 @@ controlPlane:
             disabled: true
     machine: &machine
       install:
-        image: ghcr.io/siderolabs/installer:v1.5.3
-        extensions:
-          - image: ghcr.io/siderolabs/intel-ucode:20230808
-          - image: ghcr.io/siderolabs/i915-ucode:20230804
-          - image: ghcr.io/siderolabs/qemu-guest-agent:8.1.0
-        extraKernelArgs:
-          - talos.logging.kernel=udp://vector.${domainName}:6001/
+        image: factory.talos.dev/installer/c7ee70cafec60a464d3c81041f8cd0a438a0ff7b66eafc600a25d87f0a065c24:v1.5.4
       features:
         kubePrism:
           enabled: true
