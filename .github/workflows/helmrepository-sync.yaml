@@ -12,7 +12,7 @@
           default: flux-system
           required: true
     pull_request:
-      branches: ["master"]
+      branches: ["main"]
       paths: ["kubernetes/**/helmrelease.yaml"]
 
   jobs:

@@ -3,7 +3,7 @@
 
   on:
     pull_request:
-      branches: ["master"]
+      branches: ["main"]
       paths: ["kubernetes/**.yaml"]
 
   jobs:
