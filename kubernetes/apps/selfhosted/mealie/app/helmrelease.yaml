@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,76 +25,87 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    initContainers:
-      01-init-db:
-        image: ghcr.io/onedr0p/postgres-init:14.9
-        imagePullPolicy: IfNotPresent
-        envFrom: &envFrom
-          - secretRef:
-              name: mealie-secret
-    image:
-      repository: ghcr.io/mealie-recipes/mealie
-      tag: v1.0.0-RC1.1
-    envFrom: *envFrom
-    env:
-      TZ: "${TIMEZONE}"
-      # Light Mode Config
-      THEME_LIGHT_PRIMARY: "#005AE6"
-      THEME_LIGHT_ACCENT: "#FEBF00"
-      THEME_LIGHT_SECONDARY: "#0DFC9D"
-      THEME_LIGHT_SUCCESS: "#43A047"
-      THEME_LIGHT_INFO: "#1976D2"
-      THEME_LIGHT_WARNING: "#FF6D00"
-      THEME_LIGHT_ERROR: "#EF5350"
-      # Dark Mode Config
-      THEME_DARK_PRIMARY: "#0097A7"
-      THEME_DARK_ACCENT: "#007A99"
-      THEME_DARK_SECONDARY: "#4ba3c7"
-      THEME_DARK_SUCCESS: "#43A047"
-      THEME_DARK_INFO: "#1976D2"
-      THEME_DARK_WARNING: "#FF6D00"
-      THEME_DARK_ERROR: "#EF5350"
-      TOKEN_TIME: 720 # 24 hours * 30 days
-      BASE_URL: "https://recipes.${PRIVATE_DOMAIN}"
-      AUTO_BACKUP_ENABLED: true
-      ALLOW_SIGNUP: false
-      SMTP_HOST: smtp.${PRIVATE_DOMAIN}
-      SMTP_PORT: 2525
-      SMTP_FROM_NAME: Recipes
-      SMTP_FROM_EMAIL: "${SMTP_USER}"
-      SMTP_AUTH_STRATEGY: "NONE"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: mealie-secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/mealie-recipes/mealie
+              tag: v1.0.0-RC1.1
+            envFrom: *envFrom
+            env:
+              TZ: "${TIMEZONE}"
+              # Light Mode Config
+              THEME_LIGHT_PRIMARY: "#005AE6"
+              THEME_LIGHT_ACCENT: "#FEBF00"
+              THEME_LIGHT_SECONDARY: "#0DFC9D"
+              THEME_LIGHT_SUCCESS: "#43A047"
+              THEME_LIGHT_INFO: "#1976D2"
+              THEME_LIGHT_WARNING: "#FF6D00"
+              THEME_LIGHT_ERROR: "#EF5350"
+              # Dark Mode Config
+              THEME_DARK_PRIMARY: "#0097A7"
+              THEME_DARK_ACCENT: "#007A99"
+              THEME_DARK_SECONDARY: "#4ba3c7"
+              THEME_DARK_SUCCESS: "#43A047"
+              THEME_DARK_INFO: "#1976D2"
+              THEME_DARK_WARNING: "#FF6D00"
+              THEME_DARK_ERROR: "#EF5350"
+              TOKEN_TIME: 720 # 24 hours * 30 days
+              BASE_URL: "https://meals.${PRIVATE_DOMAIN}"
+              AUTO_BACKUP_ENABLED: true
+              ALLOW_SIGNUP: false
+              SMTP_HOST: smtp.${PRIVATE_DOMAIN}
+              SMTP_PORT: 2525
+              SMTP_FROM_NAME: Recipes
+              SMTP_FROM_EMAIL: "${SMTP_USER}"
+              SMTP_AUTH_STRATEGY: "NONE"
+            resources:
+              requests:
+                cpu: 5m
+                memory: 250Mi
+              limits:
+                memory: 500Mi
     service:
       main:
         ports:
           http:
-            port: 3000
-          api:
-            enabled: true
             port: 9000
     persistence:
-      api-data:
-        enabled: true
-        mountPath: /app/data
+      data:
         existingClaim: mealie-config
-        subPath: mealie
+        globalMounts:
+          - path: /app/data
     ingress:
       main:
         enabled: true
         ingressClassName: nginx
         annotations:
-          hajimari.io/icon: simple-icons:food
+          hajimari.io/enable: "true"
+          hajimari.io/appName: Meals
+          hajimari.io/group: Selfhosted
+          hajimari.io/icon: mdi:chef-hat
+          hajimari.io/info: Meal Recipes
           # external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
         hosts:
-          - host: &host "recipes.${PRIVATE_DOMAIN}"
+          - host: &host "meals.${PRIVATE_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-    resources:
-      requests:
-        cpu: 5m
-        memory: 50Mi
-      limits:
-        memory: 250Mi
+

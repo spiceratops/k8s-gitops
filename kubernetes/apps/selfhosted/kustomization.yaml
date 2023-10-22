@@ -7,7 +7,7 @@ resources:
   - ./libreddit/ks.yaml
   - ./nostr-relay/ks.yaml
   - ./shlink/ks.yaml
-  # - ./mealie/ks.yaml
+  - ./mealie/ks.yaml
   # - ./stirling-pdf/ks.yaml
   - ./miniflux/ks.yaml
   - ./windmill/ks.yaml
