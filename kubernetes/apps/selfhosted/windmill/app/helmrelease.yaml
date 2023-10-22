@@ -35,6 +35,7 @@ spec:
       workerReplicas: 1
       lspReplicas: 1
       multiplayerReplicas: 1
+      oauthSecretName: *secret
     ingress:
       enabled: true
       className: nginx

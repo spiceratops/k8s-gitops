@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -28,62 +28,72 @@ spec:
     - name: immich-server
     - name: immich-typesense
   values:
-    controller:
-      replicas: 2
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/immich-app/immich-server
-      tag: v1.82.0@sha256:b8368f3a58940f383fd8c4f91389100797ab9df1a66f7cff71d9413ffe1a29d2
-    command: /bin/sh
-    args:
-      - ./start-microservices.sh
-    env:
-      TZ: ${TIMEZONE}
-    envFrom:
-      - secretRef:
-          name: immich-secret
-      - configMapRef:
-          name: immich-configmap
+    controllers:
+      main:
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          enableServiceLinks: false
+          nodeSelector:
+            intel.feature.node.kubernetes.io/gpu: "true"
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 44
+              - 109
+              - 65541
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: immich-microservices
+        containers:
+          main:
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v1.82.1
+            args:
+              - start-microservices.sh
+            env:
+              TZ: ${TIMEZONE}
+              IMMICH_MEDIA_LOCATION: &mediaLocation /usr/src/app/upload
+              MICROSERVICES_PORT: 3002
+            envFrom:
+              - secretRef:
+                  name: immich-secret
+              - configMapRef:
+                  name: immich-configmap
+            resources:
+              requests:
+                cpu: 100m
+                gpu.intel.com/i915: 1
+                memory: 512Mi
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 8000Mi
     service:
       main:
         enabled: false
     persistence:
       library:
         enabled: true
-        existingClaim: immich-nfs
-        mountPath: /usr/src/app/upload
+        globalMounts:
+          - path: *mediaLocation
       geocoding-dump:
         enabled: true
-        type: emptyDir
-        mountPath: /usr/src/app/.reverse-geocoding-dump
+        globalMounts:
+          - path: /usr/src/app/.reverse-geocoding-dump
       geoname-dump:
         enabled: true
         type: emptyDir
         mountPath: /usr/src/app/node_modules/local-reverse-geocoder/geonames_dump
       transformers-cache:
         enabled: true
-        type: emptyDir
-        mountPath: /usr/src/app/.transformers_cache
-    nodeSelector:
-      intel.feature.node.kubernetes.io/gpu: "true"
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-    resources:
-      requests:
-        gpu.intel.com/i915: 1
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 1500Mi
+        globalMounts:
+          - path: /usr/src/app/.transformers_cache
