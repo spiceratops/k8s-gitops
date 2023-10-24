@@ -18,3 +18,4 @@ resources:
   - ./navidrome/ks.yaml
   - ./wizarr/ks.yaml
   - ./lidarr/ks.yaml
+  - ./feishin/ks.yaml
