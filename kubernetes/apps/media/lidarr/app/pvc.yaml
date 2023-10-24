@@ -9,7 +9,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
   storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: v1
@@ -22,5 +22,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
   storageClassName: ${CLUSTER_STORAGE_BLOCK}
