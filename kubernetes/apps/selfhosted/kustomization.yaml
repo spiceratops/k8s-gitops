@@ -15,3 +15,4 @@ resources:
   - ./immich/ks.yaml
   - ./wallabag/ks.yaml
   - ./immich/ks.yaml
+  - ./linkding/ks.yaml

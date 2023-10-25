@@ -1,0 +1,11 @@
+---
+endpoints:
+  - name: linkding
+    url: https://bookmarks.${PRIVATE_DOMAIN}
+    interval: 1m
+    client:
+      dns-resolver: tcp://192.168.1.253:53
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: pushover
