@@ -66,9 +66,9 @@
   },
   "oauth": {
     "enabled": true,
-    "issuerUrl": "https://authentik.bjw-s.dev/application/o/immich/.well-known/openid-configuration",
-    "clientId": "2IRlm86dUNVg0zZApYvZ12DWmKqnfEauptltfdNB",
-    "clientSecret": "{{ .authentik_immich_oauth_client_secret }}",
+    "issuerUrl": "https://auth.${PRIVATE_DOMAIN}/.well-known/openid-configuration",
+    "clientId": "immich",
+    "clientSecret": "{{ .IMMICH_OAUTH_CLIENT_SECRET }}",
     "mobileOverrideEnabled": false,
     "mobileRedirectUri": "",
     "scope": "openid email profile",

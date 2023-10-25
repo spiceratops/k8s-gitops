@@ -14,3 +14,4 @@ resources:
   - ./actual/ks.yaml
   - ./immich/ks.yaml
   - ./wallabag/ks.yaml
+  - ./immich/ks.yaml
