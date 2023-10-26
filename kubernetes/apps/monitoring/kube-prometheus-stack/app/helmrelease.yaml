@@ -158,3 +158,25 @@ spec:
             memory: 2000Mi
           limits:
             memory: 6000Mi
+        additionalScrapeConfigs:
+          - job_name: haproxy
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - "opnsense.${PRIVATE_DOMAIN}:8404"
+          - job_name: frr-exporter
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - "opnsense.${PRIVATE_DOMAIN}:9342"
+          - job_name: node-exporter
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - "opnsense.${PRIVATE_DOMAIN}:9100"
