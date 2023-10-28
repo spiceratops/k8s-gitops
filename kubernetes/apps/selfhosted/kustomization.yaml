@@ -12,5 +12,5 @@ resources:
   - ./windmill/ks.yaml
   - ./actual/ks.yaml
   - ./immich/ks.yaml
-  - ./wallabag/ks.yaml
-  - ./linkding/ks.yaml
+  # - ./wallabag/ks.yaml
+  # - ./linkding/ks.yaml

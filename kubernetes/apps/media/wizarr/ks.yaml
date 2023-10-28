@@ -6,7 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-plex
     - name: cluster-apps-volsync
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-external-secrets-stores
