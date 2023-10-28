@@ -34,7 +34,9 @@ spec:
         statefulset:
           volumeClaimTemplates:
             - name: config
-              existingClaim: immich-typesense-config
+              accessMode: ReadWriteOnce
+              size: 10Gi
+              storageClass: ${CLUSTER_STORAGE_BLOCK}
               globalMounts:
                 - path: /config
         pod:
