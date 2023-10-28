@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+  namespace: selfhosted
+  labels:
+    app.kubernetes.io/name: homepage
+data:
+  bookmarks.yaml: |
+    - Bookmarks:
+        - GitHub Repo (k8s-gitops):
+            - icon: github.png
+              href: https://github.com/spiceratops/k8s-gitops
+        - Home Assistant:
+            - icon: home-assistant.png
+              href: https://home.${PRIVATE_DOMAIN}
+              description: Home Assistant
+  kubernetes.yaml: |
+    mode: default
+  settings.yaml: |
+    title: Home
+    headerStyle: boxed
+    quicklaunch:
+      searchDescriptions: true
+    layout:
+      Bookmarks:
+        style: row
+        columns: 3
+        tab: Main
+      Home:
+        style: row
+        columns: 3
+        tab: Main
+      Host Widgets:
+        icon: mdi-chart-box
+        style: row
+        columns: 3
+        tab: Main
+      Hosts:
+        icon: mdi-wan
+        tab: House
+  services.yaml: |
+    ---
+    - Hosts:
+        - Proxmox (Main Cluster):
+            icon: proxmox.png
+            href: https://pve.${PRIVATE_DOMAIN}
+            description: Proxmox Cluster
+        - Proxmox (Solo):
+            icon: proxmox.png
+            href: https://pve-hass.${PRIVATE_DOMAIN}
+            description: Proxmox Solo
+        - Opnsense:
+            icon: opnsense.png
+            href: https://opnsense.${PRIVATE_DOMAIN}
+            description: Opnsense
+        - UniFi Admin:
+            icon: unifi.png
+            href: https://unifi-web.${PRIVATE_DOMAIN}
+            description: Unifi
+  widgets.yaml: |
+    - search:
+        provider: duckduckgo
+        target: _blank
+  docker.yaml: |
+    ---

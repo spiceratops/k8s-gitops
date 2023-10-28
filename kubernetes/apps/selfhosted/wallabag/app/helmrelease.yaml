@@ -59,26 +59,26 @@ spec:
                 memory: 100M
               limits:
                 memory: 250M
-    service:
-      main:
-        ports:
-          http:
-            port: 80
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:rss
-          external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
-        hosts:
-          - host: &host "wallabag.${PRIVATE_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
+        service:
+          main:
+            ports:
+              http:
+                port: 80
+        ingress:
+          main:
+            enabled: true
+            ingressClassName: nginx
+            annotations:
+              hajimari.io/enable: "true"
+              hajimari.io/icon: mdi:rss
+              # external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
+            hosts:
+              - host: &host "wallabag.${PRIVATE_DOMAIN}"
+                paths:
+                  - path: /
+                    service:
+                      name: main
+                      port: http
+            tls:
+              - hosts:
+                  - *host
