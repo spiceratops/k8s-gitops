@@ -87,6 +87,7 @@ spec:
           - path: *mediaLocation
       geocoding-dump:
         enabled: true
+        type: emptyDir
         globalMounts:
           - path: /usr/src/app/.reverse-geocoding-dump
       geoname-dump:
