@@ -1,0 +1,86 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app joplin
+  namespace: selfhosted
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        strategy: RollingUpdate
+        pod:
+          enableServiceLinks: false
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+            envFrom: &envFrom
+              - secretRef:
+                  name: joplin-secret
+        containers:
+          main:
+            image:
+              repository: joplin/server
+              tag: 2.13.2-beta
+            envFrom: *envFrom
+            env:
+              APP_BASE_URL: https://joplin.${PRIVATE_DOMAIN}
+              APP_PORT: &port 8080
+              DB_CLIENT: pg
+              MAILER_ENABLED: 1
+              MAILER_HOST: smtp-relay.networking.svc.cluster.local.
+              MAILER_PORT: 2525
+              MAILER_SECURITY: none
+              MAILER_NOREPLY_NAME: JoplinServer
+              MAILER_NOREPLY_EMAIL: joplin@${PRIVATE_DOMAIN}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100M
+              limits:
+                memory: 250M
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:text
+        hosts:
+          - host: &host "joplin.${PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
