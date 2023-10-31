@@ -42,6 +42,7 @@ spec:
               ROMM_AUTH_ENABLED: true
               ENABLE_EXPERIMENTAL_REDIS: true
               REDIS_HOST: redis.databases.svc.cluster.local
+              REDIS_PORT: 6379
             resources:
               requests:
                 cpu: 10m
