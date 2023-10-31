@@ -1,0 +1,82 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app romm
+  namespace: gaming
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        strategy: RollingUpdate
+        pod:
+          enableServiceLinks: false
+        containers:
+          main:
+            image:
+              repository: ghcr.io/zurdi15/romm
+              tag: 2.0.1
+            envFrom: romm-secret
+            emv:
+              ROMM_AUTH_ENABLED: true
+              ENABLE_EXPERIMENTAL_REDIS: true
+              REDIS_HOST: redis.databases.svc.cluster.local
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100M
+              limits:
+                memory: 250M
+    persistence:
+      data:
+        existingClaim: romm-config
+        globalMounts:
+          - path: /romm
+      romm-library:
+        existingClaim: gaming-data
+        globalMounts:
+          - path: /romm-library
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:gaming
+          # external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
+        hosts:
+          - host: &host "romm.${PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host

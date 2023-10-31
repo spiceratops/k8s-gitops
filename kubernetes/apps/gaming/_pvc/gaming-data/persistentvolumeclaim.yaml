@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gaming-data
+  namespace: gaming
+spec:
+  storageClassName: gaming-data
+  volumeName: gaming-data
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
