@@ -83,6 +83,7 @@ spec:
     persistence:
       library:
         enabled: true
+        type: persistentVolumeClaim
         globalMounts:
           - path: *mediaLocation
       geocoding-dump:
