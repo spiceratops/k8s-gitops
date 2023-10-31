@@ -16,4 +16,4 @@ resources:
   - ./linkding/ks.yaml
   - ./homebox/ks.yaml
   - ./homepage/ks.yaml
-  # - ./ghostfolio/ks.yaml
+  - ./ghostfolio/ks.yaml
