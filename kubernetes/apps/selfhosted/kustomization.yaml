@@ -11,10 +11,10 @@ resources:
   - ./miniflux/ks.yaml
   - ./windmill/ks.yaml
   - ./actual/ks.yaml
-  # - ./immich/ks.yaml
+  - ./immich/ks.yaml
   - ./wallabag/ks.yaml
   - ./linkding/ks.yaml
   - ./homebox/ks.yaml
   - ./homepage/ks.yaml
-  # - ./ghostfolio/ks.yaml
+  - ./ghostfolio/ks.yaml
   - ./outline/ks.yaml
