@@ -19,3 +19,4 @@ resources:
   - ./ghostfolio/ks.yaml
   - ./outline/ks.yaml
   - ./joplin/ks.yaml
+  - ./whoogle/ks.yaml
