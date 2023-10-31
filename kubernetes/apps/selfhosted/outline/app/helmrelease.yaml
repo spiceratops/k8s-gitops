@@ -1,0 +1,112 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: outline
+  namespace: selfhosted
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        strategy: RollingUpdate
+        pod:
+          enableServiceLinks: false
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+            envFrom: &envFrom
+              - secretRef:
+                  name: outline-secret
+        containers:
+          main:
+            image:
+              repository: docker.io/outlinewiki/outline
+              tag: 0.72.2
+            envFrom: *envFrom
+            env:
+              AWS_REGION: home
+              AWS_S3_ACL: private
+              AWS_S3_FORCE_PATH_STYLE: "true"
+              AWS_S3_UPLOAD_BUCKET_NAME: outline
+              AWS_S3_UPLOAD_BUCKET_URL: "https://s3.${PRIVATE_DOMAIN}:9001"
+              AWS_S3_UPLOAD_MAX_SIZE: "26214400"
+              ENABLE_UPDATES: "false"
+              OIDC_AUTH_URI: "https://auth.${PRIVATE_DOMAIN}/api/oidc/authorization"
+              OIDC_CLIENT_ID: outline
+              OIDC_DISPLAY_NAME: Authelia
+              OIDC_SCOPES: "openid profile email offline_access"
+              OIDC_TOKEN_URI: "https://auth.${PRIVATE_DOMAIN}/api/oidc/token"
+              OIDC_USERINFO_URI: "https://auth.${PRIVATE_DOMAIN}/api/oidc/userinfo"
+              OIDC_USERNAME_CLAIM: email
+              PGSSLMODE: disable
+              PORT: 8080
+              REDIS_URL: ioredis://ewogICJzZW50aW5lbHMiOiBbCiAgICB7CiAgICAgICJob3N0IjogInJlZGlzLW5vZGUtMC5yZWRpcy1oZWFkbGVzcy5kYXRhYmFzZXMuc3ZjLmNsdXN0ZXIubG9jYWwiLAogICAgICAicG9ydCI6IDI2Mzc5CiAgICB9LAogICAgewogICAgICAiaG9zdCI6ICJyZWRpcy1ub2RlLTEucmVkaXMtaGVhZGxlc3MuZGF0YWJhc2VzLnN2Yy5jbHVzdGVyLmxvY2FsIiwKICAgICAgInBvcnQiOiAyNjM3OQogICAgfSwKICAgIHsKICAgICAgImhvc3QiOiAicmVkaXMtbm9kZS0yLnJlZGlzLWhlYWRsZXNzLmRhdGFiYXNlcy5zdmMuY2x1c3Rlci5sb2NhbCIsCiAgICAgICJwb3J0IjogMjYzNzkKICAgIH0KICBdLAogICJuYW1lIjogInJlZGlzLW1hc3RlciIKfQ
+              SMTP_HOST: smtp-relay.networking.svc.cluster.local.
+              SMTP_PORT: 2525
+              SMTP_FROM_EMAIL: "outline@${PRIVATE_DOMAIN}"
+              SMTP_SECURE: "false"
+              URL: "https://docs.${PRIVATE_DOMAIN}"
+              WEB_CONCURRENCY: 10
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250M
+              limits:
+                memory: 500M
+            command:
+              [
+                "/bin/sh",
+                "-c",
+                "yarn db:migrate --env=production-ssl-disabled && yarn start --env=production-ssl-disabled",
+              ]
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: outline
+          hajimari.io/icon: mdi:text-box-multiple
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Documentation
+          gethomepage.dev/group: home
+          gethomepage.dev/icon: outline.png
+          gethomepage.dev/name: Outline
+        hosts:
+          - host: &host "docs.${PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
