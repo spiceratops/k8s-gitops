@@ -5,7 +5,7 @@
     "preset": "ultrafast",
     "targetVideoCodec": "h264",
     "targetAudioCodec": "aac",
-    "targetResolution": "720",
+    "targetResolution": "1080",
     "maxBitrate": "0",
     "twoPass": false,
     "transcode": "required",
