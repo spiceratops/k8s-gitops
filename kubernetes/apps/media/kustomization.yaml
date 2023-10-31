@@ -19,3 +19,4 @@ resources:
   - ./wizarr/ks.yaml
   - ./lidarr/ks.yaml
   - ./feishin/ks.yaml
+  - ./invidious/ks.yaml
