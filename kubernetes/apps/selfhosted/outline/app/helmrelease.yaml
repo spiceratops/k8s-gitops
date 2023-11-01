@@ -47,11 +47,10 @@ spec:
               tag: 0.72.2
             envFrom: *envFrom
             env:
-              AWS_REGION: home
               AWS_S3_ACL: private
               AWS_S3_FORCE_PATH_STYLE: "true"
               AWS_S3_UPLOAD_BUCKET_NAME: outline
-              AWS_S3_UPLOAD_BUCKET_URL: "https://s3.${PRIVATE_DOMAIN}:9001"
+              AWS_S3_UPLOAD_BUCKET_URL: "https://s3.${PRIVATE_DOMAIN}"
               AWS_S3_UPLOAD_MAX_SIZE: "26214400"
               ENABLE_UPDATES: "false"
               OIDC_AUTH_URI: "https://auth.${PRIVATE_DOMAIN}/api/oidc/authorization"
@@ -64,7 +63,7 @@ spec:
               PGSSLMODE: disable
               PORT: 8080
               REDIS_URL: ioredis://ewogICJzZW50aW5lbHMiOiBbCiAgICB7CiAgICAgICJob3N0IjogInJlZGlzLW5vZGUtMC5yZWRpcy1oZWFkbGVzcy5kYXRhYmFzZXMuc3ZjLmNsdXN0ZXIubG9jYWwiLAogICAgICAicG9ydCI6IDI2Mzc5CiAgICB9LAogICAgewogICAgICAiaG9zdCI6ICJyZWRpcy1ub2RlLTEucmVkaXMtaGVhZGxlc3MuZGF0YWJhc2VzLnN2Yy5jbHVzdGVyLmxvY2FsIiwKICAgICAgInBvcnQiOiAyNjM3OQogICAgfSwKICAgIHsKICAgICAgImhvc3QiOiAicmVkaXMtbm9kZS0yLnJlZGlzLWhlYWRsZXNzLmRhdGFiYXNlcy5zdmMuY2x1c3Rlci5sb2NhbCIsCiAgICAgICJwb3J0IjogMjYzNzkKICAgIH0KICBdLAogICJuYW1lIjogInJlZGlzLW1hc3RlciIKfQ
-              SMTP_HOST: smtp-relay.networking.svc.cluster.local.
+              SMTP_HOST: smtp-relay.networking.svc.cluster.local
               SMTP_PORT: 2525
               SMTP_FROM_EMAIL: "outline@${PRIVATE_DOMAIN}"
               SMTP_SECURE: "false"
