@@ -74,12 +74,6 @@ spec:
           http:
             port: 3001
     persistence:
-      config:
-        enabled: true
-        type: secret
-        name: immich-config-secret
-        globalMounts:
-          - path: /config
       library:
         enabled: true
         existingClaim: immich-nfs
