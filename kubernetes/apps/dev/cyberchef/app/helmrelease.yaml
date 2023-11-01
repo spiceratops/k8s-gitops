@@ -46,6 +46,9 @@ spec:
       main:
         enabled: true
         className: "nginx"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: hammer-wrench
         hosts:
           - host: &host "cyberchef.${PRIVATE_DOMAIN}"
             paths:
