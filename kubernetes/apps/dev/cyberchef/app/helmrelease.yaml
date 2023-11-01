@@ -35,7 +35,7 @@ spec:
         containers:
           main:
             image:
-              repository: docker.io/mpepping/cyberchef
+              repository: mpepping/cyberchef
               tag: 10.5.2
     service:
       main:
