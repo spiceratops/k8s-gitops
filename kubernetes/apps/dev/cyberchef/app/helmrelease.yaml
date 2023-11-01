@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.0.3
+      version: 1.5.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,26 +25,18 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controllers:
-      main:
-        replicas: 1
-        strategy: Recreate
-        annotations:
-          reloader.stakater.com/auto: "true"
-        containers:
-          main:
-            image:
-              repository: docker.io/mpepping/cyberchef
-              tag: v10.5.2@sha256:51cbc1463da6a93a6884268e01759e860288226cf6e2613b3d97e054be82849a
+    image:
+      repository: docker.io/mpepping/cyberchef
+      tag: v10.5.2@sha256:6e4958d1b7902fc7a0f30e13f87dc8961d7346207fefdb4b6825dd26fb6a92c1
     service:
       main:
         ports:
           http:
-            port: 8080
+            port: 8000
     ingress:
       main:
         enabled: true
-        className: "nginx"
+        ingressClassName: "nginx"
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: hammer-wrench
@@ -52,13 +44,6 @@ spec:
           - host: &host "cyberchef.${PRIVATE_DOMAIN}"
             paths:
               - path: /
-                service:
-                  name: main
-                  port: http
         tls:
           - hosts:
               - *host
-    persistence:
-      config:
-        enabled: true
-        type: emptyDir
