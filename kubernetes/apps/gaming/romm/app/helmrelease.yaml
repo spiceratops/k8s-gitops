@@ -27,13 +27,15 @@ spec:
   values:
     controllers:
       main:
+        replicas: 1
+        strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           main:
             image:
               repository: ghcr.io/zurdi15/romm
-              tag: 2.0.1
+              tag: 2.1.0
             envFrom: romm-secret
             emv:
               ROMM_AUTH_ENABLED: true
@@ -67,7 +69,6 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:gaming
-          # external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
         hosts:
           - host: &host "romm.${PRIVATE_DOMAIN}"
             paths:
