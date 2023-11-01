@@ -37,7 +37,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/onedr0p/postgres-init
-              tag: 15.4
+              tag: 14.9
             envFrom: &envFrom
               - secretRef:
                   name: outline-secret
