@@ -32,3 +32,4 @@ resources:
   - ./weave-gitops-charts.yaml
   - ./windmill-charts.yaml
   - ./nvidia-device-plugin-charts.yaml
+  - ./k8tz-charts.yaml
