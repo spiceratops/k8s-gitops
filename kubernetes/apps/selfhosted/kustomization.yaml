@@ -17,7 +17,6 @@ resources:
   - ./homebox/ks.yaml
   - ./homepage/ks.yaml
   - ./ghostfolio/ks.yaml
-  - ./outline/ks.yaml
   - ./joplin/ks.yaml
   - ./whoogle/ks.yaml
   - ./drawio/ks.yaml
