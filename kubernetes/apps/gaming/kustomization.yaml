@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./_pvc/ks.yaml
-  - ./romm/ks.yaml
+  # - ./romm/ks.yaml
