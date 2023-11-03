@@ -82,8 +82,8 @@ spec:
         enabled: false
     persistence:
       library:
-        enabled: true
         type: persistentVolumeClaim
+        existingClaim: immich-nfs
         globalMounts:
           - path: *mediaLocation
       geocoding-dump:
