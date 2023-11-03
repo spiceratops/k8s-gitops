@@ -20,4 +20,4 @@ resources:
   - ./lidarr/ks.yaml
   - ./feishin/ks.yaml
   - ./invidious/ks.yaml
-  - ./readarr/ks.yaml
+  # - ./readarr/ks.yaml
