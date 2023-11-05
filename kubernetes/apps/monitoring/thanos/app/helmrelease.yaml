@@ -29,7 +29,7 @@ spec:
     image:
       registry: quay.io
       repository: thanos/thanos
-      tag: v0.32.4
+      tag: v0.32.5
     objstoreConfig:
       type: s3
       config:
@@ -77,6 +77,8 @@ spec:
         enabled: true
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
         size: 15Gi
+      podAnnotations:
+        kyverno.io/exclude: "true"
     ruler:
       enabled: true
       replicaCount: 3

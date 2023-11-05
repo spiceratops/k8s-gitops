@@ -48,6 +48,9 @@ spec:
         useExistingSecret: true
         configSecret: alertmanager-secret
         podAntiAffinity: hard
+        podMetadata:
+          annotations:
+            kyverno.io/exclude: "true"
         storage:
           volumeClaimTemplate:
             spec:
@@ -132,6 +135,7 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
         enableAdminAPI: true
         walCompression: true
         enableFeatures:
@@ -139,11 +143,12 @@ spec:
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
         thanos:
-          image: quay.io/thanos/thanos:v0.32.4
+          image: quay.io/thanos/thanos:v0.32.5
           objectStorageConfig:
-            name: thanos-objstore-secret
-            key: objstore.yml
-        retention: 7d
+            existingSecret:
+              name: thanos-objstore-secret
+              key: objstore.yml
+        retention: 2d
         retentionSize: 15GB
         storageSpec:
           volumeClaimTemplate:
@@ -155,28 +160,6 @@ spec:
         resources:
           requests:
             cpu: 150m
-            memory: 2000Mi
+            memory: 2048M
           limits:
-            memory: 6000Mi
-        additionalScrapeConfigs:
-          - job_name: haproxy
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - "opnsense.${PRIVATE_DOMAIN}:8404"
-          - job_name: frr-exporter
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - "opnsense.${PRIVATE_DOMAIN}:9342"
-          - job_name: node-exporter
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - "opnsense.${PRIVATE_DOMAIN}:9100"
+            memory: 8192M
