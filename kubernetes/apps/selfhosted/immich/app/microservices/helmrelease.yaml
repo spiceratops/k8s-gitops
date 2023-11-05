@@ -58,7 +58,7 @@ spec:
               - start-microservices.sh
             env:
               TZ: ${TIMEZONE}
-              IMMICH_MEDIA_LOCATION: &mediaLocation /usr/src/app/upload
+              IMMICH_MEDIA_LOCATION: /usr/src/app/upload
               MICROSERVICES_PORT: 3002
             envFrom:
               - secretRef:
@@ -81,7 +81,7 @@ spec:
         type: persistentVolumeClaim
         existingClaim: immich-nfs
         globalMounts:
-          - path: *mediaLocation
+          - path: /usr/src/app/upload
       geocoding-dump:
         enabled: true
         type: emptyDir
