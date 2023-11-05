@@ -93,5 +93,6 @@ spec:
         mountPath: /usr/src/app/node_modules/local-reverse-geocoder/geonames_dump
       transformers-cache:
         enabled: true
+        accessMode: ReadWriteOnce
         globalMounts:
           - path: /usr/src/app/.transformers_cache
