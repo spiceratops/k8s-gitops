@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./helmrelease.yaml
-  # - ./objectbucketclaim.yaml
+  - ./objectbucketclaim.yaml
 configMapGenerator:
   - name: loki-alerting-rules
     files:
