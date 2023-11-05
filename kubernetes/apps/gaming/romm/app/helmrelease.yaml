@@ -69,11 +69,8 @@ spec:
               - *host
     persistence:
       config:
-        enabled: true
-        existingClaim: romm-config
-        globalMounts:
-          - path: /romm
+        enabled: false
       media-data:
         existingClaim: gaming-data
         globalMounts:
-          - path: /romm-library
+          - path: /romm/library
