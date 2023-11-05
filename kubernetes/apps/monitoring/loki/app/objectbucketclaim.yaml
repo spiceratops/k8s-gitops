@@ -2,8 +2,8 @@
 apiVersion: objectbucket.io/v1alpha1
 kind: ObjectBucketClaim
 metadata:
-  name: loki-ceph-bucket
+  name: loki-ceph-bucket2
   namespace: monitoring
 spec:
-  bucketName: loki
+  bucketName: loki2
   storageClassName: ${CLUSTER_STORAGE_BUCKET}
