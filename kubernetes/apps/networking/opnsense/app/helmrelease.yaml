@@ -44,7 +44,7 @@ spec:
               S3_URL: "https://s3.${PRIVATE_DOMAIN}:9000"
             envFrom:
               - secretRef:
-                  name: *app
+                  name: opnsense-secret
     service:
       main:
         enabled: false
