@@ -24,10 +24,10 @@ access_control:
         - "^/setup(/.*)?$"
         - "^/static(/.*)?$"
       policy: bypass
-    - domain: ["navidrome.${CLUSTER_DOMAIN}"]
+    - domain: ["navidrome.${PRIVATE_DOMAIN}"]
       resources: ["^/ping.*$", "^/rest.*$"]
       policy: bypass
-    - domain: ["navidrome.${CLUSTER_DOMAIN}"]
+    - domain: ["navidrome.${PRIVATE_DOMAIN}"]
       resources: ["^/metrics.*$"]
       policy: deny
 
