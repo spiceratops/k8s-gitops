@@ -7,7 +7,7 @@ metadata:
   annotations:
     kyverno.io/ignore: "true"
 spec:
-  instances: 3
+  instances: 2
   imageName: ghcr.io/cloudnative-pg/postgresql:15.2
   inheritedMetadata:
     labels:
@@ -24,9 +24,9 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
-  bootstrap:
-    recovery:
-      source: postgres-v3
+  # bootstrap:
+  #   recovery:
+  #     source: postgres-v3
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
