@@ -25,6 +25,8 @@ spec:
   bootstrap:
     recovery:
       source: postgres-v4
+      recoveryTarget:
+        targetTime: "2023-11-06 00:00:00.00000+00"
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
