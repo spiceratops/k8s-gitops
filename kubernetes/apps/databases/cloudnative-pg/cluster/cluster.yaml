@@ -4,12 +4,14 @@ kind: Cluster
 metadata:
   name: postgres
   namespace: databases
+  annotations:
+    kyverno.io/exclude: "true"
 spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:15.2
-  inheritedMetadata:
-    annotations:
-      kyverno.io/exclude: "true"
+  # inheritedMetadata:
+  #   annotations:
+  #     kyverno.io/exclude: "true"
   primaryUpdateStrategy: unsupervised
   storage:
     size: 25Gi
@@ -25,8 +27,8 @@ spec:
   bootstrap:
     recovery:
       source: postgres-v4
-      recoveryTarget:
-        targetTime: "2023-11-06 00:00:00.00000+00"
+      # recoveryTarget:
+      #   targetTime: "2023-11-06 00:00:00.00000+00"
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
