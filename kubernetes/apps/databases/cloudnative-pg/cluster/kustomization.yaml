@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: databases
 resources:
   - ./externalsecret.yaml
-  # - ./cluster.yaml
+  - ./cluster.yaml
   - ./prometheusrule.yaml
   - ./scheduledbackup.yaml
 labels:
