@@ -53,9 +53,9 @@ spec:
     - name: postgres15
       connectionParameters:
         host: postgres15-rw.databases.svc.cluster.local
-        user: app
-        dbname: app
+        user: postgres
+        dbname: postgres
         sslmode: require
       password:
-        name: postgres15-app
-        key: password
+        name: cloudnative-pg-secret
+        key: POSTGRES_SUPER_PASS
