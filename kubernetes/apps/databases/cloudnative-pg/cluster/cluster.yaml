@@ -14,6 +14,7 @@ spec:
   storage:
     size: 25Gi
     storageClass: ${CLUSTER_STORAGE_HOSTPATH}
+  enableSuperuserAccess: true
   superuserSecret:
     name: cloudnative-pg-secret
   postgresql:
