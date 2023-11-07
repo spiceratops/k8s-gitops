@@ -22,9 +22,9 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
-  # bootstrap:
-  #   recovery:
-  #     source: postgres-v3
+  bootstrap:
+    recovery:
+      source: postgres-v4
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
@@ -33,7 +33,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://postgresql/
       endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
-      serverName: postgres-v4
+      serverName: postgres-v5
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -41,18 +41,18 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-secret
           key: AWS_SECRET_ACCESS_KEY
-  # externalClusters:
-  #   - name: postgres-v3
-  #     barmanObjectStore:
-  #       wal:
-  #         compression: bzip2
-  #         maxParallel: 8
-  #       destinationPath: s3://postgresql/
-  #       endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
-  #       s3Credentials:
-  #         accessKeyId:
-  #           name: cloudnative-pg-secret
-  #           key: AWS_ACCESS_KEY_ID
-  #         secretAccessKey:
-  #           name: cloudnative-pg-secret
-  #           key: AWS_SECRET_ACCESS_KEY
+  externalClusters:
+    - name: postgres-v4
+      barmanObjectStore:
+        wal:
+          compression: bzip2
+          maxParallel: 8
+        destinationPath: s3://postgresql/
+        endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
+        s3Credentials:
+          accessKeyId:
+            name: cloudnative-pg-secret
+            key: AWS_ACCESS_KEY_ID
+          secretAccessKey:
+            name: cloudnative-pg-secret
+            key: AWS_SECRET_ACCESS_KEY
