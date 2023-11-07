@@ -4,14 +4,12 @@ kind: Cluster
 metadata:
   name: postgres
   namespace: databases
-  annotations:
-    kyverno.io/exclude: "true"
 spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:15.2
-  # inheritedMetadata:
-  #   annotations:
-  #     kyverno.io/exclude: "true"
+  inheritedMetadata:
+    annotations:
+      kyverno.io/exclude: "true"
   primaryUpdateStrategy: unsupervised
   storage:
     size: 25Gi
