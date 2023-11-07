@@ -7,7 +7,7 @@ contact = "mailto:${PUBLIC_EMAIL}"
 
 [database]
 engine = "postgres"
-connection = "postgresql://{{ .POSTGRES_USER }}:{{ .POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/nostr"
+connection = "postgresql://{{ .POSTGRES_USER }}:{{ .POSTGRES_PASS }}@postgres15-rw.databases.svc.cluster.local:5432/nostr"
 
 [network]
 address = "0.0.0.0"
