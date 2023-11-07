@@ -6,7 +6,7 @@ metadata:
   namespace: databases
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:15.2
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.0-10
   inheritedMetadata:
     annotations:
       kyverno.io/exclude: "true"
@@ -22,11 +22,11 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
-  bootstrap:
-    recovery:
-      source: postgres-v4
-      # recoveryTarget:
-      #   targetTime: "2023-11-06 00:00:00.00000+00"
+  # bootstrap:
+  #   recovery:
+  #     source: postgres-v4
+  # recoveryTarget:
+  #   targetTime: "2023-11-06 00:00:00.00000+00"
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
@@ -35,7 +35,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://postgresql/
       endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
-      serverName: postgres-v5
+      serverName: postgres-v6
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -43,18 +43,18 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-secret
           key: AWS_SECRET_ACCESS_KEY
-  externalClusters:
-    - name: postgres-v4
-      barmanObjectStore:
-        wal:
-          compression: bzip2
-          maxParallel: 8
-        destinationPath: s3://postgresql/
-        endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
-        s3Credentials:
-          accessKeyId:
-            name: cloudnative-pg-secret
-            key: AWS_ACCESS_KEY_ID
-          secretAccessKey:
-            name: cloudnative-pg-secret
-            key: AWS_SECRET_ACCESS_KEY
+  # externalClusters:
+  #   - name: postgres-v4
+  #     barmanObjectStore:
+  #       wal:
+  #         compression: bzip2
+  #         maxParallel: 8
+  #       destinationPath: s3://postgresql/
+  #       endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
+  #       s3Credentials:
+  #         accessKeyId:
+  #           name: cloudnative-pg-secret
+  #           key: AWS_ACCESS_KEY_ID
+  #         secretAccessKey:
+  #           name: cloudnative-pg-secret
+  #           key: AWS_SECRET_ACCESS_KEY
