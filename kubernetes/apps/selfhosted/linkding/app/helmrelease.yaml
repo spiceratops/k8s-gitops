@@ -44,7 +44,7 @@ spec:
           main:
             image:
               repository: sissbruecker/linkding
-              tag: 1.22.2
+              tag: 1.22.3
             envFrom: *envFrom
             resources:
               requests:
