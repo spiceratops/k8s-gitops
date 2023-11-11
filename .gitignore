@@ -24,3 +24,5 @@ config.xml
 # envrc
 .envrc
 buildercluster.sh
+# nix folder for now
+.nix/
