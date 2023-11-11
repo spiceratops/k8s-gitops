@@ -48,7 +48,7 @@ spec:
             envFrom: *envFrom
             env:
               ATUIN_HOST: 0.0.0.0
-              ATUIN_PORT: &port 80
+              ATUIN_PORT: &port 8888
               ATUIN_OPEN_REGISTRATION: "true"
             resources:
               requests:
@@ -56,6 +56,12 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 512Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         ports:
