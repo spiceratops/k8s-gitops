@@ -9,7 +9,7 @@ resources:
   - ./shlink/ks.yaml
   - ./mealie/ks.yaml
   - ./miniflux/ks.yaml
-  # - ./windmill/ks.yaml
+  - ./windmill/ks.yaml
   - ./actual/ks.yaml
   - ./immich/ks.yaml
   - ./wallabag/ks.yaml
@@ -17,7 +17,7 @@ resources:
   - ./homebox/ks.yaml
   - ./homepage/ks.yaml
   - ./ghostfolio/ks.yaml
-  - ./joplin/ks.yaml
+  # - ./joplin/ks.yaml
   - ./whoogle/ks.yaml
   - ./drawio/ks.yaml
   - ./wger/ks.yaml
