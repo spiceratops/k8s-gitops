@@ -9,7 +9,7 @@ resources:
   - ./_pvc
   - ./microservices
   # - ./machine-learning
-  # - ./server
+  - ./server
   - ./typesense
   - ./web
 configMapGenerator:
