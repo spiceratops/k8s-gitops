@@ -6,8 +6,8 @@ resources:
   - ./configmap.yaml
   - ./externalsecret.yaml
   - ./_pvc
-  # - ./microservices
-  # - ./machine-learning
+  - ./microservices
+  - ./machine-learning
   - ./server
   - ./typesense
   - ./web

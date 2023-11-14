@@ -23,7 +23,7 @@
   },
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
-  "editor.fontFamily": "MesloLGS NF",
+  "editor.fontFamily": "RobotoMono Nerd Font",
   "editor.fontLigatures": true,
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
