@@ -9,7 +9,7 @@ data:
   SERVER_PORT: "3001"
   LOG_LEVEL: log
   NODE_ENV: "production"
-  REDIS_URL: immich-redis.selfhosted.svc.cluster.local
+  REDIS_HOSTNAME: immich-redis.selfhosted.svc.cluster.local
   REDIS_PORT: "6379"
   TYPESENSE_ENABLED: "true"
   TYPESENSE_HOST: immich-typesense.selfhosted.svc.cluster.local
