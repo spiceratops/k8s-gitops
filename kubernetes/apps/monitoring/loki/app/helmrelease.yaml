@@ -62,8 +62,8 @@ spec:
           replication_factor: 3
           storage:
             s3:
-              s3: null
-              insecure: true
+              bucketnames: loki
+              endpoint: "s3.${PRIVATE_DOMAIN}:9000"
               s3forcepathstyle: true
           ring:
             kvstore:
@@ -196,19 +196,11 @@ spec:
     test:
       enabled: false
   valuesFrom:
-    - kind: ConfigMap
-      targetPath: loki.structuredConfig.common.storage.s3.bucketnames
-      name: loki-ceph-bucket
-      valuesKey: BUCKET_NAME
-    - kind: ConfigMap
-      targetPath: loki.structuredConfig.common.storage.s3.endpoint
-      name: loki-ceph-bucket
-      valuesKey: BUCKET_HOST
     - kind: Secret
       targetPath: loki.structuredConfig.common.storage.s3.access_key_id
-      name: loki-ceph-bucket
-      valuesKey: AWS_ACCESS_KEY_ID
+      name: loki-secret
+      valuesKey: S3_ACCESS_KEY
     - kind: Secret
       targetPath: loki.structuredConfig.common.storage.s3.secret_access_key
-      name: loki-ceph-bucket
-      valuesKey: AWS_SECRET_ACCESS_KEY
+      name: loki-secret
+      valuesKey: S3_SECRET_KEY
