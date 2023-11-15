@@ -102,6 +102,15 @@ spec:
           reporting_enabled: false
     gateway:
       replicas: 3
+      affinity: |
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    {{- include "loki.gatewaySelectorLabels" . | nindent 12 }}
+                topologyKey: kubernetes.io/hostname
       ingress:
         enabled: true
         ingressClassName: nginx
@@ -126,15 +135,6 @@ spec:
                   matchLabels:
                     {{- include "loki.readSelectorLabels" . | nindent 12 }}
                 topologyKey: kubernetes.io/hostname
-      extraVolumeMounts:
-        - name: rules
-          mountPath: /rules
-      extraVolumes:
-        - name: rules
-          emptyDir: {}
-      persistence:
-        size: 20Gi
-        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
       podAnnotations:
         kyverno.io/exclude: "true"
     write:
@@ -164,17 +164,6 @@ spec:
                   matchLabels:
                     {{- include "loki.backendSelectorLabels" . | nindent 12 }}
                 topologyKey: kubernetes.io/hostname
-      extraVolumeMounts:
-        - name: rules
-          mountPath: /rules/fake
-        - name: scratch
-          mountPath: /tmp/scratch
-      extraVolumes:
-        - name: rules
-          configMap:
-            name: loki-alerting-rules
-        - name: scratch
-          emptyDir: {}
       persistence:
         size: 20Gi
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
