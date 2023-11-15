@@ -65,6 +65,7 @@ spec:
               bucketnames: loki
               endpoint: "s3.${PRIVATE_DOMAIN}:9000"
               s3forcepathstyle: true
+              region: "home"
           ring:
             kvstore:
               store: memberlist
