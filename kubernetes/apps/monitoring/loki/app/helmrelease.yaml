@@ -174,7 +174,7 @@ spec:
         annotations:
           grafana_folder: Loki
       serviceMonitor:
-        enabled: true
+        enabled: false
         metricsInstance:
           enabled: false
       selfMonitoring:
