@@ -117,16 +117,6 @@ data:
         file_convert:
           convert_to: "mkv"
 
-        nfo_tags:
-          nfo_name: "{video_path}.nfo"
-          nfo_root: "episodedetails"
-          tags:
-            title: "{title}"
-            season: "{season}"
-            episode: "{episode}"
-            year: "{upload_year}"
-            aired: "{upload_date_standardized}"
-
       ###############################################################################
       # Custom preset to archive an entire channel
       TV Show Full Archive:
