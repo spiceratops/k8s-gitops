@@ -81,11 +81,11 @@ data:
             - "intro"
           remove_sponsorblock_categories: "all"
 
-          subtitles:
-            embed_subtitles: False
-            languages:
-              - "en"
-            allow_auto_generated_subtitles: True
+        subtitles:
+          embed_subtitles: False
+          languages:
+            - "en"
+          allow_auto_generated_subtitles: True
 
       yt_playlist:
         preset: "yt_video"
