@@ -153,10 +153,10 @@ data:
       #   "Veritasium": "https://www.youtube.com/@veritasium"
       #   "Smarter Every Day": "https://www.youtube.com/@smartereveryday"
 
-      = Science | TV-G:
+      = Science | TV-PG:
         "PBS Spacetime": "https://youtube.com/@pbsspacetime"
 
-      = Kids | TV-G:
+      = Kids | TV-Y:
         "Hey Bear": "https://www.youtube.com/@HeyBear"
         # "Badanamu": "https://www.youtube.com/@Badanamu"
         # "Carl's Car Wash": "https://www.youtube.com/@CarlsCarWash"
