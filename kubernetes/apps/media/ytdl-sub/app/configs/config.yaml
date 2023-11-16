@@ -149,14 +149,14 @@ data:
 
   subscriptions.yaml: |-
     TV Show Full Archive:
-      # = Learning | TV-G:
+      # = Learning | = TV-G:
       #   "Veritasium": "https://www.youtube.com/@veritasium"
       #   "Smarter Every Day": "https://www.youtube.com/@smartereveryday"
 
-      = Science | TV-PG:
+      = Science | = TV-PG:
         "PBS Spacetime": "https://youtube.com/@pbsspacetime"
 
-      = Kids | TV-Y:
+      = Kids | = TV-G:
         "Hey Bear": "https://www.youtube.com/@HeyBear"
         # "Badanamu": "https://www.youtube.com/@Badanamu"
         # "Carl's Car Wash": "https://www.youtube.com/@CarlsCarWash"
