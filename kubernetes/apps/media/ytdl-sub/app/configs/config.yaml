@@ -54,7 +54,7 @@ data:
       # base preset to use on all TV Show-based subscriptions
       base:
         preset:
-          - "Jellyfin Show by Date"  # Set intended player
+          - "Jellyfin TV Show by Date"  # Set intended player
           - "best_video_quality"    # prebuilt preset to get best quality
           - "tv_show_paths"
           - "sponsorblock"
