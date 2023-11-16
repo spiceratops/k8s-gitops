@@ -125,12 +125,6 @@ data:
             year: "{upload_year}"
             aired: "{upload_date_standardized}"
 
-          subtitles:
-            embed_subtitles: False
-            languages:
-              - "en"
-            allow_auto_generated_subtitles: True
-
       yt_playlist_reversed:
         preset: "yt_video"
 
@@ -177,12 +171,6 @@ data:
             episode: "{episode}"
             year: "{upload_year}"
             aired: "{upload_date_standardized}"
-
-          subtitles:
-            embed_subtitles: False
-            languages:
-              - "en"
-            allow_auto_generated_subtitles: True
 
       yt_channel:
         preset: "yt_playlist"
