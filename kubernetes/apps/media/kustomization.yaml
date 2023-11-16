@@ -21,3 +21,4 @@ resources:
   - ./feishin/ks.yaml
   - ./invidious/ks.yaml
   - ./readarr/ks.yaml
+  - ./ytdl-sub/ks.yaml

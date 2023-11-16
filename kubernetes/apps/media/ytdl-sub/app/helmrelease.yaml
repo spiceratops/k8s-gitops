@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app ytdl-sub
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          schedule: "0 4 * * *"
+          # schedule: "@daily" # enable for testing
+          ttlSecondsAfterFinished: 86400
+        containers:
+          main:
+            image:
+              repository: ghcr.io/jmbannon/ytdl-sub
+              tag: 2023.11.16@sha256:2ae68876e61407b224ac21f5da6315be6abb8a02e44f267bec2558bfcac057b1
+            env:
+              TZ: ${TIMEZONE}
+            command:
+              - ytdl-sub
+              - --log-level
+              - debug
+              - -c
+              - /config/config.yaml
+              - sub
+              - /config/subscriptions.yaml
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 10000
+    service:
+      main:
+        enabled: false
+    ingress:
+      main:
+        enabled: false
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: config
+        mountPath: /config
+        readOnly: true
+        defaultMode: 0755
+      media-data:
+        existingClaim: media-data
+        globalMounts:
+          - path: /media-data
+      tmp:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        mountPath: /tmp/ytdl-sub
