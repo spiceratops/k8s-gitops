@@ -143,8 +143,8 @@ data:
       #   "Veritasium": "https://www.youtube.com/@veritasium"
       #   "Smarter Every Day": "https://www.youtube.com/@smartereveryday"
 
-      = Science | = TV-G:
-        "PBS Spacetime": "https://youtube.com/@pbsspacetime"
+      # = Science | = TV-G:
+      #   "PBS Spacetime": "https://youtube.com/@pbsspacetime"
 
       = Kids | = TV-G:
         "Hey Bear": "https://www.youtube.com/@HeyBear"
@@ -162,11 +162,11 @@ data:
         # "Nick Jr": "https://www.youtube.com/@nickjr"
         # "Numberblocks": "https://www.youtube.com/@Numberblocks"
         # "Peppa Pig": "https://www.youtube.com/@PeppaPigOfficial"
-        # "PJ Masks": "https://www.youtube.com/@PJMasksOfficial"
-        # "Shiloh & Bros": "https://www.youtube.com/@shilohandbros"
-        # "Super Simple Songs": "https://www.youtube.com/@SuperSimpleSongs"
-        # "Sweat Kids TV": "https://www.youtube.com/@sweatkidstv9093"
-        # "The Bumble Nums": "https://www.youtube.com/@BumbleNums"
+        "PJ Masks": "https://www.youtube.com/@PJMasksOfficial"
+        "Shiloh & Bros": "https://www.youtube.com/@shilohandbros"
+        "Super Simple Songs": "https://www.youtube.com/@SuperSimpleSongs"
+        "Sweat Kids TV": "https://www.youtube.com/@sweatkidstv9093"
+        "The Bumble Nums": "https://www.youtube.com/@BumbleNums"
 
     # TV Show Only Recent:
     #   = News | = TV-PG:
