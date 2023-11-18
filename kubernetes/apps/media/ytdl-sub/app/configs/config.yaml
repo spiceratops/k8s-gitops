@@ -144,7 +144,7 @@ data:
       #   "Smarter Every Day": "https://www.youtube.com/@smartereveryday"
 
       = Science | = TV-G:
-        "PBS Spacetime": "https://youtube.com/@pbsspacetime"
+        # "PBS Spacetime": "https://youtube.com/@pbsspacetime"
         "Bill Nye The Science Guy": "https://www.youtube.com/@TheRealBillNye"
         "Doctor Mad Science": "https://www.youtube.com/@doctormadscience"
 
