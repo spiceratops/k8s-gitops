@@ -48,7 +48,7 @@ data:
 
         date_range:
           before: "today-2days"
-
+          after: "20180101"
 
       ###############################################################################
       # base preset to use on all TV Show-based subscriptions
@@ -145,6 +145,16 @@ data:
 
       = Science | = TV-G:
         "PBS Spacetime": "https://youtube.com/@pbsspacetime"
+        "Bill Nye The Science Guy": "https://www.youtube.com/@TheRealBillNye"
+        "Doctor Mad Science": "https://www.youtube.com/@doctormadscience"
+
+      = Art and Crafts | = TV-G:
+        "Art for Kids Hub": "https://www.youtube.com/@ArtforKidsHub"
+        "Red Ted Art": "https://www.youtube.com/@redtedart"
+        "Muffalo Potato": "https://www.youtube.com/@muffalopotato/featured"
+
+      = Cooking | = TV-G:
+        "Nerdy Nummies Cooking": "https://www.youtube.com/@RosannaPansino"
 
       = Kids | = TV-G:
         "Hey Bear": "https://www.youtube.com/@HeyBear"
@@ -167,6 +177,14 @@ data:
         "Super Simple Songs": "https://www.youtube.com/@SuperSimpleSongs"
         "Sweat Kids TV": "https://www.youtube.com/@sweatkidstv9093"
         "The Bumble Nums": "https://www.youtube.com/@BumbleNums"
+        "Sesame Street": "https://www.youtube.com/@SesameStreet"
+        "The Snack Town All-Stars": "https://www.youtube.com/@ColorQuest"
+        "MS Rachel": "https://www.youtube.com/@msrachel"
+        "Word World": "https://www.youtube.com/@wordworld"
+        "Mario Party Gaming": "https://www.youtube.com/@MarioPartyGaming"
+        "The Wiggles": "https://www.youtube.com/@thewiggles"
+        "Scratch Garden": "https://www.youtube.com/@ScratchGarden"
+        "Jelle's Marble Runs": "https://www.youtube.com/@JellesMarbleRuns"
 
     # TV Show Only Recent:
     #   = News | = TV-PG:
