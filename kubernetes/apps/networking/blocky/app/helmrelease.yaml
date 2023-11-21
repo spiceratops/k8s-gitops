@@ -64,6 +64,10 @@ spec:
             enabled: true
             port: 53
             protocol: UDP
+          dns-tls:
+            enabled: true
+            port: 853
+            protocol: TCP
     ingress:
       main:
         enabled: true
