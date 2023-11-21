@@ -102,6 +102,7 @@ prometheus:
 ports:
   dns: 53
   http: 4000
+  tls: 853
 
 log:
   level: debug
