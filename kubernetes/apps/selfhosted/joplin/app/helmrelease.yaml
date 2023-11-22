@@ -44,7 +44,7 @@ spec:
           main:
             image:
               repository: joplin/server
-              tag: 2.13.4-beta
+              tag: 2.13.5-beta
             envFrom: *envFrom
             env:
               APP_BASE_URL: https://joplin.${PRIVATE_DOMAIN}
