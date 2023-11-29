@@ -36,7 +36,7 @@ spec:
           main:
             image:
               repository: ghcr.io/jmbannon/ytdl-sub
-              tag: 2023.11.16@sha256:2ae68876e61407b224ac21f5da6315be6abb8a02e44f267bec2558bfcac057b1
+              tag: 2023.11.25@sha256:c34927bb8e302a7a73c9ee2a5faa5aeed796806fab7dfac4934f38ec145de99d
             env:
               TZ: ${TIMEZONE}
             command:
