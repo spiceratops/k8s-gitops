@@ -6,6 +6,7 @@ metadata:
   namespace: actions-runner-system
 spec:
   interval: 30m
+  timeout: 15m
   chart:
     spec:
       chart: gha-runner-scale-set

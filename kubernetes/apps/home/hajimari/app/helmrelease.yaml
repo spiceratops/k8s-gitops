@@ -6,6 +6,7 @@ metadata:
   namespace: home
 spec:
   interval: 30m
+  timeout: 15m
   chart:
     spec:
       chart: hajimari
@@ -55,7 +56,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        ingressClassName: internal
         annotations:
           hajimari.io/enable: "false"
         hosts:

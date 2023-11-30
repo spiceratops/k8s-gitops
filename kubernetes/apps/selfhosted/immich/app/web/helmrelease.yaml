@@ -6,6 +6,7 @@ metadata:
   namespace: selfhosted
 spec:
   interval: 30m
+  timeout: 15m
   chart:
     spec:
       chart: app-template
@@ -73,7 +74,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        ingressClassName: internal
         annotations:
           hajimari.io/icon: mdi:image-album
           hajimari.io/appName: "Photos (Immich)"
