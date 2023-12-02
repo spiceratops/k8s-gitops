@@ -8,9 +8,9 @@ resources:
   - ./jellyfin/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./prowlarr/ks.yaml
-  - ./radarr/ks.yaml
+  # - ./radarr/ks.yaml
   - ./recyclarr/ks.yaml
-  - ./sonarr/ks.yaml
+  # - ./sonarr/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./unpackerr/ks.yaml
   - ./autobrr/ks.yaml
