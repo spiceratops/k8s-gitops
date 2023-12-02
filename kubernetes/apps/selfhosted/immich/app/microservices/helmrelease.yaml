@@ -70,10 +70,10 @@ spec:
               requests:
                 cpu: 100m
                 gpu.intel.com/i915: 1
-                memory: 512Mi
+                memory: 256M
               limits:
                 gpu.intel.com/i915: 1
-                memory: 8000Mi
+                memory: 4096M
     service:
       main:
         enabled: false
@@ -83,11 +83,3 @@ spec:
         existingClaim: immich-nfs
         globalMounts:
           - path: /usr/src/app/upload
-      geocoding-dump:
-        type: emptyDir
-        globalMounts:
-          - path: /usr/src/app/.reverse-geocoding-dump
-      geoname-dump:
-        type: emptyDir
-        globalMounts:
-          - path: /usr/src/app/node_modules/local-reverse-geocoder/geonames_dump
