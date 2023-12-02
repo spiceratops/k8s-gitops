@@ -37,7 +37,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/onedr0p/postgres-init
-              tag: 14.9
+              tag: 15.5
             envFrom: &envFrom
               - secretRef:
                   name: ghostfolio-secret
@@ -45,7 +45,7 @@ spec:
           main:
             image:
               repository: docker.io/ghostfolio/ghostfolio
-              tag: 2.25.1
+              tag: 2.27.1
             envFrom: *envFrom
             env:
               NODE_ENV: production

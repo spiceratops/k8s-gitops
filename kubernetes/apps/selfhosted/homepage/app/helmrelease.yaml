@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: ghcr.io/gethomepage/homepage
-              tag: v0.8.0
+              tag: v0.8.2
     serviceAccount:
       create: true
     service:
