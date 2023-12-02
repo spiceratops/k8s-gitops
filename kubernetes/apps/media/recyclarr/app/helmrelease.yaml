@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,46 +25,48 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: cronjob
-      annotations:
-        reloader.stakater.com/auto: "true"
-      cronjob:
-        schedule: 0 6 * * *
-    image:
-      repository: ghcr.io/recyclarr/recyclarr
-      tag: 6.0.2
-    args:
-      - sync
-    env:
-      TZ: ${TIMEZONE}
-    envFrom:
-      - secretRef:
-          name: recyclarr-secret
-    service:
+    controllers:
       main:
-        enabled: false
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
+        type: cronjob
+        annotations:
+          reloader.stakater.com/auto: "true"
+        cronjob:
+          schedule: "@daily"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/recyclarr/recyclarr
+              tag: 6.0.2
+            args:
+              - sync
+            env:
+              TZ: ${TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: recyclarr-secret
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64M
+              limits:
+                memory: 128M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
         enabled: true
-        existingClaim: recyclarr-config
+        existingClaim: recyclarr
       config-file:
-        enabled: true
         type: configMap
         name: recyclarr-configmap
-        mountPath: /config/recyclarr.yml
-        subPath: recyclarr.yml
-        readOnly: true
-    resources:
-      requests:
-        cpu: 10m
-        memory: 50Mi
-      limits:
-        memory: 200Mi
-    nodeSelector:
-      topology.kubernetes.io/zone: wk
+        globalMounts:
+          - path: /config/recyclarr.yml
+            subPath: recyclarr.yml
+            readOnly: true
+    service:
+      main:
+        enabled: false

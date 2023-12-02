@@ -1,0 +1,39 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-qbittorrent
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-pvc-media-data
+    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-cloudnative-pg-cluster
+    - name: cluster-apps-external-secrets-stores
+  path: ./kubernetes/apps/media/qbittorrent/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-qbittorrent-tools
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-qbittorrent
+  path: ./kubernetes/apps/media/qbittorrent/tools
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m

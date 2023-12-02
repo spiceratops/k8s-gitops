@@ -6,6 +6,7 @@ metadata:
   namespace: kube-system
 spec:
   interval: 30m
+  timeout: 15m
   chart:
     spec:
       chart: app-template
@@ -69,7 +70,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        ingressClassName: internal
         annotations:
           hajimari.io/enable: "false"
         hosts:

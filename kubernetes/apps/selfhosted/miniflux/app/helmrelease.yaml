@@ -6,6 +6,7 @@ metadata:
   namespace: selfhosted
 spec:
   interval: 30m
+  timeout: 15m
   chart:
     spec:
       chart: app-template
@@ -67,9 +68,9 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        ingressClassName: internal
         annotations:
-          # external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
+          # external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
           hajimari.io/icon: mdi:rss
         hosts:
           - host: &host "miniflux.${PRIVATE_DOMAIN}"

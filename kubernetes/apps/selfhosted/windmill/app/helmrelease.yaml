@@ -6,6 +6,7 @@ metadata:
   namespace: selfhosted
 spec:
   interval: 30m
+  timeout: 15m
   chart:
     spec:
       chart: windmill
@@ -38,7 +39,7 @@ spec:
       oauthSecretName: *secret
     ingress:
       enabled: true
-      className: nginx
+      className: internal
       tls:
         - hosts:
             - *host

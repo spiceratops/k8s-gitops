@@ -6,6 +6,7 @@ metadata:
   namespace: selfhosted
 spec:
   interval: 30m
+  timeout: 15m
   chart:
     spec:
       chart: app-template
@@ -67,11 +68,11 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        ingressClassName: internal
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:rss
-          # external-dns.alpha.kubernetes.io/target: ingress.${PRIVATE_DOMAIN}
+          # external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
           - host: &host "wallabag.${PRIVATE_DOMAIN}"
             paths:
