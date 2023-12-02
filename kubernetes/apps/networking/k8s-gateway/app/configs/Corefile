@@ -13,8 +13,7 @@
         resources Ingress Service
         fallthrough ${PRIVATE_DOMAIN}
     }
-    forward ${PRIVATE_DOMAIN} tls://1.1.1.1 tls://1.0.0.1 {
-        tls_servername cloudflare-dns.com
+    forward ${PRIVATE_DOMAIN} https://dns.nextdns.io/17daa9 {
         health_check 5s
     }
     cache 30
