@@ -39,7 +39,7 @@ spec:
       oauthSecretName: *secret
     ingress:
       enabled: true
-      className: nginx
+      className: internal
       tls:
         - hosts:
             - *host
