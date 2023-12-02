@@ -13,7 +13,8 @@
         resources Ingress Service
         fallthrough ${PRIVATE_DOMAIN}
     }
-    forward ${PRIVATE_DOMAIN} https://dns.nextdns.io/17daa9 {
+    forward ${PRIVATE_DOMAIN} https://45.90.28.99 https://45.90.30.99 {
+        tls_servername dns.nextdns.io
         health_check 5s
     }
     cache 30
