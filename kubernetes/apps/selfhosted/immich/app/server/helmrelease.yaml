@@ -53,11 +53,12 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.87.0
+              tag: v1.89.0
             args:
               - start-server.sh
             env:
               TZ: ${TIMEZONE}
+              SERVER_PORT: &port 3001
             envFrom:
               - secretRef:
                   name: immich-secret
@@ -66,14 +67,34 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 250Mi
+                memory: 256Mi
               limits:
-                memory: 1000Mi
+                memory: 1024Mi
     service:
       main:
         ports:
           http:
-            port: 3001
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        annotations:
+          hajimari.io/icon: mdi:image-album
+          hajimari.io/appName: "Photos"
+          nignx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          nginx.ingress.kubernetes.io/proxy-body-size: "0"
+          nginx.ingress.kubernetes.io/upstream-hash-by: "$client_ip"
+        hosts:
+          - host: &host photos.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
     persistence:
       library:
         type: persistentVolumeClaim
