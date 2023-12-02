@@ -3,8 +3,11 @@ connectIPVersion: v4
 
 upstream:
   default:
-    - https://1.1.1.1/dns-query
-    - https://1.0.0.1/dns-query
+    - https://dns.nextdns.io/17daa9
+  192.168.1.235:
+    - https://dns.nextdns.io/38d6fe
+  192.168.1.242:
+    - https://dns.nextdns.io/38d6fe
 
 bootstrapDns:
   - https://1.1.1.1/dns-query
