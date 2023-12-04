@@ -92,7 +92,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:download
         hosts:
-          - host: &host sab.${PRIVATE_DOMAIN}
+          - host: &host usenet.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:
