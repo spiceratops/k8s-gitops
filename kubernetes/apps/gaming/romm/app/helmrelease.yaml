@@ -55,11 +55,11 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        className: internal
         annotations:
-          hajimari.io/icon: mdi:gamepad-square
+          hajimari.io/icon: mdi:download
         hosts:
-          - host: &host "romm.${PRIVATE_DOMAIN}"
+          - host: &host romm.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:
