@@ -65,7 +65,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        ingressClassName: internal
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/icon: ghostfolio.png

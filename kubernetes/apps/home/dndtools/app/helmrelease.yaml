@@ -44,7 +44,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        ingressClassName: internal
         annotations:
           hajimari.io/icon: mdi:dice-d20
         hosts:

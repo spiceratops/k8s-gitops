@@ -8,7 +8,7 @@ metadata:
     hajimari.io/enable: "false"
     external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
 spec:
-  className: internal
+  ingressClassName: internal
   rules:
     - host: &host flux-webhook.${PRIVATE_DOMAIN}
       http:

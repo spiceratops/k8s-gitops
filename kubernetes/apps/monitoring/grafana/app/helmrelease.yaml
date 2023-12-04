@@ -405,7 +405,7 @@ spec:
       enabled: true
     ingress:
       enabled: true
-      className: internal
+      ingressClassName: internal
       annotations:
         hajimari.io/appName: Grafana
         hajimari.io/icon: simple-icons:grafana

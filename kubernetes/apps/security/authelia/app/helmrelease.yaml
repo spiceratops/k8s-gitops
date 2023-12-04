@@ -122,7 +122,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        ingressClassName: internal
         annotations:
           hajimari.io/icon: mdi:shield-account
           # external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}

@@ -80,7 +80,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        ingressClassName: internal
         annotations:
           hajimari.io/enable: "false"
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}

@@ -39,7 +39,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        ingressClassName: internal
         annotations:
           hajimari.io/icon: simple-icons:jellyfin
         hosts:
