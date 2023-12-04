@@ -104,7 +104,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: sabnzbd
+        existingClaim: sabnzbd-config
       media-data:
         existingClaim: media-data
     service:

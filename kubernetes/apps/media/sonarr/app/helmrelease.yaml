@@ -108,7 +108,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: sonarr
+        existingClaim: sonarr-config
       media-data:
         existingClaim: media-data
     service:
