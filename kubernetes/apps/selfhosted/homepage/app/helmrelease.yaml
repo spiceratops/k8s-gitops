@@ -67,7 +67,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        className: internal
         hosts:
           - host: &host "homepage.${PRIVATE_DOMAIN}"
             paths:
