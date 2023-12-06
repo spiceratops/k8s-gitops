@@ -13,7 +13,7 @@ configMapGenerator:
       - ./configs/config.js
   - name: qbittorrent-dnsdist
     files:
-      - ./config/dnsdist.conf
+      - ./configs/dnsdist.conf
 generatorOptions:
   disableNameSuffixHash: true
 labels:
