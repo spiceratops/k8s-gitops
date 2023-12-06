@@ -45,7 +45,7 @@ spec:
           main:
             image:
               repository: docker.io/wger/server
-              tag: 2.2-dev
+              tag: 2.3-dev
             envFrom: *envFrom
             env:
               EMAIL_HOST: smtp-relay.networking.svc.cluster.local
