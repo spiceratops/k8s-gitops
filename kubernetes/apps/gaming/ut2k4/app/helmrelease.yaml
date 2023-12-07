@@ -69,7 +69,6 @@ spec:
         globalMounts:
           - path: /data/serverfiles/System
             subPath: ut2k4server.ini
-            readOnly: true
     ingress:
       main:
         enabled: true
