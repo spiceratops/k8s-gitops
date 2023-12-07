@@ -59,11 +59,7 @@ spec:
             port: 7777
             protocol: UDP
     persistence:
-      data:
-        existingClaim: ut2k4-config
-        globalMounts:
-          - path: /data
-      config-file:
+      config:
         type: configMap
         name: ut2k4-configmap
         globalMounts:
