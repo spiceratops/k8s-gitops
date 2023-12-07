@@ -59,7 +59,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: recyclarr
+        existingClaim: recyclarr-config
       config-file:
         type: configMap
         name: recyclarr-configmap
