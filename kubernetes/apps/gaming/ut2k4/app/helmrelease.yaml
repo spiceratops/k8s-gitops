@@ -63,12 +63,6 @@ spec:
         existingClaim: ut2k4-config
         globalMounts:
           - path: /data
-      # config:
-      #   type: configMap
-      #   name: ut2k4-configmap
-      #   globalMounts:
-      #     - path: /data/serverfiles/System
-      #       subPath: ut2k4server.ini
     ingress:
       main:
         enabled: true
