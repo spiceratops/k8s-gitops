@@ -4,9 +4,9 @@ kind: Kustomization
 namespace: gaming
 resources:
   - ./externalsecret.yaml
-  # - ./pvc.yaml
+  - ./pvc.yaml
   - ./helmrelease.yaml
-  # - ./volsync.yaml
+  - ./volsync.yaml
 configMapGenerator:
   - name: ut2k4-configmap
     files:
