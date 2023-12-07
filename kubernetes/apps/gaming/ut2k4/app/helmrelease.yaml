@@ -1,0 +1,82 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ut2k4
+  namespace: gaming
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/gameservermanagers/gameserver
+              tag: ut2k4
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 5m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+    service:
+      main:
+        ports:
+          http:
+            port: 8888
+      game:
+        controller: main
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${UT2K4_LB_IP}
+          external-dns.alpha.kubernetes.io/hostname: ut2k4.${PRIVATE_DOMAIN}
+        labels:
+          io.cilium/lb-ipam-layer2: "true"
+        ports:
+          game-udp:
+            enabled: true
+            port: 7777
+            protocol: UDP
+    persistence:
+      data:
+        existingClaim: ut2k4-config
+        globalMounts:
+          - path: /data
+    ingress:
+      main:
+        enabled: true
+        className: internal
+        annotations:
+          hajimari.io/enable: "true"
+        hosts:
+          - host: &host ut2k4-admin.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
