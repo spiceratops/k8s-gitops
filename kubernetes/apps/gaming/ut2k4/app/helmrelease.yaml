@@ -34,7 +34,6 @@ spec:
             image:
               repository: ghcr.io/gameservermanagers/gameserver
               tag: ut2k4
-            envFrom: *envFrom
             resources:
               requests:
                 cpu: 5m
