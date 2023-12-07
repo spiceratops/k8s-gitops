@@ -21,3 +21,4 @@ resources:
   - ./whoogle/ks.yaml
   - ./drawio/ks.yaml
   - ./wger/ks.yaml
+  - ./syncthing/ks.yaml
