@@ -46,14 +46,14 @@ spec:
           name: navidrome-secret
     service:
       main:
+        annotations:
+          tailscale.com/expose: "true"
         ports:
           http:
             port: *port
     serviceMonitor:
       main:
         enabled: true
-        annotations:
-          tailscale.com/expose: "true"
     ingress:
       main:
         enabled: true
