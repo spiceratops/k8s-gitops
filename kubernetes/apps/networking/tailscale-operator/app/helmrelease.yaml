@@ -33,7 +33,7 @@ spec:
     proxyConfig:
       image:
         repo: tailscale/tailscale
-        tag: v1.52.0
+        tag: v1.54.1
       # ACL tag that operator will tag proxies with. Operator must be made owner of
       # these tags
       # https://tailscale.com/kb/1236/kubernetes-operator/?q=operator#setting-up-the-kubernetes-operator
