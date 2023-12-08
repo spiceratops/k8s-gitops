@@ -33,3 +33,4 @@ resources:
   - ./windmill-charts.yaml
   - ./nvidia-device-plugin-charts.yaml
   - ./k8tz-charts.yaml
+  - ./jacobcolvin-charts.yaml
