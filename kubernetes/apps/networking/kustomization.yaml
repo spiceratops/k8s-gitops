@@ -10,5 +10,5 @@ resources:
   - ./ingress-nginx/ks.yaml
   - ./k8s-gateway/ks.yaml
   - ./smtp-relay/ks.yaml
-  - ./tailscale/ks.yaml
+  - ./tailscale-operator/ks.yaml
   - ./opnsense/ks.yaml
