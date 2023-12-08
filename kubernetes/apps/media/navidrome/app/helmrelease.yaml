@@ -52,6 +52,8 @@ spec:
     serviceMonitor:
       main:
         enabled: true
+        annotations:
+          tailscale.com/expose: "true"
     ingress:
       main:
         enabled: true
