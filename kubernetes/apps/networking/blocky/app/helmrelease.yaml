@@ -99,6 +99,8 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${BLOCKY_LB_IP}
           external-dns.alpha.kubernetes.io/hostname: dns1.${PRIVATE_DOMAIN}
+          tailscale.com/expose: "true"
+          tailscale.com/hostname: dns1
         labels:
           io.cilium/lb-ipam-layer2: "true"
         ports:
