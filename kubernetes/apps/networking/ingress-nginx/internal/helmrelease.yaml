@@ -77,6 +77,8 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${INGRESS_INT_LB_IP}
           external-dns.alpha.kubernetes.io/hostname: internal.${PRIVATE_DOMAIN}
+          tailscale.com/expose: "true"
+          tailscale.com/hostname: ingress
         labels:
           io.cilium/lb-ipam-layer2: "true"
       topologySpreadConstraints:
