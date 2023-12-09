@@ -92,7 +92,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: internal-ts
         annotations:
           hajimari.io/icon: mdi:filmstrip
         hosts:
