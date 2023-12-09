@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app ingress-nginx-internal
+  name: &app ingress-nginx-internal-ts
   namespace: networking
 spec:
   interval: 30m
