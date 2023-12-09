@@ -16,7 +16,7 @@ bootstrapDns:
 conditional:
   mapping:
     cluster.local: ${CLUSTER_DNS_IP}
-    ${PRIVATE_DOMAIN}: ${K8S_GATEWAY_IP}
+    ${PRIVATE_DOMAIN}: ${K8S_GATEWAY_LB_IP}
 
 blocking:
   blackLists: # https://firebog.net/
