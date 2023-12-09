@@ -92,7 +92,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: tailscale
         annotations:
           hajimari.io/icon: mdi:television-classic
         hosts:
