@@ -37,7 +37,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/onedr0p/postgres-init
-              tag: 15.5
+              tag: 16
             envFrom: &envFrom
               - secretRef:
                   name: wger-secret
@@ -55,9 +55,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 100M
+                memory: 128M
               limits:
-                memory: 250M
+                memory: 512M
     service:
       main:
         ports:
@@ -80,9 +80,9 @@ spec:
         tls:
           - hosts:
               - *host
-    config:
-      static:
-        type: persistentVolumeClaim
+    persistence:
+      config:
+        enabled: true
         existingClaim: wger-config
         globalMounts:
           - path: /home/wger
