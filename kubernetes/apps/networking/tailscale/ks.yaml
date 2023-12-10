@@ -2,13 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-tailscale-operator
+  name: cluster-apps-tailscale
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-ingress-nginx-external
     - name: cluster-apps-external-secrets-stores
-  path: ./kubernetes/apps/networking/tailscale-operator/app
+  path: ./kubernetes/apps/networking/tailscale/app
   prune: true
   sourceRef:
     kind: GitRepository
