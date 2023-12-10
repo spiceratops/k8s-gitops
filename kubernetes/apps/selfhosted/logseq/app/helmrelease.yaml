@@ -60,11 +60,11 @@ spec:
         tls:
           - hosts:
               - *host
-    persistence:
-      data:
-        enabled: true
-        type: nfs
-        server: nas.${PRIVATE_DOMAIN}
-        path: /mnt/data/backup/syncthing/logseq
-        globalMounts:
-          - path: /var/logseq
+    # persistence:
+    #   data:
+    #     enabled: true
+    #     type: nfs
+    #     server: nas.${PRIVATE_DOMAIN}
+    #     path: /mnt/data/backup/syncthing/logseq
+    #     globalMounts:
+    #       - path: /var/logseq
