@@ -1,0 +1,70 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app logseq
+  namespace: selfhosted
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/logseq/logseq-webapp
+              tag: latest@sha256:d17e04f7ec13441115440ccdeb504043414c60a66010c2675d25fd4b0f1079d3
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64M
+              limits:
+                memory: 256M
+    service:
+      main:
+        ports:
+          http:
+            port: 3001
+    ingress:
+      main:
+        enabled: true
+        className: internal
+        annotations:
+          hajimari.io/icon: "cloud"
+        hosts:
+          - host: &host logseq.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      data:
+        enabled: true
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN}
+        path: /mnt/data/backup/syncthing/logseq
+        globalMounts:
+          - path: /var/logseq
