@@ -126,10 +126,6 @@ controlPlane:
         kubePrism:
           enabled: true
           port: 7445
-      logging:
-        destinations:
-          - endpoint: udp://vector.${domainName}:6002/
-            format: json_lines
       sysctls:
         fs.inotify.max_user_watches: 1048576
         fs.inotify.max_user_instances: 8192

@@ -9,9 +9,6 @@ configMapGenerator:
   - name: opnsense
     files:
       - ./opnsense-backup.sh
-  - name: opnsense-dashboard
-    files:
-      - opnsense-dashboard.json=./dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
 labels:
