@@ -46,9 +46,6 @@ spec:
           name: navidrome-secret
     service:
       main:
-        annotations:
-          tailscale.com/expose: "true"
-          tailscale.com/hostname: music
         ports:
           http:
             port: *port
