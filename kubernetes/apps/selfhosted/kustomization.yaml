@@ -22,4 +22,3 @@ resources:
   - ./drawio/ks.yaml
   - ./wger/ks.yaml
   - ./syncthing/ks.yaml
-  - ./logseq/ks.yaml
