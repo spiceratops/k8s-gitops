@@ -136,3 +136,4 @@ customDNS:
     unifi.${PRIVATE_DOMAIN}: 192.168.1.248
     docker.${PRIVATE_DOMAIN}: 192.168.1.220
     opnsense.${PRIVATE_DOMAIN}: 192.168.1.1
+    leantime.${PRIVATE_DOMAIN}: 192.168.1.220
