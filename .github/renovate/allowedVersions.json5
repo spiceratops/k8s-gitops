@@ -6,9 +6,9 @@
         "docker"
       ],
       "matchPackagePatterns": [
-        "kopia"
+        "postgresql"
       ],
-      "allowedVersions": "<10"
+      "allowedVersions": "<=16"
     }
   ]
 }

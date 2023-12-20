@@ -18,6 +18,21 @@
       "separateMinorPatch": true
     },
     {
+      "description": "Actions-Runner Group",
+      "groupName": "Actions-Runner",
+      "matchPackagePatterns": [
+        "actions.runner"
+      ],
+      "matchDatasources": [
+        "docker",
+        "helm"
+      ],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
       "description": "Rook-Ceph Group",
       "groupName": "Rook-Ceph",
       "matchPackagePatterns": [
@@ -32,14 +47,14 @@
       "separateMinorPatch": true
     },
     {
-      "description": "External Snapshotter Group",
-      "groupName": "External Snapshotter",
-      "matchPackageNames": [
-        "snapshot-controller",
-        "snapshot-validation-webhook"
+      "description": "System-Upgrade-Controller Group",
+      "groupName": "System-Upgrade-Controller",
+      "matchPackagePatterns": [
+        "rancher/system-upgrade-controller"
       ],
       "matchDatasources": [
-        "helm"
+        "docker",
+        "github-releases"
       ],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
@@ -50,9 +65,9 @@
       "description": "Talos Group",
       "groupName": "Talos",
       "matchPackagePatterns": [
+        "buroa/installer",
         "siderolabs/talos",
-        "siderolabs/talosctl",
-        "buroa/installer"
+        "siderolabs/talosctl"
       ],
       "matchDatasources": [
         "docker",
