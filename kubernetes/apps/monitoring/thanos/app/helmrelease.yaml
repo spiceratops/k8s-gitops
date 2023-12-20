@@ -33,12 +33,18 @@ spec:
     objstoreConfig:
       type: s3
       config:
-        bucket: thanos
-        endpoint: "s3.${PRIVATE_DOMAIN}:9000"
-        region: "home"
+        insecure: true
     queryFrontend:
       enabled: true
       replicaCount: 3
+      config: &config |-
+        type: REDIS
+        config:
+          addr: >-
+            redis-node-0.redis-headless.databases.svc.cluster.local:26379,
+            redis-node-1.redis-headless.databases.svc.cluster.local:26379,
+            redis-node-2.redis-headless.databases.svc.cluster.local:26379
+          master_name: redis-master
       ingress:
         enabled: true
         hostname: &host thanos.${PRIVATE_DOMAIN}
@@ -53,7 +59,8 @@ spec:
     query:
       enabled: true
       replicaCount: 3
-      replicaLabel: ["__replica__"]
+      replicaLabel:
+        - __replica__
       dnsDiscovery:
         sidecarsService: kube-prometheus-stack-thanos-discovery
         sidecarsNamespace: monitoring
@@ -75,6 +82,7 @@ spec:
     storegateway:
       enabled: true
       replicaCount: 3
+      config: *config
       persistence:
         enabled: true
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
@@ -88,7 +96,8 @@ spec:
       clusterName: k8s
       alertmanagers:
         - http://alertmanager-operated.monitoring.svc.cluster.local:9093
-      extraFlags: ["--web.prefix-header=X-Forwarded-Prefix"]
+      extraFlags:
+        - --web.prefix-header=X-Forwarded-Prefix
       config: |-
         groups:
           - name: PrometheusWatcher
@@ -111,11 +120,23 @@ spec:
       serviceMonitor:
         enabled: true
   valuesFrom:
+    - kind: ConfigMap
+      name: thanos-ceph-bucket
+      valuesKey: BUCKET_NAME
+      targetPath: objstoreConfig.config.bucket
+    - kind: ConfigMap
+      name: thanos-ceph-bucket
+      valuesKey: BUCKET_HOST
+      targetPath: objstoreConfig.config.endpoint
+    - kind: ConfigMap
+      name: thanos-ceph-bucket
+      valuesKey: BUCKET_REGION
+      targetPath: objstoreConfig.config.region
     - kind: Secret
-      name: thanos-secret
-      valuesKey: S3_ACCESS_KEY
+      name: thanos-ceph-bucket
+      valuesKey: AWS_ACCESS_KEY_ID
       targetPath: objstoreConfig.config.access_key
     - kind: Secret
-      name: thanos-secret
-      valuesKey: S3_SECRET_KEY
+      name: thanos-ceph-bucket
+      valuesKey: AWS_SECRET_ACCESS_KEY
       targetPath: objstoreConfig.config.secret_key
