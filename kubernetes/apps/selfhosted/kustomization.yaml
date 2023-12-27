@@ -22,4 +22,4 @@ resources:
   - ./drawio/ks.yaml
   - ./wger/ks.yaml
   - ./syncthing/ks.yaml
-  # - ./obsidian-couchdb/ks.yaml
+  - ./obsidian-couchdb/ks.yaml
