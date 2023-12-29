@@ -97,14 +97,14 @@ spec:
           - hosts:
               - "${HOSTNAME}"
     persistence:
-      data:
+      config:
         existingClaim: "${VOLSYNC_CLAIM}"
-        advancedMounts:
-          main:
-            main:
-              - path: /data
-      media-data:
-        existingClaim: media-data
+      media:
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN}
+        path: /mnt/data/media-data
+        globalMounts:
+          - path: /media-data
     service:
       main:
         ports:
