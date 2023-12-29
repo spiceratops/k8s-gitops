@@ -6,7 +6,6 @@ metadata:
   namespace: monitoring
 spec:
   interval: 30m
-  timeout: 15m
   chart:
     spec:
       chart: thanos
@@ -15,28 +14,14 @@ spec:
         kind: HelmRepository
         name: bitnami-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+      interval: 30m
   values:
-    image:
-      registry: quay.io
-      repository: thanos/thanos
-      tag: v0.33.0
     objstoreConfig:
       type: s3
       config:
         insecure: true
     queryFrontend:
       enabled: true
-      replicaCount: 3
       config: &config |-
         type: REDIS
         config:
@@ -58,7 +43,6 @@ spec:
               - *host
     query:
       enabled: true
-      replicaCount: 3
       replicaLabel:
         - __replica__
       dnsDiscovery:
@@ -66,7 +50,6 @@ spec:
         sidecarsNamespace: monitoring
     bucketweb:
       enabled: true
-      replicaCount: 3
     compactor:
       enabled: true
       extraFlags:
@@ -81,7 +64,6 @@ spec:
         size: 15Gi
     storegateway:
       enabled: true
-      replicaCount: 3
       config: *config
       persistence:
         enabled: true
@@ -91,7 +73,6 @@ spec:
         kyverno.io/exclude: "true"
     ruler:
       enabled: true
-      replicaCount: 3
       replicaLabel: __replica__
       clusterName: k8s
       alertmanagers:
