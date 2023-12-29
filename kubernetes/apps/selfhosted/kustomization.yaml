@@ -21,5 +21,4 @@ resources:
   - ./whoogle/ks.yaml
   - ./drawio/ks.yaml
   - ./wger/ks.yaml
-  - ./syncthing/ks.yaml
-  - ./obsidian-couchdb/ks.yaml
+  # - ./obsidian-couchdb/ks.yaml
