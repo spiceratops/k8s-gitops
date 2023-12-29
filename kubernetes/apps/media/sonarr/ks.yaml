@@ -2,13 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-sonarr
+  name: &appname sonarr
   namespace: flux-system
 spec:
+  targetNamespace: selfhosted
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   dependsOn:
     - name: cluster-apps-pvc-media-data
     - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-cloudnative-pg-cluster
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/sonarr/app
   prune: true
@@ -16,6 +19,11 @@ spec:
     kind: GitRepository
     name: k8s-gitops
   wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: sonarr.${PRIVATE_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"
+      VOLSYNC_CLAIM: sonarr-data
