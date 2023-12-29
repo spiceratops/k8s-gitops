@@ -12,7 +12,7 @@ spec:
       kyverno.io/exclude: "true"
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 25Gi
+    size: 50Gi
     storageClass: ${CLUSTER_STORAGE_BLOCK}
   enableSuperuserAccess: true
   superuserSecret:
