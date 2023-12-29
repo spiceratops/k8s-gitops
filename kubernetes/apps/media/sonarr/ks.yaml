@@ -5,7 +5,7 @@ metadata:
   name: &appname sonarr
   namespace: flux-system
 spec:
-  targetNamespace: selfhosted
+  targetNamespace: media
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
