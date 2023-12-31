@@ -8,6 +8,7 @@
       ],
       "versioning": "loose",
       "matchPackagePatterns": [
+        "lldap",
         "qbittorrent"
       ]
     }

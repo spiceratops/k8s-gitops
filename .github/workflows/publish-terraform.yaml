@@ -7,6 +7,9 @@
       branches: ["main"]
       paths: ["terraform/**"]
 
+  env:
+    TERRAFORM_DIR: ./terraform
+
   jobs:
     publish-terraform:
       name: Publish Terraform
@@ -21,6 +24,12 @@
           with:
             app-id: "${{ secrets.BOT_APP_ID }}"
             private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
+        - name: Setup Path
+          run: echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+
+        - name: Setup Workflow Tools
+          run: brew update && brew install fluxcd/tap/flux
 
         - name: Checkout
           uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -37,22 +46,19 @@
             # username: "${{ secrets.BOT_APP_ID }}"
             # password: "${{ steps.app-token.outputs.token }}"
 
-        - name: Setup Flux
-          uses: fluxcd/flux2/action@5c5c15ea212b8f029a110f9975851d25c8272695 # v2.2.2
-
-        - name: Generate tag
+        - name: Generate Tag
           id: generate-tag
           shell: bash
           run: echo "tag=ghcr.io/${{ github.repository_owner }}/manifests/terraform:$(git rev-parse --short HEAD)" >> "${GITHUB_OUTPUT}"
 
-        - name: Publish manifests
+        - name: Publish OCI Artifacts
           shell: bash
           run: |
             flux push artifact oci://${{ steps.generate-tag.outputs.tag }} \
-                --path="./terraform" \
+                --path="${{ env.TERRAFORM_DIR }}" \
                 --source="$(git config --get remote.origin.url)" \
                 --revision="$(git branch --show-current)/$(git rev-parse HEAD)"
 
-        - name: Tag manifests
+        - name: Tag OCI Artifact
           shell: bash
           run: flux tag artifact oci://${{ steps.generate-tag.outputs.tag }} --tag main
