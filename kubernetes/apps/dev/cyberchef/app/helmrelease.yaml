@@ -34,10 +34,11 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "external-nginx"
+        className: "external"
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: hammer-wrench
+          external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
           - host: &host cyberchef.${PRIVATE_DOMAIN}"
             paths:
