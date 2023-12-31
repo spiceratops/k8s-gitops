@@ -17,9 +17,15 @@ spec:
         namespace: flux-system
 
   values:
-    image:
-      repository: docker.io/mpepping/cyberchef
-      tag: v10.5.2@sha256:51cbc1463da6a93a6884268e01759e860288226cf6e2613b3d97e054be82849a
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/mpepping/cyberchef
+              tag: v10.5.2@sha256:51cbc1463da6a93a6884268e01759e860288226cf6e2613b3d97e054be82849a
     service:
       main:
         ports:
@@ -33,7 +39,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: hammer-wrench
         hosts:
-          - host: &host cyberchef.${EXTERNAL_DOMAIN}"
+          - host: &host cyberchef.${PRIVATE_DOMAIN}"
             paths:
               - path: /
         tls:
