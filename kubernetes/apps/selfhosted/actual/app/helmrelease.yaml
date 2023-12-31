@@ -66,6 +66,6 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: actual
+        existingClaim: actual-config
         globalMounts:
           - path: /data
