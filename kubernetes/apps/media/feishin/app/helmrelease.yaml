@@ -28,7 +28,6 @@ spec:
               tag: 0.5.3
             env:
               TZ: ${TIMEZONE}
-            envFrom: *envFrom
             resources:
               requests:
                 cpu: 10m

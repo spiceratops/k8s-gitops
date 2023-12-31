@@ -110,7 +110,7 @@ spec:
         type: emptyDir
       config:
         enabled: true
-        existingClaim: *app
+        existingClaim: bazarr-config
       config-cache:
         type: emptyDir
         globalMounts:

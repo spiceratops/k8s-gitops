@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-sonarr
+    - name: sonarr
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/monitoring/exporters/sonarr-exporter/app
   prune: true
