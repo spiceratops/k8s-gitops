@@ -42,5 +42,8 @@ spec:
           - host: &host cyberchef.${PRIVATE_DOMAIN}"
             paths:
               - path: /
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts: *host
