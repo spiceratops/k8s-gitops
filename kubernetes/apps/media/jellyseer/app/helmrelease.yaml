@@ -53,7 +53,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: external
+        className: external
         annotations:
           hajimari.io/icon: mdi:eye-circle
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
