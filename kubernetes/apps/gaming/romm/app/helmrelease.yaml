@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: ghcr.io/zurdi15/romm
-              tag: 2.1.0
+              tag: 2.2.0
             env:
               TZ: ${TIMEZONE}
               ROMM_AUTH_ENABLED: true
