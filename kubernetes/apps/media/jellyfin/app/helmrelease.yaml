@@ -68,14 +68,6 @@ spec:
               limits:
                 gpu.intel.com/i915: 1
                 memory: 4Gi
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              accessMode: ReadWriteOnce
-              size: 100Gi
-              storageClass: ${CLUSTER_STORAGE_BLOCK}
-              globalMounts:
-                - path: /config
     service:
       main:
         type: LoadBalancer
@@ -101,6 +93,9 @@ spec:
           - hosts:
               - *host
     persistence:
+      config:
+        enabled: true
+        existingClaim: jellyfin-config
       media-data:
         enabled: true
         existingClaim: media-data
