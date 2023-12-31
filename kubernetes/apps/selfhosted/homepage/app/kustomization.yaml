@@ -6,13 +6,8 @@ resources:
   - ./pvc.yaml
   - ./clusterroles.yaml
   - ./helmrelease.yaml
+  - ./configs/config.yaml
   - ./volsync.yaml
-configMapGenerator:
-  - name: homepage-config
-    files:
-      - ./configs/config.yaml
-generatorOptions:
-  disableNameSuffixHash: true
 labels:
   - pairs:
       app.kubernetes.io/name: homepage
