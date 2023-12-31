@@ -10,29 +10,40 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
-    image:
-      repository: jlongster/actual-server
-      tag: 23.10.0
-      pullPolicy: IfNotPresent
-    nameOverride: actual
-    env:
-      TZ: ${TIMEZONE}
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/actualbudget/actual-server
+              tag: 23.12.1
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 12m
+                memory: 128M
+              limits:
+                memory: 512M
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         ports:
@@ -41,25 +52,20 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
-        annotations:
-          hajimari.io/icon: mdi:finance
+        className: internal
         hosts:
-          - host: &host actual.${PRIVATE_DOMAIN}
+          - host: &host "actual.${PRIVATE_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
     persistence:
       config:
         enabled: true
-        mountPath: /data
-        existingClaim: actual-config
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 100m
-      limits:
-        memory: 500Mi
+        existingClaim: actual
+        globalMounts:
+          - path: /data

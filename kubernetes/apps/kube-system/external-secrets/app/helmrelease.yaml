@@ -10,21 +10,12 @@ spec:
   chart:
     spec:
       chart: external-secrets
-      version: 0.9.6
+      version: 0.9.11
       sourceRef:
         kind: HelmRepository
         name: external-secrets-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
     installCRDs: true
     serviceMonitor:

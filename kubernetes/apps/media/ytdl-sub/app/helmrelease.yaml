@@ -15,16 +15,7 @@ spec:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
     controllers:
       main:
@@ -37,7 +28,7 @@ spec:
           main:
             image:
               repository: ghcr.io/jmbannon/ytdl-sub
-              tag: 2023.12.15@sha256:2debd7ed223b11d576f63b16f873a4d6450766506f1114911c7567e1ec6b6625
+              tag: 2023.12.26
             env:
               TZ: ${TIMEZONE}
             command:

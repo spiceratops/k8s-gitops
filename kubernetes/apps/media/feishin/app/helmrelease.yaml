@@ -10,54 +10,53 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/jeffvli/feishin
-      tag: 0.5.3
-    env:
-      TZ: ${TIMEZONE}
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/jeffvli/feishin
+              tag: 0.5.3
+            env:
+              TZ: ${TIMEZONE}
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256M
+              limits:
+                memory: 1024M
+    ingress:
+      main:
+        enabled: true
+        className: internal
+        annotations:
+          hajimari.io/icon: mdi:headphones
+        hosts:
+          - host: &host "feishin.${PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: *app
     service:
       main:
         ports:
           http:
             port: 9180
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: internal
-        annotations:
-          hajimari.io/icon: mdi:headphones
-        hosts:
-          - host: &host feishin.${PRIVATE_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - *host
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 250Mi
-    nodeSelector:
-      topology.kubernetes.io/zone: wk

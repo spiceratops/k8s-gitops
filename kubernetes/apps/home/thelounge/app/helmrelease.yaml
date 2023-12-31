@@ -10,53 +10,65 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
-    image:
-      repository: ghcr.io/thelounge/thelounge
-      tag: 4.4.1
-    env:
-      THELOUNGE_HOME: /config
-    service:
+    controllers:
       main:
-        ports:
-          http:
-            port: 9000
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/thelounge/thelounge
+              tag: 4.4.1@sha256:50538b1b74184e43ac8c119f518243432026065f15e266ac2b23dbeb7de5802a
+            env:
+              THELOUNGE_HOME: /config
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250M
+              limits:
+                memory: 512M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        className: internal
         annotations:
           hajimari.io/icon: mdi:forum
         hosts:
-          - host: &host thelounge.${PRIVATE_DOMAIN}
+          - host: &host "forum.${PRIVATE_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
     persistence:
       config:
         enabled: true
-        existingClaim: thelounge-config
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 500Mi
+        existingClaim: *app
+    service:
+      main:
+        ports:
+          http:
+            port: 9000

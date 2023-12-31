@@ -10,59 +10,97 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
-    image:
-      repository: ghcr.io/onedr0p/jellyfin
-      tag: 10.8.11@sha256:926e2a9f6677a0c7b12feba29f36c954154869318d6a52df72f72ff9c74cf494
-    env:
-      TZ: ${TIMEZONE}
+    defaultPodOptions:
+      enableServiceLinks: false
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        supplementalGroups:
+          - 44
+          - 109
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/jellyfin
+              tag: 10.8.11@sha256:926e2a9f6677a0c7b12feba29f36c954154869318d6a52df72f72ff9c74cf494
+            env:
+              DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
+              JELLYFIN_FFmpeg__probesize: 50000000
+              JELLYFIN_FFmpeg__analyzeduration: 50000000
+              JELLYFIN_PublishedServerUrl: &loadBalancerIP ${JELLYFIN_LB_IP}
+              TZ: ${TIMEZONE}
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 8096
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                gpu.intel.com/i915: 1
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 4Gi
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 100Gi
+              storageClass: ${CLUSTER_STORAGE_BLOCK}
+              globalMounts:
+                - path: /config
     service:
       main:
+        type: LoadBalancer
+        loadBalancerIP: *loadBalancerIP
+        externalTrafficPolicy: Local
         ports:
           http:
             port: 8096
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        className: "internal"
         annotations:
           hajimari.io/icon: simple-icons:jellyfin
         hosts:
-          - host: &host jellyfin.${PRIVATE_DOMAIN}
+          - host: &host "jellyfin.${PRIVATE_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 44
-        - 109
     persistence:
-      config:
-        enabled: true
-        existingClaim: jellyfin-config
-        mountPath: /config
       media-data:
         enabled: true
         existingClaim: media-data
@@ -72,13 +110,3 @@ spec:
       cache:
         enabled: true
         type: emptyDir
-    nodeSelector:
-      intel.feature.node.kubernetes.io/gpu: "true"
-    resources:
-      requests:
-        gpu.intel.com/i915: 1
-        cpu: 100m
-        memory: 2000Mi
-      limits:
-        gpu.intel.com/i915: 1
-        memory: 8000Mi

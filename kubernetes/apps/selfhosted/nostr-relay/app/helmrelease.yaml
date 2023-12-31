@@ -10,54 +10,71 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
-    initContainers:
-      01-init-db:
-        image: ghcr.io/onedr0p/postgres-init:16.1
-        imagePullPolicy: IfNotPresent
-        envFrom:
-          - secretRef:
-              name: nostr-relay-secret
-    controller:
-      replicas: 2
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: docker.io/scsibug/nostr-rs-relay
-      tag: 0.8.13
-    service:
+    controllers:
       main:
-        ports:
-          http:
-            port: 8080
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom:
+              - secretRef:
+                  name: nostr-relay-secret
+        containers:
+          main:
+            image:
+              repository: docker.io/scsibug/nostr-rs-relay
+              tag: 0.8.13@sha256:d54849aac0a47b2cede0aadf26d4777180fb9c669ee7e8ffd0992c7f8fe81bb6
+            resources:
+              requests:
+                cpu: 5m
+                memory: 36M
+              limits:
+                memory: 128M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        className: external
         annotations:
+          gatus.io/enabled: "true"
           hajimari.io/enable: "false"
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
-          - host: &host nostr-relay.${PRIVATE_DOMAIN}
+          - host: &host "nostr-relay.${PRIVATE_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
@@ -66,21 +83,15 @@ spec:
         enabled: true
         type: secret
         name: nostr-relay-secret
-        mountPath: /usr/src/app/config.toml
-        subPath: config.toml
-        readOnly: true
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-    resources:
-      requests:
-        cpu: 5m
-        memory: 50Mi
-      limits:
-        memory: 250Mi
-    nodeSelector:
-      topology.kubernetes.io/zone: wk
+        globalMounts:
+          - path: /usr/src/app/config.toml
+            subPath: config.toml
+            readOnly: true
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    serviceMonitor:
+      main:
+        enabled: true

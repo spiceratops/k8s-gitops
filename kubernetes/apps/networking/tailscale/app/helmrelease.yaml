@@ -9,21 +9,12 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.3.0
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
     controllers:
       main:
@@ -33,7 +24,7 @@ spec:
           main:
             image:
               repository: ghcr.io/tailscale/tailscale
-              tag: v1.56.0
+              tag: v1.56.1
             env:
               TZ: ${TIMEZONE}
               PORT: &port ${TAILNET_PUBLIC_PORT}
@@ -42,7 +33,7 @@ spec:
               TS_KUBE_SECRET: tailscale-state
               TS_EXTRA_ARGS: --advertise-exit-node
               TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:2000
-              TS_ROUTES: ${CLUSTER_SERVICE_IP_CIDR},${CILIUM_LB_CIDR}
+              TS_ROUTES: ${LAN_SERVER_IP_CIDR},${CLUSTER_SERVICE_IP_CIDR},${CILIUM_LB_CIDR}
             envFrom:
               - secretRef:
                   name: tailscale-secret

@@ -15,16 +15,7 @@ spec:
         kind: HelmRepository
         name: deliveryhero-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
     image:
       repository: registry.k8s.io/node-problem-detector/node-problem-detector

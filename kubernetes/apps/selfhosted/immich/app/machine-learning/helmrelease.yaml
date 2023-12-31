@@ -10,21 +10,12 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.3.0
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   dependsOn:
     - name: immich-server
   values:
@@ -62,7 +53,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.91.3
+              tag: v1.91.4
             env:
               # General
               IMMICH_MEDIA_LOCATION: /usr/src/app/upload

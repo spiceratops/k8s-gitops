@@ -10,29 +10,41 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
-    image:
-      repository: docker.io/fallenbagel/jellyseerr
-      tag: 1.7.0
-    env:
-      TZ: "${TIMEZONE}"
-      LOG_LEVEL: "info"
-      PORT: &port 8080
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: docker.io/fallenbagel/jellyseerr
+              tag: 1.7.0
+            env:
+              TZ: "${TIMEZONE}"
+              LOG_LEVEL: "info"
+              PORT: &port 8080
+            resources:
+              requests:
+                cpu: 15m
+                memory: 128M
+              limits:
+                memory: 512M
+    persistence:
+      config:
+        enabled: true
+        existingClaim: jellyseer-config
+        mountPath: /app/config
     service:
       main:
         ports:
@@ -41,10 +53,10 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        ingressClassName: external
         annotations:
           hajimari.io/icon: mdi:eye-circle
-          # external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
           - host: &host "requests.${PRIVATE_DOMAIN}"
             paths:
@@ -53,19 +65,3 @@ spec:
         tls:
           - hosts:
               - *host
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-    persistence:
-      config:
-        enabled: true
-        existingClaim: jellyseer-config
-        mountPath: /app/config
-    resources:
-      requests:
-        cpu: 10m
-        memory: 200Mi
-      limits:
-        memory: 500Mi

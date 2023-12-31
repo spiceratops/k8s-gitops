@@ -10,84 +10,76 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
-    controller:
-      replicas: 1
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/foxcpp/maddy
-      tag: 0.7.0
-    env:
-      DEBUG: false
-    envFrom:
-      - secretRef:
-          name: smtp-relay-secret
-    service:
+    controllers:
       main:
-        type: LoadBalancer
+        replicas: 2
+        strategy: RollingUpdate
         annotations:
-          io.cilium/lb-ipam-ips: ${SMTP_LB_IP}
-          external-dns.alpha.kubernetes.io/hostname: smtp.${PRIVATE_DOMAIN}
-        labels:
-          io.cilium/lb-ipam-layer2: "true"
-        ports:
-          http:
-            port: 2525
-          metrics:
-            enabled: true
-            port: 9749
-    serviceMonitor:
-      main:
-        enabled: true
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 30s
-            scrapeTimeout: 30s
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/foxcpp/maddy
+              tag: 0.7.0@sha256:fdcc500eac9b35e2eab5597921be3407075892831f24c01c009e83591dc3b020
+            env:
+              MADDY_HTTP_PORT: &httpPort 8080
+              MADDY_SMTP_PORT: &smtpPort 2525
+            envFrom:
+              - secretRef:
+                  name: smtp-relay-secret
+            resources:
+              requests:
+                cpu: 5m
+                memory: 128M
+              limits:
+                memory: 256M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
     persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /cache
       config:
         enabled: true
         type: configMap
         name: smtp-relay-configmap
-        mountPath: /data/maddy.conf
-        subPath: maddy.conf
-        readOnly: true
-      data:
+        globalMounts:
+          - path: /data/maddy.conf
+            subPath: maddy.conf
+            readOnly: true
+    service:
+      main:
+        ports:
+          http:
+            port: *httpPort
+          smtp:
+            port: *smtpPort
+    serviceMonitor:
+      main:
         enabled: true
-        type: emptyDir
-        medium: Memory
-        sizeLimit: 1Gi
-        mountPath: /dev/shm
-      # tls:
-      #   enabled: true
-      #   type: secret
-      #   name: tls.smtp-relay
-      #   mountpath: /tls
-      #   readOnly: true
-    podAnnotations:
-      reloader.stakater.com/auto: "true"
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app

@@ -10,49 +10,60 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/onedr0p/exportarr
-      tag: v1.6.0
-    args:
-      - radarr
-      - --enable-additional-metrics
-      - --enable-unknown-queue-items
-    env:
-      PORT: 9707
-      URL: http://radarr.media.svc.cluster.local:7878
-    envFrom:
-      - secretRef:
-          name: radarr-exporter-secret
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v1.6.0@sha256:b522e128509b766cf66f847190fccd225ff194dc76775fe6a215f2dd3010cac2
+            args:
+              - radarr
+              - --enable-additional-metrics
+              - --enable-unknown-queue-items
+            env:
+              PORT: &port 9707
+              URL: http://radarr.media.svc.cluster.local:7878
+            envFrom:
+              - secretRef:
+                  name: radarr-exporter-secret
+            resources:
+              requests:
+                cpu: 5m
+                memory: 36M
+              limits:
+                memory: 128M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
     service:
       main:
         ports:
           http:
-            port: 9707
+            port: *port
     serviceMonitor:
       main:
         enabled: true
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1h
+            scrapeTimeout: 1m

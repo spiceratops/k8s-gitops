@@ -9,21 +9,12 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.3.0
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
     controllers:
       main:
@@ -43,7 +34,7 @@ spec:
           main:
             image:
               repository: ghcr.io/0xerr0r/blocky
-              tag: development@sha256:2bf01f438501e9aea2e0d09bf96e9e0457df83b6eac4fde720b8cf06741580d7 # TODO: switch to semver
+              tag: development@sha256:ffff64d13f582b92b3752447e941f8b63901e8b6fdaa1c16753ee46029d6ba27 # TODO: switch to semver
             env:
               TZ: ${TIMEZONE}
             resources:

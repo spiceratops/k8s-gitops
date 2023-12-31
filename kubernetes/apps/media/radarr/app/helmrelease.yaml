@@ -9,21 +9,12 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.3.0
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
     controllers:
       main:
@@ -41,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/radarr-develop
-              tag: 5.2.4.8328@sha256:9908d5e7ef16122cfdf80fa0d1fefef743cc598346bc12c3408e645d99012c74
+              tag: 5.2.6.8376@sha256:73f934fcaa652d0ee41af3038b943a3a1ee5146ad17646b99ed425f657a1b44a
             env:
               TZ: ${TIMEZONE}
               RADARR__AUTHENTICATION_METHOD: External

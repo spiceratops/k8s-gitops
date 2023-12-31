@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app pgadmin
+  name: pgadmin
   namespace: databases
 spec:
   interval: 30m
@@ -10,39 +10,53 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+
   values:
-    image:
-      repository: dpage/pgadmin4
-      tag: "8.1"
-    env:
-      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
-    envFrom:
-      - secretRef:
-          name: pgadmin-secret
-    initContainers:
-      volume-permissions:
-        image: dpage/pgadmin4:8.1
-        command: ["/bin/chown", "-R", "5050:5050", "/var/lib/pgadmin"]
-        volumeMounts:
-          - name: config
-            mountPath: /var/lib/pgadmin
-        securityContext:
-          runAsUser: 0
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          volume-permissions:
+            image:
+              repository: dpage/pgadmin4
+              tag: "8.1@sha256:79388691706e7b4c3f1e4d567a594ade467d4cab4ecf1a97aaa0beb5b19b5b53"
+            command: ["/bin/chown", "-R", "5050:5050", "/var/lib/pgadmin"]
+            volumeMounts:
+              - name: config
+                mountPath: /var/lib/pgadmin
+            securityContext:
+              runAsUser: 0
+        containers:
+          main:
+            image:
+              repository: dpage/pgadmin4
+              tag: "8.1@sha256:79388691706e7b4c3f1e4d567a594ade467d4cab4ecf1a97aaa0beb5b19b5b53"
+            env:
+              PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
+            envFrom:
+              - secretRef:
+                  name: pgadmin-secret
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 1Gi
+              storageClass: rook-ceph-block
+              globalMounts:
+                - path: /var/lib/pgadmin
     service:
       main:
         ports:
@@ -51,25 +65,16 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        className: "internal"
         annotations:
           hajimari.io/icon: mdi:database
         hosts:
-          - host: &host pgadmin.${PRIVATE_DOMAIN}
+          - host: &host pgadmin.${PRIVATE_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-    persistence:
-      config:
-        enabled: true
-        existingClaim: pgadmin-config
-        mountPath: /var/lib/pgadmin
-    resources:
-      requests:
-        cpu: 50m
-        memory: 100Mi
-      limits:
-        memory: 500Mi

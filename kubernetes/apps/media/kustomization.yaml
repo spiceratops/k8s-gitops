@@ -19,6 +19,5 @@ resources:
   - ./wizarr/ks.yaml
   - ./lidarr/ks.yaml
   - ./feishin/ks.yaml
-  - ./invidious/ks.yaml
   - ./readarr/ks.yaml
   - ./ytdl-sub/ks.yaml
