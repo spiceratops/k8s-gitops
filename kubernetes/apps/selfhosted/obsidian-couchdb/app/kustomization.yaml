@@ -4,8 +4,10 @@ kind: Kustomization
 namespace: selfhosted
 resources:
   # - ../../../../templates/volsync
+  - ./pvc.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./volsync.yaml
 configMapGenerator:
   - name: obsidian-couchdb-configmap
     files:
