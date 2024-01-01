@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./atuin/ks.yaml
-  - ./cyberchef/ks.yaml
+  # - ./cyberchef/ks.yaml
