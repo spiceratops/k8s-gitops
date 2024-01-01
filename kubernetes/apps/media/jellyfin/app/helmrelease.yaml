@@ -95,7 +95,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: "${VOLSYNC_CLAIM}"
+        existingClaim: jellyfin-config
       media-data:
         enabled: true
         existingClaim: media-data
