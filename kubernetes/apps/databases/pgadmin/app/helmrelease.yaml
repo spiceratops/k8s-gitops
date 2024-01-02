@@ -49,14 +49,11 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 500Mi
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              accessMode: ReadWriteOnce
-              size: 1Gi
-              storageClass: ${CLUSTER_STORAGE_BLOCK}
-              globalMounts:
-                - path: /var/lib/pgadmin
+    persistence:
+      config:
+        enabled: true
+        existingClaim: "${VOLSYNC_CLAIM}"
+        mountPath: /var/lib/pgadmin
     service:
       main:
         ports:
@@ -69,7 +66,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:database
         hosts:
-          - host: &host pgadmin.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -77,4 +74,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
