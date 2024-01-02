@@ -96,7 +96,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:bookshelf
         hosts:
-          - host: *host
+          - host: &host ebooks.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:

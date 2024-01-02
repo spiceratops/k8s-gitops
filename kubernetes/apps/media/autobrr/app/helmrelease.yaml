@@ -74,7 +74,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:bunny
         hosts:
-          - host: &host autobrr.${PRIVATE_DOMAIN}
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -82,7 +82,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       config:
         enabled: true

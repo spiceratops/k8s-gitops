@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app jellyseer
+  name: jellyseer
   namespace: media
 spec:
   interval: 30m
@@ -43,7 +43,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: jellyseer-config
+        existingClaim: "${VOLSYNC_CLAIM}"
         mountPath: /app/config
     service:
       main:
@@ -58,7 +58,7 @@ spec:
           hajimari.io/icon: mdi:eye-circle
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
-          - host: &host "requests.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -66,4 +66,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"

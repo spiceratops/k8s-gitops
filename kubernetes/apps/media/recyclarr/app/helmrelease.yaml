@@ -50,7 +50,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: recyclarr-config
+        existingClaim: "${VOLSYNC_CLAIM}"
       config-file:
         type: configMap
         name: recyclarr-configmap

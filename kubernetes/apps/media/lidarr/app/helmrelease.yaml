@@ -47,10 +47,10 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: lidarr-config
+        existingClaim: "${VOLSYNC_CLAIM}"
       config-deemix:
         enabled: true
-        existingClaim: deemix-config
+        existingClaim: deemix
       media:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}
@@ -71,7 +71,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:headphones
         hosts:
-          - host: &host "lidarr.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -85,5 +85,5 @@ spec:
                   port: deemix
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
               - *host2

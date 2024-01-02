@@ -5,8 +5,3 @@ namespace: media
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: readarr-ebooks
-      app.kubernetes.io/instance: readarr-ebooks
-      app.kubernetes.io/part-of: readarr

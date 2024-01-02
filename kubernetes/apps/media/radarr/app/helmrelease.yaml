@@ -87,7 +87,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:filmstrip
         hosts:
-          - host: &host radarr.${PRIVATE_DOMAIN}
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -95,11 +95,11 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       config:
         enabled: true
-        existingClaim: radarr-config
+        existingClaim: "${VOLSYNC_CLAIM}"
       media-data:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}

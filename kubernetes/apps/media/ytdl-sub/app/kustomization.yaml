@@ -5,7 +5,3 @@ namespace: media
 resources:
   - ./configs/config.yaml
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: ytdl-sub
-      app.kubernetes.io/instance: ytdl-sub

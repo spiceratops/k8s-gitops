@@ -11,7 +11,6 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: cluster-apps-volsync
-    - name: cluster-apps-pvc-media-data
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/jellyfin/app
@@ -29,4 +28,4 @@ spec:
       HOSTNAME: jellyfin.${PRIVATE_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
-      VOLSYNC_CLAIM: jellyfin-config
+      VOLSYNC_CLAIM: *appname

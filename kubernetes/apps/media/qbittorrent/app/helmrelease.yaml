@@ -139,7 +139,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:seedling
         hosts:
-          - host: &host torrent.${PRIVATE_DOMAIN}
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -147,11 +147,11 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       config:
         enabled: true
-        existingClaim: qbittorrent-config
+        existingClaim: "${VOLSYNC_CLAIM}"
       media-data:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}

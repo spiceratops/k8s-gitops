@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: jellyfin-config
+  name: jellyfin
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:

@@ -96,7 +96,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:book-music
         hosts:
-          - host: *host
+          - host: &host audiobooks.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:

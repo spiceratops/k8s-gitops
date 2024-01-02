@@ -41,7 +41,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:headphones
         hosts:
-          - host: &host "feishin.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -49,11 +49,11 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       config:
         enabled: true
-        existingClaim: *app
+        existingClaim: "${VOLSYNC_CLAIM}"
     service:
       main:
         ports:

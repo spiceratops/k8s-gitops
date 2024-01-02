@@ -54,7 +54,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:invite
         hosts:
-          - host: &host invite.${PRIVATE_DOMAIN}
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -62,11 +62,11 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       config:
         enabled: true
-        existingClaim: wizarr-config
+        existingClaim: "${VOLSYNC_CLAIM}"
         globalMounts:
           - path: /data/database
     service:

@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sonarr-config
+  name: sonarr
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:

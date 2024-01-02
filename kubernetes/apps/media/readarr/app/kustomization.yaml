@@ -5,7 +5,3 @@ namespace: media
 resources:
   - ./audiobooks
   - ./ebooks
-labels:
-  - pairs:
-      app.kubernetes.io/name: readarr
-      app.kubernetes.io/instance: readarr

@@ -2,13 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-qbittorrent
+  name: &appname qbittorrent
   namespace: flux-system
 spec:
+  targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-pvc-media-data
+    - name: cluster-apps-volsync
     - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-cloudnative-pg-cluster
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/qbittorrent/app
   prune: true
@@ -19,15 +22,28 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: qbittorrent.${PRIVATE_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"
+      VOLSYNC_CLAIM: *appname
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-qbittorrent-tools
+  name: &appname qbittorrent-tools
   namespace: flux-system
 spec:
+  targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-qbittorrent
+    - name: cluster-apps-volsync
+    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/qbittorrent/tools
   prune: true
   sourceRef:

@@ -96,7 +96,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:subtitles-outline
         hosts:
-          - host: &host "bazarr.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -104,13 +104,13 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       add-ons:
         type: emptyDir
       config:
         enabled: true
-        existingClaim: bazarr-config
+        existingClaim: "${VOLSYNC_CLAIM}"
       config-cache:
         type: emptyDir
         globalMounts:

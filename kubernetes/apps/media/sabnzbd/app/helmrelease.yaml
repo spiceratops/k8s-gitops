@@ -83,7 +83,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:download
         hosts:
-          - host: &host usenet.${PRIVATE_DOMAIN}
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -91,11 +91,11 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       config:
         enabled: true
-        existingClaim: sabnzbd-config
+        existingClaim: "${VOLSYNC_CLAIM}"
       media-data:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}
