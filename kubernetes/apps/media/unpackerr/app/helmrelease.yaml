@@ -52,7 +52,11 @@ spec:
               - 65536
     persistence:
       media-data:
-        existingClaim: media-data
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN}
+        path: /mnt/data/media-data
+        globalMounts:
+          - path: /media-data
     service:
       main:
         ports:

@@ -116,8 +116,12 @@ spec:
         globalMounts:
           - path: /config/cache
             subPath: cache
-      media:
-        existingClaim: media
+      media-data:
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN}
+        path: /mnt/data/media-data
+        globalMounts:
+          - path: /media-data
       scripts:
         type: configMap
         name: bazarr-scripts

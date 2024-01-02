@@ -62,7 +62,9 @@ spec:
     persistence:
       config:
         enabled: false
-      media-data:
-        existingClaim: gaming-data
+      games:
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN}
+        path: /mnt/data/media-data/games
         globalMounts:
           - path: /romm/library

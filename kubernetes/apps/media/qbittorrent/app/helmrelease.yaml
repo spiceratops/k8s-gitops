@@ -153,7 +153,11 @@ spec:
         enabled: true
         existingClaim: qbittorrent-config
       media-data:
-        existingClaim: media-data
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN}
+        path: /mnt/data/media-data
+        globalMounts:
+          - path: /media-data
       xseed:
         type: secret
         name: cross-seed-secret

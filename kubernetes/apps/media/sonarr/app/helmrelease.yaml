@@ -99,7 +99,7 @@ spec:
     persistence:
       config:
         existingClaim: "${VOLSYNC_CLAIM}"
-      media:
+      media-data:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}
         path: /mnt/data/media-data

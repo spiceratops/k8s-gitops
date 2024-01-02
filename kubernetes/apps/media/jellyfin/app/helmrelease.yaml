@@ -83,7 +83,7 @@ spec:
         annotations:
           hajimari.io/icon: simple-icons:jellyfin
         hosts:
-          - host: &host "jellyfin.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -91,14 +91,17 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       config:
         enabled: true
-        existingClaim: jellyfin-config
+        existingClaim: "${VOLSYNC_CLAIM}"
       media-data:
-        enabled: true
-        existingClaim: media-data
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN}
+        path: /mnt/data/media-data
+        globalMounts:
+          - path: /media-data
       transcode:
         enabled: true
         type: emptyDir

@@ -51,9 +51,12 @@ spec:
       config-deemix:
         enabled: true
         existingClaim: deemix-config
-      media-data:
-        enabled: true
-        existingClaim: media-data
+      media:
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN}
+        path: /mnt/data/media-data
+        globalMounts:
+          - path: /media-data
     service:
       main:
         ports:
