@@ -28,7 +28,7 @@ spec:
         cpu: 500m
       limits:
         memory: 4Gi
-    securityContext:
+    podSecurityContext:
       runAsUser: "${APP_UID}"
       fsGroup: "${APP_GID}"
     extraEnv:
@@ -51,13 +51,5 @@ spec:
       motd: "Spicecraft - Creative Server"
       worldSaveName: SpicecraftCreative
       viewDistance: 12
-      rcon:
-        enabled: true
-        serviceType: ClusterIP
       serviceType: LoadBalancer
-      enableLanVisibility: false
-  valuesFrom:
-    - kind: Secret
-      name: minecraft-secret
-      valuesKey: MINECRAFT_RCON_PASSWORD
-      targetPath: minecraftServer.rcon.password
+      enableLanVisibility: true

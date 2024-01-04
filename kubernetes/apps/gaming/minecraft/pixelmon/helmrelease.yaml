@@ -27,7 +27,7 @@ spec:
         cpu: 500m
       limits:
         memory: 8Gi
-    securityContext:
+    podSecurityContext:
       runAsUser: "${APP_UID}"
       fsGroup: "${APP_GID}"
     livenessProbe:
@@ -72,10 +72,11 @@ spec:
           - dynmap:E0uc64ti
         optionalDependencies: true
         allowedVersionType: beta
+      serviceType: LoadBalancer
       rcon:
         enabled: true
         serviceType: ClusterIP
-      serviceType: LoadBalancer
+        clusterIP: ${MINECRAFT_PIXELMON_RCON_IP}
       extraPorts:
         - name: metrics
           containerPort: 9225
