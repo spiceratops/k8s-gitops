@@ -67,7 +67,8 @@ spec:
       spigetResources:
         - 36618 #Prom Exporter
       modrinth:
-        projects: Ro92Bd6N
+        projects:
+          - Ro92Bd6N
         optionalDependencies: false
         allowedVersionType: release
       rcon:
