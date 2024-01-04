@@ -58,7 +58,7 @@ spec:
       maxTickTime: -1
       gameMode: survival
       pvp: false
-      onlineMode: false
+      onlineMode: true
       whitelist: "Spiceratops"
       ops: "Spiceratops"
       motd: "Welcome to Spicecraft Pixelmon Server"
