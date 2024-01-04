@@ -69,6 +69,7 @@ spec:
       modrinth:
         projects:
           - pixelmon:9.2.6
+          - dynmap:E0uc64ti
         optionalDependencies: true
         allowedVersionType: beta
       rcon:
