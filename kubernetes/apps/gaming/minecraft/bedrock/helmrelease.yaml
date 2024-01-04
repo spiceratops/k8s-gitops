@@ -48,8 +48,8 @@ spec:
       gameMode: creative
       whitelist: "Spiceratops"
       ops: "Spiceratops"
-      motd: "Spiceracraft - Creative Server"
-      worldSaveName: SpiceracraftCreative
+      motd: "Spicecraft - Creative Server"
+      worldSaveName: SpicecraftCreative
       viewDistance: 12
       rcon:
         enabled: true

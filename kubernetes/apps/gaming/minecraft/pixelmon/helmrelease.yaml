@@ -61,8 +61,8 @@ spec:
       onlineMode: false
       whitelist: "Spiceratops"
       ops: "Spiceratops"
-      motd: "Welcome to Spiceracraft Pixelmon Server"
-      worldSaveName: Spiceracraft
+      motd: "Welcome to Spicecraft Pixelmon Server"
+      worldSaveName: SpicecraftPixelmon
       viewDistance: 12
       spigetResources:
         - 36618 #Prom Exporter
