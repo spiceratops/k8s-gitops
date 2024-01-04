@@ -68,7 +68,7 @@ spec:
         - 36618 #Prom Exporter
       modrinth:
         projects:
-          - 59ZceYlU
+          - pixelmon:9.2.6
         optionalDependencies: false
         allowedVersionType: beta
       rcon:
