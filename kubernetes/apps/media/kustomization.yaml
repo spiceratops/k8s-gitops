@@ -14,7 +14,7 @@ resources:
   - ./flaresolverr/ks.yaml
   - ./unpackerr/ks.yaml
   - ./autobrr/ks.yaml
-  # - ./jellyseer/ks.yaml
+  - ./jellyseer/ks.yaml
   - ./navidrome/ks.yaml
   - ./wizarr/ks.yaml
   - ./lidarr/ks.yaml
