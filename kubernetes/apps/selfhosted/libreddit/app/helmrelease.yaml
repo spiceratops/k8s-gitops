@@ -75,7 +75,7 @@ spec:
           hajimari.io/icon: simple-icons:reddit
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
-          - host: &host "zeddit.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -83,7 +83,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     service:
       main:
         ports:

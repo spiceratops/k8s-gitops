@@ -62,7 +62,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: weight-lifter
         hosts:
-          - host: &host "gym.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -70,10 +70,10 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       config:
         enabled: true
-        existingClaim: wger-config
+        existingClaim: "${VOLSYNC_CLAIM}"
         globalMounts:
           - path: /home/wger

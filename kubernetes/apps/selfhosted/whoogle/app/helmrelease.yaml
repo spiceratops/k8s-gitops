@@ -55,7 +55,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:google
         hosts:
-          - host: &host "whoogle.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -63,4 +63,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"

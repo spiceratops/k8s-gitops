@@ -14,7 +14,3 @@ configMapGenerator:
         gatus.io/enabled: "true"
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: miniflux
-      app.kubernetes.io/instance: miniflux

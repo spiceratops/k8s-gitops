@@ -5,7 +5,3 @@ namespace: selfhosted
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: windmill
-      app.kubernetes.io/instance: windmill

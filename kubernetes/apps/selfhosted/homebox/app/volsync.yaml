@@ -3,7 +3,6 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: homebox-restic
-  namespace: selfhosted
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
@@ -22,22 +21,60 @@ spec:
     - extract:
         key: volsync-restic-template
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homebox
+spec:
+  accessModes: ["ReadWriteOnce"]
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: homebox-rdst
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: homebox-rdst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: homebox-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    capacity: 5Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: homebox
-  namespace: selfhosted
+  name: homebox-rsrc
 spec:
-  sourcePVC: homebox-config
+  sourcePVC: homebox
   trigger:
-    schedule: "0 8 * * *"
+    schedule: "15 */8 * * *"
   restic:
-    copyMethod: Snapshot
     pruneIntervalDays: 10
     repository: homebox-restic-secret
-    cacheCapacity: 8Gi
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
       runAsUser: 568

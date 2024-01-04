@@ -65,7 +65,7 @@ spec:
           hajimari.io/icon: mdi:rss
           # external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
-          - host: &host "wallabag.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -73,4 +73,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"

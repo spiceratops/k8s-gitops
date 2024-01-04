@@ -63,7 +63,7 @@ spec:
           gethomepage.dev/name: Ghostfolio
           gethomepage.dev/group: Home
         hosts:
-          - host: &host "ghostfolio.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -71,4 +71,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"

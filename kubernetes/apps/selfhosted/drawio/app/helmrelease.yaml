@@ -41,7 +41,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: pencil
         hosts:
-          - host: &host "diagrams.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -49,4 +49,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"

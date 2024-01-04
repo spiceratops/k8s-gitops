@@ -2,18 +2,18 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: mealie-restic
+  name: wger-restic
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: mealie-restic-secret
+    name: wger-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/mealie"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/wger"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -24,27 +24,27 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mealie
+  name: wger
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: mealie-rdst
+    name: wger-rdst
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
   storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: mealie-rdst
+  name: wger-rdst
 spec:
   trigger:
     manual: restore-once
   restic:
-    repository: mealie-restic-secret
+    repository: wger-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
@@ -56,19 +56,19 @@ spec:
       runAsUser: 568
       runAsGroup: 568
       fsGroup: 568
-    capacity: 5Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+    capacity: 10Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: mealie-rsrc
+  name: wger-rsrc
 spec:
-  sourcePVC: mealie
+  sourcePVC: wger
   trigger:
     schedule: "15 */8 * * *"
   restic:
     pruneIntervalDays: 10
-    repository: mealie-restic-secret
+    repository: wger-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}

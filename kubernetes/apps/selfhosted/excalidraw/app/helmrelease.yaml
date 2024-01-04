@@ -55,7 +55,7 @@ spec:
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
           hajimari.io/icon: mdi:draw-pen
         hosts:
-          - host: &host draw.${PRIVATE_DOMAIN}
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -63,4 +63,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"

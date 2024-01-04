@@ -28,6 +28,8 @@ spec:
             image:
               repository: ghcr.io/gethomepage/homepage
               tag: v0.8.4
+            env:
+              TZ: ${TIMEZONE}
     serviceAccount:
       create: true
     service:
@@ -36,10 +38,6 @@ spec:
           http:
             port: 3000
     persistence:
-      data:
-        existingClaim: homepage-data
-        globalMounts:
-          - path: /app/public
       config:
         enabled: true
         type: configMap
@@ -62,7 +60,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host "homepage.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -70,4 +68,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"

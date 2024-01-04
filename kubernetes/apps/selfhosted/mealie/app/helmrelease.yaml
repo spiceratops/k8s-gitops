@@ -76,7 +76,7 @@ spec:
             port: 9000
     persistence:
       data:
-        existingClaim: mealie-config
+        existingClaim: "${VOLSYNC_CLAIM}"
         globalMounts:
           - path: /app/data
     ingress:
@@ -89,9 +89,8 @@ spec:
           hajimari.io/group: Selfhosted
           hajimari.io/icon: mdi:chef-hat
           hajimari.io/info: Meal Recipes
-          # external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
-          - host: &host "meals.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -99,4 +98,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"

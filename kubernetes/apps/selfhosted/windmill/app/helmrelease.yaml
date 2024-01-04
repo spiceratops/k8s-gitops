@@ -21,7 +21,7 @@ spec:
       annotations:
         secret.reloader.stakater.com/reload: &secret windmill-secret
     windmill:
-      baseDomain: &host windmill.${PRIVATE_DOMAIN}
+      baseDomain: "${HOSTNAME}"
       baseProtocol: https
       appReplicas: 1
       workerReplicas: 1
@@ -33,7 +33,7 @@ spec:
       className: internal
       tls:
         - hosts:
-            - *host
+            - "${HOSTNAME}"
     postgresql:
       enabled: false
   valuesFrom:

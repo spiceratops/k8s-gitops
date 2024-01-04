@@ -56,9 +56,8 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:bookmark
-          # external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
-          - host: &host "bookmarks.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -66,4 +65,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"

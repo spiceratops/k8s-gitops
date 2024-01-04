@@ -38,7 +38,7 @@ spec:
             port: 7745
     persistence:
       data:
-        existingClaim: homebox-config
+        existingClaim: "${VOLSYNC_CLAIM}"
         globalMounts:
           - path: /data
     ingress:
@@ -55,7 +55,7 @@ spec:
           gethomepage.dev/icon: homebox.png
           gethomepage.dev/name: Homebox
         hosts:
-          - host: &host "homebox.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -63,4 +63,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"

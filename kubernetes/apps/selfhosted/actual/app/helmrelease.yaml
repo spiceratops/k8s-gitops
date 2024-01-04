@@ -54,7 +54,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host "actual.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -62,10 +62,10 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       config:
         enabled: true
-        existingClaim: actual-config
+        existingClaim: "${VOLSYNC_CLAIM}"
         globalMounts:
           - path: /data
