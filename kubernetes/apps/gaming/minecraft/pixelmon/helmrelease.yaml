@@ -68,9 +68,9 @@ spec:
         - 36618 #Prom Exporter
       modrinth:
         projects:
-          - Ro92Bd6N
+          - 59ZceYlU
         optionalDependencies: false
-        allowedVersionType: release
+        allowedVersionType: beta
       rcon:
         enabled: true
         serviceType: ClusterIP
