@@ -50,10 +50,6 @@ spec:
         tls:
           - hosts:
               - "${HOSTNAME}"
-    persistence:
-      config:
-        enabled: true
-        existingClaim: "${VOLSYNC_CLAIM}"
     service:
       main:
         ports:
