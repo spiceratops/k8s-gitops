@@ -43,7 +43,6 @@ spec:
                   app.kubernetes.io/name: *app
     service:
       main:
-        ipFamilyPolicy: PreferDualStack
         ports:
           http:
             port: 80
