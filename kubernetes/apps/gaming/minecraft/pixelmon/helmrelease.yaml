@@ -69,7 +69,7 @@ spec:
       modrinth:
         projects:
           - pixelmon:9.2.6
-        optionalDependencies: false
+        optionalDependencies: true
         allowedVersionType: beta
       rcon:
         enabled: true
