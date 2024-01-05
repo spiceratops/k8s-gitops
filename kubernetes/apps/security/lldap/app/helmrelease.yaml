@@ -35,7 +35,7 @@ spec:
           main:
             image:
               repository: ghcr.io/lldap/lldap
-              tag: 2023-12-31-debian-rootless@sha256:080f583269069fad9a086e88f3cd0ee09bec2ed2213c0ffed4517b9bd8aa1ebf
+              tag: 2024-01-03-debian-rootless@sha256:9cca285958153225837dcff30a8d0a2d652c57dba6e3c8176d3a9355cf9a13f5
             env:
               TZ: ${TIMEZONE}
               LLDAP_HTTP_PORT: &httpPort 8080
