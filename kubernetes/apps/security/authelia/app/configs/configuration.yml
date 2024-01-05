@@ -42,7 +42,7 @@ access_control:
 
 authentication_backend:
   ldap:
-    address: ldap://lldap.security.svc.cluster.local:389
+    address: ldap://lldap.security.svc.cluster.local:3389
     implementation: custom
     timeout: 5s
     start_tls: false
