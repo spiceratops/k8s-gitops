@@ -27,10 +27,10 @@ spec:
               tag: ut2k4
             resources:
               requests:
-                cpu: 5m
-                memory: 128M
+                cpu: 20m
+                memory: 256M
               limits:
-                memory: 1024M
+                memory: 2048M
     service:
       main:
         ports:
