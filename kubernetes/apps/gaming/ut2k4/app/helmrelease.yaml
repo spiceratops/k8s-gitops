@@ -20,11 +20,20 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
               repository: ghcr.io/gameservermanagers/gameserver
               tag: ut2k4
+            envFrom:
+              - secretRef:
+                  name: ut2k4-secret
             resources:
               requests:
                 cpu: 20m
