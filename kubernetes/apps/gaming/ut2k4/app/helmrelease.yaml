@@ -30,6 +30,7 @@ spec:
           main:
             image:
               repository: ghcr.io/lacledeslan/gamesvr-ut2004-freeplay
+              tag: latest
             envFrom:
               - secretRef:
                   name: ut2k4-secret
