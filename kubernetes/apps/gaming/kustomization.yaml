@@ -6,4 +6,4 @@ resources:
   - ./_pvc/ks.yaml
   - ./romm/ks.yaml
   - ./minecraft/ks.yaml
-  # - ./ut2k4/ks.yaml
+  - ./ut2k4/ks.yaml

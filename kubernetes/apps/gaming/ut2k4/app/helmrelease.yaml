@@ -22,18 +22,19 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
-              repository: ghcr.io/gameservermanagers/gameserver
-              tag: ut2k4
+              repository: ghcr.io/lacledeslan/gamesvr-ut2004-freeplay
             envFrom:
               - secretRef:
                   name: ut2k4-secret
+            command:
+              - ./ucc-bin server DM-Rustatorium?game=XGame.xDeathMatch?AdminName=test123?AdminPassword=test123 -nohomedir -lanplay
             resources:
               requests:
                 cpu: 20m
@@ -62,7 +63,7 @@ spec:
       config:
         existingClaim: "${VOLSYNC_CLAIM}"
         globalMounts:
-          - path: /data
+          - path: /app
     ingress:
       main:
         enabled: true
