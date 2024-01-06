@@ -21,6 +21,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: itzg/rcon
+      tag: latest
     fullnameOverride: "minecraft-rcon"
     resources:
       requests:

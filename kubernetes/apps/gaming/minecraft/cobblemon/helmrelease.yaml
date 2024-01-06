@@ -58,13 +58,12 @@ spec:
       difficulty: normal
       spawnProtection: 0
       maxTickTime: -1
-      gameMode: survival
+      gameMode: creative
       pvp: false
       onlineMode: true
       whitelist: "Spiceratops"
       ops: "Spiceratops"
       motd: "Welcome to Spicecraft Cobblemon Server"
-      worldSaveName: Cobbled Farms
       viewDistance: 12
       spigetResources:
         - 36618 #Prom Exporter
