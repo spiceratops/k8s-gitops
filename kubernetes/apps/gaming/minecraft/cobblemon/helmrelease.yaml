@@ -50,7 +50,7 @@ spec:
       mc-router.itzg.me/externalServerName: "mc-cobblemon.${PRIVATE_DOMAIN}"
     minecraftServer:
       eula: true
-      version: 1.20.2
+      version: 1.20.1
       type: FABRIC
       forceReDownload: true
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
