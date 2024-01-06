@@ -39,6 +39,8 @@ spec:
     extraEnv:
       TZ: "${TIMEZONE}"
       ENABLE_AUTOPAUSE: FALSE
+      MODRINTH_DOWNLOAD_DEPENDENCIES: required
+      GENERIC_PACK: https://cdn.modrinth.com/data/5FFgwNNP/versions/ujx5DzTP/Server%20Files%20-%20Cobblemon%20Modpack%20%5BFabric%5D%201.4.1.zip
     persistence:
       dataDir:
         enabled: true
@@ -68,7 +70,6 @@ spec:
         - 36618 #Prom Exporter
       modrinth:
         projects:
-          - cobblemon:uWAkNUxZ
           - cobblemonextras:1.1.0
           - terralith:2.4.11
         optionalDependencies: true
