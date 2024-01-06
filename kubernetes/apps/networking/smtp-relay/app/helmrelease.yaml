@@ -75,6 +75,12 @@ spec:
             readOnly: true
     service:
       main:
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${SMTP_LB_IP}
+          external-dns.alpha.kubernetes.io/hostname: smtp.${PRIVATE_DOMAIN}
+        labels:
+          io.cilium/lb-ipam-layer2: "true"
         ports:
           http:
             port: *httpPort
