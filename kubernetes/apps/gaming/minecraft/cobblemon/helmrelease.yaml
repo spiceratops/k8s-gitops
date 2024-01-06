@@ -64,7 +64,7 @@ spec:
       whitelist: "Spiceratops"
       ops: "Spiceratops"
       motd: "Welcome to Spicecraft Cobblemon Server"
-      worldSaveName: SpicecraftCobblemon
+      worldSaveName: Cobbled Farms
       viewDistance: 12
       spigetResources:
         - 36618 #Prom Exporter
