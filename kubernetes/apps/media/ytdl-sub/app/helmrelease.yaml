@@ -17,13 +17,22 @@ spec:
         namespace: flux-system
 
   values:
+    global:
+      fullnameOverride: *app
     controllers:
       main:
+        annotations:
+          reloader.stakater.com/auto: "true"
         type: cronjob
         cronjob:
           schedule: "0 4 * * *"
           # schedule: "@daily" # enable for testing
+          concurrencyPolicy: Forbid
           ttlSecondsAfterFinished: 86400
+          startingDeadlineSeconds: 30
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+          backoffLimit: 6
         containers:
           main:
             image:
@@ -46,6 +55,7 @@ spec:
               limits:
                 memory: 2048Mi
         pod:
+          enableServiceLinks: false
           securityContext:
             runAsUser: 568
             runAsGroup: 568
