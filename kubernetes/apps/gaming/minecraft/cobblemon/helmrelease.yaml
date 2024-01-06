@@ -67,12 +67,12 @@ spec:
       viewDistance: 12
       spigetResources:
         - 36618 #Prom Exporter
-      modrinth:
-        projects:
-          # - cobblemonextras:1.1.0
-          # - terralith:2.4.11
-        optionalDependencies: true
-        allowedVersionType: release
+      # modrinth:
+      #   projects:
+      # - cobblemonextras:1.1.0
+      # - terralith:2.4.11
+      # optionalDependencies: true
+      # allowedVersionType: release
       serviceType: LoadBalancer
       rcon:
         enabled: true
