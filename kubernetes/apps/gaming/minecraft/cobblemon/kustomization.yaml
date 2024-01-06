@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: gaming
 resources:
   - ./volsync.yaml
-  - ./helmrelease.yaml
+  # - ./helmrelease.yaml
