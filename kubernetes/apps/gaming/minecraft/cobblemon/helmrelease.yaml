@@ -64,7 +64,7 @@ spec:
       whitelist: "Spiceratops"
       ops: "Spiceratops"
       motd: "Welcome to Spicecraft Cobblemon Server"
-      viewDistance: 12
+      viewDistance: 24
       spigetResources:
         - 36618 #Prom Exporter
       # modrinth:
