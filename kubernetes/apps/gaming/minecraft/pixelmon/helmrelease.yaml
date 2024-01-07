@@ -72,11 +72,9 @@ spec:
           - dynmap:E0uc64ti
         optionalDependencies: true
         allowedVersionType: beta
-      serviceType: LoadBalancer
       rcon:
         enabled: true
         serviceType: ClusterIP
-        clusterIP: ${MINECRAFT_PIXELMON_RCON_IP}
       extraPorts:
         - name: metrics
           containerPort: 9225

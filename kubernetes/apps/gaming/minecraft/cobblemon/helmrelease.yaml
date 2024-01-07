@@ -20,8 +20,8 @@ spec:
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
     image:
-      repository: ghcr.io/itzg/minecraft-server
-      tag: java17
+      repository: itzg/minecraft-server
+      tag: 2024.1.0-java17
     resources:
       requests:
         cpu: 500m
@@ -40,14 +40,14 @@ spec:
       TZ: "${TIMEZONE}"
       ENABLE_AUTOPAUSE: FALSE
       MODRINTH_DOWNLOAD_DEPENDENCIES: required
-      GENERIC_PACK: https://cdn.modrinth.com/data/5FFgwNNP/versions/ujx5DzTP/Server%20Files%20-%20Cobblemon%20Modpack%20%5BFabric%5D%201.4.1.zip
+      MODRINTH_MODPACK: https://modrinth.com/modpack/cobblemon-fabric/version/1.4.1
     persistence:
       dataDir:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
     serviceAnnotations:
       io.cilium/lb-ipam-ips: "${MINECRAFT_COBBLEMON_LB_IP}"
-      mc-router.itzg.me/externalServerName: "mc-cobblemon.${PRIVATE_DOMAIN}"
+      mc-router.itzg.me/externalServerName: "minecraft-cobblemon.${PRIVATE_DOMAIN}"
     minecraftServer:
       eula: true
       version: 1.20.1
@@ -67,17 +67,15 @@ spec:
       viewDistance: 24
       spigetResources:
         - 36618 #Prom Exporter
-      # modrinth:
-      #   projects:
-      # - cobblemonextras:1.1.0
-      # - terralith:2.4.11
-      # optionalDependencies: true
-      # allowedVersionType: release
-      serviceType: LoadBalancer
+      modrinth:
+        projects:
+          - terralith:2.4.11
+          - dynmap:E0uc64ti
+      optionalDependencies: true
+      allowedVersionType: release
       rcon:
         enabled: true
         serviceType: ClusterIP
-        clusterIP: ${MINECRAFT_COBBLEMON_RCON_IP}
       extraPorts:
         - name: metrics
           containerPort: 9225
@@ -89,24 +87,24 @@ spec:
             port: 9225
           ingress:
             enabled: false
-        # - name: map
-        #   containerPort: 8123
-        #   protocol: TCP
-        #   service:
-        #     enabled: true
-        #     embedded: false
-        #     type: ClusterIP
-        #     port: 8123
-        #   ingress:
-        #     className: external
-        #     enabled: true
-        #     hosts:
-        #       - name: ${HOSTNAME}
-        #         path: /
-        #     tls:
-        #       - secretName: ${HOSTNAME}
-        #         hosts:
-        #           - ${HOSTNAME}
+        - name: map
+          containerPort: 8123
+          protocol: TCP
+          service:
+            enabled: true
+            embedded: false
+            type: ClusterIP
+            port: 8123
+          ingress:
+            className: external
+            enabled: true
+            hosts:
+              - name: ${HOSTNAME}
+                path: /
+            tls:
+              - secretName: ${HOSTNAME}
+                hosts:
+                  - ${HOSTNAME}
 
   valuesFrom:
     - kind: Secret

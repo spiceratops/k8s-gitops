@@ -40,7 +40,7 @@ spec:
         existingClaim: "${VOLSYNC_CLAIM}"
     serviceAnnotations:
       io.cilium/lb-ipam-ips: "${MINECRAFT_BEDROCK_LB_IP}"
-      mc-router.itzg.me/externalServerName: "mc-bedrock.${PRIVATE_DOMAIN}"
+      mc-router.itzg.me/externalServerName: "minecraft-bedrock.${PRIVATE_DOMAIN}"
     minecraftServer:
       eula: true
       version: "LATEST"
@@ -48,7 +48,7 @@ spec:
       gameMode: creative
       whitelist: "Spiceratops"
       ops: "Spiceratops"
-      motd: "Spicecraft - Creative Server"
+      motd: "Spicecraft - Bedrock Creative Server"
       worldSaveName: SpicecraftCreative
       viewDistance: 12
       serviceType: LoadBalancer

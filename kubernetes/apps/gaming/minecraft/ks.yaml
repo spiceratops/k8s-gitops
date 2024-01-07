@@ -24,7 +24,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: mc-bedrock.${PRIVATE_DOMAIN}
+      HOSTNAME: minecraft-bedrock.${PRIVATE_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
       VOLSYNC_CLAIM: *appname
@@ -54,7 +54,7 @@ spec:
 #   postBuild:
 #     substitute:
 #       APP: *appname2
-#       HOSTNAME: mc-pixelmon.${PRIVATE_DOMAIN}
+#       HOSTNAME: minecraft-pixelmon.${PRIVATE_DOMAIN}
 #       APP_UID: "568"
 #       APP_GID: "568"
 #       VOLSYNC_CLAIM: *appname2
@@ -83,7 +83,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname3
-      HOSTNAME: mc-rcon.${PRIVATE_DOMAIN}
+      HOSTNAME: minecraft-rcon.${PRIVATE_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
       VOLSYNC_CLAIM: *appname3
@@ -113,7 +113,67 @@ spec:
   postBuild:
     substitute:
       APP: *appname4
-      HOSTNAME: mc-cobblemon.${PRIVATE_DOMAIN}
+      HOSTNAME: minecraft-cobblemon.${PRIVATE_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
       VOLSYNC_CLAIM: *appname4
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname5 minecraft-proxy
+  namespace: flux-system
+spec:
+  targetNamespace: gaming
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname5
+  dependsOn:
+    - name: cluster-apps-volsync
+    - name: cluster-apps-rook-ceph-cluster
+  path: ./kubernetes/apps/gaming/minecraft/proxy
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  postBuild:
+    substitute:
+      APP: *appname5
+      HOSTNAME: minecraft.${PRIVATE_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"
+      VOLSYNC_CLAIM: *appname5
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname6 minecraft-lobby
+  namespace: flux-system
+spec:
+  targetNamespace: gaming
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname6
+  dependsOn:
+    - name: cluster-apps-volsync
+    - name: cluster-apps-rook-ceph-cluster
+  path: ./kubernetes/apps/gaming/minecraft/lobby
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  postBuild:
+    substitute:
+      APP: *appname6
+      HOSTNAME: minecraft-lobby.${PRIVATE_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"
+      VOLSYNC_CLAIM: *appname6

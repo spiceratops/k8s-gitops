@@ -31,8 +31,7 @@ spec:
     extraEnv:
       TZ: "${TIMEZONE}"
     serviceAnnotations:
-      io.cilium/lb-ipam-ips: "${MINECRAFT_RCON_LB_IP}"
-      mc-router.itzg.me/externalServerName: "mc-rcon.${PRIVATE_DOMAIN}"
+      mc-router.itzg.me/externalServerName: "minecraft-rcon.${PRIVATE_DOMAIN}"
     service:
       httpPort: 8080
     ingress:
@@ -49,6 +48,6 @@ spec:
       isAdmin: true
       passwordExistingSecret: minecraft-secret
       passwordKey: MINECRAFT_RCON_WEB_PASSWORD
-      serverName: "Spicecraft - Pixelmon"
-      rconHost: ${MINECRAFT_PIXELMON_RCON_IP}
+      serverName: "Spicecraft - Cobblemon"
+      rconHost: minecraft-cobblemon-minecraft
       rconPasswordExistingSecret: minecraft-secret
