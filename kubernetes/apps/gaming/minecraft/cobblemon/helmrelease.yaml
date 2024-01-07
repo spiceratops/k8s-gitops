@@ -46,7 +46,6 @@ spec:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
     serviceAnnotations:
-      io.cilium/lb-ipam-ips: "${MINECRAFT_COBBLEMON_LB_IP}"
       mc-router.itzg.me/externalServerName: "minecraft-cobblemon.${PRIVATE_DOMAIN}"
     minecraftServer:
       eula: true
