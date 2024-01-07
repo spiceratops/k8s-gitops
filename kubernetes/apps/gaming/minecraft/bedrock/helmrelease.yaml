@@ -39,7 +39,7 @@ spec:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
     serviceAnnotations:
-      io.cilium/lb-ipam-ips: "${MINECRAFT_BEDROCK_LB_IP}"
+      # io.cilium/lb-ipam-ips: "${MINECRAFT_BEDROCK_LB_IP}"
       mc-router.itzg.me/externalServerName: "minecraft-bedrock.${PRIVATE_DOMAIN}"
     minecraftServer:
       eula: true
@@ -51,5 +51,5 @@ spec:
       motd: "Spicecraft - Bedrock Creative Server"
       worldSaveName: SpicecraftCreative
       viewDistance: 12
-      serviceType: LoadBalancer
+      # serviceType: LoadBalancer
       enableLanVisibility: true
