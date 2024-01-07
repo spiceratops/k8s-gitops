@@ -44,7 +44,6 @@ spec:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
     serviceAnnotations:
-      mc-router.itzg.me/externalServerName: "minecraft-lobby.${PRIVATE_DOMAIN}"
       mc-router.itzg.me/defaultServer: "true"
     minecraftServer:
       spigetResources:

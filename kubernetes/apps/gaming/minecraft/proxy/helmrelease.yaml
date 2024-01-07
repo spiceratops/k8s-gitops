@@ -46,64 +46,13 @@ spec:
     serviceAnnotations:
       io.cilium/lb-ipam-ips: "${MINECRAFT_LB_IP}"
     minecraftProxy:
-      type: WATERFALL
+      type: VELOCITY
       # A list of .jar URLs to download into the plugins folder.
-      # plugins: []
+      plugins:
+        - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/velocity
+        - https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/velocity
+      velocityVersion: 3.3.0-SNAPSHOT
       serviceType: LoadBalancer
       loadBalancerIP: ${MINECRAFT_LB_IP}
       externalTrafficPolicy: Local
-      # externalIPs:
-      # This can be set to the contents of your config file (only works with yaml currently)
-      config: |
-        player_limit: -1
-        ip_forward: true
-        permissions:
-          default:
-          - bungeecord.command.server
-          - bungeecord.command.list
-          - alert.trigger
-          - slashserver.lobby
-          admin:
-          - bungeecord.command.alert
-          - bungeecord.command.end
-          - bungeecord.command.ip
-          - bungeecord.command.reload
-          - alert.receive
-          - alert.receive.firstjoin
-          - alert.command.toggle
-          - alert.command.reload
-          family:
-          - bungeecord.server.cobblemon
-        timeout: 30000
-        log_pings: true
-        log_commands: false
-        online_mode: true
-        servers:
-          lobby:
-            motd: 'Lobby'
-            address: minecraft-lobby-minecraft:25565
-            restricted: false
-          cobblemon:
-            motd: 'Cobblemon'
-            address: minecraft-cobblemon-minecraft:25565
-            restricted: false
-          pixelmon:
-            motd: 'Pixelmon'
-            address: minecraft-pixelmon-minecraft:25565
-            restricted: false
-        listeners:
-        - query_port: 25577
-          motd: 'Lobby'
-          priorities:
-          - lobby
-          bind_local_address: true
-          tab_list: GLOBAL_PING
-          query_enabled: true
-          host: 0.0.0.0:25577
-        ping_passthrough: true
-        groups:
-          Spiceratops:
-          - admin
-          - family
-          Binggak:
-          - family
+## Todo - configmaps and mounts for velocity, geyser and floodgate

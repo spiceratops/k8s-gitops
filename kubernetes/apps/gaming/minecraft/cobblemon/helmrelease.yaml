@@ -70,6 +70,8 @@ spec:
         projects:
           - terralith:2.4.11
           - dynmap:E0uc64ti
+          - fabricproxy-lite:2.6.0
+          - floodgate:2.2.0-SNAPSHOT-17
       optionalDependencies: true
       allowedVersionType: release
       rcon:
