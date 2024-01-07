@@ -138,3 +138,4 @@ customDNS:
     opnsense.${PRIVATE_DOMAIN}: 192.168.1.1
     leantime.${PRIVATE_DOMAIN}: 192.168.1.220
     dnd.${PRIVATE_DOMAIN}: 192.168.1.220
+    minecraft.${PRIVATE_DOMAIN}: 192.168.15.26
