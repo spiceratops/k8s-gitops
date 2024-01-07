@@ -25,7 +25,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: sabnzbd.${PRIVATE_DOMAIN}
+      HOSTNAME: sab.${PRIVATE_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
       VOLSYNC_CLAIM: *appname
