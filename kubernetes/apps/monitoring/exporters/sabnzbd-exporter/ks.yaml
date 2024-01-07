@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-sabnzbd
+    - name: sabnzbd
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/monitoring/exporters/sabnzbd-exporter/app
   prune: true

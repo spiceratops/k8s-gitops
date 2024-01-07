@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-prowlarr
+    - name: prowlarr
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/monitoring/exporters/prowlarr-exporter/app
   prune: true

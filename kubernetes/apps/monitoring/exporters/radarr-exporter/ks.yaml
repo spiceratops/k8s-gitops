@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-radarr
+    - name: radarr
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/monitoring/exporters/radarr-exporter/app
   prune: true
