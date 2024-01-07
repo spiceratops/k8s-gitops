@@ -49,7 +49,6 @@ spec:
       spigetResources:
         - 28140
         - 6245
-        - 14754
         - 102931
       modUrls:
         - https://github.com/EssentialsX/Essentials/releases/download/2.20.1/EssentialsX-2.20.1.jar
