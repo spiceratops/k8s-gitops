@@ -51,4 +51,4 @@ spec:
       passwordKey: MINECRAFT_RCON_WEB_PASSWORD
       serverName: "Spicecraft - Pixelmon"
       rconHost: ${MINECRAFT_PIXELMON_RCON_IP}
-      rconPasswordExistingSecret: MINECRAFT_RCON_PASSWORD
+      rconPasswordExistingSecret: minecraft-secret
