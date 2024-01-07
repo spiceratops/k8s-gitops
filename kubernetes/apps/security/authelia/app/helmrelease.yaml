@@ -47,10 +47,10 @@ spec:
             envFrom: *envFrom
             resources:
               requests:
-                cpu: 5m
+                cpu: 10m
                 memory: 64M
               limits:
-                memory: 128M
+                memory: 256M
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
