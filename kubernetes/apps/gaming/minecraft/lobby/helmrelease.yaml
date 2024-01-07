@@ -63,7 +63,7 @@ spec:
       serviceType: ClusterIP
       gameMode: adventure
       worldSaveName: "Spicecraft Lobby"
-      motd: "\u00a7feviljungle\u00a7 - \u00a7a\u00a7llobby\u00a7"
+      motd: "Lobby"
       icon: https://www.freeiconspng.com/uploads/minecraft-server-icon-13.png
       rcon:
         enabled: false
