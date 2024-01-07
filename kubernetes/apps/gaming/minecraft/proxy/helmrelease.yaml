@@ -45,7 +45,6 @@ spec:
         existingClaim: "${VOLSYNC_CLAIM}"
     serviceAnnotations:
       io.cilium/lb-ipam-ips: "${MINECRAFT_LB_IP}"
-      mc-router.itzg.me/externalServerName: "minecraft.${PRIVATE_DOMAIN}"
     minecraftProxy:
       type: WATERFALL
       # A list of .jar URLs to download into the plugins folder.
@@ -88,7 +87,7 @@ spec:
             motd: 'Cobblemon'
             address: minecraft-cobblemon-minecraft:25565
             restricted: false
-          survival2:
+          pixelmon:
             motd: 'Pixelmon'
             address: minecraft-pixelmon-minecraft:25565
             restricted: false
