@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app wger
+  name: wger
   namespace: selfhosted
 spec:
   interval: 30m
@@ -36,13 +36,17 @@ spec:
           main:
             image:
               repository: docker.io/wger/server
-              tag: 2.3-dev
+              tag: 2.2
             envFrom: *envFrom
             env:
               EMAIL_HOST: smtp-relay.networking.svc.cluster.local
               EMAIL_PORT: 2525
               FROM_EMAIL: wger@${PRIVATE_DOMAIN}
               SITE_URL: gym.${PRIVATE_DOMAIN}
+              SYNC_EXERCISES_ON_STARTUP: True
+              DOWNLOAD_EXERCISE_IMAGES_ON_STARTUP: True
+              MEDIA_URL: https://gym.${PRIVATE_DOMAIN}/media/
+              STATIC_URL: https://gym.${PRIVATE_DOMAIN}/static/
             resources:
               requests:
                 cpu: 10m
