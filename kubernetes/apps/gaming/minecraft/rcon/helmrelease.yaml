@@ -19,7 +19,6 @@ spec:
   values:
     podAnnotations:
       reloader.stakater.com/auto: "true"
-    fullnameOverride: "minecraft-rcon"
     resources:
       requests:
         cpu: 50m
