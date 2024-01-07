@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app cyberchef
+  name: cyberchef
   namespace: dev
 spec:
   interval: 30m
@@ -40,11 +40,11 @@ spec:
           hajimari.io/icon: hammer-wrench
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
-          - host: &host cyberchef.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
                   name: main
                   port: http
         tls:
-          - hosts: *host
+          - hosts: "${HOSTNAME}"
