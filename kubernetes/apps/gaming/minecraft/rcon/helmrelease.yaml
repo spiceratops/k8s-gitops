@@ -50,3 +50,4 @@ spec:
       serverName: "Spicecraft - Cobblemon"
       rconHost: minecraft-cobblemon-minecraft
       rconPasswordExistingSecret: minecraft-secret
+      rconPasswordKey: MINECRAFT_RCON_PASSWORD
