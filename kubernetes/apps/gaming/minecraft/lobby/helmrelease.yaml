@@ -9,7 +9,7 @@ spec:
   timeout: 15m
   chart:
     spec:
-      chart: minecraft-lobby
+      chart: minecraft
       version: 4.14.0
       sourceRef:
         kind: HelmRepository
