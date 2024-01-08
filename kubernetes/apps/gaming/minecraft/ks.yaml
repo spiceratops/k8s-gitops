@@ -87,36 +87,36 @@ spec:
       APP_UID: "568"
       APP_GID: "568"
       VOLSYNC_CLAIM: *appname3
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &appname4 minecraft-cobblemon
-  namespace: flux-system
-spec:
-  targetNamespace: gaming
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname4
-  dependsOn:
-    - name: cluster-apps-volsync
-    - name: cluster-apps-rook-ceph-cluster
-  path: ./kubernetes/apps/gaming/minecraft/cobblemon
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: k8s-gitops
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
-  postBuild:
-    substitute:
-      APP: *appname4
-      HOSTNAME: minecraft-cobblemon.${PRIVATE_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "568"
-      VOLSYNC_CLAIM: *appname4
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: &appname4 minecraft-cobblemon
+#   namespace: flux-system
+# spec:
+#   targetNamespace: gaming
+#   commonMetadata:
+#     labels:
+#       app.kubernetes.io/name: *appname4
+#   dependsOn:
+#     - name: cluster-apps-volsync
+#     - name: cluster-apps-rook-ceph-cluster
+#   path: ./kubernetes/apps/gaming/minecraft/cobblemon
+#   prune: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: k8s-gitops
+#   wait: true
+#   interval: 30m
+#   retryInterval: 1m
+#   timeout: 5m
+#   postBuild:
+#     substitute:
+#       APP: *appname4
+#       HOSTNAME: minecraft-cobblemon.${PRIVATE_DOMAIN}
+#       APP_UID: "568"
+#       APP_GID: "568"
+#       VOLSYNC_CLAIM: *appname4
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
