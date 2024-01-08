@@ -40,7 +40,7 @@ spec:
       TZ: "${TIMEZONE}"
       ENABLE_AUTOPAUSE: FALSE
       MODRINTH_DOWNLOAD_DEPENDENCIES: required
-      MODRINTH_MODPACK: https://modrinth.com/modpack/cobblemon-fabric/version/1.4.1
+      # MODRINTH_MODPACK: https://modrinth.com/modpack/cobblemon-fabric/version/1.4.1
     persistence:
       dataDir:
         enabled: true
@@ -70,6 +70,7 @@ spec:
         projects:
           - terralith:2.4.11
           - dynmap:E0uc64ti
+          - cobblemon-fabric:1.4.1
           # - fabricproxy-lite:2.6.0
           # - floodgate:2.2.0-SNAPSHOT-17
       optionalDependencies: true
