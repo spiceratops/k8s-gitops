@@ -57,7 +57,7 @@ spec:
       maxTickTime: -1
       gameMode: creative
       pvp: false
-      onlineMode: true
+      onlineMode: false
       whitelist: "Spiceratops"
       ops: "Spiceratops"
       motd: "Welcome to Spicecraft Cobblemon Server"
