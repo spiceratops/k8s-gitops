@@ -48,11 +48,17 @@ spec:
     minecraftProxy:
       type: VELOCITY
       # A list of .jar URLs to download into the plugins folder.
-      plugins:
-        - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/velocity
-        - https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/velocity
+      # plugins:
+      #   - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/velocity
+      #   - https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/velocity
       velocityVersion: 3.3.0-SNAPSHOT
       serviceType: LoadBalancer
       loadBalancerIP: ${MINECRAFT_LB_IP}
       externalTrafficPolicy: Local
-## Todo - configmaps and mounts for velocity, geyser and floodgate
+      config:
+        type: configMap
+        name: minecraft-proxy-configmap
+        globalMounts:
+          - path: /server/velocity.toml
+            subPath: velocity.toml
+            readOnly: true
