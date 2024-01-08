@@ -39,8 +39,6 @@ spec:
     extraEnv:
       TZ: "${TIMEZONE}"
       ENABLE_AUTOPAUSE: FALSE
-      MODRINTH_DOWNLOAD_DEPENDENCIES: required
-      GENERIC_MODPACK: https://cdn.modrinth.com/data/MdwFAVRL/versions/uWAkNUxZ/Cobblemon-fabric-1.4.1%2B1.20.1.jar
     persistence:
       dataDir:
         enabled: true
@@ -66,6 +64,8 @@ spec:
       viewDistance: 24
       spigetResources:
         - 36618 #Prom Exporter
+      modUrls:
+        - "https://cdn.modrinth.com/data/MdwFAVRL/versions/uWAkNUxZ/Cobblemon-fabric-1.4.1%2B1.20.1.jar"
       modrinth:
         projects:
           - terralith:2.4.11
