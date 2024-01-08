@@ -55,10 +55,10 @@ spec:
       serviceType: LoadBalancer
       loadBalancerIP: ${MINECRAFT_LB_IP}
       externalTrafficPolicy: Local
-      config:
-        type: configMap
-        name: minecraft-proxy-configmap
-        globalMounts:
-          - path: /server/velocity.toml
-            subPath: velocity.toml
-            readOnly: true
+      # config:
+      #   type: configMap
+      #   name: minecraft-proxy-configmap
+      #   globalMounts:
+      #     - path: /server/velocity.toml
+      #       subPath: velocity.toml
+      #       readOnly: true
