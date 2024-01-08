@@ -38,7 +38,6 @@ spec:
       enabled: false
     extraEnv:
       TZ: "${TIMEZONE}"
-      SPIGET_PLUGINS: "78915,75"
     persistence:
       dataDir:
         enabled: true
