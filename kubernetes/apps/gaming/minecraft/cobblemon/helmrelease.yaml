@@ -40,7 +40,7 @@ spec:
       TZ: "${TIMEZONE}"
       ENABLE_AUTOPAUSE: FALSE
       MODRINTH_DOWNLOAD_DEPENDENCIES: required
-      GENERIC_MODPACK: https://modrinth.com/modpack/cobblemon-fabric/version/1.4.1
+      GENERIC_MODPACK: https://cdn.modrinth.com/data/MdwFAVRL/versions/uWAkNUxZ/Cobblemon-fabric-1.4.1%2B1.20.1.jar
     persistence:
       dataDir:
         enabled: true
