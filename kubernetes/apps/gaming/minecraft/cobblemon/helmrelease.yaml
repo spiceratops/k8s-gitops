@@ -43,7 +43,8 @@ spec:
       dataDir:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
-    # serviceAnnotations:
+    serviceAnnotations:
+      io.cilium/lb-ipam-ips: "${MINECRAFT_COBBLEMON_LB_IP}"
     #   mc-router.itzg.me/externalServerName: "minecraft-cobblemon.${PRIVATE_DOMAIN}"
     minecraftServer:
       eula: true
@@ -74,6 +75,8 @@ spec:
           # - floodgate:2.2.0-SNAPSHOT-17
       optionalDependencies: true
       allowedVersionType: release
+      serviceType: LoadBalancer
+      loadBalancerIP: ${MINECRAFT_COBBLEMON_LB_IP}
       rcon:
         enabled: true
         serviceType: ClusterIP

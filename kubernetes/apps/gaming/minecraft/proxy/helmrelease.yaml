@@ -53,7 +53,6 @@ spec:
       velocityVersion: 3.3.0-SNAPSHOT
       serviceType: LoadBalancer
       loadBalancerIP: ${MINECRAFT_LB_IP}
-      externalTrafficPolicy: Local
       # config:
       #   type: configMap
       #   name: minecraft-proxy-configmap
