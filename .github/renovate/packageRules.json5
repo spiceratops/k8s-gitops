@@ -8,8 +8,18 @@
       ],
       "versioning": "loose",
       "matchPackagePatterns": [
-        "lldap",
+        "plex",
         "qbittorrent"
+      ]
+    },
+    {
+      "description": "Custom versioning for miniflux",
+      "matchDatasources": [
+        "docker"
+      ],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>)$",
+      "matchPackagePatterns": [
+        "miniflux"
       ]
     }
   ]

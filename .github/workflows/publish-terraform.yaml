@@ -61,4 +61,4 @@
 
         - name: Tag OCI Artifact
           shell: bash
-          run: flux tag artifact oci://${{ steps.generate-tag.outputs.tag }} --tag main
+          run: flux tag artifact oci://${{ steps.generate-tag.outputs.tag }} --tag master
