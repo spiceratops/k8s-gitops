@@ -29,8 +29,8 @@ spec:
       fsGroup: "${APP_GID}"
     extraEnv:
       TZ: "${TIMEZONE}"
-    serviceAnnotations:
-      mc-router.itzg.me/externalServerName: "minecraft-rcon.${PRIVATE_DOMAIN}"
+    # serviceAnnotations:
+    #   mc-router.itzg.me/externalServerName: "minecraft-rcon.${PRIVATE_DOMAIN}"
     service:
       httpPort: 8080
     ingress:
@@ -48,6 +48,6 @@ spec:
       passwordExistingSecret: minecraft-secret
       passwordKey: MINECRAFT_RCON_WEB_PASSWORD
       serverName: "Spicecraft - Cobblemon"
-      rconHost: minecraft-cobblemon-minecraft
+      rconHost: minecraft-cobblemon-minecraft-rcon
       rconPasswordExistingSecret: minecraft-secret
       rconPasswordKey: MINECRAFT_RCON_PASSWORD
