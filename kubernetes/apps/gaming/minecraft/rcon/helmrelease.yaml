@@ -48,6 +48,6 @@ spec:
       passwordExistingSecret: minecraft-secret
       passwordKey: MINECRAFT_RCON_WEB_PASSWORD
       serverName: "Spicecraft - Cobblemon"
-      rconHost: minecraft-cobblemon-minecraft-rcon
+      rconHost: "${MINECRAFT_COBBLEMON_RCON_IP}"
       rconPasswordExistingSecret: minecraft-secret
       rconPasswordKey: MINECRAFT_RCON_PASSWORD
