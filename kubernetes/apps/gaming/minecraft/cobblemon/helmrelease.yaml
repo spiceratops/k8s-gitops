@@ -53,18 +53,18 @@ spec:
       forceReDownload: true
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
       memory: 8192M
-      difficulty: normal
-      spawnProtection: 0
-      maxTickTime: -1
-      gameMode: creative
-      pvp: false
+      # difficulty: normal
+      # spawnProtection: 0
+      # maxTickTime: -1
+      # gameMode: creative
+      # pvp: false
       onlineMode: false
-      whitelist: "Spiceratops"
+      # whitelist: "Spiceratops"
       ops: "Spiceratops"
       motd: "Welcome to Spicecraft Cobblemon Server"
-      viewDistance: 24
-      spigetResources:
-        - 36618 #Prom Exporter
+      # viewDistance: 24
+      # spigetResources:
+      #   - 36618 #Prom Exporter
       modUrls:
         - "https://cdn.modrinth.com/data/MdwFAVRL/versions/uWAkNUxZ/Cobblemon-fabric-1.4.1%2B1.20.1.jar"
       modrinth:
