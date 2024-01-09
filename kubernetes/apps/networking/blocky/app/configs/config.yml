@@ -140,3 +140,4 @@ customDNS:
     dnd.${PRIVATE_DOMAIN}: 192.168.1.220
     minecraft-lobby.${PRIVATE_DOMAIN}: 192.168.15.206
     minecraft-cobblemon.${PRIVATE_DOMAIN}: 192.168.15.206
+    gameservers.${PRIVATE_DOMAIN}: 192.168.1.100
