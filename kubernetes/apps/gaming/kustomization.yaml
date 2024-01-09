@@ -5,5 +5,5 @@ resources:
   - ./namespace.yaml
   - ./_pvc/ks.yaml
   - ./romm/ks.yaml
-  - ./minecraft/ks.yaml
+  # - ./minecraft/ks.yaml
   # - ./ut2k4/ks.yaml
