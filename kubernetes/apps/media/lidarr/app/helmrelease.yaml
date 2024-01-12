@@ -48,9 +48,15 @@ spec:
       config:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
+        globalMounts:
+          - path: /config
+            subPath: config
       config-deemix:
         enabled: true
         existingClaim: deemix
+        globalMounts:
+          - path: /config_deemix
+            subPath: config_deemix
       media:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}
