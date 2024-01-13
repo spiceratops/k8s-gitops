@@ -23,6 +23,9 @@ spec:
         type: statefulset
         statefulset:
           volumeClaimTemplates:
+            - existingClaim: "${VOLSYNC_CLAIM}"
+              globalMounts:
+                - path: /app/var/
             - name: pterodactyl-nginx
               accessMode: ReadWriteOnce
               size: 500Mi
@@ -81,11 +84,11 @@ spec:
         ports:
           http:
             port: 80
-    persistence:
-      config:
-        existingClaim: "${VOLSYNC_CLAIM}"
-        globalMounts:
-          - path: /app/var/
+    # persistence:
+    #   config:
+    #     existingClaim: "${VOLSYNC_CLAIM}"
+    #     globalMounts:
+    #       - path: /app/var/
     ingress:
       main:
         enabled: true
