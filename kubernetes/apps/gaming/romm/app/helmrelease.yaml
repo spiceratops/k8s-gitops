@@ -9,56 +9,54 @@ spec:
   timeout: 15m
   chart:
     spec:
-      chart: app-template
-      version: 2.4.0
+      chart: romm
+      version: 0.2.19
       sourceRef:
         kind: HelmRepository
-        name: bjw-s-charts
+        name: crystalnet-charts
         namespace: flux-system
 
   values:
-    controllers:
-      main:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        containers:
-          main:
-            image:
-              repository: ghcr.io/zurdi15/romm
-              tag: 2.3.1
-            env:
-              TZ: ${TIMEZONE}
-              ROMM_AUTH_ENABLED: true
-            envFrom:
-              - secretRef:
-                  name: romm-secret
-            resources:
-              requests:
-                cpu: 10m
-                memory: 256M
-              limits:
-                memory: 1024M
+    annotations:
+      reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/zurdi15/romm
+      tag: 2.3.1
+    podSecurityContext:
+      fsGroup: ${APP_GID}
+      runAsNonRoot: true
+      runAsUser: ${APP_UID}
+      runAsGroup: ${APP_GID}
+      fsGroupChangePolicy: "OnRootMismatch"
+
+    env:
+      TZ: ${TIMEZONE}
+      ROMM_AUTH_ENABLED: true
+    envFrom:
+      - secretRef:
+          name: romm-secret
+    resources:
+      requests:
+        cpu: 10m
+        memory: 256M
+      limits:
+        memory: 1024M
     service:
-      main:
-        ports:
-          http:
-            port: 8080
+      ports:
+        http:
+          port: 8080
     ingress:
-      main:
-        enabled: true
-        className: internal
-        annotations:
-          hajimari.io/icon: mdi:controller-classic
-        hosts:
-          - host: "${HOSTNAME}"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - hosts:
-              - "${HOSTNAME}"
+      enabled: true
+      className: internal
+      annotations:
+        hajimari.io/icon: mdi:controller-classic
+      hosts:
+        - host: "${HOSTNAME}"
+          paths:
+            - path: /
+      tls:
+        - hosts:
+            - "${HOSTNAME}"
     persistence:
       config:
         enabled: false

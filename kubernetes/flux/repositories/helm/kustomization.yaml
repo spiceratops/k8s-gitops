@@ -35,3 +35,4 @@ resources:
   - ./k8tz-charts.yaml
   - ./jacobcolvin-charts.yaml
   - ./itzg-charts.yaml
+  - ./crystalnet-charts.yaml
