@@ -67,6 +67,50 @@ spec:
       resources:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
+    romm:
+      config:
+        auth:
+          enabled: true
+        filesystem_watcher:
+          enabled: true
+          scan_delay: 5
+        scheduled_tasks:
+          filesystem_scan:
+            enabled: true
+            cron: 0 3 * * *
+          switch_titledb_update:
+            enabled: true
+            cron: 0 4 * * *
+          mame_xml_update:
+            enabled: true
+            cron: 0 5 * * *
+        database:
+          type: mariadb
+          mariadb:
+            host: mariadb.databases.svc.cluster.local
+            port: 3306
+      settings:
+        exclude:
+          platforms:
+            - "romm"
+          roms:
+            single_file:
+              names:
+                - "info.txt"
+              extensions:
+                - "xml"
+    mediaVolume:
+      enabled: true
+      name: library
+      readOnly: false
+      volumeSpec:
+        accessModes:
+          - ReadWriteMany
+        capacity:
+          storage: 1Gi
+        nfs:
+          path: /mnt/data/media-data/games/roms
+          server: nas.${PRIVATE_DOMAIN}
   valuesFrom:
     - kind: Secret
       name: romm-secret
@@ -96,47 +140,3 @@ spec:
       name: romm-secret
       valuesKey: STEAMGRIDDB_API
       targetPath: romm.config.steamgriddb_api.api_key
-  romm:
-    config:
-      auth:
-        enabled: true
-      filesystem_watcher:
-        enabled: true
-        scan_delay: 5
-      scheduled_tasks:
-        filesystem_scan:
-          enabled: true
-          cron: 0 3 * * *
-        switch_titledb_update:
-          enabled: true
-          cron: 0 4 * * *
-        mame_xml_update:
-          enabled: true
-          cron: 0 5 * * *
-      database:
-        type: mariadb
-        mariadb:
-          host: mariadb.databases.svc.cluster.local
-          port: 3306
-    settings:
-      exclude:
-        platforms:
-          - "romm"
-        roms:
-          single_file:
-            names:
-              - "info.txt"
-            extensions:
-              - "xml"
-  mediaVolume:
-    enabled: true
-    name: library
-    readOnly: false
-    volumeSpec:
-      accessModes:
-        - ReadWriteMany
-      capacity:
-        storage: 1Gi
-      nfs:
-        path: /mnt/data/media-data/games/roms
-        server: nas.${PRIVATE_DOMAIN}
