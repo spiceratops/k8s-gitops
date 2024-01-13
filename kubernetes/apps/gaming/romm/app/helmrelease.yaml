@@ -28,13 +28,15 @@ spec:
       runAsUser: ${APP_UID}
       runAsGroup: ${APP_GID}
       fsGroupChangePolicy: "OnRootMismatch"
-
     env:
       TZ: ${TIMEZONE}
-      ROMM_AUTH_ENABLED: true
     envFrom:
       - secretRef:
           name: romm-secret
+    mariadb:
+      enabled: false
+    redis:
+      enabled: false
     resources:
       requests:
         cpu: 10m
@@ -57,12 +59,76 @@ spec:
       tls:
         - hosts:
             - "${HOSTNAME}"
-    persistence:
-      config:
-        enabled: false
-      games:
-        type: nfs
+  valuesFrom:
+    - kind: Secret
+      name: romm-secret
+      valuesKey: ROMM_AUTH_USERNAME
+      targetPath: romm.config.auth.username
+    - kind: Secret
+      name: romm-secret
+      valuesKey: ROMM_AUTH_PASSWORD
+      targetPath: romm.config.auth.password
+    - kind: Secret
+      name: romm-secret
+      valuesKey: ROMM_MARIADB_USERNAME
+      targetPath: romm.config.database.mariadb.user
+    - kind: Secret
+      name: romm-secret
+      valuesKey: ROMM_MARIADB_PASSWORD
+      targetPath: romm.config.database.mariadb.pass
+    - kind: Secret
+      name: romm-secret
+      valuesKey: IGDB_CLIENT_ID
+      targetPath: romm.config.igdb_api.client_id
+    - kind: Secret
+      name: romm-secret
+      valuesKey: IGDB_CLIENT_SECRET
+      targetPath: romm.config.igdb_api.client_secret
+    - kind: Secret
+      name: romm-secret
+      valuesKey: STEAMGRIDDB_API
+      targetPath: romm.config.steamgriddb_api.api_key
+  romm:
+    config:
+      auth:
+        enabled: true
+      filesystem_watcher:
+        enabled: true
+        scan_delay: 5
+      scheduled_tasks:
+        filesystem_scan:
+          enabled: true
+          cron: 0 3 * * *
+        switch_titledb_update:
+          enabled: true
+          cron: 0 4 * * *
+        mame_xml_update:
+          enabled: true
+          cron: 0 5 * * *
+      database:
+        type: mariadb
+        mariadb:
+          host: mariadb.databases.svc.cluster.local
+          port: 3306
+    settings:
+      exclude:
+        platforms:
+          - "romm"
+        roms:
+          single_file:
+            names:
+              - "info.txt"
+            extensions:
+              - "xml"
+  mediaVolume:
+    enabled: true
+    name: library
+    readOnly: false
+    volumeSpec:
+      accessModes:
+        - ReadWriteMany
+      capacity:
+        storage: 1Gi
+      nfs:
+        path: /mnt/data/media-data/games/roms
         server: nas.${PRIVATE_DOMAIN}
-        path: /mnt/data/media-data/games
-        globalMounts:
-          - path: /romm/library
