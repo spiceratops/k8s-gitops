@@ -67,6 +67,12 @@ spec:
       resources:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
+      library:
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN}
+        path: /mnt/data/media-data/games/roms
+        globalMounts:
+          - path: /romm/library
     romm:
       config:
         auth:
@@ -99,18 +105,6 @@ spec:
                 - "info.txt"
               extensions:
                 - "xml"
-    mediaVolume:
-      enabled: true
-      name: library
-      readOnly: false
-      volumeSpec:
-        accessModes:
-          - ReadWriteMany
-        capacity:
-          storage: 1Gi
-        nfs:
-          path: /mnt/data/media-data/games/roms
-          server: nas.${PRIVATE_DOMAIN}
   valuesFrom:
     - kind: Secret
       name: romm-secret
