@@ -18,8 +18,6 @@ spec:
 
   values:
     clusterDomain: ${PRIVATE_DOMAIN}
-    auth:
-      rootPassword: ${MARIADB_ROOT_PASSWORD}
     primary:
       persistence:
         enabled: true
@@ -31,10 +29,14 @@ spec:
         interval: 1m
   valuesFrom:
     - kind: Secret
-      name: pterodactyl-init
+      name: mariadb-secret
+      valuesKey: MARIADB_ROOT_PASSWORD
+      targetPath: auth.rootPassword
+    - kind: Secret
+      name: mariadb-secret
       valuesKey: MARIADB_PTERODACTYL_INIT
       targetPath: initdbScripts.pterodactyl-init.sql
     - kind: Secret
-      name: romm-init
+      name: mariadb-secret
       valuesKey: MARIADB_ROMM_INIT
       targetPath: initdbScripts.romm-init.sql
