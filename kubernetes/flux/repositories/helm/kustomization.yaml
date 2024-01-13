@@ -36,3 +36,4 @@ resources:
   - ./jacobcolvin-charts.yaml
   - ./itzg-charts.yaml
   - ./crystalnet-charts.yaml
+  - ./mariadb-operator-charts.yaml
