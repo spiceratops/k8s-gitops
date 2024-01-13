@@ -1,5 +1,5 @@
 ---
-  name: Flux Image Test
+  name: "Flux Image Test"
 
   on:
     pull_request:
@@ -11,39 +11,75 @@
     cancel-in-progress: true
 
   jobs:
-    extract-images:
-      name: Extract Images
+    changed-files:
+      name: Changed Files
       runs-on: ubuntu-latest
-      permissions:
-        pull-requests: write
-      strategy:
-        matrix:
-          paths: ["kubernetes"]
       outputs:
-        matrix: ${{ steps.extract-images.outputs.images }}
+        matrix: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
       steps:
         - name: Generate Token
-          uses: actions/create-github-app-token@f04aa94d10cf56334d1c580e077ce2e3569e805d # v1
+          uses: actions/create-github-app-token@v1
           id: app-token
           with:
             app-id: "${{ secrets.BOT_APP_ID }}"
             private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
-        - name: Setup Path
-          run: echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+        - name: Checkout
+          uses: actions/checkout@v4
+          with:
+            token: "${{ steps.app-token.outputs.token }}"
+            fetch-depth: 0
+
+        - name: Get Changed Files
+          id: changed-files
+          uses: tj-actions/changed-files@v41
+          with:
+            files: kubernetes/**
+            dir_names: true
+            dir_names_max_depth: 2
+            json: true
+            escape_json: false
+
+        - name: List All Changed Files
+          run: echo "${{ steps.changed-files.outputs.all_changed_and_modified_files }}"
+
+    extract-images:
+      name: Extract Images
+      runs-on: ubuntu-latest
+      needs: ["changed-files"]
+      permissions:
+        pull-requests: write
+      strategy:
+        matrix:
+          paths: ${{ fromJSON(needs.changed-files.outputs.matrix) }}
+        max-parallel: 4
+        fail-fast: false
+      outputs:
+        matrix: ${{ steps.extract-images.outputs.images }}
+      steps:
+        - name: Generate Token
+          uses: actions/create-github-app-token@v1
+          id: app-token
+          with:
+            app-id: "${{ secrets.BOT_APP_ID }}"
+            private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
+        - name: Setup Homebrew
+          uses: Homebrew/actions/setup-homebrew@master
 
         - name: Setup Workflow Tools
-          run: brew update && brew install jo yq
+          shell: bash
+          run: brew install jo yq
 
         - name: Checkout Default Branch
-          uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+          uses: actions/checkout@v4
           with:
             token: "${{ steps.app-token.outputs.token }}"
             ref: "${{ github.event.repository.default_branch }}"
             path: default
 
         - name: Checkout Pull Request Branch
-          uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+          uses: actions/checkout@v4
           with:
             token: "${{ steps.app-token.outputs.token }}"
             path: pull
