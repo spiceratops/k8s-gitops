@@ -59,6 +59,14 @@ spec:
       tls:
         - hosts:
             - "${HOSTNAME}"
+    persistence:
+      database:
+        enabled: false
+      logs:
+        enabled: false
+      resources:
+        enabled: true
+        existingClaim: "${VOLSYNC_CLAIM}"
   valuesFrom:
     - kind: Secret
       name: romm-secret
