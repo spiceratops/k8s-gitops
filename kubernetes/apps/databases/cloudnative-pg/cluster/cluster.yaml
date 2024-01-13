@@ -12,7 +12,7 @@ spec:
       kyverno.io/exclude: "true"
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 25Gi
+    size: 50Gi
     storageClass: ${CLUSTER_STORAGE_HOSTPATH}
   enableSuperuserAccess: true
   superuserSecret:
@@ -23,39 +23,39 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
-  # bootstrap:
-  #   initdb:
-  #     import:
-  #       type: monolith
-  #       databases:
-  #         - "*"
-  #       roles:
-  #         - "*"
-  #       source:
-  #         externalCluster: postgres15
-  backup:
-    retentionPolicy: 14d
-    barmanObjectStore:
-      wal:
-        compression: bzip2
-        maxParallel: 8
-      destinationPath: s3://postgresql/
-      endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
-      serverName: postgres-v6
-      s3Credentials:
-        accessKeyId:
-          name: cloudnative-pg-secret
-          key: AWS_ACCESS_KEY_ID
-        secretAccessKey:
-          name: cloudnative-pg-secret
-          key: AWS_SECRET_ACCESS_KEY
-  # externalClusters:
-  #   - name: postgres15
-  #     connectionParameters:
-  #       host: postgres15-rw.databases.svc.cluster.local
-  #       user: postgres
-  #       dbname: postgres
-  #       sslmode: require
-  #     password:
-  #       name: cloudnative-pg-secret
-  #       key: password
+  bootstrap:
+    initdb:
+      import:
+        type: monolith
+        databases:
+          - "*"
+        roles:
+          - "*"
+        source:
+          externalCluster: postgres15
+  # backup:
+  #   retentionPolicy: 14d
+  #   barmanObjectStore:
+  #     wal:
+  #       compression: bzip2
+  #       maxParallel: 8
+  #     destinationPath: s3://postgresql/
+  #     endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
+  #     serverName: postgres-v6
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: cloudnative-pg-secret
+  #         key: AWS_ACCESS_KEY_ID
+  #       secretAccessKey:
+  #         name: cloudnative-pg-secret
+  #         key: AWS_SECRET_ACCESS_KEY
+  externalClusters:
+    - name: postgres15
+      connectionParameters:
+        host: postgres15-rw.databases.svc.cluster.local
+        user: postgres
+        dbname: postgres
+        sslmode: require
+      password:
+        name: cloudnative-pg-secret
+        key: password
