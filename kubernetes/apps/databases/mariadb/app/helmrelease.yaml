@@ -17,6 +17,8 @@ spec:
         namespace: flux-system
 
   values:
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
     clusterDomain: ${PRIVATE_DOMAIN}
     primary:
       persistence:
@@ -27,16 +29,8 @@ spec:
       serviceMonitor:
         enabled: true
         interval: 1m
+    auth:
+      existingSecret: mariadb-secret
   valuesFrom:
     - kind: Secret
       name: mariadb-secret
-      valuesKey: MARIADB_ROOT_PASSWORD
-      targetPath: auth.rootPassword
-    - kind: Secret
-      name: mariadb-secret
-      valuesKey: MARIADB_PTERODACTYL_INIT
-      targetPath: initdbScripts.pterodactyl-init.sql
-    - kind: Secret
-      name: mariadb-secret
-      valuesKey: MARIADB_ROMM_INIT
-      targetPath: initdbScripts.romm-init.sql
