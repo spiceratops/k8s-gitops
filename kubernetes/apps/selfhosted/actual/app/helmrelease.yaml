@@ -52,6 +52,12 @@ spec:
     ingress:
       main:
         enabled: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/icon: actual.png
+          gethomepage.dev/name: Actual
+          gethomepage.dev/group: Finance
+          gethomepage.dev/description: Budgeting
         className: internal
         hosts:
           - host: "${HOSTNAME}"

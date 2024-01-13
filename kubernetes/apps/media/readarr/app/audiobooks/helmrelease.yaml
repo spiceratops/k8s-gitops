@@ -95,6 +95,11 @@ spec:
         className: internal
         annotations:
           hajimari.io/icon: mdi:book-music
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Audiobooks Downloader
+          gethomepage.dev/group: Downloaders
+          gethomepage.dev/icon: mdi:book-music
+          gethomepage.dev/name: Readarr (Audiobooks)
         hosts:
           - host: &host audiobooks.${PRIVATE_DOMAIN}
             paths:

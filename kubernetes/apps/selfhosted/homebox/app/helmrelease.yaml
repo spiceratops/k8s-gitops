@@ -51,7 +51,7 @@ spec:
           hajimari.io/icon: mdi:box
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: House Inventory
-          gethomepage.dev/group: home
+          gethomepage.dev/group: Home
           gethomepage.dev/icon: homebox.png
           gethomepage.dev/name: Homebox
         hosts:

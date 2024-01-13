@@ -58,6 +58,11 @@ spec:
         className: external
         annotations:
           hajimari.io/icon: mdi:jellyfish-outline
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Media Requests
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: jellyseer.png
+          gethomepage.dev/name: Jellyseer
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
           - host: "${HOSTNAME}"

@@ -82,6 +82,11 @@ spec:
         className: "internal"
         annotations:
           hajimari.io/icon: simple-icons:jellyfin
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Media Library
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: jellyfin.png
+          gethomepage.dev/name: Jellyfin
         hosts:
           - host: "${HOSTNAME}"
             paths:

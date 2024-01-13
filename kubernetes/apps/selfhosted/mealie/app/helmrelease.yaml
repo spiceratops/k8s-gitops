@@ -89,6 +89,11 @@ spec:
           hajimari.io/group: Selfhosted
           hajimari.io/icon: mdi:chef-hat
           hajimari.io/info: Meal Recipes
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Meal Recipes
+          gethomepage.dev/group: Home
+          gethomepage.dev/icon: mealie.png
+          gethomepage.dev/name: Mealie
         hosts:
           - host: "${HOSTNAME}"
             paths:

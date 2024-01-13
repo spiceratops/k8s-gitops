@@ -95,6 +95,11 @@ spec:
         className: internal
         annotations:
           hajimari.io/icon: mdi:subtitles-outline
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Subtitles Downloader
+          gethomepage.dev/group: Downloaders
+          gethomepage.dev/icon: bazarr.png
+          gethomepage.dev/name: Bazarr
         hosts:
           - host: "${HOSTNAME}"
             paths:

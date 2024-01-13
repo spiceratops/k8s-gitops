@@ -65,6 +65,11 @@ spec:
         ingressClassName: external
         annotations:
           hajimari.io/icon: mdi:music
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Music Library
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: navidrome.png
+          gethomepage.dev/name: Navidrome
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
           - host: "${HOSTNAME}"

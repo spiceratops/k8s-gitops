@@ -31,6 +31,12 @@ spec:
     ingress:
       enabled: true
       className: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Scripting & Automation Tool
+        gethomepage.dev/group: Tools
+        gethomepage.dev/icon: windmill.png
+        gethomepage.dev/name: Windmill
       tls:
         - hosts:
             - "${HOSTNAME}"

@@ -86,6 +86,11 @@ spec:
         className: internal
         annotations:
           hajimari.io/icon: mdi:television-classic
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: TV Shows Downloader
+          gethomepage.dev/group: Downloaders
+          gethomepage.dev/icon: sonarr.png
+          gethomepage.dev/name: Sonarr
         hosts:
           - host: "${HOSTNAME}"
             paths:
