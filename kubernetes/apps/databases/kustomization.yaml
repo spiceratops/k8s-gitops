@@ -7,3 +7,4 @@ resources:
   - ./redis/ks.yaml
   - ./pgadmin/ks.yaml
   - ./mariadb/ks.yaml
+  - ./crunchy-postgres/ks.yaml

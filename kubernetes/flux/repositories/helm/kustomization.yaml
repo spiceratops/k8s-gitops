@@ -37,3 +37,4 @@ resources:
   - ./itzg-charts.yaml
   - ./crystalnet-charts.yaml
   - ./mariadb-operator-charts.yaml
+  - ./crunchydata-charts.yaml
