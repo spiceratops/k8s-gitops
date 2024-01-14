@@ -5,6 +5,6 @@ namespace: databases
 resources:
   - ./externalsecret.yaml
   - ./cluster.yaml
-  - ./cluster15.yaml
+  # - ./cluster15.yaml
   - ./prometheusrule.yaml
   - ./scheduledbackup.yaml
