@@ -5,7 +5,7 @@ metadata:
   name: postgres
   namespace: databases
 spec:
-  instances: 1
+  instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:16.1-15
   inheritedMetadata:
     annotations:
@@ -17,10 +17,10 @@ spec:
   enableSuperuserAccess: true
   superuserSecret:
     name: cloudnative-pg-secret
-  postgresql:
-    parameters:
-      max_connections: "600"
-      shared_buffers: 512MB
+  # postgresql:
+  #   parameters:
+  #     max_connections: "600"
+  #     shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
   bootstrap:
