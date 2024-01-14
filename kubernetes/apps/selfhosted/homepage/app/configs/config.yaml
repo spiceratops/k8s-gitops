@@ -11,7 +11,7 @@ data:
         - GitHub Repo (k8s-gitops):
             - icon: github.png
               href: https://github.com/spiceratops/k8s-gitops
-    - House:
+    - Home:
         - Home Assistant:
             - icon: home-assistant.png
               href: https://home.${PRIVATE_DOMAIN}
@@ -28,7 +28,7 @@ data:
         style: row
         columns: 3
         tab: Main
-      House:
+      Home:
         style: row
         columns: 2
         tab: Main
@@ -41,6 +41,10 @@ data:
         columns: 2
         tab: Main
       Downloaders:
+        style: row
+        columns: 2
+        tab: Main
+      Tools:
         style: row
         columns: 2
         tab: Main
