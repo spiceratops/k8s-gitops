@@ -7,10 +7,10 @@ resources:
   - ./configmap.yaml
   - ./externalsecret.yaml
   - ./_pvc
-  # - ./microservices
-  # - ./machine-learning
-  # - ./server
-  # - ./typesense
+  - ./microservices
+  - ./machine-learning
+  - ./server
+  - ./typesense
 configMapGenerator:
   - name: immich-gatus-ep
     files:
@@ -22,7 +22,3 @@ generatorOptions:
   disableNameSuffixHash: true
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled
-labels:
-  - pairs:
-      app.kubernetes.io/name: immich
-      app.kubernetes.io/instance: immich
