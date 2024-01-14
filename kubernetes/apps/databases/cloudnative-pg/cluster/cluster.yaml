@@ -65,7 +65,7 @@ spec:
   externalClusters:
     - name: postgres15
       connectionParameters:
-        host: postgres15-rw.databases.svc.cluster.local
+        host: postgres15-ro.databases.svc.cluster.local
         user: postgres
         dbname: postgres
         sslmode: require
