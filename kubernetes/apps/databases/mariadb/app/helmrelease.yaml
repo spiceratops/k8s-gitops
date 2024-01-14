@@ -29,8 +29,10 @@ spec:
       serviceMonitor:
         enabled: true
         interval: 1m
-    auth:
-      existingSecret: mariadb-secret
   valuesFrom:
     - kind: Secret
       name: mariadb-secret
+    - kind: Secret
+      name: romm-secret
+      valuesKey: MARIADB_ROOT_PASSWORD
+      targetPath: auth.rootPassword
