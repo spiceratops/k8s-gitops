@@ -11,6 +11,7 @@ data:
         - GitHub Repo (k8s-gitops):
             - icon: github.png
               href: https://github.com/spiceratops/k8s-gitops
+    - House:
         - Home Assistant:
             - icon: home-assistant.png
               href: https://home.${PRIVATE_DOMAIN}
@@ -27,21 +28,33 @@ data:
         style: row
         columns: 3
         tab: Main
-      Home:
+      House:
         style: row
-        columns: 3
+        columns: 2
+        tab: Main
+      Media:
+        style: row
+        columns: 2
+        tab: Main
+      Finance:
+        style: row
+        columns: 2
+        tab: Main
+      Downloaders:
+        style: row
+        columns: 2
         tab: Main
       Host Widgets:
         icon: mdi-chart-box
         style: row
-        columns: 3
+        columns: 2
         tab: Main
-      Hosts:
+      Infra:
         icon: mdi-wan
-        tab: House
+        tab: Infra
   services.yaml: |
     ---
-    - Hosts:
+    - Infra:
         - Proxmox (Main Cluster):
             icon: proxmox.png
             href: https://pve.${PRIVATE_DOMAIN}

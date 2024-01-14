@@ -61,7 +61,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/icon: ghostfolio.png
           gethomepage.dev/name: Ghostfolio
-          gethomepage.dev/group: Home
+          gethomepage.dev/group: Finance
         hosts:
           - host: "${HOSTNAME}"
             paths:
