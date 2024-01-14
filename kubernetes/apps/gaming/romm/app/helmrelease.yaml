@@ -34,7 +34,13 @@ spec:
       - secretRef:
           name: romm-secret
     mariadb:
-      enabled: false
+      enabled: true
+      auth:
+        database: romm
+      primary:
+        persistence:
+          enabled: true
+          existingClaim: "${VOLSYNC_CLAIM}"
     redis:
       enabled: false
     resources:
@@ -67,7 +73,12 @@ spec:
         enabled: false
       resources:
         enabled: true
-        existingClaim: "${VOLSYNC_CLAIM}"
+        volumeClaimSpec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 2Gi
       library:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}
@@ -91,6 +102,7 @@ spec:
           mame_xml_update:
             enabled: true
             cron: 0 5 * * *
+
         database:
           type: mariadb
           mariadb:
@@ -118,11 +130,15 @@ spec:
     - kind: Secret
       name: romm-secret
       valuesKey: ROMM_MARIADB_USERNAME
-      targetPath: romm.config.database.mariadb.user
+      targetPath: mariadb.auth.username
     - kind: Secret
       name: romm-secret
       valuesKey: ROMM_MARIADB_PASSWORD
-      targetPath: romm.config.database.mariadb.pass
+      targetPath: mariadb.auth.password
+    - kind: Secret
+      name: romm-secret
+      valuesKey: ROMM_MARIADB_ROOTPASSWORD
+      targetPath: mariadb.auth.rootPassword
     - kind: Secret
       name: romm-secret
       valuesKey: IGDB_CLIENT_ID
