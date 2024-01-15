@@ -27,28 +27,34 @@ data:
     statusStyle: "dot"
     layout:
       Bookmarks:
-        style: row
-        columns: 4
+        # style: row
+        # columns: 4
         tab: Main
       Home:
-        style: row
-        columns: 4
+        # style: row
+        # columns: 4
         tab: Main
       Media:
-        style: row
-        columns: 4
+        # style: row
+        # columns: 4
+        tab: Main
+      Tabletop:
+        icon: mdi-dice-d20-outline
+        tab: Main
+      Gaming:
+        icon: mdi-controller
         tab: Main
       Finance:
-        style: row
-        columns: 4
+        # style: row
+        # columns: 4
         tab: Main
       Downloaders:
-        style: row
-        columns: 4
+        # style: row
+        # columns: 4
         tab: Admin
       Tools:
-        style: row
-        columns: 4
+        # style: row
+        # columns: 4
         tab: Main
       Host Widgets:
         icon: mdi-chart-box
@@ -58,9 +64,6 @@ data:
       Infra:
         icon: mdi-wan
         tab: Admin
-      Tabletop:
-        icon: mdi-dice-d20-outline
-        tab: Main
   services.yaml: |
     ---
     - Infra:
