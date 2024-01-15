@@ -43,7 +43,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Music Player
           gethomepage.dev/group: Media
-          gethomepage.dev/icon: mdi:headphones
+          gethomepage.dev/icon: mdi-headphones
           gethomepage.dev/name: Feishin
         hosts:
           - host: "${HOSTNAME}"

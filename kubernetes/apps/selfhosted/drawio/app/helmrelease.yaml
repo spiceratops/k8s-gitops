@@ -41,7 +41,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: pencil
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/icon: drawio.png
+          gethomepage.dev/icon: mdi:pencil
           gethomepage.dev/name: Drawio
           gethomepage.dev/group: Tools
           gethomepage.dev/description: Diagramming Tool

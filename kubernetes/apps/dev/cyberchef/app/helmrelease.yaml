@@ -38,6 +38,11 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: hammer-wrench
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/icon: mdi-hammer-wrench
+          gethomepage.dev/name: Cyberchef
+          gethomepage.dev/group: Tools
+          gethomepage.dev/description: Dev & Web Tools
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
           - host: "${HOSTNAME}"

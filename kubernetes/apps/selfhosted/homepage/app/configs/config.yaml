@@ -11,6 +11,7 @@ data:
         - GitHub Repo (k8s-gitops):
             - icon: github.png
               href: https://github.com/spiceratops/k8s-gitops
+              tab: Admin
   kubernetes.yaml: |
     mode: cluster
   settings.yaml: |
@@ -85,11 +86,16 @@ data:
             icon: home-assistant.png
             href: https://home.${PRIVATE_DOMAIN}
             description: Home Automation
+    - Tabletop:
+        - Dungeon Master's Vault:
+            icon: mdi-dice-d20-outline
+            href: https://dnd.${PRIVATE_DOMAIN}
+            description: DnD Resources
 
   widgets.yaml: |
     - search:
         provider: custom
-        url: https://whoogle.${PRIVATE_DOMAIN}/?q=
+        url: https://whoogle.${PRIVATE_DOMAIN}/?search=
         target: _blank
     - kubernetes:
         cluster:
@@ -97,12 +103,7 @@ data:
           cpu: true
           memory: true
           showLabel: true
-          label: "cluster"
-        nodes:
-          show: true
-          cpu: true
-          memory: true
-          showLabel: true
+          label: "K8S Cluster"
   docker.yaml: |
     ---
     docker:

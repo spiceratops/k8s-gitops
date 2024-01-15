@@ -392,6 +392,11 @@ spec:
       annotations:
         hajimari.io/appName: Grafana
         hajimari.io/icon: simple-icons:grafana
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/icon: grafana.png
+        gethomepage.dev/name: Grafana
+        gethomepage.dev/group: Tools
+        gethomepage.dev/description: Monitoring Dashboards
       hosts:
         - &hostg grafana.${PRIVATE_DOMAIN}
       paths:

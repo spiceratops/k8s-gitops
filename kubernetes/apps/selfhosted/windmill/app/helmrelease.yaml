@@ -35,7 +35,7 @@ spec:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/description: Scripting & Automation Tool
         gethomepage.dev/group: Tools
-        gethomepage.dev/icon: windmill.png
+        gethomepage.dev/icon: mdi-script
         gethomepage.dev/name: Windmill
       tls:
         - hosts:

@@ -62,6 +62,7 @@ spec:
           gethomepage.dev/icon: ghostfolio.png
           gethomepage.dev/name: Ghostfolio
           gethomepage.dev/group: Finance
+          gethomepage.dev/description: Stonks Tracker
         hosts:
           - host: "${HOSTNAME}"
             paths:
