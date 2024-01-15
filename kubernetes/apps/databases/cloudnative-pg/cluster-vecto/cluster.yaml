@@ -46,13 +46,3 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-secret
           key: AWS_SECRET_ACCESS_KEY
-  # externalClusters:
-  #   - name: postgres15
-  #     connectionParameters:
-  #       host: postgres15-rw.databases.svc.cluster.local
-  #       user: postgres
-  #       dbname: postgres
-  #       sslmode: require
-  #     password:
-  #       name: cloudnative-pg-secret
-  #       key: password

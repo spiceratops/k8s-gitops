@@ -36,16 +36,6 @@ spec:
           action: replace,
         }
       - { regex: cluster, action: labeldrop }
-  # bootstrap:
-  #   initdb:
-  #     import:
-  #       type: monolith
-  #       databases:
-  #         - "*"
-  #       roles:
-  #         - "*"
-  #       source:
-  #         externalCluster: postgres15
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
@@ -62,13 +52,3 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-secret
           key: AWS_SECRET_ACCESS_KEY
-  # externalClusters:
-  #   - name: postgres15
-  #     connectionParameters:
-  #       host: postgres15-ro.databases.svc.cluster.local
-  #       user: postgres
-  #       dbname: postgres
-  #       sslmode: require
-  #     password:
-  #       name: cloudnative-pg-secret
-  #       key: password
