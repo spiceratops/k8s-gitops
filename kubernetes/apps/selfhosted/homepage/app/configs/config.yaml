@@ -28,14 +28,14 @@ data:
       openweathermap: ${OPENWEATHERMAP_API_KEY}
     statusStyle: "dot"
     layout:
-      Bookmarks:
-        style: row
-        columns: 4
-        tab: Admin
       Home:
         style: row
         columns: 4
         tab: Main
+      Bookmarks:
+        style: row
+        columns: 4
+        tab: Admin
       Media:
         style: row
         columns: 4
