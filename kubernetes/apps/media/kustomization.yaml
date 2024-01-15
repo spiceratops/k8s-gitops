@@ -13,7 +13,7 @@ resources:
   - ./sonarr/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./unpackerr/ks.yaml
-  - ./qbittorrent/ks.yaml
+  # - ./qbittorrent/ks.yaml
   - ./autobrr/ks.yaml
   - ./jellyseer/ks.yaml
   - ./navidrome/ks.yaml

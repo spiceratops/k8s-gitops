@@ -96,6 +96,7 @@ spec:
               capabilities:
                 add:
                   - NET_ADMIN
+              allowPrivilegeEscalation: false
           port-forward:
             image:
               repository: ghcr.io/bjw-s/gluetun-qb-port-sync
@@ -185,6 +186,15 @@ spec:
             subPath: config.js
             readOnly: true
       dnsdist-config:
+        type: configMap
+        name: qbittorrent-dnsdist
+        advancedMounts:
+          main:
+            dnsdist:
+              - path: /etc/dnsdist/dnsdist.conf
+                subPath: dnsdist.conf
+                readOnly: true
+      gluetun:
         type: configMap
         name: qbittorrent-dnsdist
         advancedMounts:
