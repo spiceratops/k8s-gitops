@@ -19,7 +19,6 @@ data:
     headerStyle: clean
     base: https://homepage.${PRIVATE_DOMAIN}
     title: Home
-    headerStyle: boxed
     quicklaunch:
       searchDescriptions: true
     providers:
