@@ -58,6 +58,9 @@ data:
       Infra:
         icon: mdi-wan
         tab: Admin
+      Tabletop:
+        icon: mdi-dice-d20-outline
+        tab: Main
   services.yaml: |
     ---
     - Infra:
