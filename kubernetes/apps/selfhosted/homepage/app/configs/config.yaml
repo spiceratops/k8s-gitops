@@ -76,7 +76,7 @@ data:
             icon: unifi.png
             href: https://unifi-web.${PRIVATE_DOMAIN}
             description: Unifi
-        - Omada
+        - Omada:
             icon: omada.png
             href: https://omada-web.${PRIVATE_DOMAIN}
             description: Unifi
