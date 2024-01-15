@@ -91,6 +91,8 @@ spec:
           gethomepage.dev/group: Downloaders
           gethomepage.dev/icon: sonarr.png
           gethomepage.dev/name: Sonarr
+          gethomepage.dev/widget.type: sonarr
+          gethomepage.dev/widget.url: "${HOSTNAME}"
         hosts:
           - host: "${HOSTNAME}"
             paths:

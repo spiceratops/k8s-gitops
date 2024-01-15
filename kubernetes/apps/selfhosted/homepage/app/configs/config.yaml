@@ -11,51 +11,53 @@ data:
         - GitHub Repo (k8s-gitops):
             - icon: github.png
               href: https://github.com/spiceratops/k8s-gitops
-    - Home:
-        - Home Assistant:
-            - icon: home-assistant.png
-              href: https://home.${PRIVATE_DOMAIN}
-              description: Home Assistant
   kubernetes.yaml: |
-    mode: default
+    mode: cluster
   settings.yaml: |
+    color: slate
+    useEqualHeights: true
+    headerStyle: clean
+    base: https://homepage.${PRIVATE_DOMAIN}
     title: Home
     headerStyle: boxed
     quicklaunch:
       searchDescriptions: true
+    providers:
+      openweathermap: ${OPENWEATHERMAP_API_KEY}
+    statusStyle: "dot"
     layout:
       Bookmarks:
         style: row
-        columns: 3
+        columns: 4
         tab: Main
       Home:
         style: row
-        columns: 2
+        columns: 4
         tab: Main
       Media:
         style: row
-        columns: 2
+        columns: 4
         tab: Main
       Finance:
         style: row
-        columns: 2
+        columns: 4
         tab: Main
       Downloaders:
         style: row
-        columns: 2
-        tab: Main
+        columns: 4
+        tab: Admin
       Tools:
         style: row
-        columns: 2
+        columns: 4
         tab: Main
       Host Widgets:
         icon: mdi-chart-box
         style: row
-        columns: 2
+        columns: 4
         tab: Main
       Infra:
         icon: mdi-wan
-        tab: Infra
+        tab: Admin
   services.yaml: |
     ---
     - Infra:
@@ -71,13 +73,39 @@ data:
             icon: opnsense.png
             href: https://opnsense.${PRIVATE_DOMAIN}
             description: Opnsense
-        - UniFi Admin:
+        - UniFi:
             icon: unifi.png
             href: https://unifi-web.${PRIVATE_DOMAIN}
             description: Unifi
+        - Omada
+            icon: omada.png
+            href: https://omada-web.${PRIVATE_DOMAIN}
+            description: Unifi
+    - Home:
+        - Home Assistant:
+            icon: home-assistant.png
+            href: https://home.${PRIVATE_DOMAIN}
+            description: Home Automation
+
   widgets.yaml: |
     - search:
-        provider: duckduckgo
+        provider: custom
+        url: https://whoogle.${PRIVATE_DOMAIN}/?q=
         target: _blank
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "cluster"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
   docker.yaml: |
     ---
+    docker:
+      host: docker.${PRIVATE_DOMAIN}
+      port: 2375
