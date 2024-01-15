@@ -104,6 +104,8 @@ data:
           memory: true
           showLabel: true
           label: "K8S Cluster"
+        nodes:
+          show: false
   docker.yaml: |
     ---
     docker:
