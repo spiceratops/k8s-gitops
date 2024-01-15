@@ -100,6 +100,9 @@ spec:
           gethomepage.dev/group: Downloaders
           gethomepage.dev/icon: bazarr.png
           gethomepage.dev/name: Bazarr
+          gethomepage.dev/widget.type: bazarr
+          gethomepage.dev/widget.url: "${HOSTNAME}"
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_BAZARR_API_KEY}}"
         hosts:
           - host: "${HOSTNAME}"
             paths:

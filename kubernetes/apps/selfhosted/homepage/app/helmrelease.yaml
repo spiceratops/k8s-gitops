@@ -30,6 +30,9 @@ spec:
               tag: v0.8.4
             env:
               TZ: ${TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: homepage-secret
     serviceAccount:
       create: true
     service:

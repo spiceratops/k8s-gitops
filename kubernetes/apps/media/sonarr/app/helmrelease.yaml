@@ -93,6 +93,7 @@ spec:
           gethomepage.dev/name: Sonarr
           gethomepage.dev/widget.type: sonarr
           gethomepage.dev/widget.url: "${HOSTNAME}"
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_SONARR_API_KEY}}"
         hosts:
           - host: "${HOSTNAME}"
             paths:
