@@ -36,7 +36,7 @@ spec:
           main:
             image:
               repository: docker.io/ghostfolio/ghostfolio
-              tag: 2.39.0
+              tag: 2.40.0
             envFrom: *envFrom
             env:
               NODE_ENV: production
