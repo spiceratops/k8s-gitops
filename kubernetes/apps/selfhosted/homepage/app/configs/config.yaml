@@ -108,6 +108,13 @@ data:
             icon: mdi-dice-d20-outline
             href: https://dnd.${PRIVATE_DOMAIN}
             description: DnD Resources
+    - Downloaders:
+        - Radarr:
+            widget:
+              key: {{HOMEPAGE_VAR_RADARR_API_TOKEN}}
+        - Sonarr:
+            widget:
+              key: {{HOMEPAGE_VAR_SONARR_API_TOKEN}}
 
   widgets.yaml: |
     - search:
