@@ -93,7 +93,6 @@ spec:
           gethomepage.dev/name: Radarr
           gethomepage.dev/widget.type: radarr
           gethomepage.dev/widget.url: "${HOSTNAME}"
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_RADARR_API_KEY}}"
         hosts:
           - host: "${HOSTNAME}"
             paths:
