@@ -82,8 +82,6 @@ spec:
           gethomepage.dev/icon: immich.png
           gethomepage.dev/name: Immich
           gethomepage.dev/widget.type: immich
-          gethomepage.dev/widget.url: "${HOSTNAME}"
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_IMMICH_API_KEY}}"
         hosts:
           - host: &host photos.${PRIVATE_DOMAIN}
             paths:

@@ -47,8 +47,8 @@ data:
         icon: mdi-controller
         tab: Main
       Finance:
-        # style: row
-        # columns: 4
+        style: row
+        columns: 4
         tab: Main
       Downloaders:
         style: row
@@ -108,17 +108,6 @@ data:
             icon: mdi-dice-d20-outline
             href: https://dnd.${PRIVATE_DOMAIN}
             description: DnD Resources
-    - Downloaders:
-        - Radarr:
-            widget:
-              type: radarr
-              url: radarr.media.svc.cluster.local
-              key: {{HOMEPAGE_VAR_RADARR_API_TOKEN}}
-        - Sonarr:
-            widget:
-              type: sonarr
-              url: sonarr.media.svc.cluster.local
-              key: {{HOMEPAGE_VAR_SONARR_API_TOKEN}}
 
   widgets.yaml: |
     - search:
@@ -148,7 +137,7 @@ data:
           timeStyle: short
           hourCycle: h23
     - unifi_console:
-        url: http://unifi.${PRIVATE_DOMAIN}
+        url: unifi.${PRIVATE_DOMAIN}
         username: {{HOMEPAGE_VAR_UNIFI_USER}}
         password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
   docker.yaml: |
