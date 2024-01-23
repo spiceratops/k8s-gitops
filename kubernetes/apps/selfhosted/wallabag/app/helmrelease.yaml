@@ -40,7 +40,7 @@ spec:
             envFrom: *envFrom
             env:
               TIMEZONE: ${TIMEZONE}
-              SYMFONY__ENV__DOMAIN_NAME: https://wallabag.${PRIVATE_DOMAIN}
+              SYMFONY__ENV__DOMAIN_NAME: https://"${HOSTNAME}"
               SYMFONY__ENV__SERVER_NAME: Wallabag
               SYMFONY__ENV__FOSUSER_REGISTRATION: "false"
               SYMFONY__ENV__FOSUSER_CONFIRMATION: "false"
@@ -59,7 +59,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: external
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:rss
