@@ -112,12 +112,12 @@ data:
         - Radarr:
             widget:
               type: radarr
-              url: https://radarr.${PRIVATE_DOMAIN}
+              url: radarr.media.svc.cluster.local
               key: {{HOMEPAGE_VAR_RADARR_API_TOKEN}}
         - Sonarr:
             widget:
               type: sonarr
-              url: https://sonarr.${PRIVATE_DOMAIN}
+              url: sonarr.media.svc.cluster.local
               key: {{HOMEPAGE_VAR_SONARR_API_TOKEN}}
 
   widgets.yaml: |
