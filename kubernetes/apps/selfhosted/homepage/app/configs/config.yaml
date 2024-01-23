@@ -40,6 +40,10 @@ data:
         style: row
         columns: 4
         tab: Main
+      Reading:
+        style: row
+        columns: 4
+        tab: Main
       Tabletop:
         icon: mdi-dice-d20-outline
         tab: Main
@@ -63,12 +67,15 @@ data:
         style: row
         columns: 4
         tab: Main
-      Infra:
+      Infrastructure:
         icon: mdi-wan
+        tab: Admin
+      Data:
+        icon: mdi-postgresql
         tab: Admin
   services.yaml: |
     ---
-    - Infra:
+    - Infrastructure:
         - Cloudflare:
             href: https://dash.cloudflare.com/
             icon: cloudflare-zero-trust.png

@@ -87,7 +87,6 @@ spec:
           gethomepage.dev/group: Media
           gethomepage.dev/icon: jellyfin.png
           gethomepage.dev/name: Jellyfin
-          gethomepage.dev/widget.type: jellyfin
         hosts:
           - host: "${HOSTNAME}"
             paths:

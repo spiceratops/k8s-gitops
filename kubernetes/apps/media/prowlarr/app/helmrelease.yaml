@@ -80,9 +80,6 @@ spec:
           gethomepage.dev/group: Downloaders
           gethomepage.dev/icon: prowlarr.png
           gethomepage.dev/name: Prowlarr
-          gethomepage.dev/widget.type: prowlarr
-          gethomepage.dev/widget.url: "${HOSTNAME}"
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}"
         hosts:
           - host: "${HOSTNAME}"
             paths:

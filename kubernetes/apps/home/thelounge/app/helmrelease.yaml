@@ -53,6 +53,11 @@ spec:
         className: internal
         annotations:
           hajimari.io/icon: mdi:forum
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/icon: thelounge.png
+          gethomepage.dev/name: The Lounge
+          gethomepage.dev/group: Reading
+          gethomepage.dev/description: Forum
         hosts:
           - host: &host "forum.${PRIVATE_DOMAIN}"
             paths:

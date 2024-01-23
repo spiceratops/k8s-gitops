@@ -88,9 +88,6 @@ spec:
           gethomepage.dev/group: Downloaders
           gethomepage.dev/icon: sabnzbd.png
           gethomepage.dev/name: SABnzbd
-          gethomepage.dev/widget.type: sabnzbd
-          gethomepage.dev/widget.url: "${HOSTNAME}"
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_SABNZBD_API_KEY}}"
         hosts:
           - host: "${HOSTNAME}"
             paths:

@@ -74,6 +74,11 @@ spec:
           gatus.io/path: *path
           hajimari.io/icon: simple-icons:reddit
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Reddit Reader
+          gethomepage.dev/group: Reading
+          gethomepage.dev/icon: reddit.png
+          gethomepage.dev/name: Libreddit
         hosts:
           - host: "${HOSTNAME}"
             paths:

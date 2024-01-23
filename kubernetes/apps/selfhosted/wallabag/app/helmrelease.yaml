@@ -63,7 +63,12 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:rss
-          # external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Feed Reader
+          gethomepage.dev/group: Reading
+          gethomepage.dev/icon: wallabag.png
+          gethomepage.dev/name: Wallabag
+          external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
           - host: "${HOSTNAME}"
             paths:

@@ -81,7 +81,6 @@ spec:
           gethomepage.dev/group: Home
           gethomepage.dev/icon: immich.png
           gethomepage.dev/name: Immich
-          gethomepage.dev/widget.type: immich
         hosts:
           - host: &host photos.${PRIVATE_DOMAIN}
             paths:
