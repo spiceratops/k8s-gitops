@@ -25,7 +25,7 @@ data:
     quicklaunch:
       searchDescriptions: true
     providers:
-      openweathermap: ${OPENWEATHERMAP_API_KEY}
+      openweathermap: {{OPENWEATHERMAP_API_KEY}}
     statusStyle: "dot"
     layout:
       Home:
@@ -111,9 +111,11 @@ data:
     - Downloaders:
         - Radarr:
             widget:
+              type: radarr
               key: {{HOMEPAGE_VAR_RADARR_API_TOKEN}}
         - Sonarr:
             widget:
+              type: sonarr
               key: {{HOMEPAGE_VAR_SONARR_API_TOKEN}}
 
   widgets.yaml: |
