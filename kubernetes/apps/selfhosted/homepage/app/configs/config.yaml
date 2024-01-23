@@ -112,10 +112,12 @@ data:
         - Radarr:
             widget:
               type: radarr
+              url: https://radarr.${PRIVATE_DOMAIN}
               key: {{HOMEPAGE_VAR_RADARR_API_TOKEN}}
         - Sonarr:
             widget:
               type: sonarr
+              url: https://sonarr.${PRIVATE_DOMAIN}
               key: {{HOMEPAGE_VAR_SONARR_API_TOKEN}}
 
   widgets.yaml: |
@@ -146,7 +148,7 @@ data:
           timeStyle: short
           hourCycle: h23
     - unifi_console:
-        url: https://unifi.${PRIVATE_DOMAIN}
+        url: http://unifi.${PRIVATE_DOMAIN}
         username: {{HOMEPAGE_VAR_UNIFI_USER}}
         password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
   docker.yaml: |
