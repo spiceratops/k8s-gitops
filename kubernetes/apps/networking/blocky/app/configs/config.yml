@@ -77,7 +77,7 @@ blocking:
   clientGroupsBlock:
     default:
       - suspicious
-      - ads
+      # - ads
       - trackers
       - misc
       - other
