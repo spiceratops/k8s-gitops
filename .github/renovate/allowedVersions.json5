@@ -12,9 +12,9 @@
     },
     {
       "matchDatasources": [
-        "helm"
+        "docker"
       ],
-      "matchPackagePatterns": [
+      "matchPackageNames": [
         "redis"
       ],
       "allowedVersions": "<=18.6.3"
