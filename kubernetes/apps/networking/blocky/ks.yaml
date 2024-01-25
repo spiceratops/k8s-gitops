@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-redis
+    - name: redis
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/networking/blocky/app
   prune: true
