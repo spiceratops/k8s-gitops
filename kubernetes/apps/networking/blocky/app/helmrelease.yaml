@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app blocky
+  name: blocky
   namespace: networking
 spec:
   interval: 30m
@@ -29,7 +29,7 @@ spec:
               tag: 16
             envFrom:
               - secretRef:
-                  name: blocky-secret
+                  name: ${APP}-secret
         containers:
           main:
             image:
@@ -61,7 +61,7 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: &host blocky.${PRIVATE_DOMAIN}
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -69,12 +69,12 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       config:
         enabled: true
         type: secret
-        name: blocky-secret
+        name: ${APP}-secret
         globalMounts:
           - path: /app/config.yml
             subPath: config.yml
@@ -89,7 +89,7 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${BLOCKY_LB_IP}
-          external-dns.alpha.kubernetes.io/hostname: dns1.${PRIVATE_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: "${HOSTNAME}"
         labels:
           io.cilium/lb-ipam-layer2: "true"
         ports:

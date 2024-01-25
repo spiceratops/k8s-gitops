@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app cloudflared
+  name: cloudflared
   namespace: networking
 spec:
   interval: 30m
@@ -88,14 +88,14 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: cloudflared-configmap
+        name: ${APP}-configmap
         globalMounts:
           - path: /etc/cloudflared/config/config.yaml
             subPath: config.yaml
             readOnly: true
       creds:
         type: secret
-        name: cloudflared-secret
+        name: ${APP}-secret
         globalMounts:
           - path: /etc/cloudflared/creds/credentials.json
             subPath: credentials.json
