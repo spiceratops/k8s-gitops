@@ -9,6 +9,15 @@
         "postgresql"
       ],
       "allowedVersions": "<=16"
+    },
+    {
+      "matchDatasources": [
+        "helm"
+      ],
+      "matchPackagePatterns": [
+        "redis"
+      ],
+      "allowedVersions": "<=18.6.3"
     }
   ]
 }
