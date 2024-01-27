@@ -122,6 +122,11 @@ data:
       TV Show Full Archive:
         preset:
           - "base"
+          - "sponsorblock_wait"  # wait for sponsorblock when full-archiving
+
+      TV Show Full Archive (Reversed):
+        preset:
+          - "base"
           - "season_by_year__episode_by_month_day_reversed"
           - "sponsorblock_wait"  # wait for sponsorblock when full-archiving
 
