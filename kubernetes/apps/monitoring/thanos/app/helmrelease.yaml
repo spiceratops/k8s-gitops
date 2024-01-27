@@ -32,15 +32,13 @@ spec:
           master_name: redis-master
       ingress:
         enabled: true
-        hostname: &host thanos.${PRIVATE_DOMAIN}
+        hostname: ${HOSTNAME}
         ingressClassName: internal
         annotations:
-          hajimari.io/appName: Thanos
-          hajimari.io/icon: material-symbols:health-metrics
         tls: true
         extraTls:
           - hosts:
-              - *host
+              - ${HOSTNAME}
     query:
       enabled: true
       replicaLabel:

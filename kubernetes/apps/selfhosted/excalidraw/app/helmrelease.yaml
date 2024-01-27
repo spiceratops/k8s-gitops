@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app excalidraw
+  name: excalidraw
   namespace: selfhosted
 spec:
   interval: 30m
@@ -40,7 +40,7 @@ spec:
               whenUnsatisfiable: DoNotSchedule
               labelSelector:
                 matchLabels:
-                  app.kubernetes.io/name: *app
+                  app.kubernetes.io/name: ${APP}
     service:
       main:
         ports:
@@ -52,7 +52,6 @@ spec:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
-          hajimari.io/icon: mdi:draw-pen
           gethomepage.dev/enabled: "true"
           gethomepage.dev/icon: excalidraw.png
           gethomepage.dev/name: Excalidraw

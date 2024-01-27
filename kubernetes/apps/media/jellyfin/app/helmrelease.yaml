@@ -22,9 +22,9 @@ spec:
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
       securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: "${APP_UID}"
+        runAsGroup: "${APP_GID}"
+        fsGroup: "${APP_GID}"
         supplementalGroups:
           - 44
           - 109
@@ -81,7 +81,6 @@ spec:
         enabled: true
         className: "internal"
         annotations:
-          hajimari.io/icon: simple-icons:jellyfin
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Media Library
           gethomepage.dev/group: Media

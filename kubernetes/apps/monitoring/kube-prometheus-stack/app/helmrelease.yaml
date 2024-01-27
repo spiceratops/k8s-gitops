@@ -34,15 +34,13 @@ spec:
         enabled: true
         ingressClassName: internal
         annotations:
-          hajimari.io/appName: Alertmanager
-          hajimari.io/icon: fluent:alert-16-filled
         hosts:
-          - &am-host am.${PRIVATE_DOMAIN}
+          - "${HOSTNAME_AM}"
         paths:
           - /
         tls:
           - hosts:
-              - *am-host
+              - "${HOSTNAME_AM}"
       alertmanagerSpec:
         replicas: 3
         useExistingSecret: true
@@ -115,15 +113,13 @@ spec:
         enabled: true
         ingressClassName: internal
         annotations:
-          hajimari.io/appName: Prometheus
-          hajimari.io/icon: simple-icons:prometheus
         hosts:
-          - &prometheus-host prometheus.${PRIVATE_DOMAIN}
+          - "${HOSTNAME_PROM}"
         paths:
           - /
         tls:
           - hosts:
-              - *prometheus-host
+              - "${HOSTNAME_PROM}"
       thanosService:
         enabled: true
       thanosServiceMonitor:

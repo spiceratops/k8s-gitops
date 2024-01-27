@@ -114,9 +114,8 @@ spec:
         enabled: true
         className: internal
         annotations:
-          hajimari.io/enable: "false"
         hosts:
-          - host: &host "onepassword-connect.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -124,7 +123,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       config:
         enabled: true

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app actual
+  name: actual
   namespace: selfhosted
 spec:
   interval: 30m
@@ -39,10 +39,10 @@ spec:
         pod:
           enableServiceLinks: false
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: "${APP_UID}"
+            runAsGroup: "${APP_GID}"
             runAsNonRoot: true
-            fsGroup: 568
+            fsGroup: "${APP_GID}"
             fsGroupChangePolicy: OnRootMismatch
     service:
       main:

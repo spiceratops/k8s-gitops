@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app whoogle
+  name: whoogle
   namespace: selfhosted
 spec:
   interval: 30m
@@ -52,8 +52,8 @@ spec:
         enabled: true
         className: internal
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:google
+          gethomepage.dev/enable: "true"
+          gethomepage.dev/icon: mdi-google
         hosts:
           - host: "${HOSTNAME}"
             paths:

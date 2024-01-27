@@ -36,8 +36,6 @@ spec:
         enabled: true
         className: "external"
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: hammer-wrench
           gethomepage.dev/enabled: "true"
           gethomepage.dev/icon: mdi-hammer-wrench
           gethomepage.dev/name: Cyberchef

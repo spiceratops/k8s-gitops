@@ -2,9 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-flux-monitoring
+  name: &appname flux-monitoring
   namespace: flux-system
 spec:
+  targetNamespace: flux-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/apps/flux-system/addons/monitoring
   prune: true
   sourceRef:
@@ -18,11 +22,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-flux-notifications
+  name: &appname flux-notifications
   namespace: flux-system
 spec:
+  targetNamespace: flux-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-external-secrets-stores
+    - name: external-secrets-stores
   path: ./kubernetes/apps/flux-system/addons/notifications
   prune: true
   sourceRef:
@@ -36,11 +44,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-flux-webhooks
+  name: &appname flux-webhooks
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: cluster-apps-external-secrets-stores
+  targetNamespace: flux-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/apps/flux-system/addons/webhooks
   prune: true
   sourceRef:

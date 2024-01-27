@@ -10,10 +10,10 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-cloudnative-pg-cluster
-    - name: cluster-apps-volsync
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-external-secrets-stores
+    - name: cloudnative-pg-cluster
+    - name: volsync
+    - name: rook-ceph-cluster
+    - name: external-secrets-stores
   path: ./kubernetes/apps/selfhosted/windmill/app
   prune: true
   sourceRef:

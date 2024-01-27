@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app opnsense
+  name: opnsense-backup
   namespace: networking
 spec:
   interval: 30m
@@ -43,7 +43,7 @@ spec:
     persistence:
       script:
         type: configMap
-        name: *app
+        name: ${APP}
         globalMounts:
           - path: /app/opnsense-backup.sh
             subPath: opnsense-backup.sh

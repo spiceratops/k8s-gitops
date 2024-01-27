@@ -42,24 +42,23 @@ spec:
                   - ALL
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: "${APP_UID}"
+            runAsGroup: "${APP_GID}"
             runAsNonRoot: true
-            fsGroup: 568
+            fsGroup: "${APP_GID}"
             fsGroupChangePolicy: OnRootMismatch
     ingress:
       main:
         enabled: true
         className: internal
         annotations:
-          hajimari.io/icon: mdi:forum
           gethomepage.dev/enabled: "true"
           gethomepage.dev/icon: thelounge.png
           gethomepage.dev/name: The Lounge
           gethomepage.dev/group: Reading
           gethomepage.dev/description: Forum
         hosts:
-          - host: &host "forum.${PRIVATE_DOMAIN}"
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
@@ -67,11 +66,11 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - "${HOSTNAME}"
     persistence:
       config:
         enabled: true
-        existingClaim: thelounge-config
+        existingClaim: "${VOLSYNC_CLAIM}"
     service:
       main:
         ports:

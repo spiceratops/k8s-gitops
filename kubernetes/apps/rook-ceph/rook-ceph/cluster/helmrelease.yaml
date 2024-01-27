@@ -24,14 +24,13 @@ spec:
       dashboard:
         ingressClassName: internal
         annotations:
-          hajimari.io/appName: Rook
-          hajimari.io/icon: mdi:chess-rook
+          gethomepage.dev/icon: mdi-chess-rook
         host:
-          name: &host rook.${PRIVATE_DOMAIN}
+          name: ${HOSTNAME}
           path: /
         tls:
           - hosts:
-              - *host
+              - ${HOSTNAME}
     toolbox:
       enabled: true
     configOverride: |

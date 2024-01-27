@@ -63,8 +63,6 @@ spec:
         enabled: true
         className: internal
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: weight-lifter
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Gym Tracker
           gethomepage.dev/group: Home

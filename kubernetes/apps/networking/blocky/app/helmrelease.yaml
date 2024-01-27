@@ -45,8 +45,8 @@ spec:
                 memory: 1024M
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: "${APP_UID}"
+            runAsGroup: "${APP_GID}"
           topologySpreadConstraints:
             - maxSkew: 1
               topologyKey: kubernetes.io/hostname
@@ -59,7 +59,6 @@ spec:
         enabled: true
         className: internal
         annotations:
-          hajimari.io/enable: "false"
         hosts:
           - host: "${HOSTNAME}"
             paths:

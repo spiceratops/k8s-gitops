@@ -57,7 +57,6 @@ spec:
       enabled: true
       className: internal
       annotations:
-        hajimari.io/icon: mdi:controller-classic
         gethomepage.dev/enabled: "true"
         gethomepage.dev/icon: mdi-controller-classic
         gethomepage.dev/name: Romm
@@ -87,7 +86,7 @@ spec:
       library:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}
-        path: /mnt/data/media-data/games
+        path: /mnt/data/media-data/games/roms
         globalMounts:
           - path: /romm/library
     romm:

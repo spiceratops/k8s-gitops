@@ -2,11 +2,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-external-secrets
+  name: &appname external-secrets
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/apps/kube-system/external-secrets/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
@@ -18,13 +22,17 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-external-secrets-stores
+  name: &appname onepassword-connect
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-external-secrets
+    - name: external-secrets
   path: ./kubernetes/apps/kube-system/external-secrets/stores
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
@@ -32,3 +40,7 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: onepassword-connect.${PRIVATE_DOMAIN}

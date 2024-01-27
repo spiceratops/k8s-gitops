@@ -19,5 +19,5 @@ resources:
   - ./ghostfolio/ks.yaml
   - ./whoogle/ks.yaml
   - ./drawio/ks.yaml
-  # - ./wger/ks.yaml
+  - ./wger/ks.yaml
   - ./obsidian-couchdb/ks.yaml

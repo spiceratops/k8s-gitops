@@ -2,18 +2,18 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: qbittorrent-restic
+  name: prowlarr-restic
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: qbittorrent-restic-secret
+    name: prowlarr-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/qbittorrent"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/prowlarr"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -24,27 +24,27 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: qbittorrent
+  name: prowlarr
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: qbittorrent-rdst
+    name: prowlarr-rdst
   resources:
     requests:
-      storage: 5Gi
+      storage: 1Gi
   storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: qbittorrent-rdst
+  name: prowlarr-rdst
 spec:
   trigger:
     manual: restore-once
   restic:
-    repository: qbittorrent-restic-secret
+    repository: prowlarr-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
@@ -56,19 +56,19 @@ spec:
       runAsUser: 568
       runAsGroup: 568
       fsGroup: 568
-    capacity: 5Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+    capacity: 1Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: qbittorrent-rsrc
+  name: prowlarr-rsrc
 spec:
-  sourcePVC: qbittorrent
+  sourcePVC: prowlarr
   trigger:
     schedule: "15 */8 * * *"
   restic:
     pruneIntervalDays: 10
-    repository: qbittorrent-restic-secret
+    repository: prowlarr-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}

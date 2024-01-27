@@ -43,9 +43,9 @@ spec:
                 memory: 128M
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: "${APP_UID}"
+            runAsGroup: "${APP_GID}"
+            fsGroup: "${APP_GID}"
             fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:

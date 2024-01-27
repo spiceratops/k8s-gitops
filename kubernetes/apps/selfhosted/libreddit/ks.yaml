@@ -24,4 +24,3 @@ spec:
       HOSTNAME: zeddit.${PRIVATE_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
-      VOLSYNC_CLAIM: *appname

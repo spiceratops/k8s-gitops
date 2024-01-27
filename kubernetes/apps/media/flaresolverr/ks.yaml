@@ -18,10 +18,3 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *appname
-      HOSTNAME: flaresolverr.${PRIVATE_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "568"
-      VOLSYNC_CLAIM: *appname

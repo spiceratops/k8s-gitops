@@ -10,8 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-external-secrets-stores
+    - name: rook-ceph-cluster
+    - name: external-secrets-stores
   path: ./kubernetes/apps/selfhosted/wallabag/app
   prune: true
   sourceRef:

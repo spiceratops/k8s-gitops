@@ -48,8 +48,8 @@ spec:
                   - ALL
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: "${APP_UID}"
+            runAsGroup: "${APP_GID}"
             runAsNonRoot: true
     service:
       main:

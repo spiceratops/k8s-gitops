@@ -2,9 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-rook-ceph
+  name: &appname rook-ceph
   namespace: flux-system
 spec:
+  targetNamespace: rook-ceph
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/apps/rook-ceph/rook-ceph/app
   prune: true
   sourceRef:
@@ -13,16 +17,18 @@ spec:
   wait: true
   interval: 30m
   retryInterval: 1m
-  timeout: 15m
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-rook-ceph-cluster
+  name: &appname rook-ceph-cluster
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: cluster-apps-rook-ceph
+  targetNamespace: rook-ceph
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/apps/rook-ceph/rook-ceph/cluster
   prune: true
   sourceRef:
@@ -31,4 +37,8 @@ spec:
   wait: true
   interval: 30m
   retryInterval: 1m
-  timeout: 15m
+  timeout: 5m
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: rook.${PRIVATE_DOMAIN}

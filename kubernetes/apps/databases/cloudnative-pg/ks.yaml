@@ -2,9 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-cloudnative-pg
+  name: &appname cloudnative-pg
   namespace: flux-system
 spec:
+  targetNamespace: databases
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/apps/databases/cloudnative-pg/app
   prune: true
   sourceRef:
@@ -18,14 +22,18 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-cloudnative-pg-cluster
+  name: &appname cloudnative-pg-cluster
   namespace: flux-system
 spec:
+  targetNamespace: databases
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-cloudnative-pg
-    - name: cluster-apps-external-secrets-stores
-    - name: cluster-apps-external-dns
-    - name: cluster-apps-democratic-csi-local-hostpath
+    - name: cloudnative-pg
+    - name: external-secrets-stores
+    - name: external-dns
+    - name: democratic-csi-local-hostpath
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
   prune: true
   sourceRef:
@@ -39,14 +47,18 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-cloudnative-pg-cluster-vecto
+  name: &appname cloudnative-pg-cluster-vecto
   namespace: flux-system
 spec:
+  targetNamespace: databases
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-cloudnative-pg
-    - name: cluster-apps-external-secrets-stores
-    - name: cluster-apps-external-dns
-    - name: cluster-apps-democratic-csi-local-hostpath
+    - name: cloudnative-pg
+    - name: external-secrets-stores
+    - name: external-dns
+    - name: democratic-csi-local-hostpath
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster-vecto
   prune: true
   sourceRef:

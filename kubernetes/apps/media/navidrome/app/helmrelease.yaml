@@ -19,9 +19,9 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: "${APP_UID}"
+        runAsGroup: "${APP_GID}"
+        fsGroup: "${APP_GID}"
         fsGroupChangePolicy: OnRootMismatch
     controllers:
       main:
@@ -64,7 +64,6 @@ spec:
         enabled: true
         ingressClassName: external
         annotations:
-          hajimari.io/icon: mdi:music
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Music Library
           gethomepage.dev/group: Media

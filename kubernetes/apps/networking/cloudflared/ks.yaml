@@ -10,8 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-ingress-nginx-external
-    - name: cluster-apps-external-secrets-stores
+    - name: ingress-nginx-external
+    - name: external-secrets-stores
   path: ./kubernetes/apps/networking/cloudflared/app
   prune: true
   sourceRef:
@@ -24,3 +24,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
+      APP_UID: "568"
+      APP_GID: "568"

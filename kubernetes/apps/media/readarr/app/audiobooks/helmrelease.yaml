@@ -32,9 +32,9 @@ spec:
                 - path: /config
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: "${APP_UID}"
+            runAsGroup: "${APP_GID}"
+            fsGroup: "${APP_GID}"
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
               - 10000
@@ -56,7 +56,7 @@ spec:
               TZ: ${TIMEZONE}
               READARR__INSTANCE_NAME: Readarr Audiobooks
               READARR__PORT: &port 8686
-              READARR__APPLICATION_URL: &host "audiobooks.${PRIVATE_DOMAIN}"
+              READARR__APPLICATION_URL: "audiobooks.${PRIVATE_DOMAIN}"
               READARR__LOG_LEVEL: info
               READARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               READARR__THEME: dark
@@ -94,14 +94,13 @@ spec:
         enabled: true
         className: internal
         annotations:
-          hajimari.io/icon: mdi:book-music
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Audiobooks Downloader
           gethomepage.dev/group: Downloaders
           gethomepage.dev/icon: mdi:book-music
           gethomepage.dev/name: Readarr (Audiobooks)
         hosts:
-          - host: &host audiobooks.${PRIVATE_DOMAIN}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
@@ -109,7 +108,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - ${HOSTNAME}
     persistence:
       media-data:
         type: nfs

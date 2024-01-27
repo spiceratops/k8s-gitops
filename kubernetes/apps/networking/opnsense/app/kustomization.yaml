@@ -11,7 +11,3 @@ configMapGenerator:
       - ./opnsense-backup.sh
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: opnsense
-      app.kubernetes.io/instance: opnsense

@@ -19,9 +19,9 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: "${APP_UID}"
+        runAsGroup: "${APP_GID}"
+        fsGroup: "${APP_GID}"
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
@@ -57,7 +57,6 @@ spec:
         enabled: true
         className: external
         annotations:
-          hajimari.io/icon: mdi:jellyfish-outline
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Media Requests
           gethomepage.dev/group: Media

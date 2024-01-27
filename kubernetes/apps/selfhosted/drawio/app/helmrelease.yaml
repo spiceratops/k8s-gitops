@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app drawio
+  name: drawio
   namespace: selfhosted
 spec:
   interval: 30m
@@ -38,8 +38,6 @@ spec:
         enabled: true
         className: "internal"
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: pencil
           gethomepage.dev/enabled: "true"
           gethomepage.dev/icon: si:daigrams.net
           gethomepage.dev/name: Drawio

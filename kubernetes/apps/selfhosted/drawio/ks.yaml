@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-external-secrets-stores
+    - name: external-secrets-stores
   path: ./kubernetes/apps/selfhosted/drawio/app
   prune: true
   sourceRef:
@@ -24,6 +24,3 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: diagrams.${PRIVATE_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "568"
-      VOLSYNC_CLAIM: *appname

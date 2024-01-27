@@ -22,3 +22,5 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: echo-server.${PRIVATE_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"

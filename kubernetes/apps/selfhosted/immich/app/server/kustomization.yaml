@@ -6,8 +6,3 @@ resources:
   - ./helmrelease.yaml
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: immich-server
-      app.kubernetes.io/instance: immich-server
-      app.kubernetes.io/part-of: immich

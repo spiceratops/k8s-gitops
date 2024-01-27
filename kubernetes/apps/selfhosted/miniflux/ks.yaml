@@ -10,8 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-cloudnative-pg-cluster
-    - name: cluster-apps-external-secrets-stores
+    - name: cloudnative-pg-cluster
+    - name: external-secrets-stores
   path: ./kubernetes/apps/selfhosted/miniflux/app
   prune: true
   sourceRef:
@@ -27,4 +27,3 @@ spec:
       HOSTNAME: miniflux.${PRIVATE_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
-      VOLSYNC_CLAIM: *appname

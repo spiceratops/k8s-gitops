@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app miniflux
+  name: miniflux
   namespace: selfhosted
 spec:
   interval: 30m
@@ -80,8 +80,8 @@ spec:
                 cpu: 10m
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: "${APP_UID}"
+            runAsGroup: "${APP_GID}"
             runAsNonRoot: true
           topologySpreadConstraints:
             - maxSkew: 1
@@ -89,7 +89,7 @@ spec:
               whenUnsatisfiable: DoNotSchedule
               labelSelector:
                 matchLabels:
-                  app.kubernetes.io/name: *app
+                  app.kubernetes.io/name: ${APP}
     service:
       main:
         ports:

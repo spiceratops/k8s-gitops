@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app nostr-relay
+  name: nostr-relay
   namespace: selfhosted
 spec:
   interval: 30m
@@ -50,8 +50,8 @@ spec:
                   - ALL
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: "${APP_UID}"
+            runAsGroup: "${APP_GID}"
             runAsNonRoot: true
           topologySpreadConstraints:
             - maxSkew: 1
@@ -59,14 +59,14 @@ spec:
               whenUnsatisfiable: DoNotSchedule
               labelSelector:
                 matchLabels:
-                  app.kubernetes.io/name: *app
+                  app.kubernetes.io/name: ${APP}
     ingress:
       main:
         enabled: true
         className: external
         annotations:
           gatus.io/enabled: "true"
-          hajimari.io/enable: "false"
+          gethomepage.dev/enable: "false"
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
           - host: "${HOSTNAME}"

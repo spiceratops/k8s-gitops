@@ -81,18 +81,22 @@ spec:
                 memory: 128M
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: "${APP_UID}"
+            runAsGroup: "${APP_GID}"
+            fsGroup: "${APP_GID}"
             fsGroupChangePolicy: OnRootMismatch
     ingress:
       main:
         enabled: true
         className: internal
         annotations:
-          hajimari.io/icon: material-symbols:detector-status
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/icon: gatus.png
+        gethomepage.dev/name: Gatus
+        gethomepage.dev/group: Tools
+        gethomepage.dev/description: Status Page
         hosts:
-          - host: &host status.${PRIVATE_DOMAIN}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
@@ -100,7 +104,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - ${HOSTNAME}
     persistence:
       config:
         enabled: true

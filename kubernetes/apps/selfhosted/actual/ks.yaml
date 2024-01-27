@@ -10,8 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-volsync
-    - name: cluster-apps-rook-ceph-cluster
+    - name: volsync
+    - name: rook-ceph-cluster
   path: ./kubernetes/apps/selfhosted/actual/app
   prune: true
   sourceRef:

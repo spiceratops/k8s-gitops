@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app shlink
+  name: shlink
   namespace: selfhosted
 spec:
   interval: 30m
@@ -83,7 +83,7 @@ spec:
               whenUnsatisfiable: DoNotSchedule
               labelSelector:
                 matchLabels:
-                  app.kubernetes.io/name: *app
+                  app.kubernetes.io/name: ${APP}
     service:
       main:
         ports:

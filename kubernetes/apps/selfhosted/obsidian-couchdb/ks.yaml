@@ -17,9 +17,9 @@ spec:
   wait: false
   interval: 10m
   dependsOn:
-    - name: cluster-apps-volsync
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-external-secrets-stores
+    - name: volsync
+    - name: rook-ceph-cluster
+    - name: external-secrets-stores
   postBuild:
     substitute:
       APP: *appname

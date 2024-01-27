@@ -46,9 +46,6 @@ spec:
         enabled: true
         className: internal
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: Homebox
-          hajimari.io/icon: mdi:box
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: House Inventory
           gethomepage.dev/group: Home

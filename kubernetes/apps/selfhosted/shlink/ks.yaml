@@ -10,9 +10,9 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-cloudnative-pg-cluster
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-external-secrets-stores
+    - name: cloudnative-pg-cluster
+    - name: rook-ceph-cluster
+    - name: external-secrets-stores
   path: ./kubernetes/apps/selfhosted/shlink/app
   prune: true
   sourceRef:

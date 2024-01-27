@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app k8s-gateway
+  name: k8s-gateway
   namespace: networking
 spec:
   interval: 30m
@@ -53,15 +53,15 @@ spec:
                 memory: 256M
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: "${APP_UID}"
+            runAsGroup: "${APP_GID}"
           topologySpreadConstraints:
             - maxSkew: 1
               topologyKey: kubernetes.io/hostname
               whenUnsatisfiable: DoNotSchedule
               labelSelector:
                 matchLabels:
-                  app.kubernetes.io/name: *app
+                  app.kubernetes.io/name: ${APP}
     persistence:
       config:
         enabled: true
@@ -102,4 +102,4 @@ spec:
         enabled: true
     serviceAccount:
       create: true
-      name: *app
+      name: ${APP}

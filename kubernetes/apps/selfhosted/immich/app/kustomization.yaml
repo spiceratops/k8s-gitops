@@ -6,11 +6,9 @@ resources:
   - ./redis
   - ./configmap.yaml
   - ./externalsecret.yaml
-  - ./_pvc
   - ./microservices
   - ./machine-learning
   - ./server
-  - ./typesense
 configMapGenerator:
   - name: immich-gatus-ep
     files:

@@ -4,8 +4,3 @@ kind: Kustomization
 namespace: selfhosted
 resources:
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: immich-machine-learning
-      app.kubernetes.io/instance: immich-machine-learning
-      app.kubernetes.io/part-of: immich
