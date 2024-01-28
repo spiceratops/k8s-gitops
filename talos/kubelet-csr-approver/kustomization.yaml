@@ -7,6 +7,7 @@ helmCharts:
     repo: https://postfinance.github.io/kubelet-csr-approver
     version: 1.0.6
     releaseName: kubelet-csr-approver
+    includeCRDs: true
     namespace: kube-system
     valuesInline:
       providerRegex: |

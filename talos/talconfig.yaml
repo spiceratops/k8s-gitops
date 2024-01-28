@@ -1,21 +1,21 @@
 ---
-clusterName: &cluster k8s
+clusterName: k8s
 
 clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
   - 10.245.0.0/16
 
-talosVersion: v1.5.4
-kubernetesVersion: v1.28.3
+talosVersion: v1.6.3
+kubernetesVersion: v1.29.1
 endpoint: https://k8s.${domainName}:6443
 
-additionalApiServerCertSans:
-  - ${clusterEndpointIP}
-
-additionalMachineCertSans:
+additionalApiServerCertSans: &san
   - ${clusterEndpointIP}
   - k8s.${domainName}
+  - 127.0.0.1
+
+additionalMachineCertSans: *san
 
 cniConfig:
   name: none
@@ -29,9 +29,15 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-    nodeLabels:
-      topology.kubernetes.io/region: k8s
-      topology.kubernetes.io/zone: cp
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/intel-ucode
+            - siderolabs/i915-ucode
+            - siderolabs/fuse3
+            - siderolabs/util-linux-tools
+            - siderolabs/qemu-guest-agent
 
   - hostname: cp02.k8s.${domainName}
     ipAddress: 192.168.10.202
@@ -44,6 +50,15 @@ nodes:
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/intel-ucode
+            - siderolabs/i915-ucode
+            - siderolabs/fuse3
+            - siderolabs/util-linux-tools
+            - siderolabs/qemu-guest-agent
 
   - hostname: cp03.k8s.${domainName}
     ipAddress: 192.168.10.203
@@ -53,9 +68,14 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-    nodeLabels:
-      topology.kubernetes.io/region: k8s
-      topology.kubernetes.io/zone: cp
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/amd-ucode
+            - siderolabs/fuse3
+            - siderolabs/util-linux-tools
+            - siderolabs/qemu-guest-agent
 
   - hostname: wk01.k8s.${domainName}
     ipAddress: 192.168.10.211
@@ -65,10 +85,15 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-    nodeLabels:
-      node-role.kubernetes.io/worker: worker
-      topology.kubernetes.io/region: k8s
-      topology.kubernetes.io/zone: wk
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/intel-ucode
+            - siderolabs/i915-ucode
+            - siderolabs/fuse3
+            - siderolabs/util-linux-tools
+            - siderolabs/qemu-guest-agent
 
   - hostname: wk02.k8s.${domainName}
     ipAddress: 192.168.10.212
@@ -78,10 +103,15 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-    nodeLabels:
-      node-role.kubernetes.io/worker: worker
-      topology.kubernetes.io/region: k8s
-      topology.kubernetes.io/zone: wk
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/intel-ucode
+            - siderolabs/i915-ucode
+            - siderolabs/fuse3
+            - siderolabs/util-linux-tools
+            - siderolabs/qemu-guest-agent
 
   - hostname: wk03.k8s.${domainName}
     ipAddress: 192.168.10.213
@@ -91,75 +121,271 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-    nodeLabels:
-      node-role.kubernetes.io/worker: worker
-      topology.kubernetes.io/region: k8s
-      topology.kubernetes.io/zone: wk
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/amd-ucode
+            - siderolabs/fuse3
+            - siderolabs/util-linux-tools
+            - siderolabs/qemu-guest-agent
+            - siderolabs/nonfree-kmod-nvidia
+            - siderolabs/nvidia-container-toolkit
+    patches:
+      - |-
+        - op: add
+          path: /machine/files
+          value:
+            - content: |
+                [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia]
+                  privileged_without_host_devices = false
+                  runtime_engine = ""
+                  runtime_root = ""
+                  runtime_type = "io.containerd.runc.v2"
+                [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia.options]
+                  BinaryName = "/usr/bin/nvidia-container-runtime"
+              path: /etc/cri/conf.d/20-customization.part
+              op: append
+      - |-
+        - op: add
+          path: /machine/kernel
+          value:
+            modules:
+              - name: nvidia
+              - name: nvidia_uvm
+              - name: nvidia_drm
+              - name: nvidia_modeset
+      - |-
+        - op: add
+          path: /machine/sysctls
+          value:
+            net.core.bpf_jit_harden: 1
 
 controlPlane:
-  inlinePatch:
-    cluster:
-      allowSchedulingOnMasters: true
-      proxy:
-        disabled: true
-      etcd:
-        extraArgs:
-          listen-metrics-urls: http://0.0.0.0:2381
-        advertisedSubnets:
-          - 192.168.10.0/24
-      controllerManager:
-        extraArgs:
-          bind-address: 0.0.0.0
-      scheduler:
-        extraArgs:
-          bind-address: 0.0.0.0
-      apiServer:
-        admissionControl: null
-      discovery:
-        registries:
-          service:
-            disabled: true
-    machine: &machine
-      install:
-        image: factory.talos.dev/installer/dcac6b92c17d1d8947a0cee5e0e6b6904089aa878c70d66196bb1138dbd05d1a:v1.5.5
-      features:
-        kubePrism:
-          enabled: true
-          port: 7445
-      sysctls:
-        fs.inotify.max_user_watches: 1048576
-        fs.inotify.max_user_instances: 8192
-      network:
-        extraHostEntries:
-          - ip: ${clusterEndpointIP}
-            aliases:
-              - k8s.${domainName}
-          - ip: 192.168.15.4
-            aliases:
-              - vector.${domainName}
-          - ip: 192.168.10.10
-            aliases:
-              - s3.${domainName}
-      time:
-        disabled: false
-        servers:
-          - time.cloudflare.com
-      kubelet:
-        extraArgs:
-          feature-gates: GracefulNodeShutdown=true
-          rotate-server-certificates: true
-        nodeIP:
-          validSubnets:
+  nodeLabels:
+    topology.kubernetes.io/region: *cluster
+    topology.kubernetes.io/zone: cp
+  patches:
+    # Configure containerd
+    - &containerdPatch |-
+      machine:
+        files:
+          - op: create
+            path: /etc/cri/conf.d/20-customization.part
+            content: |-
+              [plugins."io.containerd.grpc.v1.cri"]
+                enable_unprivileged_ports = true
+                enable_unprivileged_icmp = true
+              [plugins."io.containerd.grpc.v1.cri".containerd]
+                discard_unpacked_layers = false
+              [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+                discard_unpacked_layers = false
+
+    # Disable search domain everywhere
+    - &disableSearchDomainPatch |-
+      machine:
+        network:
+          disableSearchDomain: true
+
+    # Enable cluster discovery
+    - &discoveryPatch |-
+      cluster:
+        discovery:
+          registries:
+            kubernetes:
+              disabled: false
+            service:
+              disabled: true
+
+    # Configure kubelet
+    - &kubeletPatch |-
+      machine:
+        kubelet:
+          extraArgs:
+            feature-gates: GracefulNodeShutdown=true
+            rotate-server-certificates: true
+          nodeIP:
+            validSubnets:
+              - 192.168.10.0/24
+
+    # Enable KubePrism
+    - &kubePrismPatch |-
+      machine:
+        features:
+          kubePrism:
+            enabled: true
+            port: 7445
+
+    # Enable logging
+    - &loggingPatch |-
+      machine:
+        logging:
+          destinations:
+            - endpoint: udp://vector.${domainName}:6002
+              format: json_lines
+
+    # Force nameserver
+    - &nameserverPatch |-
+      machine:
+        network:
+          nameservers:
+            - 192.168.1.253
+
+    # Configure NFS mount options
+    - &nfsPatch |-
+      machine:
+        files:
+          - op: overwrite
+            path: /etc/nfsmount.conf
+            permissions: 0o644
+            content: |
+              [ NFSMount_Global_Options ]
+              nfsvers=4.1
+              hard=True
+              noatime=True
+              nodiratime=True
+              rsize=131072
+              wsize=131072
+              nconnect=8
+
+    # Configure NTP
+    - &ntpPatch |-
+      machine:
+        time:
+          disabled: false
+          servers:
+            - time.cloudflare.com
+
+    # Static host entries
+    - &staticHostEntriesPatch |-
+      machine:
+        network:
+          extraHostEntries:
+            - ip: ${clusterEndpointIP}
+              aliases:
+                - k8s.${domainName}
+            - ip: 192.168.1.1
+              aliases:
+                - opnsense.${domainName}
+            - ip: 192.168.1.10
+              aliases:
+                - nas.${domainName}
+                - s3.${domainName}
+            - ip: 192.168.15.4
+              aliases:
+                - vector.${domainName}
+
+    # Custom sysctl settings
+    - &sysctlPatch |-
+      machine:
+        sysctls:
+          fs.inotify.max_user_watches: 1048576
+          fs.inotify.max_user_instances: 8192
+          kernel.randomize_va_space: 0
+          net.core.netdev_max_backlog: 30000
+          net.core.rmem_max: 67108864
+          net.core.wmem_max: 67108864
+          net.ipv4.tcp_rmem: 4096 87380 33554432
+          net.ipv4.tcp_wmem: 4096 65536 33554432
+          net.ipv4.tcp_tw_reuse: 1
+          net.ipv4.tcp_window_scaling: 1
+
+    # Custom sysfs settings
+    - &sysfsPatch |-
+      machine:
+        sysfs:
+          block.nvme0n1.queue.scheduler: none
+          devices.system.cpu.intel_pstate.no_turbo: 1
+          devices.system.cpu.cpu0.cpufreq.scaling_governor: performance
+          devices.system.cpu.cpu0.cpufreq.energy_performance_preference: performance
+
+    # Custom Talos installer patch
+    - &talosPatch |-
+      machine:
+        install:
+          extraKernelArgs:
+            - mitigations=off
+            - net.ifnames=0
+            - talos.logging.kernel=udp://vector.${domainName}:6001/
+          legacyBIOSSupport: true
+
+    # Various udev rules
+    - &udevPatch |-
+      machine:
+        udev:
+          rules:
+            - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
+            - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
+            - KERNEL=="ttyACM[0-9]", GROUP="20", MODE="0660"
+
+    # Tailscale auth
+    - &tailscalePatch |-
+      machine:
+        files:
+          - content: |
+              TS_AUTHKEY=${SECRET_TS_AUTHKEY}
+            permissions: 0o644
+            path: /var/etc/tailscale/auth.env
+            op: create
+
+    # Cluster configuration
+    - |-
+      cluster:
+        allowSchedulingOnMasters: true
+        controllerManager:
+          extraArgs:
+            bind-address: 0.0.0.0
+        coreDNS:
+          disabled: true
+        proxy:
+          disabled: true
+        scheduler:
+          extraArgs:
+            bind-address: 0.0.0.0
+
+    # ETCD configuration
+    - |-
+      cluster:
+        etcd:
+          extraArgs:
+            listen-metrics-urls: http://0.0.0.0:2381
+            unsafe-no-fsync: true
+          advertisedSubnets:
             - 192.168.10.0/24
-      files:
-        - content: |
-            [plugins."io.containerd.grpc.v1.cri"]
-              enable_unprivileged_ports = true
-              enable_unprivileged_icmp = true
-          path: /var/cri/conf.d/allow-unpriv-ports.toml
-          op: create
+
+    # Disable default API server admission plugins.
+    - |-
+      - op: remove
+        path: /cluster/apiServer/admissionControl
+
+    # Enable K8s Talos API Access
+    - |-
+      machine:
+        features:
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles:
+              - os:operator
+            allowedKubernetesNamespaces:
+              - kube-system
 
 worker:
-  inlinePatch:
-    machine:
-      <<: *machine
+  nodeLabels:
+    topology.kubernetes.io/region: *cluster
+    topology.kubernetes.io/zone: wk
+  patches:
+    - *containerdPatch
+    - *disableSearchDomainPatch
+    - *discoveryPatch
+    - *kubeletPatch
+    - *kubePrismPatch
+    - *loggingPatch
+    - *nameserverPatch
+    - *nfsPatch
+    - *ntpPatch
+    - *staticHostEntriesPatch
+    - *sysctlPatch
+    - *sysfsPatch
+    - *talosPatch
+    - *udevPatch
+    - *tailscalePatch
