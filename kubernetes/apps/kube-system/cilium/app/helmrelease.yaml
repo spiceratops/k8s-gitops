@@ -74,8 +74,6 @@ spec:
         ingress:
           enabled: true
           className: internal
-          annotations:
-            gethomepage.dev/icon: mdi-router
           hosts:
             - "${HOSTNAME}"
           tls:
