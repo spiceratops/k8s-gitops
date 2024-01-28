@@ -50,4 +50,5 @@ spec:
                   name: main
                   port: http
         tls:
-          - hosts: "${HOSTNAME}"
+          - hosts:
+              - "${HOSTNAME}"
