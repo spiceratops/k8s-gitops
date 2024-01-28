@@ -36,6 +36,9 @@ spec:
           action: replace,
         }
       - { regex: cluster, action: labeldrop }
+  bootstrap:
+    recovery:
+      source: postgres-v6
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
@@ -44,7 +47,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://postgresql/
       endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
-      serverName: postgres-v6
+      serverName: postgres-v7
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -52,3 +55,18 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-secret
           key: AWS_SECRET_ACCESS_KEY
+  externalClusters:
+    - name: postgres-v6
+      barmanObjectStore:
+        wal:
+          compression: bzip2
+          maxParallel: 8
+        destinationPath: s3://postgresql/
+        endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
+        s3Credentials:
+          accessKeyId:
+            name: cloudnative-pg-secret
+            key: AWS_ACCESS_KEY_ID
+          secretAccessKey:
+            name: cloudnative-pg-secret
+            key: AWS_SECRET_ACCESS_KEY
