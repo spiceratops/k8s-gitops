@@ -9,11 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  dependsOn:
-    - name: volsync
-    - name: rook-ceph-cluster
-    - name: cloudnative-pg-cluster
-    - name: external-secrets-stores
   path: ./kubernetes/apps/democratic-csi/democratic-csi/local-hostpath
   prune: true
   sourceRef:
