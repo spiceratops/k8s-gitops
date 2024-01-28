@@ -77,10 +77,10 @@ spec:
           annotations:
             gethomepage.dev/icon: mdi-router
           hosts:
-            - &host hubble.${PRIVATE_DOMAIN}
+            - "${HOSTNAME}"
           tls:
             - hosts:
-                - *host
+                - "${HOSTNAME}"
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: ${CLUSTER_POD_IP_CIDR}
