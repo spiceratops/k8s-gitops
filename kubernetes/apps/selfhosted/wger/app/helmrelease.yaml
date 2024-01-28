@@ -42,11 +42,11 @@ spec:
               EMAIL_HOST: smtp-relay.networking.svc.cluster.local
               EMAIL_PORT: 2525
               FROM_EMAIL: wger@${PRIVATE_DOMAIN}
-              SITE_URL: gym.${PRIVATE_DOMAIN}
+              SITE_URL: "${HOSTNAME}"
               SYNC_EXERCISES_ON_STARTUP: True
               DOWNLOAD_EXERCISE_IMAGES_ON_STARTUP: True
-              MEDIA_URL: https://gym.${PRIVATE_DOMAIN}/media/
-              STATIC_URL: https://gym.${PRIVATE_DOMAIN}/static/
+              MEDIA_URL: https://${HOSTNAME}/media/
+              STATIC_URL: https://${HOSTNAME}/static/
             resources:
               requests:
                 cpu: 10m
