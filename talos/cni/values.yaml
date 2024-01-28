@@ -25,3 +25,4 @@ operator:
 rollOutCiliumPods: true
 securityContext:
   privileged: true
+tunnel: disabled
