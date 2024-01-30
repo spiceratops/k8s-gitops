@@ -71,10 +71,6 @@ spec:
         path: /mnt/data/media-data
         globalMounts:
           - path: /media-data
-      run:
-        type: emptyDir
-        globalMounts:
-          - path: /run
     service:
       main:
         ports:
