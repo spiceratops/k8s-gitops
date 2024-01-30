@@ -17,6 +17,14 @@ spec:
         namespace: flux-system
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: "${APP_UID}"
+        runAsGroup: "${APP_GID}"
+        fsGroup: "${APP_GID}"
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 65536
     controllers:
       main:
         annotations:
@@ -63,14 +71,6 @@ spec:
         path: /mnt/data/media-data
         globalMounts:
           - path: /media-data
-        pod:
-          securityContext:
-            runAsUser: "${APP_UID}"
-            runAsGroup: "${APP_GID}"
-            fsGroup: "${APP_GID}"
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 65536
     service:
       main:
         ports:
