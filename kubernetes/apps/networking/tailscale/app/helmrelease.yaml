@@ -30,10 +30,11 @@ spec:
               PORT: &port ${TAILNET_PUBLIC_PORT}
               SA_NAME: tailscale
               TS_USERSPACE: true
-              TS_KUBE_SECRET: tailscale-state
-              TS_EXTRA_ARGS: --advertise-exit-node
+              TS_KUBE_SECRET: ""
+              TS_EXTRA_ARGS: --advertise-exit-node --advertise-tags=tag:sc-k8s
               TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:2000
-              TS_ROUTES: ${LAN_SERVER_IP_CIDR},${CLUSTER_SERVICE_IP_CIDR},${CILIUM_LB_CIDR}
+              TS_ROUTES: ${LAN_SERVER_IP_CIDR},${CILIUM_LB_CIDR}
+              TS_STATE_DIR: /tmp
             envFrom:
               - secretRef:
                   name: tailscale-secret
@@ -49,11 +50,14 @@ spec:
             runAsGroup: "${APP_GID}"
             fsGroup: "${APP_GID}"
             fsGroupChangePolicy: OnRootMismatch
+            runAsNonRoot: true
     persistence:
       cache:
         type: emptyDir
         globalMounts:
           - path: /.cache
+      tmp:
+        type: emptyDir
     service:
       main:
         ports:
