@@ -34,7 +34,6 @@ spec:
         enabled: true
         hostname: &host thanos.${PRIVATE_DOMAIN}
         ingressClassName: internal
-        annotations:
         tls: true
         extraTls:
           - hosts:
