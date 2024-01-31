@@ -44,6 +44,15 @@ spec:
                 memory: 256M
               limits:
                 memory: 2048M
+        pod:
+          securityContext:
+            runAsUser: "${APP_UID}"
+            runAsGroup: "${APP_GID}"
+            runAsNonRoot: true
+            fsGroup: "${APP_GID}"
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 65536
     persistence:
       config:
         enabled: true
