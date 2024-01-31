@@ -35,7 +35,7 @@ spec:
         containers:
           main:
             image:
-              repository: docker.io/wger/server
+              repository: wger/server
               tag: 2.2
             envFrom: *envFrom
             env:
