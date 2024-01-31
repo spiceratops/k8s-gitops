@@ -56,7 +56,7 @@ spec:
           gethomepage.dev/icon: thelounge.png
           gethomepage.dev/name: The Lounge
           gethomepage.dev/group: Reading
-          gethomepage.dev/description: Forum
+          gethomepage.dev/description: IRC
         hosts:
           - host: "${HOSTNAME}"
             paths:
