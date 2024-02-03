@@ -46,7 +46,9 @@ spec:
                 memory: 2048M
         pod:
           securityContext:
-            fsGroup: ${APP_GID}
+            runAsUser: "${APP_UID}"
+            runAsGroup: "${APP_GID}"
+            fsGroup: "${APP_GID}"
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
               - 65536
@@ -54,15 +56,9 @@ spec:
       config:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
-        globalMounts:
-          - path: /config
-            subPath: config
       config-deemix:
         enabled: true
         existingClaim: deemix
-        globalMounts:
-          - path: /config_deemix
-            subPath: config_deemix
       media:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}
