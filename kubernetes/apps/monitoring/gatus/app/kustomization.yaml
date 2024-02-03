@@ -7,6 +7,9 @@ resources:
   - ./rbac.yaml
   - ./helmrelease.yaml
 configMapGenerator:
+  - name: gatus-configmap
+    files:
+      - ./configs/config.yaml
   - name: gatus-grafana-dashboards
     files:
       - ./dashboards/gatus.json
