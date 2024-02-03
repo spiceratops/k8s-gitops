@@ -46,10 +46,8 @@ spec:
                 memory: 2048M
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
             runAsNonRoot: true
-            fsGroup: 568
+            fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
               - 65536
