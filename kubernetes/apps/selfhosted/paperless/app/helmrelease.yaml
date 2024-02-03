@@ -98,7 +98,8 @@ spec:
               - "${HOSTNAME}"
     persistence:
       config:
-        enabled: true
-        existingClaim: "${VOLSYNC_CLAIM}"
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN}
+        path: /mnt/data/media-data/documents/paperless
         globalMounts:
           - path: /data/local
