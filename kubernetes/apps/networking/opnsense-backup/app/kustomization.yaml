@@ -6,7 +6,7 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: opnsense
+  - name: opnsense-backup
     files:
       - ./opnsense-backup.sh
 generatorOptions:
