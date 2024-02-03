@@ -62,7 +62,6 @@ spec:
           securityContext:
             runAsUser: "${APP_UID}"
             runAsGroup: "${APP_GID}"
-            runAsNonRoot: true
             fsGroup: "${APP_GID}"
             fsGroupChangePolicy: OnRootMismatch
     service:
