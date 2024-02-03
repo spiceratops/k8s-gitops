@@ -26,6 +26,6 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: authelia.${PRIVATE_DOMAIN}
+      HOSTNAME: auth.${PRIVATE_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
