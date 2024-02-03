@@ -49,8 +49,8 @@ spec:
                   - ALL
         pod:
           securityContext:
-            fsGroup: ${APP_GID}
-            fsGroupChangePolicy: OnRootMismatch
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
             runAsNonRoot: true
     service:
       main:
