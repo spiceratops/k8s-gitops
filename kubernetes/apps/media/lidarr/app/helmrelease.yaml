@@ -37,6 +37,8 @@ spec:
             env:
               TZ: ${TIMEZONE}
               AUTOCONFIG: true
+              PUID: "${APP_UID}"
+              PGID: "${APP_GID}"
             envFrom: *envFrom
             resources:
               requests:
