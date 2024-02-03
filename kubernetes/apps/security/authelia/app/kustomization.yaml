@@ -9,12 +9,6 @@ configMapGenerator:
   - name: authelia-configmap
     files:
       - ./configs/configuration.yml
-  - name: authelia-gatus-ep
-    files:
-      - ./configs/gatus.yaml
-    options:
-      labels:
-        gatus.io/enabled: "true"
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
