@@ -14,6 +14,8 @@ upstream:
     - https://dns.nextdns.io/38d6fe
   192.168.1.244:
     - https://dns.nextdns.io/38d6fe
+  192.168.1.215:
+    - https://dns.nextdns.io/38d6fe
 
 bootstrapDns:
   - https://1.1.1.1/dns-query
