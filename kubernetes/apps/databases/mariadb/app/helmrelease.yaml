@@ -3,34 +3,54 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: mariadb
-  namespace: databases
 spec:
   interval: 30m
-  timeout: 15m
   chart:
     spec:
-      chart: mariadb
-      version: 16.5.0
+      chart: app-template
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
-        name: bitnami-charts
+        name: bjw-s
         namespace: flux-system
-
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
   values:
-    podAnnotations:
-      reloader.stakater.com/auto: "true"
-    clusterDomain: cluster.local
-    primary:
-      persistence:
-        enabled: true
-        existingClaim: mariadb
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        interval: 1m
-  valuesFrom:
-    - kind: Secret
-      name: mariadb-secret
-      valuesKey: mariadb-root-password
-      targetPath: auth.rootPassword
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/linuxserver/mariadb
+              tag: 10.11.6
+            env:
+              TZ: ${TIMEZONE}
+              PUID: ${APP_UID}
+              PGID: ${APP_GID}
+              MYSQL_LOG_CONSOLE: "false"
+            envFrom:
+              - secretRef:
+                  name: mariadb-secret
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
+    service:
+      main:
+        controller: main
+        ports:
+          mysql:
+            enabled: true
+            port: 3306
+            primary: true
+    persistence:
+      config:
+        existingClaim: "${VOLSYNC_CLAIM}"
