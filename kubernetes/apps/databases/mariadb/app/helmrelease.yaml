@@ -32,7 +32,3 @@ spec:
   valuesFrom:
     - kind: Secret
       name: mariadb-secret
-    - kind: Secret
-      name: romm-secret
-      valuesKey: MARIADB_ROOT_PASSWORD
-      targetPath: auth.rootPassword
