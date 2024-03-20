@@ -41,8 +41,6 @@ spec:
         persistence:
           enabled: true
           existingClaim: "${VOLSYNC_CLAIM}"
-    redis:
-      enabled: false
     resources:
       requests:
         cpu: 10m
