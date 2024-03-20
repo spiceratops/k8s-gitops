@@ -19,7 +19,7 @@ spec:
   values:
     podAnnotations:
       reloader.stakater.com/auto: "true"
-    clusterDomain: ${PRIVATE_DOMAIN}
+    clusterDomain: cluster.local
     primary:
       persistence:
         enabled: true
