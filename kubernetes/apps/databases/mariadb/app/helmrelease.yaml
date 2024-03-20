@@ -23,7 +23,7 @@ spec:
     primary:
       persistence:
         enabled: true
-        existingClaim: "${VOLSYNC_CLAIM}"
+        existingClaim: mariadb
     metrics:
       enabled: true
       serviceMonitor:
