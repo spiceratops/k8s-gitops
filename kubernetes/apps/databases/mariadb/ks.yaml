@@ -10,9 +10,9 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cluster-apps-volsync
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-external-secrets-stores
+    - name: volsync
+    - name: rook-ceph-cluster
+    - name: external-secrets-stores
   path: ./kubernetes/apps/databases/mariadb/app
   prune: true
   sourceRef:
