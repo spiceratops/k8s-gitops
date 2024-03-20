@@ -6,3 +6,4 @@ resources:
   - ./cloudnative-pg/ks.yaml
   - ./redis/ks.yaml
   - ./pgadmin/ks.yaml
+  - ./mariadb/ks.yaml
