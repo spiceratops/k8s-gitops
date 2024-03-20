@@ -3,153 +3,86 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: romm
-  namespace: gaming
+  namespace: selfhosted
 spec:
   interval: 30m
   timeout: 15m
   chart:
     spec:
-      chart: romm
-      version: 0.2.20
+      chart: app-template
+      version: 2.6.0
       sourceRef:
         kind: HelmRepository
-        name: crystalnet-charts
+        name: bjw-s-charts
         namespace: flux-system
 
   values:
-    annotations:
-      reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/zurdi15/romm
-      tag: 2.3.1
-    podSecurityContext:
-      fsGroup: ${APP_GID}
-      runAsNonRoot: true
-      runAsUser: ${APP_UID}
-      runAsGroup: ${APP_GID}
-      fsGroupChangePolicy: "OnRootMismatch"
-    env:
-      TZ: ${TIMEZONE}
-    envFrom:
-      - secretRef:
-          name: romm-secret
-    mariadb:
-      enabled: true
-      auth:
-        database: romm
-      primary:
-        persistence:
-          enabled: true
-          existingClaim: "${VOLSYNC_CLAIM}"
-    resources:
-      requests:
-        cpu: 10m
-        memory: 256M
-      limits:
-        memory: 1024M
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/zurdi15/romm
+              tag: 3.0.1
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 1024Mi
+            env:
+              TZ: ${TIMEZONE}
+              DB_HOST: "mariadb.databases.svc.cluster.local"
+            envFrom:
+              - secretRef:
+                  name: romm-secret
+        pod:
+          podSecurityContext:
+            fsGroup: ${APP_GID}
+            runAsNonRoot: true
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroupChangePolicy: "OnRootMismatch"
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: ${APP}
     service:
-      ports:
-        http:
-          port: 8080
+      main:
+        ports:
+          http:
+            port: 8080
     ingress:
-      enabled: true
-      className: internal
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/icon: mdi-controller-classic
-        gethomepage.dev/name: Romm
-        gethomepage.dev/group: Gaming
-        gethomepage.dev/description: Retro Game Library
-      hosts:
-        - host: "${HOSTNAME}"
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-      tls:
-        - hosts:
-            - "${HOSTNAME}"
-    persistence:
-      database:
-        enabled: false
-      logs:
-        enabled: false
-      resources:
+      main:
         enabled: true
-        volumeClaimSpec:
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 2Gi
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/icon: mdi-controller-classic
+          gethomepage.dev/name: Romm
+          gethomepage.dev/group: Gaming
+          gethomepage.dev/description: Retro Game Library
+        hosts:
+          - host: "${HOSTNAME}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - "${HOSTNAME}"
+    persistence:
+      data:
+        existingClaim: "${VOLSYNC_CLAIM}"
+        globalMounts:
+          - path: /romm
       library:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}
         path: /mnt/data/media-data/games/roms
         globalMounts:
           - path: /romm/library
-    romm:
-      config:
-        auth:
-          enabled: true
-        filesystem_watcher:
-          enabled: true
-          scan_delay: 5
-        scheduled_tasks:
-          filesystem_scan:
-            enabled: true
-            cron: 0 3 * * *
-          switch_titledb_update:
-            enabled: true
-            cron: 0 4 * * *
-          mame_xml_update:
-            enabled: true
-            cron: 0 5 * * *
-
-        database:
-          type: mariadb
-          mariadb:
-            host: mariadb.databases.svc.cluster.local
-            port: 3306
-      settings:
-        exclude:
-          platforms:
-            - "romm"
-          roms:
-            single_file:
-              names:
-                - "info.txt"
-              extensions:
-                - "xml"
-  valuesFrom:
-    - kind: Secret
-      name: romm-secret
-      valuesKey: ROMM_AUTH_USERNAME
-      targetPath: romm.config.auth.username
-    - kind: Secret
-      name: romm-secret
-      valuesKey: ROMM_AUTH_PASSWORD
-      targetPath: romm.config.auth.password
-    - kind: Secret
-      name: romm-secret
-      valuesKey: ROMM_MARIADB_USERNAME
-      targetPath: mariadb.auth.username
-    - kind: Secret
-      name: romm-secret
-      valuesKey: ROMM_MARIADB_PASSWORD
-      targetPath: mariadb.auth.password
-    - kind: Secret
-      name: romm-secret
-      valuesKey: ROMM_MARIADB_ROOTPASSWORD
-      targetPath: mariadb.auth.rootPassword
-    - kind: Secret
-      name: romm-secret
-      valuesKey: IGDB_CLIENT_ID
-      targetPath: romm.config.igdb_api.client_id
-    - kind: Secret
-      name: romm-secret
-      valuesKey: IGDB_CLIENT_SECRET
-      targetPath: romm.config.igdb_api.client_secret
-    - kind: Secret
-      name: romm-secret
-      valuesKey: STEAMGRIDDB_API
-      targetPath: romm.config.steamgriddb_api.api_key
