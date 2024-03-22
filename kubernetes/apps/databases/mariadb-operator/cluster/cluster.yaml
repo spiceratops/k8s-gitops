@@ -1,0 +1,93 @@
+apiVersion: mariadb.mmontes.io/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb-galera
+spec:
+  rootPasswordSecretKeyRef:
+    name: mariadb-operator-secret
+    key: rootPassword
+  database: mariadb
+  username: mariadb
+  passwordSecretKeyRef:
+    name: mariadb-operator-secret
+    key: password
+  image: "mariadb:11.3.2"
+  imagePullPolicy: IfNotPresent
+  port: 3306
+  env:
+    - name: TZ
+      value: ${TIMEZONE}
+  replicas: 3
+  galera:
+    enabled: true
+    primary:
+      podIndex: 0
+      automaticFailover: true
+    sst: mariabackup
+    replicaThreads: 1
+    agent:
+      image: ghcr.io/mariadb-operator/agent:v0.0.3
+      pullPolicy: IfNotPresent
+      port: 5555
+      kubernetesAuth:
+        enabled: true
+      gracefulShutdownTimeout: 5s
+    recovery:
+      enabled: true
+      clusterHealthyTimeout: 3m
+      clusterBootstrapTimeout: 10m
+      podRecoveryTimeout: 5m
+      podSyncTimeout: 5m
+    initContainer:
+      image: ghcr.io/mariadb-operator/init:v0.0.6
+      pullPolicy: IfNotPresent
+    volumeClaimTemplate:
+      storageClassName: ceph-block
+      resources:
+        requests:
+          storage: 300Mi
+      accessModes:
+        - ReadWriteOnce
+  service:
+    type: LoadBalancer
+    annotations:
+      io.cilium/lb-ipam-ips: "${MARIADB_LB_IP}"
+  volumeClaimTemplate:
+    storageClassName: ceph-block
+    resources:
+      requests:
+        storage: 10Gi
+    accessModes:
+      - ReadWriteOnce
+  resources:
+    requests:
+      cpu: 300m
+      memory: 1Gi
+    limits:
+      memory: 2Gi
+  # For Galera, Specifically
+  podSecurityContext:
+    runAsUser: 0
+  securityContext:
+    allowPrivilegeEscalation: false
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - topologyKey: "kubernetes.io/hostname"
+  tolerations:
+    - key: "mariadb.mmontes.io/ha"
+      operator: "Exists"
+      effect: "NoSchedule"
+  podDisruptionBudget:
+    maxUnavailable: 66%
+  updateStrategy:
+    type: RollingUpdate
+  myCnf: |
+    [mariadb]
+    bind-address=*
+    default_storage_engine=InnoDB
+    binlog_format=row
+    innodb_autoinc_lock_mode=2
+    max_allowed_packet=256M
+    max_threads=10
+    read_buffer_size=0
