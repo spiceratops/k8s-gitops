@@ -41,7 +41,6 @@ spec:
       cert:
         certManager:
           enabled: true
-          issuerRef: letsencrypt-prod
       port: 9443
       serviceMonitor:
         enabled: true
