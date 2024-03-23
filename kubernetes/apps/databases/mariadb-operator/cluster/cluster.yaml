@@ -43,13 +43,16 @@ spec:
     type: LoadBalancer
     annotations:
       io.cilium/lb-ipam-ips: "${MARIADB_LB_IP}"
-  volumeClaimTemplate:
-    storageClassName: ceph-block
-    resources:
-      requests:
-        storage: 10Gi
-    accessModes:
-      - ReadWriteOnce
+  storage:
+    size: 10Gi
+    storageClassName: democratic-csi-local-hostpath
+    volumeClaimTemplate:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+      storageClassName: democratic-csi-local-hostpath
   resources:
     requests:
       cpu: 300m
