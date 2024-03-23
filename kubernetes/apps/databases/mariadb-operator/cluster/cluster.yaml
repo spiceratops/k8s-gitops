@@ -4,12 +4,12 @@ metadata:
   name: mariadb-galera
 spec:
   rootPasswordSecretKeyRef:
-    name: mariadb-operator-secret
+    name: mariadb-galera-secret
     key: rootPassword
   database: mariadb
   username: mariadb
   passwordSecretKeyRef:
-    name: mariadb-operator-secret
+    name: mariadb-galera-secret
     key: password
   image: "mariadb:11.3.2"
   imagePullPolicy: IfNotPresent
