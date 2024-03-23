@@ -25,8 +25,33 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
+    ha:
+      enabled: true
+      replicas: 3
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128M
+      limits:
+        memory: 1024M
     webhook:
-      certificate:
-        certManager: true
+      ha:
+        enabled: true
+        replicas: 3
+      cert:
+        certManager:
+          enabled: true
+          issuerRef: letsencrypt-prod
+      port: 9443
       serviceMonitor:
         enabled: true
+        interval: 30s
+        scrapeTimeout: 25s
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128M
+        limits:
+          memory: 512M
+    certController:
+      enabled: false
