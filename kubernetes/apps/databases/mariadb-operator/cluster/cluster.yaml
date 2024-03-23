@@ -27,7 +27,6 @@ spec:
     replicaThreads: 1
     agent:
       image: ghcr.io/mariadb-operator/agent:v0.0.3
-      pullPolicy: IfNotPresent
       port: 5555
       kubernetesAuth:
         enabled: true
@@ -40,7 +39,6 @@ spec:
       podSyncTimeout: 5m
     initContainer:
       image: ghcr.io/mariadb-operator/init:v0.0.6
-      pullPolicy: IfNotPresent
   service:
     type: LoadBalancer
     annotations:
