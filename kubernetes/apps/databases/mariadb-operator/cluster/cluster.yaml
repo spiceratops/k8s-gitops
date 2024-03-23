@@ -1,15 +1,16 @@
+---
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
   rootPasswordSecretKeyRef:
-    name: mariadb-galera-secret
+    name: mariadb-secret
     key: rootPassword
   database: mariadb
   username: mariadb
   passwordSecretKeyRef:
-    name: mariadb-galera-secret
+    name: mariadb-secret
     key: password
   image: "mariadb:11.3.2"
   imagePullPolicy: IfNotPresent
@@ -26,7 +27,7 @@ spec:
     sst: mariabackup
     replicaThreads: 1
     agent:
-      image: ghcr.io/mariadb-operator/agent:v0.0.3
+      image: ghcr.io/mariadb-operator/mariadb-operator:v0.0.27
       port: 5555
       kubernetesAuth:
         enabled: true
@@ -38,11 +39,19 @@ spec:
       podRecoveryTimeout: 5m
       podSyncTimeout: 5m
     initContainer:
-      image: ghcr.io/mariadb-operator/init:v0.0.6
+      image: ghcr.io/mariadb-operator/mariadb-operator:v0.0.27
   service:
     type: LoadBalancer
     annotations:
       io.cilium/lb-ipam-ips: "${MARIADB_LB_IP}"
+  primaryService:
+    type: LoadBalancer
+    annotations:
+      io.cilium/lb-ipam-ips: "${MARIADB_PRIMARY_LB_IP}"
+  secondaryService:
+    type: LoadBalancer
+    annotations:
+      io.cilium/lb-ipam-ips: "${MARIADB_SECONDARY_LB_IP}"
   storage:
     size: 10Gi
     storageClassName: democratic-csi-local-hostpath
