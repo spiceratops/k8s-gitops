@@ -3,13 +3,15 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: MariaDB
 metadata:
   name: mariadb-galera
-  namespace: databases
 spec:
   rootPasswordSecretKeyRef:
     name: mariadb-secret
     key: rootPassword
   database: mariadb
   username: mariadb
+  passwordSecretKeyRef:
+    name: mariadb-secret
+    key: password
   image: "mariadb:11.3.2"
   imagePullPolicy: IfNotPresent
   port: 3306
