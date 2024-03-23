@@ -41,13 +41,6 @@ spec:
     initContainer:
       image: ghcr.io/mariadb-operator/init:v0.0.6
       pullPolicy: IfNotPresent
-    volumeClaimTemplate:
-      storageClassName: ceph-block
-      resources:
-        requests:
-          storage: 300Mi
-      accessModes:
-        - ReadWriteOnce
   service:
     type: LoadBalancer
     annotations:
