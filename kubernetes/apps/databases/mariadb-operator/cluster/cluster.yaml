@@ -9,9 +9,6 @@ spec:
     key: rootPassword
   database: mariadb
   username: mariadb
-  passwordSecretKeyRef:
-    name: mariadb-secret
-    key: password
   image: "mariadb:11.3.2"
   imagePullPolicy: IfNotPresent
   port: 3306
