@@ -5,3 +5,9 @@ namespace: selfhosted
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: nostr-relay-config-tpl
+    files:
+      - ./configs/config.toml
+generatorOptions:
+  disableNameSuffixHash: true
