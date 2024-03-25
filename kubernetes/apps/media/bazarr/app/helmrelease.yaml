@@ -44,7 +44,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: &port 6767
+                    port: 6767
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -139,4 +139,4 @@ spec:
         controller: bazarr
         ports:
           http:
-            port: *port
+            port: 6767
