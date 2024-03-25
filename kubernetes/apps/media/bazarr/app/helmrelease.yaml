@@ -104,7 +104,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: app
+                  name: bazarr
                   port: http
         tls:
           - hosts:
