@@ -30,7 +30,7 @@ spec:
               - secretRef:
                   name: bazarr-secret
         containers:
-          bazarr:
+          app:
             image:
               repository: ghcr.io/onedr0p/bazarr
               tag: 1.4.2@sha256:113035f37f289f190781d9d728f2ebf56c895b972921820f5d30408427c837d9
@@ -90,7 +90,7 @@ spec:
             supplementalGroups:
               - 65536
     ingress:
-      bazarr:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -104,7 +104,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: bazarr
+                  name: app
                   port: http
         tls:
           - hosts:
@@ -135,7 +135,7 @@ spec:
       tmp:
         type: emptyDir
     service:
-      bazarr:
+      app:
         ports:
           http:
             port: *port
