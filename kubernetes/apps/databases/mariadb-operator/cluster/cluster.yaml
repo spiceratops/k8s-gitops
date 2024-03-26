@@ -87,10 +87,10 @@ spec:
     secretTemplate:
       key: dsn
 
-  podSecurityContext:
-    runAsUser: 0
-  securityContext:
-    allowPrivilegeEscalation: false
+  # podSecurityContext:
+  #   runAsUser: 0
+  # securityContext:
+  #   allowPrivilegeEscalation: false
 
   affinity:
     enableAntiAffinity: true
