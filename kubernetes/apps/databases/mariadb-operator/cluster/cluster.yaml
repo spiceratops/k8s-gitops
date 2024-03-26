@@ -87,8 +87,8 @@ spec:
     secretTemplate:
       key: dsn
 
-  # podSecurityContext:
-  #   runAsUser: 0
+  podSecurityContext:
+    runAsUser: 0
   # securityContext:
   #   allowPrivilegeEscalation: false
 
