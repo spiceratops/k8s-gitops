@@ -18,26 +18,26 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &appname mariadb-operator-cluster
-  namespace: flux-system
-spec:
-  targetNamespace: databases
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
-  dependsOn:
-    - name: mariadb-operator
-    - name: external-secrets-stores
-  path: ./kubernetes/apps/databases/mariadb-operator/cluster
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: k8s-gitops
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: &appname mariadb-operator-cluster
+#   namespace: flux-system
+# spec:
+#   targetNamespace: databases
+#   commonMetadata:
+#     labels:
+#       app.kubernetes.io/name: *appname
+#   dependsOn:
+#     - name: mariadb-operator
+#     - name: external-secrets-stores
+#   path: ./kubernetes/apps/databases/mariadb-operator/cluster
+#   prune: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: k8s-gitops
+#   wait: true
+#   interval: 30m
+#   retryInterval: 1m
+#   timeout: 5m
