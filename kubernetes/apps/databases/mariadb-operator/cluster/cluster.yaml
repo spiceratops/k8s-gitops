@@ -53,28 +53,28 @@ spec:
     type: LoadBalancer
     annotations:
       io.cilium/lb-ipam-ips: "${MARIADB_LB_IP}"
-  connection:
-    secretName: mariadb-galera-conn
-    secretTemplate:
-      key: dsn
+  # connection:
+  #   secretName: mariadb-galera-conn
+  #   secretTemplate:
+  #     key: dsn
 
   primaryService:
     type: LoadBalancer
     annotations:
       io.cilium/lb-ipam-ips: "${MARIADB_PRIMARY_LB_IP}"
-  primaryConnection:
-    secretName: mariadb-galera-conn-primary
-    secretTemplate:
-      key: dsn
+  # primaryConnection:
+  #   secretName: mariadb-galera-conn-primary
+  #   secretTemplate:
+  #     key: dsn
 
   secondaryService:
     type: LoadBalancer
     annotations:
       io.cilium/lb-ipam-ips: "${MARIADB_SECONDARY_LB_IP}"
-  secondaryConnection:
-    secretName: mariadb-galera-conn-secondary
-    secretTemplate:
-      key: dsn
+  # secondaryConnection:
+  #   secretName: mariadb-galera-conn-secondary
+  #   secretTemplate:
+  #     key: dsn
 
   podSecurityContext:
     runAsUser: 0
