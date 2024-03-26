@@ -54,11 +54,9 @@ spec:
                   app.kubernetes.io/name: ${APP}
     service:
       main:
-        type: ClusterIP
-        clusterIP: "${ROMM_IP}"
-        # externalTrafficPolicy: Local
-        # annotations:
-        #   io.cilium/lb-ipam-ips: "${ROMM_LB_IP}"
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "${ROMM_LB_IP}"
         ports:
           http:
             port: 8080
