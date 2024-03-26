@@ -2,10 +2,11 @@
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: Backup
 metadata:
-  name: backup
+  name: mariadb-galera-backup
 spec:
   mariaDbRef:
     name: mariadb
+    namespace: databases
   maxRetention: 720h # 30 days
   storage:
     s3:
