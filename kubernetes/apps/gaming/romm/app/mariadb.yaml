@@ -33,6 +33,6 @@ spec:
     name: mariadb-galera
     namespace: databases
   passwordSecretKeyRef:
-    name: romm
+    name: romm-secret
     key: DB_PASSWD
   maxUserConnections: 20
