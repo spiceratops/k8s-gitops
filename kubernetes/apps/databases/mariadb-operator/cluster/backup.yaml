@@ -11,7 +11,7 @@ spec:
   storage:
     s3:
       bucket: mariadb
-      endpoint: https://s3.${PRIVATE_DOMAIN}:9000
+      endpoint: s3.${PRIVATE_DOMAIN}:9000
       region: home
       accessKeyIdSecretKeyRef:
         name: mariadb-secret
