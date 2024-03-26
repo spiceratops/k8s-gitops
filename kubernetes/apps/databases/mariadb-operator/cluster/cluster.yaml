@@ -54,6 +54,7 @@ spec:
         resources:
           requests:
             storage: 300Mi
+        storageClassName: democratic-csi-local-hostpath
         accessModes:
           - ReadWriteOnce
 
