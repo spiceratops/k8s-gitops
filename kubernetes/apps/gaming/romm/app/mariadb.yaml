@@ -48,7 +48,7 @@ spec:
   username: romm
   passwordSecretKeyRef:
     name: romm-secret
-    key: password
+    key: DB_PASSWD
   database: romm
   secretName: romm-conn
   params:
