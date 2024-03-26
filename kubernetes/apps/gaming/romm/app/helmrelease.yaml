@@ -54,6 +54,9 @@ spec:
                   app.kubernetes.io/name: ${APP}
     service:
       main:
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "${ROMM_LB_IP}"
         ports:
           http:
             port: 8080
