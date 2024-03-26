@@ -3,6 +3,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Database
 metadata:
   name: romm
+  namespace: databases
 spec:
   mariaDbRef:
     name: mariadb-galera
@@ -13,6 +14,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Grant
 metadata:
   name: romm
+  namespace: databases
 spec:
   mariaDbRef:
     name: mariadb-galera
@@ -26,6 +28,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
 metadata:
   name: romm
+  namespace: databases
 spec:
   mariaDbRef:
     name: mariadb-galera
