@@ -33,23 +33,6 @@ spec:
     namespace: databases
   privileges:
     - "ALL"
-  database: "*"
+  database: "romm"
   table: "*"
   username: romm
----
-apiVersion: k8s.mariadb.com/v1alpha1
-kind: Connection
-metadata:
-  name: romm-mariadb-connection
-spec:
-  mariaDbRef:
-    name: mariadb-galera
-    namespace: databases
-  username: romm
-  passwordSecretKeyRef:
-    name: romm-secret
-    key: DB_PASSWD
-  database: romm
-  secretName: romm-conn
-  params:
-    parseTime: "true"
