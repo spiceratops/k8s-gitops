@@ -17,16 +17,9 @@ spec:
 
   storage:
     size: 5Gi
-    storageClassName: democratic-csi-local-hostpath
+    storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     resizeInUseVolumes: true
     waitForVolumeResize: true
-    volumeClaimTemplate:
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 5Gi
-      storageClassName: democratic-csi-local-hostpath
   replicas: 3
 
   galera:
@@ -54,14 +47,7 @@ spec:
     initContainer:
       image: ghcr.io/mariadb-operator/mariadb-operator:v0.0.27
     config:
-      reuseStorageVolume: false
-      volumeClaimTemplate:
-        resources:
-          requests:
-            storage: 300Mi
-        storageClassName: democratic-csi-local-hostpath
-        accessModes:
-          - ReadWriteOnce
+      reuseStorageVolume: true
 
   service:
     type: LoadBalancer
