@@ -9,7 +9,9 @@ spec:
     key: rootPassword
   username: mariadb
   database: mariadb
-
+  passwordSecretKeyRef:
+    name: mariadb-secret
+    key: password
   storage:
     size: 5Gi
     storageClassName: democratic-csi-local-hostpath
