@@ -60,7 +60,7 @@ spec:
                     key: S3_SECRET_KEY
               DATASOURCE_S3_BUCKET: zipline
               DATASOURCE_S3_ENDPOINT: s3.${PRIVATE_DOMAIN}
-              DATASOURCE_S3_PORT: 443
+              DATASOURCE_S3_PORT: 9000
               DATASOURCE_S3_FORCE_S3_PATH: "true"
               DATASOURCE_S3_USE_SSL: "true"
               # Exif
