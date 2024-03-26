@@ -32,7 +32,7 @@ spec:
                 memory: 1024Mi
             env:
               TZ: ${TIMEZONE}
-              DB_HOST: "mariadb.databases.svc.cluster.local"
+              DB_HOST: "mariadb-galera.databases.svc.cluster.local"
               REDIS_HOST: "redis.databases.svc.cluster.local"
               REDIS_PORT: 6379
             envFrom:
