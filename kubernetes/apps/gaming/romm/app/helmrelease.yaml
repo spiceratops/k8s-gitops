@@ -32,7 +32,7 @@ spec:
                 memory: 1024Mi
             env:
               TZ: ${TIMEZONE}
-              DB_HOST: "mariadb-galera-internal.databases.svc.cluster.local"
+              DB_HOST: "mariadb-galera.databases.svc.cluster.local"
               REDIS_HOST: "redis.databases.svc.cluster.local"
               REDIS_PORT: 6379
             envFrom:
@@ -54,9 +54,11 @@ spec:
                   app.kubernetes.io/name: ${APP}
     service:
       main:
-        type: LoadBalancer
-        annotations:
-          io.cilium/lb-ipam-ips: "${ROMM_LB_IP}"
+        type: ClusterIP
+        clusterIP: "${ROMM_IP}"
+        # externalTrafficPolicy: Local
+        # annotations:
+        #   io.cilium/lb-ipam-ips: "${ROMM_LB_IP}"
         ports:
           http:
             port: 8080
