@@ -5,7 +5,7 @@ metadata:
   name: mariadb-galera-backup
 spec:
   mariaDbRef:
-    name: mariadb
+    name: mariadb-galera
     namespace: databases
   maxRetention: 720h # 30 days
   storage:
