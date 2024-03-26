@@ -35,6 +35,11 @@ spec:
               DB_HOST: "mariadb-galera.databases.svc.cluster.local"
               REDIS_HOST: "redis.databases.svc.cluster.local"
               REDIS_PORT: 6379
+              DB_PASSWD:
+                valueFrom:
+                  secretKeyRef:
+                    name: romm-conn
+                    key: dsn
             envFrom:
               - secretRef:
                   name: romm-secret
