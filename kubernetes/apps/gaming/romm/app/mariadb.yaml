@@ -21,6 +21,7 @@ spec:
   passwordSecretKeyRef:
     name: romm-secret
     key: DB_PASSWD
+  host: "10.244.%"
   maxUserConnections: 20
 ---
 apiVersion: k8s.mariadb.com/v1alpha1
