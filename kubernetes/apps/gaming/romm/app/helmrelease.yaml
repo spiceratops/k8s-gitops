@@ -22,7 +22,7 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/zurdi15/romm
+              repository: ghcr.io/rommapp/romm
               tag: 3.0.3
             resources:
               requests:
