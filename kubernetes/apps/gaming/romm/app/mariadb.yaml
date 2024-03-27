@@ -37,3 +37,4 @@ spec:
   database: "romm"
   table: "*"
   username: romm
+  host: "10.244.%"
