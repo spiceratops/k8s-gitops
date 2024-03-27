@@ -11,6 +11,6 @@ spec:
     - "ALL"
   database: "*"
   table: "*"
-  username: root
+  username: mariadb
   host: "%"
   grantOption: true
