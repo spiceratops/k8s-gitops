@@ -38,27 +38,3 @@ spec:
   table: "*"
   username: romm
   host: "%"
----
-apiVersion: k8s.mariadb.com/v1alpha1
-kind: SqlJob
-metadata:
-  name: users-romm
-spec:
-  mariaDbRef:
-    name: mariadb-galera
-    namespace: databases
-  serviceAccountName: sqljob
-  username: mariadb
-  passwordSecretKeyRef:
-    name: mariadb-secret
-    namespace: databases
-    key: password
-  database: romm
-  sql: |
-    CREATE TABLE IF NOT EXISTS users (
-      id bigint PRIMARY KEY AUTO_INCREMENT,
-      username varchar(255) NOT NULL,
-      UNIQUE KEY name__unique_idx (username)
-    );
-    INSERT INTO users(username) VALUES('romm')
-      ON DUPLICATE KEY UPDATE id=id;
