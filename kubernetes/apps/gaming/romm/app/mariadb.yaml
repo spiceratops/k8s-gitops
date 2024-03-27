@@ -50,8 +50,9 @@ spec:
   serviceAccountName: sqljob
   username: mariadb
   passwordSecretKeyRef:
-    name: romm-secret
-    key: DB_PASSWD
+    name: mariadb-secret
+    namespace: databases
+    key: password
   database: romm
   sql: |
     CREATE TABLE IF NOT EXISTS users (
