@@ -90,7 +90,6 @@ spec:
     binlog_format=row
     innodb_autoinc_lock_mode=2
     max_allowed_packet=256M
-    skip_name_resolve
 
   resources:
     requests:
