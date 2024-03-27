@@ -102,16 +102,16 @@ spec:
   metrics:
     enabled: true
 
-  bootstrapFrom:
-    s3:
-      bucket: mariadb
-      endpoint: s3.${PRIVATE_DOMAIN}:9000
-      region: home
-      accessKeyIdSecretKeyRef:
-        name: mariadb-secret
-        key: access-key-id
-      secretAccessKeySecretKeyRef:
-        name: mariadb-secret
-        key: secret-access-key
-      tls:
-        enabled: true
+  # bootstrapFrom:
+  #   s3:
+  #     bucket: mariadb
+  #     endpoint: s3.${PRIVATE_DOMAIN}:9000
+  #     region: home
+  #     accessKeyIdSecretKeyRef:
+  #       name: mariadb-secret
+  #       key: access-key-id
+  #     secretAccessKeySecretKeyRef:
+  #       name: mariadb-secret
+  #       key: secret-access-key
+  #     tls:
+  #       enabled: true
