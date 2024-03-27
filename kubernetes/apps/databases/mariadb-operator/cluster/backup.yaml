@@ -2,10 +2,10 @@
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: Backup
 metadata:
-  name: mariadb-galera-backup
+  name: mariadb-backup
 spec:
   mariaDbRef:
-    name: mariadb-galera
+    name: mariadb
     namespace: databases
   schedule:
     cron: "0 * * * *"

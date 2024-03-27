@@ -5,7 +5,7 @@ metadata:
   name: romm
 spec:
   mariaDbRef:
-    name: mariadb-galera
+    name: mariadb
     namespace: databases
   characterSet: utf8
   collate: utf8_general_ci
@@ -16,7 +16,7 @@ metadata:
   name: romm
 spec:
   mariaDbRef:
-    name: mariadb-galera
+    name: mariadb
     namespace: databases
   passwordSecretKeyRef:
     name: romm-secret
@@ -30,7 +30,7 @@ metadata:
   name: romm
 spec:
   mariaDbRef:
-    name: mariadb-galera
+    name: mariadb
     namespace: databases
   privileges:
     - "ALL"
