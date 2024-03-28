@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-ts
+  namespace: networking
+spec:
+  secretName: wildcard-tls-ts
+  issuerRef:
+    name: letsencrypt-prod-ts
+    kind: ClusterIssuer
+  commonName: ${TS_DOMAIN}
+  dnsNames:
+    - ${TS_DOMAIN}
+    - "*.${TS_DOMAIN}"
