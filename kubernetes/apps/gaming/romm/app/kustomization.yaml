@@ -6,7 +6,7 @@ resources:
   - ./externalsecret.yaml
   - ./mariadb.yaml
   - ./volsync.yaml
-  # - ./helmrelease.yaml
+  - ./helmrelease.yaml
 configMapGenerator:
   - name: romm-configmap
     files:
