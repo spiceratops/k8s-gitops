@@ -27,6 +27,7 @@ spec:
         enabled: true
         annotations:
           tailscale.com/hostname: "nginx-tailscale"
+          io.cilium/lb-ipam-ips: ${INGRESS_TS_LB_IP}
         type: LoadBalancer
         loadBalancerClass: tailscale
         externalTrafficPolicy: Local
@@ -35,7 +36,7 @@ spec:
       ingressClassResource:
         name: tailscale
         default: false
-        controllerValue: k8s.io/ingress-tailscale
+        controllerValue: k8s.io/tailscale
       admissionWebhooks:
         objectSelector:
           matchExpressions:
@@ -74,7 +75,7 @@ spec:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app.kubernetes.io/instance: ingress-tailscale
+              app.kubernetes.io/instance: ${APP}
               app.kubernetes.io/component: controller
       resources:
         requests:
