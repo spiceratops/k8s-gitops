@@ -1,8 +1,8 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: ingress-nginx-internal
+  name: ingress-nginx-tailscale
   namespace: networking
 spec:
   interval: 30m
@@ -17,40 +17,48 @@ spec:
         namespace: flux-system
 
   values:
-    fullnameOverride: ${APP}
     controller:
       replicaCount: 2
       allowSnippetAnnotations: true
+      enableAnnotationValidations: true
+      updateStrategy:
+        type: RollingUpdate
+      service:
+        enabled: true
+        annotations:
+          tailscale.com/hostname: "nginx-tailscale"
+        type: LoadBalancer
+        loadBalancerClass: tailscale
+        externalTrafficPolicy: Local
+      publishService:
+        enabled: true
+      ingressClassResource:
+        name: tailscale
+        default: false
+        controllerValue: k8s.io/ingress-tailscale
       admissionWebhooks:
         objectSelector:
           matchExpressions:
             - key: ingress-class
               operator: In
-              values: ["internal"]
+              values:
+                - tailscale
       config:
+        client-header-timeout: 120
         client-body-buffer-size: 100M
-        client-body-timeout: 2m
-        client-header-timeout: 2m
-        enable-brotli: true
-        enable-ocsp: true
-        enable-real-ip: true
+        client-body-timeout: 120
+        enable-brotli: "true"
+        enable-ocsp: "true"
+        enable-real-ip: "true"
+        hide-headers: Server,X-Powered-By
         hsts-max-age: 31449600
+        keep-alive: 120
         keep-alive-requests: 10000
-        keep-alive: 2m
+        log-format-escape-json: "true"
         proxy-body-size: 0
-        proxy-buffer-size: 16k
-        proxy-read-timeout: 7d
-        proxy-send-timeout: 7d
-        ssl-protocols: TLSv1.3 TLSv1.2
-        use-forwarded-headers: true
-        proxy-real-ip-cidr: ${CLUSTER_POD_IP_CIDR}
-      extraArgs:
-        default-ssl-certificate: networking/wildcard-tls
-      ingressClass: internal
-      ingressClassResource:
-        name: internal
-        default: true
-        controllerValue: k8s.io/internal
+        proxy-buffer-size: "16k"
+        ssl-protocols: "TLSv1.3 TLSv1.2"
+        use-forwarded-headers: "true"
       metrics:
         enabled: true
         serviceMonitor:
@@ -58,26 +66,22 @@ spec:
           namespace: networking
           namespaceSelector:
             any: true
-      resources:
-        requests:
-          cpu: 10m
-          memory: 256M
-        limits:
-          memory: 512M
-      service:
-        annotations:
-          io.cilium/lb-ipam-ips: ${INGRESS_INT_LB_IP}
-          external-dns.alpha.kubernetes.io/hostname: internal.${PRIVATE_DOMAIN}
-        labels:
-          io.cilium/lb-ipam-layer2: "true"
+      extraArgs:
+        default-ssl-certificate: networking/wildcard-tls
       topologySpreadConstraints:
-        - maxSkew: 1
+        - maxSkew: 2
           topologyKey: kubernetes.io/hostname
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
               app.kubernetes.io/instance: ${APP}
               app.kubernetes.io/component: controller
+      resources:
+        requests:
+          cpu: 25m
+          memory: 500Mi
+        limits:
+          memory: 600Mi
     defaultBackend:
       enabled: true
       image:
