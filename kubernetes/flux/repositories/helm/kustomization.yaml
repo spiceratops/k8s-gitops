@@ -38,3 +38,4 @@ resources:
   - ./crystalnet-charts.yaml
   - ./mariadb-operator-charts.yaml
   - ./crunchydata-charts.yaml
+  - ./tailscale-charts.yaml
