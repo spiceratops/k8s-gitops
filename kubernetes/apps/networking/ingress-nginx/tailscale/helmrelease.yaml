@@ -74,7 +74,7 @@ spec:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app.kubernetes.io/instance: ingress-nginx-tailscale
+              app.kubernetes.io/instance: ingress-tailscale
               app.kubernetes.io/component: controller
       resources:
         requests:
