@@ -26,7 +26,7 @@ spec:
     service:
       externalTrafficPolicy: Local
       annotations:
-        io.cilium/lb-ipam-ips: ${TAILSCALE_DNS_IP}
+        io.cilium/lb-ipam-ips: ${TAILSCALE_DNS_LB_IP}
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
