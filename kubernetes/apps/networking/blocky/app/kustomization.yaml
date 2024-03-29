@@ -5,9 +5,9 @@ namespace: networking
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: blocky-config-tpl
-    files:
-      - ./configs/config.yml
-generatorOptions:
-  disableNameSuffixHash: true
+# configMapGenerator:
+#   - name: blocky-config-tpl
+#     files:
+#       - ./configs/config.yml
+# generatorOptions:
+#   disableNameSuffixHash: true
