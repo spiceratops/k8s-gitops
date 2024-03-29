@@ -48,31 +48,31 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1
-# kind: Kustomization
-# metadata:
-#   name: &appname ingress-nginx-external
-#   namespace: flux-system
-# spec:
-#   targetNamespace: networking
-#   commonMetadata:
-#     labels:
-#       app.kubernetes.io/name: *appname
-#   dependsOn:
-#     - name: cert-manager-issuers
-#   path: ./kubernetes/apps/networking/ingress-nginx/external
-#   prune: true
-#   sourceRef:
-#     kind: GitRepository
-#     name: k8s-gitops
-#   wait: true
-#   interval: 30m
-#   retryInterval: 1m
-#   timeout: 5m
-#   postBuild:
-#     substitute:
-#       APP: *appname
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname ingress-nginx-external
+  namespace: flux-system
+spec:
+  targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: cert-manager-issuers
+  path: ./kubernetes/apps/networking/ingress-nginx/external
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  postBuild:
+    substitute:
+      APP: *appname
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
