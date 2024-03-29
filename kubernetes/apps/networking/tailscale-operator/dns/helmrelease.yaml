@@ -25,8 +25,8 @@ spec:
         enabled: true
     service:
       externalTrafficPolicy: Local
-      type: ClusterIP
-      clusterIP: ${TAILSCALE_DNS_IP}
+      annotations:
+        io.cilium/lb-ipam-ips: ${TAILSCALE_DNS_IP}
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -67,6 +67,6 @@ spec:
       - filename: ${TS_PRIVATE_DOMAIN}
         domain: ${TS_PRIVATE_DOMAIN}
         contents: |
-          ${TS_PRIVATE_DOMAIN}m.   IN SOA gemma.ns.cloudflare.com. dns.cloudflare.com. 2020100600 10000 2400 604800 3600
+          ${TS_PRIVATE_DOMAIN}.   IN SOA gemma.ns.cloudflare.com. dns.cloudflare.com. 2020100600 10000 2400 604800 3600
           *.t.${TS_PRIVATE_DOMAIN}. IN CNAME nginx-tailscale.${TS_PRIVATE_DOMAIN}
           romm.${TS_PRIVATE_DOMAIN}. IN CNAME romm.${TS_DOMAIN}
