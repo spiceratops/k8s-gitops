@@ -69,5 +69,4 @@ spec:
         contents: |
           ${TS_PRIVATE_DOMAIN}m.   IN SOA gemma.ns.cloudflare.com. dns.cloudflare.com. 2020100600 10000 2400 604800 3600
           *.t.${TS_PRIVATE_DOMAIN}. IN CNAME nginx-tailscale.${TS_PRIVATE_DOMAIN}
-          *.${TS_PRIVATE_DOMAIN}. IN A   100.113.247.99
           romm.${TS_PRIVATE_DOMAIN}. IN CNAME romm.${TS_DOMAIN}
