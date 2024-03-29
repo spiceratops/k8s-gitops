@@ -28,6 +28,7 @@ spec:
         annotations:
           tailscale.com/hostname: "nginx-tailscale"
           io.cilium/lb-ipam-ips: ${INGRESS_TS_LB_IP}
+          tailscale.com/funnel: "true"
         type: LoadBalancer
         loadBalancerClass: tailscale
         externalTrafficPolicy: Local
