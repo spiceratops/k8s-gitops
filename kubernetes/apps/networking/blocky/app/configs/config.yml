@@ -25,7 +25,7 @@ conditional:
   mapping:
     cluster.local: ${CLUSTER_DNS_IP}
     ${PRIVATE_DOMAIN}: ${K8S_GATEWAY_IP}
-    ${PRIVATE_TS_DOMAIN}: ${K8S_GATEWAY_TS_IP}
+    ${TS_PRIVATE_DOMAIN}: ${K8S_GATEWAY_TS_IP}
 
 blocking:
   blackLists: # https://firebog.net/
