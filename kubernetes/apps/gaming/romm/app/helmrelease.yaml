@@ -64,6 +64,7 @@ spec:
         enabled: true
         className: tailscale
         annotations:
+          tailscale.com/funnel: "true"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/icon: mdi-controller-classic
           gethomepage.dev/name: Romm
