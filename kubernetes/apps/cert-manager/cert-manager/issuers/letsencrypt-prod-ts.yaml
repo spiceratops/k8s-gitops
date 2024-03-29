@@ -18,4 +18,4 @@ spec:
               key: API_TOKEN_TS
         selector:
           dnsZones:
-            - ${TS_DOMAIN}
+            - ${TS_PRIVATE_DOMAIN}

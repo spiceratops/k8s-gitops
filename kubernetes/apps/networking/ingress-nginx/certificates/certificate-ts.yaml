@@ -9,7 +9,7 @@ spec:
   issuerRef:
     name: letsencrypt-prod-ts
     kind: ClusterIssuer
-  commonName: ${TS_DOMAIN}
+  commonName: ${TS_PRIVATE_DOMAIN}
   dnsNames:
-    - ${TS_DOMAIN}
-    - "*.${TS_DOMAIN}"
+    - ${TS_PRIVATE_DOMAIN}
+    - "*.${TS_PRIVATE_DOMAIN}"
