@@ -56,9 +56,10 @@ spec:
                   app.kubernetes.io/name: ${APP}
     service:
       main:
-        # type: LoadBalancer
-        # annotations:
-        #   io.cilium/lb-ipam-ips: "${ROMM_LB_IP}"
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "${ROMM_LB_IP}"
+          tailscale.com/expose: "true"
         ports:
           http:
             port: 8080
