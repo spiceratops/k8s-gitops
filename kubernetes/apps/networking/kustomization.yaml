@@ -12,4 +12,4 @@ resources:
   - ./smtp-relay/ks.yaml
   - ./opnsense-backup/ks.yaml
   - ./tailscale-operator/ks.yaml
-  # - ./k8s-gateway-ts/ks.yaml
+  - ./k8s-gateway-ts/ks.yaml
