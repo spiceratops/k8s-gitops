@@ -39,3 +39,4 @@ resources:
   - ./mariadb-operator-charts.yaml
   - ./crunchydata-charts.yaml
   - ./tailscale-charts.yaml
+  - ./coredns-charts.yaml
