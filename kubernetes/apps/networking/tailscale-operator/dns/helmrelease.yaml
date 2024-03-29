@@ -28,6 +28,7 @@ spec:
       annotations:
         io.cilium/lb-ipam-ips: ${TAILSCALE_DNS_LB_IP}
         tailscale.com/expose: "true"
+        tailscale.com/hostname: "coredns"
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
