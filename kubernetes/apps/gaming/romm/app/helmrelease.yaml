@@ -62,9 +62,8 @@ spec:
     ingress:
       main:
         enabled: true
-        className: tailscale
+        className: external
         annotations:
-          tailscale.com/funnel: "true"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/icon: mdi-controller-classic
           gethomepage.dev/name: Romm
