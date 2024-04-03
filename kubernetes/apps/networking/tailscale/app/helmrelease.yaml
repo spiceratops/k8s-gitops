@@ -31,7 +31,7 @@ spec:
               SA_NAME: tailscale
               TS_USERSPACE: true
               TS_KUBE_SECRET: ""
-              TS_EXTRA_ARGS: --advertise-tags=tag:k8s
+              TS_EXTRA_ARGS: --advertise-tags=tag:sc-k8s
               TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:2000
               TS_ROUTES: ${LAN_SERVER_IP_CIDR},${CILIUM_LB_CIDR},${LAN_TRUSTED_IP_CIDR}
               TS_STATE_DIR: /tmp
