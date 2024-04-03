@@ -31,6 +31,8 @@ spec:
         type: LoadBalancer
         loadBalancerClass: tailscale
         externalTrafficPolicy: Local
+        labels:
+          io.cilium/lb-ipam-layer2: "true"
       publishService:
         enabled: true
       ingressClassResource:
