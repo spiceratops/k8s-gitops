@@ -91,14 +91,14 @@ spec:
       app:
         className: internal
         hosts:
-          - host: ${HOSTNAME}
+          - host: "${HOSTNAME}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
         tls:
-          - hosts: ${HOSTNAME}
+          - hosts: "${HOSTNAME}"
     persistence:
       storage-users:
         type: nfs
