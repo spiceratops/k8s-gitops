@@ -84,7 +84,7 @@ spec:
             port: 9205
     serviceMonitor:
       app:
-        serviceName: *app
+        serviceName: ${APP}
         endpoints:
           - port: metrics
     ingress:
