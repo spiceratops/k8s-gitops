@@ -1,0 +1,24 @@
+.:1053 {
+    errors
+    health {
+        lameduck 5s
+    }
+    ready
+    log . {
+        class error
+    }
+    prometheus 0.0.0.0:9153
+    k8s_gateway ${PRIVATE_TS_DOMAIN} {
+        apex k8s-gateway-ts.networking
+        resources Ingress Service
+        fallthrough ${PRIVATE_TS_DOMAIN}
+    }
+    forward ${PRIVATE_TS_DOMAIN} tls://45.90.28.99 tls://45.90.30.99 {
+        tls_servername dns.nextdns.io
+        health_check 5s
+    }
+    cache 30
+    loop
+    reload
+    loadbalance
+}
