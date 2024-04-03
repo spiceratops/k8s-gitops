@@ -25,7 +25,6 @@ conditional:
   mapping:
     cluster.local: ${CLUSTER_DNS_IP}
     ${PRIVATE_DOMAIN}: ${K8S_GATEWAY_IP}
-    ${TS_PRIVATE_DOMAIN}: ${TAILSCALE_DNS_LB_IP}
 
 blocking:
   blackLists: # https://firebog.net/
@@ -151,3 +150,4 @@ customDNS:
     minecraft-cobblemon.${PRIVATE_DOMAIN}: 192.168.15.206
     gameservers.${PRIVATE_DOMAIN}: 192.168.1.220
     pedalboard.${PRIVATE_DOMAIN}: 192.168.1.220
+    romm.${TS_PRIVATE_DOMAIN}: 192.168.15.80
