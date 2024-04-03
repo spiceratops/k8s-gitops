@@ -69,4 +69,4 @@ spec:
         domain: ${TS_PRIVATE_DOMAIN}
         contents: |
           ${TS_PRIVATE_DOMAIN}.   IN SOA gemma.ns.cloudflare.com. dns.cloudflare.com. 2020100600 10000 2400 604800 3600
-          romm.${TS_PRIVATE_DOMAIN}. IN A 100.69.119.70
+          romm.${TS_PRIVATE_DOMAIN}. IN A 100.105.93.97
