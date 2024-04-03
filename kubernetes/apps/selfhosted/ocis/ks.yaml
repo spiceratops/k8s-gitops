@@ -25,3 +25,5 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: ocis.${PRIVATE_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"
