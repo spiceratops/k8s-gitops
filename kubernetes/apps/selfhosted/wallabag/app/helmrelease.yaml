@@ -36,7 +36,7 @@ spec:
           main:
             image:
               repository: wallabag/wallabag
-              tag: 2.6.8
+              tag: 2.6.9
             envFrom: *envFrom
             env:
               TIMEZONE: ${TIMEZONE}
