@@ -5,3 +5,9 @@ namespace: selfhosted
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: ocis-configmap
+    files:
+      - ./configs/proxy.yaml
+generatorOptions:
+  disableNameSuffixHash: true

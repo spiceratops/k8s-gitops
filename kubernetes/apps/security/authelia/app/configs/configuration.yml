@@ -149,6 +149,20 @@ identity_providers:
         redirect_uris: ["https://gitops.${PRIVATE_DOMAIN}/oauth2/callback"]
         userinfo_signing_algorithm: none
 
+      - id: ocis
+        description: OwnCloud Infinite Scale
+        public: true
+        authorization_policy: two_factor
+        pre_configured_consent_duration: 1y
+        scopes: ["openid", "profile", "groups", "email"]
+        redirect_uris:
+          [
+            "https://ocis.${PRIVATE_DOMAIN}/",
+            "https://ocis.${PRIVATE_DOMAIN}/oidc-callback.html",
+            "https://ocis.${PRIVATE_DOMAIN}/oidc-silent-redirect.html",
+          ]
+        userinfo_signed_response_alg: none
+
 notifier:
   disable_startup_check: true
   smtp:
