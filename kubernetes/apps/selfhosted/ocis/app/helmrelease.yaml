@@ -90,6 +90,12 @@ spec:
     ingress:
       app:
         className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: File Sharing
+          gethomepage.dev/group: Home
+          gethomepage.dev/icon: owncloud.png
+          gethomepage.dev/name: OCIS
         hosts:
           - host: "${HOSTNAME}"
             paths:
