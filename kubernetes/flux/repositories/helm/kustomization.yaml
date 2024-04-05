@@ -40,3 +40,4 @@ resources:
   - ./crunchydata-charts.yaml
   - ./tailscale-charts.yaml
   - ./coredns-charts.yaml
+  - ./stevehipwell-charts.yaml
