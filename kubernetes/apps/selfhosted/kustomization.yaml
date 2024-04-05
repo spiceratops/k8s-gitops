@@ -21,4 +21,4 @@ resources:
   - ./drawio/ks.yaml
   - ./obsidian-couchdb/ks.yaml
   - ./paperless/ks.yaml
-  # - ./ocis/ks.yaml
+  - ./ocis/ks.yaml
