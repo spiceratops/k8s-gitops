@@ -157,9 +157,9 @@ identity_providers:
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris:
           [
-            "https://ocis.${PRIVATE_DOMAIN}/",
-            "https://ocis.${PRIVATE_DOMAIN}/oidc-callback.html",
-            "https://ocis.${PRIVATE_DOMAIN}/oidc-silent-redirect.html",
+            "https://files.${PRIVATE_DOMAIN}/",
+            "https://files.${PRIVATE_DOMAIN}/oidc-callback.html",
+            "https://files.${PRIVATE_DOMAIN}/oidc-silent-redirect.html",
           ]
         userinfo_signed_response_alg: none
 
