@@ -56,9 +56,9 @@ spec:
         enabled: true
         ingressClassName: internal
         hosts:
-          - "${HOSTNAME}"
+          - &host thanos.${PRIVATE_DOMAIN}
         tls:
-          - hosts: "${HOSTNAME}"
+          - hosts: [*host]
       podAnnotations: &podAnnotations
         configmap.reloader.stakater.com/reload: *configMap
     rule:
