@@ -11,11 +11,9 @@ exclude:
       # Exclude all files with certain extensions to be scanned
       extensions:
         - "xml"
+        - "txt"
       # Exclude matched file names to be scanned
       names:
-        - "info.txt"
-        - "systeminfo.txt"
-        - "systems.txt"
         - "._*" # Supports unix filename pattern matching
         - "*.nfo" # Can also exclude files by extension
 
@@ -50,7 +48,7 @@ system:
     dreamcast: "dc"
     n3ds: "3ds"
     nds: "nintendo-dsi"
-    windows3x: "win"
+    windows3x: "win3x"
     windows9x: "win"
     fbneo: "arcade"
   # Asociate one platform to it's main version
