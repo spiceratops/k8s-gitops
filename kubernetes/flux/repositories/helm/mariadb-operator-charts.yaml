@@ -5,5 +5,5 @@ metadata:
   name: mariadb-operator-charts
   namespace: flux-system
 spec:
-  interval: 2h
+  interval: 30m
   url: https://mariadb-operator.github.io/mariadb-operator

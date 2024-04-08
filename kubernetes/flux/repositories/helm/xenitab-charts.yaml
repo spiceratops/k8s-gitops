@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: actions-runner-controller-charts
+  name: xenitab
   namespace: flux-system
 spec:
   type: oci
   interval: 30m
-  url: oci://ghcr.io/actions/actions-runner-controller-charts
+  url: oci://ghcr.io/xenitab/helm-charts
