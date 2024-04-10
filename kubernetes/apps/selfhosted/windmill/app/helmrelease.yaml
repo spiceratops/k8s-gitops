@@ -37,6 +37,7 @@ spec:
         gethomepage.dev/group: Tools
         gethomepage.dev/icon: mdi-script
         gethomepage.dev/name: Windmill
+        gethomepage.dev/url: https://"${HOSTNAME}"
       tls:
         - hosts:
             - "${HOSTNAME}"

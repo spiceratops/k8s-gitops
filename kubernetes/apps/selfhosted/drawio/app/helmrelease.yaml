@@ -39,7 +39,7 @@ spec:
         className: "internal"
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/icon: si:daigrams.net
+          gethomepage.dev/icon: si-daigrams.net
           gethomepage.dev/name: Drawio
           gethomepage.dev/group: Tools
           gethomepage.dev/description: Diagramming Tool
