@@ -27,7 +27,7 @@ spec:
           main:
             image:
               repository: docker.io/jgraph/drawio
-              tag: 24.2.3
+              tag: 24.2.5
     service:
       main:
         ports:
