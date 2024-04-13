@@ -1,0 +1,32 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname lidarr
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: volsync
+    - name: rook-ceph-cluster
+    - name: cloudnative-pg-cluster
+    - name: external-secrets-stores
+  path: ./kubernetes/apps/media/lidarr/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: lidarr.${PRIVATE_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"
+      VOLSYNC_CLAIM: *appname

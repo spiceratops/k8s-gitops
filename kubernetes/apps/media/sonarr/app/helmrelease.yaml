@@ -103,6 +103,8 @@ spec:
     persistence:
       config:
         existingClaim: "${VOLSYNC_CLAIM}"
+        globalMounts:
+          - path: /config
       media-data:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}
