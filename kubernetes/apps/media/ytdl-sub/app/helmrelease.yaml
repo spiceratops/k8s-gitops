@@ -63,21 +63,13 @@ spec:
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
               - 10000
-    service:
-      app:
-        controller: ytdl-sub
-        enabled: false
-    ingress:
-      app:
-        enabled: false
     persistence:
       config:
         enabled: true
         type: configMap
         name: config
-        mountPath: /config
-        readOnly: true
-        defaultMode: 0755
+        globalMounts:
+          - path: /config
       media-data:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}
