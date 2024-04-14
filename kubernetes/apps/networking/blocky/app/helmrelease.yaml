@@ -105,6 +105,3 @@ spec:
             enabled: true
             port: 853
             protocol: TCP
-    serviceMonitor:
-      app:
-        serviceName: blocky
