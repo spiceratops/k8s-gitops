@@ -71,6 +71,7 @@ spec:
                 memory: 500Mi
     service:
       app:
+        controller: mealie
         ports:
           http:
             port: 9000

@@ -95,6 +95,7 @@ spec:
         existingClaim: "${VOLSYNC_CLAIM}"
     service:
       app:
+        controller: prowlarr
         ports:
           http:
             port: *port

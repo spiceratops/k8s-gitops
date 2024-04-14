@@ -44,6 +44,7 @@ spec:
                 memory: 250M
     service:
       app:
+        controller: whoogle
         ports:
           http:
             port: 5000

@@ -39,6 +39,7 @@ spec:
                   name: opnsense-secret
     service:
       app:
+        controller: opnsense-backup
         enabled: false
     persistence:
       script:

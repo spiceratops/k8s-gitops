@@ -30,6 +30,7 @@ spec:
               tag: 24.2.5
     service:
       app:
+        controller: drawio
         ports:
           http:
             port: 8080

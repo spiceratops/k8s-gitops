@@ -80,11 +80,12 @@ spec:
             readOnly: true
     service:
       app:
+        controller: blocky
         ports:
           http:
             port: 4000
       dns:
-        controller: main
+        controller: blocky
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${BLOCKY_LB_IP}

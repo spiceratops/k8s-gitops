@@ -84,7 +84,7 @@ spec:
                   topologyKey: kubernetes.io/hostname
     service:
       app:
-        controller: ${APP}
+        controller: radarr
         ports:
           http:
             port: *port

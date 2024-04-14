@@ -66,11 +66,12 @@ spec:
         type: emptyDir
     service:
       app:
+        controller: tailscale
         ports:
           http:
             port: 2000
       tailnet:
-        controller: main
+        controller: tailscale
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${TAILSCALE_LB_IP}

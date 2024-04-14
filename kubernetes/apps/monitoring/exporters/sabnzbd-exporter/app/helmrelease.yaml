@@ -53,6 +53,7 @@ spec:
             runAsNonRoot: true
     service:
       app:
+        controller: sabnzbd-exporter
         ports:
           http:
             port: *port

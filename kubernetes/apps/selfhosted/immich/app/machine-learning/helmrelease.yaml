@@ -64,6 +64,7 @@ spec:
                 memory: 4000M
     service:
       app:
+        controller: immich-machine-learning
         ports:
           http:
             port: *port

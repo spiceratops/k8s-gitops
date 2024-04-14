@@ -62,6 +62,7 @@ spec:
               - ${HOSTNAME}
     service:
       app:
+        controller: karma
         ports:
           http:
             port: 8080

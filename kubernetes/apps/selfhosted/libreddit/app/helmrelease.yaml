@@ -95,6 +95,7 @@ spec:
               - "${HOSTNAME}"
     service:
       app:
+        controller: libreddit
         ports:
           http:
             port: *port

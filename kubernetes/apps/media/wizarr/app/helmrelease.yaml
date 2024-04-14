@@ -75,6 +75,7 @@ spec:
           - path: /data/database
     service:
       app:
+        controller: wizarr
         ports:
           http:
             port: 5690

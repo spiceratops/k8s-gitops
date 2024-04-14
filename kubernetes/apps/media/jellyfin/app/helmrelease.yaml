@@ -70,6 +70,7 @@ spec:
                 memory: 4Gi
     service:
       app:
+        controller: jellyfin
         type: LoadBalancer
         loadBalancerIP: *loadBalancerIP
         externalTrafficPolicy: Local

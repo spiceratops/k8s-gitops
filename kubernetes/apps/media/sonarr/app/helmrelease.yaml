@@ -85,7 +85,7 @@ spec:
                   topologyKey: kubernetes.io/hostname
     service:
       app:
-        controller: ${APP}
+        controller: sonarr
         ports:
           http:
             port: *port

@@ -34,6 +34,7 @@ spec:
                 memory: 512M
     service:
       app:
+        controller: immich-redis
         ports:
           http:
             enabled: false

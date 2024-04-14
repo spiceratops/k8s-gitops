@@ -33,6 +33,7 @@ spec:
               HBOX_WEB_MAX_UPLOAD_SIZE: "10"
     service:
       app:
+        controller: homebox
         ports:
           http:
             port: 7745

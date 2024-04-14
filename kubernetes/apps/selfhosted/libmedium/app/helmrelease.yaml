@@ -33,7 +33,7 @@ spec:
                 memory: 256Mi
     service:
       app:
-        controller: "${APP}"
+        controller: libmedium
         ports:
           http:
             port: 7000

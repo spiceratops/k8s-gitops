@@ -51,6 +51,7 @@ spec:
           - path: /.config
     service:
       app:
+        controller: speedtest-exporter
         ports:
           http:
             port: *port

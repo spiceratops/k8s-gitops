@@ -50,6 +50,7 @@ spec:
                 memory: 500M
     service:
       app:
+        controller: ghostfolio
         ports:
           http:
             port: 3333

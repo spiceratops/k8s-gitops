@@ -49,6 +49,7 @@ spec:
             subPath: jellyseerr
     service:
       app:
+        controller: jellyseer
         ports:
           http:
             port: *port

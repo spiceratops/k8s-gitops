@@ -86,6 +86,7 @@ spec:
               - "${HOSTNAME}"
     service:
       app:
+        controller: echo-server
         ports:
           http:
             port: *port

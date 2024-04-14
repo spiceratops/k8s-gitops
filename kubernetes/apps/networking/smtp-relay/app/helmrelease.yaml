@@ -75,6 +75,7 @@ spec:
             readOnly: true
     service:
       app:
+        controller: smtp-relay
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${SMTP_LB_IP}

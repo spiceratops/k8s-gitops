@@ -28,6 +28,7 @@ spec:
               tag: v10.16.0@sha256:d79347d3ddae3b8eef9bfb9d8fcda562462eb4e72761cc52ed53f5aecbeb2c40
     service:
       app:
+        controller: cyberchef
         ports:
           http:
             port: 8000

@@ -64,6 +64,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
+        controller: paperless
         ports:
           http:
             port: *port

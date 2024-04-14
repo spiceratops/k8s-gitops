@@ -53,6 +53,7 @@ spec:
                 memory: 256M
     service:
       app:
+        controller: navidrome
         ports:
           http:
             port: *port

@@ -79,11 +79,12 @@ spec:
             readOnly: true
     service:
       app:
+        controller: k8s-gateway
         ports:
           http:
             port: 9153
       dns:
-        controller: main
+        controller: k8s-gateway
         type: ClusterIP
         clusterIP: ${K8S_GATEWAY_IP}
         ports:

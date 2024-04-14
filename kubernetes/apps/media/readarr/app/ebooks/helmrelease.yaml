@@ -71,6 +71,7 @@ spec:
                 memory: 2000Mi
     service:
       app:
+        controller: readarr-ebooks
         ports:
           http:
             port: *port

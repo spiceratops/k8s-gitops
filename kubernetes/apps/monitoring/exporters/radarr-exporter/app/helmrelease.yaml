@@ -55,6 +55,7 @@ spec:
             runAsNonRoot: true
     service:
       app:
+        controller: radarr-exporter
         ports:
           http:
             port: *port

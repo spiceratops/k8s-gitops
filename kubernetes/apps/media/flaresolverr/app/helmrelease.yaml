@@ -50,6 +50,7 @@ spec:
                 memory: 1024M
     service:
       app:
+        controller: flaresolverr
         ports:
           http:
             port: *port

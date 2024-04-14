@@ -65,6 +65,7 @@ spec:
               - 10000
     service:
       app:
+        controller: ytdl-sub
         enabled: false
     ingress:
       app:

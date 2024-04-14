@@ -102,6 +102,7 @@ spec:
             readOnly: true
     service:
       app:
+        controller: cloudflared
         ports:
           http:
             port: *port

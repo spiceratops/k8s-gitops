@@ -54,6 +54,7 @@ spec:
                 memory: 1024Mi
     service:
       app:
+        controller: immich-server
         ports:
           http:
             port: *port

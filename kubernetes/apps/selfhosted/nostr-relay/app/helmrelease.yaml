@@ -89,6 +89,7 @@ spec:
             readOnly: true
     service:
       app:
+        controller: nostr-relay
         ports:
           http:
             port: 8080

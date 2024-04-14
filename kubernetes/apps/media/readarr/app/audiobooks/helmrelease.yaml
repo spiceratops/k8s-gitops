@@ -71,6 +71,7 @@ spec:
                 memory: 2000Mi
     service:
       app:
+        controller: readarr-audiobooks
         ports:
           http:
             port: *port

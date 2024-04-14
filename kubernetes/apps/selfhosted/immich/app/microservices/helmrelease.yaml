@@ -59,6 +59,7 @@ spec:
                 memory: 4096M
     service:
       app:
+        controller: immich-microservices
         enabled: false
     persistence:
       library:

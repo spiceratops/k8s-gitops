@@ -103,6 +103,7 @@ spec:
             readOnly: true
     service:
       app:
+        controller: authelia
         ports:
           http:
             port: 9091

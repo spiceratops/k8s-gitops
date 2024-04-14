@@ -53,6 +53,7 @@ spec:
                 memory: 250M
     service:
       app:
+        controller: wallabag
         ports:
           http:
             port: 80

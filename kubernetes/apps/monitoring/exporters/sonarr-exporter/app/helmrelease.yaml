@@ -55,6 +55,7 @@ spec:
             runAsNonRoot: true
     service:
       app:
+        controller: sonarr-exporter
         ports:
           http:
             port: *port

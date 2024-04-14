@@ -59,6 +59,7 @@ spec:
           - path: /media-data
     service:
       app:
+        controller: unpackerr
         ports:
           http:
             port: 5656

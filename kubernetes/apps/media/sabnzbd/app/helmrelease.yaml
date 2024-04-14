@@ -109,6 +109,7 @@ spec:
           - path: /media-data
     service:
       app:
+        controller: sabnzbd
         ports:
           http:
             port: *port

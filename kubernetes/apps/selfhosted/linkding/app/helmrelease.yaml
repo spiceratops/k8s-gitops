@@ -51,6 +51,7 @@ spec:
             port: 9090
     ingress:
       app:
+        controller: linkding
         enabled: true
         className: internal
         annotations:

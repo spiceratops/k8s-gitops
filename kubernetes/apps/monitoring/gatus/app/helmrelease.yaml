@@ -118,6 +118,7 @@ spec:
             readOnly: true
     service:
       app:
+        controller: gatus
         ports:
           http:
             port: *port
