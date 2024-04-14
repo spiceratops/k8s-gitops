@@ -49,7 +49,6 @@ spec:
             port: 80
     ingress:
       app:
-        controller: excalidraw
         enabled: true
         className: external
         annotations:

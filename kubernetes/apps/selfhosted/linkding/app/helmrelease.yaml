@@ -46,12 +46,12 @@ spec:
                 memory: 250M
     service:
       app:
+        controller: linkding
         ports:
           http:
             port: 9090
     ingress:
       app:
-        controller: linkding
         enabled: true
         className: internal
         annotations:
