@@ -15,7 +15,6 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
 
-
   values:
     defaultPodOptions:
       securityContext:
@@ -49,7 +48,9 @@ spec:
               RADARR__PORT: &port 7878
               RADARR__LOG_LEVEL: info
               RADARR__THEME: dark
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: radarr-secret
             probes:
               liveness: &probes
                 enabled: true
