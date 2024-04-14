@@ -64,6 +64,9 @@ spec:
           gethomepage.dev/group: Media
           gethomepage.dev/icon: mdi-jellyfish-outline
           gethomepage.dev/name: Jellyseer
+          gethomepage.dev/widget.type: jellyseer
+          gethomepage.dev/widget.url: http://jellyseer.media.svc.cluster.local:8080
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_JELLYSEER_API_KEY}}"
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
         hosts:
           - host: "${HOSTNAME}"
