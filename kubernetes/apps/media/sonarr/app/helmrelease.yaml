@@ -9,15 +9,22 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
+
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: "${APP_UID}"
+        runAsGroup: "${APP_GID}"
+        fsGroup: "${APP_GID}"
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
-      main:
+      sonarr:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -25,11 +32,12 @@ spec:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16
-            envFrom: &envFrom
+              pullPolicy: IfNotPresent
+            envFrom:
               - secretRef:
                   name: sonarr-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/sonarr-develop
               tag: 4.0.3.1486@sha256:fd3d67c0340b5bfe1dcb519ad0bae101308d2a095b84d2c1c540b877cf67d4f3
@@ -71,17 +79,16 @@ spec:
                     matchExpressions:
                       - key: app.kubernetes.io/name
                         operator: In
-                        values: ["radarr"]
+                        values: ["sonarr"]
                   topologyKey: kubernetes.io/hostname
-          securityContext:
-            runAsUser: "${APP_UID}"
-            runAsGroup: "${APP_GID}"
-            fsGroup: "${APP_GID}"
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 65536
+    service:
+      app:
+        controller: ${APP}
+        ports:
+          http:
+            port: *port
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -100,24 +107,18 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - "${HOSTNAME}"
     persistence:
       config:
+        enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
-        globalMounts:
-          - path: /config
       media-data:
         type: nfs
         server: nas.${PRIVATE_DOMAIN}
         path: /mnt/data/media-data
         globalMounts:
           - path: /media-data
-    service:
-      main:
-        ports:
-          http:
-            port: *port

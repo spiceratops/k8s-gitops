@@ -9,15 +9,22 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
+
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: "${APP_UID}"
+        runAsGroup: "${APP_GID}"
+        fsGroup: "${APP_GID}"
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
-      main:
+      radarr:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -25,11 +32,12 @@ spec:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16
-            envFrom: &envFrom
+              pullPolicy: IfNotPresent
+            envFrom:
               - secretRef:
                   name: radarr-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/radarr-develop
               tag: 5.4.6.8723@sha256:b6ba6b4acdd68a5ec47678533122ca297e23d5faa518ce66e7fff0e2b696e369
@@ -73,15 +81,14 @@ spec:
                         operator: In
                         values: ["sonarr"]
                   topologyKey: kubernetes.io/hostname
-          securityContext:
-            runAsUser: "${APP_UID}"
-            runAsGroup: "${APP_GID}"
-            fsGroup: "${APP_GID}"
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 65536
+    service:
+      app:
+        controller: ${APP}
+        ports:
+          http:
+            port: *port
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -100,7 +107,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
@@ -115,8 +122,3 @@ spec:
         path: /mnt/data/media-data
         globalMounts:
           - path: /media-data
-    service:
-      main:
-        ports:
-          http:
-            port: *port
