@@ -42,7 +42,7 @@ spec:
               PROXY_DEBUG_ADDR: 0.0.0.0:9205
               STORAGE_USERS_OCIS_ROOT: /data
               NOTIFICATIONS_SMTP_HOST: "${SMTP_RELAY_IP}"
-              NOTIFICATIONS_SMTP_PORT: "2525}"
+              NOTIFICATIONS_SMTP_PORT: "2525"
               NOTIFICATIONS_SMTP_SENDER: "ocis@${PRIVATE_DOMAIN}"
               NOTIFICATIONS_SMTP_INSECURE: true
               # Authelia OIDC

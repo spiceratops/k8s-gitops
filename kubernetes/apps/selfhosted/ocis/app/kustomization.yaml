@@ -8,6 +8,6 @@ resources:
 configMapGenerator:
   - name: ocis-configmap
     files:
-      - ./configs/proxy.yaml
+      - proxy.yaml=./configs/proxy.yaml
 generatorOptions:
   disableNameSuffixHash: true
