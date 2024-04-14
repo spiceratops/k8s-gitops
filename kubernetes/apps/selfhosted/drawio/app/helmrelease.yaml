@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -18,23 +18,23 @@ spec:
 
   values:
     controllers:
-      main:
+      drawio:
         replicas: 1
         strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/jgraph/drawio
               tag: 24.2.5
     service:
-      main:
+      app:
         ports:
           http:
             port: 8080
     ingress:
-      main:
+      app:
         enabled: true
         className: "internal"
         annotations:

@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -18,11 +18,11 @@ spec:
 
   values:
     controllers:
-      main:
+      excalidraw:
         replicas: 2
         strategy: RollingUpdate
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/haraldkoch/excalidraw
               tag: latest@sha256:cb3779395c51500351affce38c1fc1e4121bff03e1ca704c3adb1bbdc748bbe0
@@ -42,12 +42,12 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: ${APP}
     service:
-      main:
+      app:
         ports:
           http:
             port: 80
     ingress:
-      main:
+      app:
         enabled: true
         className: external
         annotations:

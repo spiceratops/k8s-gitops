@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -18,7 +18,7 @@ spec:
 
   values:
     controllers:
-      main:
+      miniflux:
         replicas: 2
         strategy: RollingUpdate
         annotations:
@@ -32,7 +32,7 @@ spec:
               - secretRef:
                   name: miniflux-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/miniflux/miniflux
               tag: 2.0.50-distroless@sha256:625f6decf8740020fabec273e0f694f218a50281e251e13514ac2be4d9147ca8
@@ -91,15 +91,15 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: ${APP}
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     serviceMonitor:
-      main:
+      app:
         enabled: true
     ingress:
-      main:
+      app:
         enabled: true
         className: external
         annotations:

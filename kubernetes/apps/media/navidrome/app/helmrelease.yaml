@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,9 +24,9 @@ spec:
         fsGroup: "${APP_GID}"
         fsGroupChangePolicy: OnRootMismatch
     controllers:
-      main:
+      navidrome:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/navidrome/navidrome
               tag: 0.51.1@sha256:ea426987cc4a148eb6a9fcea60ab44cc0dca4d7f0f1e12a4b48f5937454da4d9
@@ -52,15 +52,15 @@ spec:
               limits:
                 memory: 256M
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     serviceMonitor:
-      main:
+      app:
         enabled: true
     ingress:
-      main:
+      app:
         enabled: true
         ingressClassName: external
         annotations:

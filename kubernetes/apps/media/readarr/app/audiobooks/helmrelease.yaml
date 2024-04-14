@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -18,7 +18,7 @@ spec:
 
   values:
     controllers:
-      main:
+      readarr-audiobooks:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
@@ -48,7 +48,7 @@ spec:
               - secretRef:
                   name: readarr-audiobooks-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/readarr-develop
               tag: 0.3.21.2475
@@ -70,7 +70,7 @@ spec:
               limits:
                 memory: 2000Mi
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
@@ -90,7 +90,7 @@ spec:
       startup:
         enabled: false
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:

@@ -11,13 +11,19 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.0.4
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: "${APP_UID}"
+        runAsGroup: "${APP_GID}"
+        fsGroup: "${APP_GID}"
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       bazarr:
         annotations:
@@ -81,15 +87,6 @@ spec:
               limits:
                 memory: 128M
             securityContext: *securityContext
-        pod:
-          securityContext:
-            runAsUser: "${APP_UID}"
-            runAsGroup: "${APP_GID}"
-            runAsNonRoot: true
-            fsGroup: "${APP_GID}"
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 65536
     ingress:
       app:
         enabled: true

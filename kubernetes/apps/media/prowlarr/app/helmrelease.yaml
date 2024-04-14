@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -17,7 +17,7 @@ spec:
 
   values:
     controllers:
-      main:
+      prowlarr:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -29,7 +29,7 @@ spec:
               - secretRef:
                   name: prowlarr-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/prowlarr-develop
               tag: 1.15.0.4361@sha256:bd8092d9136fbdcb58327eacca8d117c1c20ad861bc824ba49730a2e01405a72
@@ -70,7 +70,7 @@ spec:
             fsGroup: "${APP_GID}"
             fsGroupChangePolicy: OnRootMismatch
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -94,7 +94,7 @@ spec:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
     service:
-      main:
+      app:
         ports:
           http:
             port: *port

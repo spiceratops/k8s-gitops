@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -17,13 +17,13 @@ spec:
 
   values:
     controllers:
-      main:
+      k8s-gateway:
         replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: quay.io/oriedge/k8s_gateway
               tag: v0.4.0
@@ -78,7 +78,7 @@ spec:
           - path: /etc/hosts
             readOnly: true
     service:
-      main:
+      app:
         ports:
           http:
             port: 9153
@@ -98,7 +98,7 @@ spec:
             protocol: UDP
             targetPort: 1053
     serviceMonitor:
-      main:
+      app:
         enabled: true
     serviceAccount:
       create: true

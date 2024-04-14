@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -18,9 +18,9 @@ spec:
 
   values:
     controllers:
-      main:
+      unpoller:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/unpoller/unpoller
               tag: v2.11.1@sha256:1e54332b769bda9359f30d72e5924a526cded25699eb5e3c2a4c486161010834
@@ -51,12 +51,12 @@ spec:
             runAsGroup: "${APP_GID}"
             runAsNonRoot: true
     service:
-      main:
+      app:
         ports:
           http:
             port: 9130
     serviceMonitor:
-      main:
+      app:
         enabled: true
         endpoints:
           - port: http

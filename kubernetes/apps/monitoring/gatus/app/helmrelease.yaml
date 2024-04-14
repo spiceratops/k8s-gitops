@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -18,7 +18,7 @@ spec:
 
   values:
     controllers:
-      main:
+      gatus:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -49,7 +49,7 @@ spec:
               limits:
                 memory: 128M
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/twin/gatus
               tag: v5.9.0
@@ -86,7 +86,7 @@ spec:
             fsGroup: "${APP_GID}"
             fsGroupChangePolicy: OnRootMismatch
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -117,7 +117,7 @@ spec:
             subPath: config.yaml
             readOnly: true
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
@@ -125,5 +125,5 @@ spec:
       create: true
       name: gatus
     serviceMonitor:
-      main:
+      app:
         enabled: true

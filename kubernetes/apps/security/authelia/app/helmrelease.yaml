@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -18,7 +18,7 @@ spec:
 
   values:
     controllers:
-      main:
+      authelia:
         replicas: 2
         strategy: RollingUpdate
         annotations:
@@ -32,7 +32,7 @@ spec:
               - secretRef:
                   name: authelia-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/authelia/authelia
               tag: v4.38.0-beta3@sha256:b48ae4d0ed9d1eee76efe382df60928bae550ec19e5663858dde6dc5f41cf285
@@ -71,7 +71,7 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: ${APP}
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -102,14 +102,14 @@ spec:
             subPath: configuration.yml
             readOnly: true
     service:
-      main:
+      app:
         ports:
           http:
             port: 9091
           metrics:
             port: 8080
     serviceMonitor:
-      main:
+      app:
         enabled: true
         endpoints:
           - port: metrics

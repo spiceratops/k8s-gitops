@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -17,11 +17,11 @@ spec:
 
   values:
     controllers:
-      main:
+      unpackerr:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/unpackerr
               tag: 0.12.0@sha256:8bbf35be449b89041f07fc069812f79b4eadf56e1c7c7720935fe166016376ef
@@ -58,10 +58,10 @@ spec:
         globalMounts:
           - path: /media-data
     service:
-      main:
+      app:
         ports:
           http:
             port: 5656
     serviceMonitor:
-      main:
+      app:
         enabled: true
