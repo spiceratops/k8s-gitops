@@ -17,6 +17,12 @@ spec:
         namespace: flux-system
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: "${APP_UID}"
+        runAsGroup: "${APP_GID}"
+        fsGroup: "${APP_GID}"
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       romm:
         annotations:
@@ -40,13 +46,6 @@ spec:
             envFrom:
               - secretRef:
                   name: romm-secret
-        pod:
-          podSecurityContext:
-            fsGroup: ${APP_GID}
-            runAsNonRoot: true
-            runAsUser: ${APP_UID}
-            runAsGroup: ${APP_GID}
-            fsGroupChangePolicy: "OnRootMismatch"
           topologySpreadConstraints:
             - maxSkew: 1
               topologyKey: kubernetes.io/hostname
