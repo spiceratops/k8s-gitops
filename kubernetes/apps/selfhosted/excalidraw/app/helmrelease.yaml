@@ -43,6 +43,7 @@ spec:
                   app.kubernetes.io/name: ${APP}
     service:
       app:
+        controller: excalidraw
         ports:
           http:
             port: 80
