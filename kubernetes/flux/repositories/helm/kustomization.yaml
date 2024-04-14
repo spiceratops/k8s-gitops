@@ -42,3 +42,4 @@ resources:
   - ./coredns-charts.yaml
   - ./stevehipwell-charts.yaml
   - ./xenitab-charts.yaml
+  - ./1password-charts.yaml
