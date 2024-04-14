@@ -19,7 +19,7 @@ spec:
 
   values:
     controllers:
-      app:
+      pgadmin:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
