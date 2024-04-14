@@ -133,12 +133,13 @@ data:
           label: "K8S Cluster"
         nodes:
           show: false
-    - openmetio:
+    - openweathermap:
         label: Home
         latitude: {{HOMEPAGE_VAR_LATITUDE}}
         longitude: {{HOMEPAGE_VAR_LONGITUDE}}
         units: metric
         cache: 10
+        provider: openweathermap
     - datetime:
         text_size: l
         format:
