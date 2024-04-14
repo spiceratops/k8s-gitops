@@ -24,8 +24,6 @@ data:
     title: Home
     quicklaunch:
       searchDescriptions: true
-    providers:
-      openweathermap: {{OPENWEATHERMAP_API_KEY}}
     statusStyle: "dot"
     layout:
       Home:
@@ -88,6 +86,14 @@ data:
               accountid: {{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNTID}}
               tunnelid: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNELID}}
               key: {{HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN}}
+        - Nextdns:
+            href: https://my.nextdns.io
+            icon: nextdns.png
+            description: NextDNS
+            widget:
+              type: nextdns
+              profile: {{HOMEPAGE_VAR_NEXTDNS_PROFILE}}
+              key: {{HOMEPAGE_VAR_NEXTDNS_API_KEY}}
         - Proxmox (Main Cluster):
             icon: proxmox.png
             href: https://pve.${PRIVATE_DOMAIN}
@@ -100,10 +106,19 @@ data:
             icon: opnsense.png
             href: https://opnsense.${PRIVATE_DOMAIN}
             description: Opnsense
+            widget:
+              type: opnsense
+              username: {{HOMEPAGE_VAR_OPNSENSE_KEY}}
+              password: {{HOMEPAGE_VAR_OPNSENSE_SECRET}}
         - UniFi:
             icon: unifi.png
             href: https://unifi-web.${PRIVATE_DOMAIN}
             description: Unifi
+            widget:
+              type: unifi_console
+              url: unifi.${PRIVATE_DOMAIN}
+              username: {{HOMEPAGE_VAR_UNIFI_USER}}
+              password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
         - Omada:
             icon: omada.png
             href: https://omada-web.${PRIVATE_DOMAIN}
@@ -140,16 +155,14 @@ data:
         units: metric
         cache: 10
         provider: openweathermap
+        apiKey: {{OPENWEATHERMAP_API_KEY}}
     - datetime:
         text_size: l
         format:
           dateStyle: long
           timeStyle: short
           hourCycle: h23
-    - unifi_console:
-        url: unifi.${PRIVATE_DOMAIN}
-        username: {{HOMEPAGE_VAR_UNIFI_USER}}
-        password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
+
   docker.yaml: |
     ---
     docker:
