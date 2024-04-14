@@ -53,7 +53,8 @@ spec:
       config:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
-        mountPath: /var/lib/pgadmin
+        globalMounts:
+          - path: /var/lib/pgadmin
     service:
       app:
         controller: pgadmin

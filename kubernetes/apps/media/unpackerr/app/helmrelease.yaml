@@ -63,6 +63,3 @@ spec:
         ports:
           http:
             port: 5656
-    serviceMonitor:
-      app:
-        serviceName: unpackerr

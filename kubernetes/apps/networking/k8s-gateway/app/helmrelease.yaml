@@ -98,9 +98,7 @@ spec:
             port: 53
             protocol: UDP
             targetPort: 1053
-    serviceMonitor:
-      app:
-        serviceName: k8s-gateway
+
     serviceAccount:
       create: true
       name: ${APP}

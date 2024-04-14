@@ -57,6 +57,3 @@ spec:
         ports:
           http:
             port: *port
-    serviceMonitor:
-      app:
-        serviceName: sabnzbd-exporter

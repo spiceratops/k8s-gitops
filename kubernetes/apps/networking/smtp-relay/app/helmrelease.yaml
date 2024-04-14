@@ -87,6 +87,3 @@ spec:
             port: *httpPort
           smtp:
             port: *smtpPort
-    serviceMonitor:
-      app:
-        serviceName: smtp-relay

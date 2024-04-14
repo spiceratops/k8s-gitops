@@ -125,6 +125,3 @@ spec:
     serviceAccount:
       create: true
       name: gatus
-    serviceMonitor:
-      app:
-        serviceName: gatus
