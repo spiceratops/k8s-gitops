@@ -50,7 +50,11 @@ spec:
           nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
           external-dns.alpha.kubernetes.io/enabled: "true"
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}.
-          hajimari.io/icon: mdi:file-document-arrow-right-outline
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Medium Reader
+          gethomepage.dev/group: Reading
+          gethomepage.dev/icon: medium.png
+          gethomepage.dev/name: Libmedium
         hosts:
           - host: "${HOSTNAME}"
             paths:

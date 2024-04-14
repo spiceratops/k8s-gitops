@@ -113,16 +113,16 @@ data:
         - UniFi:
             icon: unifi.png
             href: https://unifi-web.${PRIVATE_DOMAIN}
-            description: Unifi
+            description: Unifi Console
             widget:
-              type: unifi_console
+              type: unifi
               url: unifi.${PRIVATE_DOMAIN}
               username: {{HOMEPAGE_VAR_UNIFI_USER}}
               password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
         - Omada:
             icon: omada.png
             href: https://omada-web.${PRIVATE_DOMAIN}
-            description: Unifi
+            description: Omada Console
     - Home:
         - Home Assistant:
             icon: home-assistant.png
@@ -148,14 +148,6 @@ data:
           label: "K8S Cluster"
         nodes:
           show: false
-    - openweathermap:
-        label: Home
-        latitude: {{HOMEPAGE_VAR_LATITUDE}}
-        longitude: {{HOMEPAGE_VAR_LONGITUDE}}
-        units: metric
-        cache: 10
-        provider: openweathermap
-        apiKey: {{OPENWEATHERMAP_API_KEY}}
     - datetime:
         text_size: l
         format:
