@@ -79,4 +79,5 @@ spec:
       tmp:
         enabled: true
         type: emptyDir
-        mountPath: /tmp/ytdl-sub
+        globalMounts:
+          - path: /tmp/ytdl-sub
