@@ -17,6 +17,12 @@ spec:
         namespace: flux-system
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: "999"
+        runAsGroup: "999"
+        fsGroup: "999"
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       onepassword-connect:
         annotations:
@@ -102,13 +108,6 @@ spec:
                 enabled: false
               resources: *resources
               securityContext: *securityContext
-        pod:
-          securityContext:
-            runAsUser: 999
-            runAsGroup: 999
-            fsGroup: 999
-            runAsNonRoot: true
-            fsGroupChangePolicy: OnRootMismatch
     ingress:
       app:
         enabled: true
@@ -132,6 +131,7 @@ spec:
           - path: *configDir
     service:
       app:
+        controller: onepassword-connect
         ports:
           http:
             port: *apiPort
