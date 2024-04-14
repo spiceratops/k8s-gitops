@@ -64,6 +64,13 @@ spec:
               SMTP_FROM_NAME: Recipes
               SMTP_FROM_EMAIL: "${SMTP_USER}"
               SMTP_AUTH_STRATEGY: "NONE"
+              OIDC_AUTH_ENABLED: true
+              OIDC_CONFIGURATION_URL: https://auth.${PRIVATE_DOMAIN}/.well-known/openid-configuration
+              OIDC_CLIENT_ID: mealie
+              OIDC_AUTO_REDIRECT: true
+              OIDC_ADMIN_GROUP: mealie_admins
+              OIDC_USER_GROUP: mealie_users
+              OIDC_REMEMBER_ME: true
             resources:
               requests:
                 cpu: 5m

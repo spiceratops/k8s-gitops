@@ -163,6 +163,16 @@ identity_providers:
           ]
         userinfo_signed_response_alg: none
 
+      - id: mealie
+        description: Mealie
+        secret: "${MEALIE_OAUTH_CLIENT_SECRET}"
+        public: false
+        authorization_policy: two_factor
+        pre_configured_consent_duration: 1y
+        scopes: ["openid", "profile", "groups", "email"]
+        redirect_uris: ["https://meals.${PRIVATE_DOMAIN}/login"]
+        userinfo_signing_algorithm: none
+
 notifier:
   disable_startup_check: true
   smtp:
