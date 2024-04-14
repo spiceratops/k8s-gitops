@@ -29,9 +29,6 @@ spec:
               repository: dpage/pgadmin4
               tag: "8.5@sha256:00998d19a230b66e30de4bc00a2c453b07c63016dc15e58d6f6b4fa3c688d4e5"
             command: ["/bin/chown", "-R", "5050:5050", "/var/lib/pgadmin"]
-            volumeMounts:
-              - name: config
-                mountPath: /var/lib/pgadmin
             securityContext:
               runAsUser: 0
         containers:

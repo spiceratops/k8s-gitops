@@ -24,7 +24,6 @@ spec:
           reloader.stakater.com/auto: "true"
         initContainers:
           init-db:
-            order: 1
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16.2
@@ -32,7 +31,6 @@ spec:
               - secretRef:
                   name: gatus-secret
           init-config:
-            order: 2
             image: &syncImage
               repository: ghcr.io/kiwigrid/k8s-sidecar
               tag: 1.26.1
@@ -82,9 +80,9 @@ spec:
                 memory: 128M
         pod:
           securityContext:
-            runAsUser: "${APP_UID}"
-            runAsGroup: "${APP_GID}"
-            fsGroup: "${APP_GID}"
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     ingress:
       app:

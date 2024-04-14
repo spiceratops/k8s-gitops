@@ -54,8 +54,8 @@ spec:
                 memory: 256M
         pod:
           securityContext:
-            runAsUser: "${APP_UID}"
-            runAsGroup: "${APP_GID}"
+            runAsUser: 568
+            runAsGroup: 568
           topologySpreadConstraints:
             - maxSkew: 1
               topologyKey: kubernetes.io/hostname
@@ -99,7 +99,6 @@ spec:
             port: 53
             protocol: UDP
             targetPort: 1053
-
     serviceAccount:
       create: true
       name: ${APP}

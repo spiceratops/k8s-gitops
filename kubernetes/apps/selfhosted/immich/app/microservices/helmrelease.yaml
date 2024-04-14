@@ -30,9 +30,9 @@ spec:
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
           securityContext:
-            runAsUser: "${APP_UID}"
-            runAsGroup: "${APP_GID}"
-            fsGroup: "${APP_GID}"
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
         containers:
           app:
@@ -58,10 +58,6 @@ spec:
               limits:
                 gpu.intel.com/i915: 1
                 memory: 4096M
-    service:
-      app:
-        controller: immich-microservices
-        enabled: false
     persistence:
       library:
         type: nfs

@@ -49,8 +49,8 @@ spec:
               PAPERLESS_TASK_WORKERS: 2
               PAPERLESS_TIME_ZONE: ${TIMEZONE}
               PAPERLESS_URL: https://${HOSTNAME}
-              USERMAP_UID: "${APP_UID}"
-              USERMAP_GID: "${APP_GID}"
+              USERMAP_UID: 568
+              USERMAP_GID: 568
             envFrom: *envFrom
             resources:
               requests:
@@ -61,7 +61,7 @@ spec:
         pod:
           enableServiceLinks: false
           securityContext:
-            fsGroup: "${APP_GID}"
+            fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:

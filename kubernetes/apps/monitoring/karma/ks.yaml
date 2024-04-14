@@ -24,5 +24,3 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: karma.${PRIVATE_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "568"

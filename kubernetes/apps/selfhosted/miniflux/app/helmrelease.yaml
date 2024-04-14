@@ -81,8 +81,8 @@ spec:
                 cpu: 10m
         pod:
           securityContext:
-            runAsUser: "${APP_UID}"
-            runAsGroup: "${APP_GID}"
+            runAsUser: 568
+            runAsGroup: 568
             runAsNonRoot: true
           topologySpreadConstraints:
             - maxSkew: 1
