@@ -22,3 +22,4 @@ resources:
   - ./obsidian-couchdb/ks.yaml
   - ./paperless/ks.yaml
   - ./ocis/ks.yaml
+  - ./libmedium/ks.yaml
