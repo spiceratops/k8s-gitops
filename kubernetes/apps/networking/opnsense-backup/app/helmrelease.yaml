@@ -44,9 +44,8 @@ spec:
     persistence:
       script:
         type: configMap
-        name: ${APP}
+        name: opnsense-backup
         globalMounts:
           - path: /app/opnsense-backup.sh
             subPath: opnsense-backup.sh
-            defaultMode: 0775
             readOnly: true
