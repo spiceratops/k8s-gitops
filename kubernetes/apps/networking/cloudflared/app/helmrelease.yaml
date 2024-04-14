@@ -108,4 +108,4 @@ spec:
             port: *port
     serviceMonitor:
       app:
-        enabled: true
+        serviceName: cloudflared

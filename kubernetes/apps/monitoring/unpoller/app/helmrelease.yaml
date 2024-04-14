@@ -58,7 +58,7 @@ spec:
             port: 9130
     serviceMonitor:
       app:
-        enabled: true
+        serviceName: unpoller
         endpoints:
           - port: http
             scheme: http

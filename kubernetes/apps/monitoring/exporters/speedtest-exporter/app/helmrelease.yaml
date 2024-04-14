@@ -57,7 +57,7 @@ spec:
             port: *port
     serviceMonitor:
       app:
-        enabled: true
+        serviceName: speedtest-exporter
         endpoints:
           - port: http
             scheme: http

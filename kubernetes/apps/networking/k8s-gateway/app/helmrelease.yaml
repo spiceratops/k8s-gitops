@@ -100,7 +100,7 @@ spec:
             targetPort: 1053
     serviceMonitor:
       app:
-        enabled: true
+        serviceName: k8s-gateway
     serviceAccount:
       create: true
       name: ${APP}

@@ -59,7 +59,7 @@ spec:
             port: *port
     serviceMonitor:
       app:
-        enabled: true
+        serviceName: navidrome
     ingress:
       app:
         enabled: true

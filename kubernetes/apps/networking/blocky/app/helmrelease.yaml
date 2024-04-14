@@ -107,4 +107,4 @@ spec:
             protocol: TCP
     serviceMonitor:
       app:
-        enabled: true
+        serviceName: blocky

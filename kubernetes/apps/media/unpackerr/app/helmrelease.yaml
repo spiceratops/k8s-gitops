@@ -65,4 +65,4 @@ spec:
             port: 5656
     serviceMonitor:
       app:
-        enabled: true
+        serviceName: unpackerr

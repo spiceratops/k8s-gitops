@@ -86,7 +86,7 @@ spec:
       name: tailscale
     serviceMonitor:
       app:
-        enabled: true
+        serviceName: tailscale
         endpoints:
           - port: http
             scheme: http

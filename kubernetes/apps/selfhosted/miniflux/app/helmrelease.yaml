@@ -98,7 +98,7 @@ spec:
             port: *port
     serviceMonitor:
       app:
-        enabled: true
+        serviceName: miniflux
     ingress:
       app:
         enabled: true

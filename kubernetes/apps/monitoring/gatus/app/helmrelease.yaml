@@ -127,4 +127,4 @@ spec:
       name: gatus
     serviceMonitor:
       app:
-        enabled: true
+        serviceName: gatus
