@@ -182,8 +182,8 @@ identity_providers:
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris:
           [
-            "https://abs.yoursite.com/auth/openid/callback",
-            "https://abs.yoursite.com/auth/openid/mobile-redirect",
+            "https://audiobooks.${PRIVATE_DOMAIN}/auth/openid/callback",
+            "https://audiobooks.${PRIVATE_DOMAIN}/auth/openid/mobile-redirect",
           ]
         userinfo_signing_algorithm: none
 
