@@ -102,7 +102,7 @@ spec:
           gethomepage.dev/icon: mdi:bookshelf
           gethomepage.dev/name: Readarr (E-Books)
         hosts:
-          - host: ${HOSTNAME}
+          - host: &host readarr-ebooks.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:
@@ -110,7 +110,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - ${HOSTNAME}
+              - *host
     persistence:
       media-data:
         type: nfs

@@ -102,7 +102,7 @@ spec:
           gethomepage.dev/icon: mdi:book-music
           gethomepage.dev/name: Readarr (Audiobooks)
         hosts:
-          - host: ${HOSTNAME}
+          - host: &host readarr-audiobooks.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:
@@ -110,7 +110,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - ${HOSTNAME}
+              - *host
     persistence:
       media-data:
         type: nfs

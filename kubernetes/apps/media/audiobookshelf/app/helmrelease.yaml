@@ -1,0 +1,97 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: audiobookshelf
+  namespace: media
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    controllers:
+      audiobookshelf:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret audiobookshelf-secret
+        pod:
+          securityContext:
+            runAsUser: &uid 568
+            runAsGroup: &gid 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          app:
+            image:
+              repository: ghcr.io/advplyr/audiobookshelf
+              tag: 2.8.1
+            envFrom:
+              - secretRef:
+                  name: *secret
+            env:
+              TZ: ${TIMEZONE}
+              PORT: &port 8080
+              AUDIOBOOKSHELF_UID: *uid
+              AUDIOBOOKSHELF_GID: *gid
+              CONFIG_PATH: /config
+              METADATA_PATH: /config/metadata
+              AUDIOBOOKSHELF_OIDC_DISCOVERY_URL: https://auth.${PRIVATE_DOMAIN}/.well-known/openid-configuration
+              AUDIOBOOKSHELF_OIDC_CLIENT_ID: audiobookshelf
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthcheck
+                    port: *port
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 50m
+                memory: 200Mi
+              limits:
+                memory: 600Mi
+    service:
+      app:
+        controller: audiobookshelf
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/description: Audiobooks and Podcasts
+          gethomepage.dev/name: Audiobookshelf
+          gethomepage.dev/icon: audiobookshelf.svg
+          gethomepage.dev/widget.type: audiobookshelf
+          gethomepage.dev/widget.url: http://audiobookshelf.media:8080
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUDIOBOOKSHELF_TOKEN}}"
+        hosts:
+          - host: &host ${HOSTNAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls: [hosts: [*host]]
+    persistence:
+      config:
+        existingClaim: ${VOLSYNC_CLAIM}
+      media-data:
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN}
+        path: /mnt/data/media-data
+        globalMounts:
+          - path: /media-data
