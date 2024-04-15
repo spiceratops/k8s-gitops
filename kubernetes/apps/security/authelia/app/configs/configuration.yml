@@ -70,8 +70,7 @@ duo_api:
 identity_providers:
   oidc:
     cors:
-      endpoints:
-        ["authorization", "token", "revocation", "introspection", "userinfo"]
+      endpoints: ["authorization", "token", "revocation", "introspection"]
       allowed_origins_from_client_redirect_uris: true
 
     clients:
@@ -174,7 +173,7 @@ identity_providers:
         token_endpoint_auth_method: none
 
       - id: audiobookshelf
-        description: Mealie
+        description: Audiobookshelf
         secret: "${AUDIOBOOKSHELF_OIDC_CLIENT_SECRET}"
         public: false
         authorization_policy: two_factor
