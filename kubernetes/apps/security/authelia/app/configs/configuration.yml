@@ -172,7 +172,7 @@ identity_providers:
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://meals.${PRIVATE_DOMAIN}/login"]
         userinfo_signing_algorithm: none
-        token_endpoint_auth_method: "none"
+        token_endpoint_auth_method: none
         require_pkce: true
         pkce_challenge_method: "S256"
 
