@@ -8,17 +8,25 @@
         class error
     }
     prometheus :9153
-    forward ${PRIVATE_DOMAIN} ${BLOCKY_LB_IP} ${LAN_SERVER_DNS}
     kubernetes cluster.local in-addr.arpa ip6.arpa {
         pods insecure
         fallthrough in-addr.arpa ip6.arpa
+        ttl 30
     }
+    forward . ${BLOCKY_LB_IP} 127.0.0.1:5301 {
+        policy sequential
+        health_check 5s
+    }
+    cache 30
+    loop
+    reload
+    loadbalance
+}
+.:5301 {
+    errors
+    cache 30
     forward . tls://1.1.1.1 tls://1.0.0.1 {
         tls_servername cloudflare-dns.com
         health_check 5s
     }
-    cache 300
-    loop
-    reload
-    loadbalance
 }
