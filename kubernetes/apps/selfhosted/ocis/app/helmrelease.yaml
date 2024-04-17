@@ -32,7 +32,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               OCIS_INSECURE: true
-              OCIS_URL: https://ocis.${PRIVATE_DOMAIN}
+              OCIS_URL: https://files.${PRIVATE_DOMAIN}
               PROXY_TLS: false
               DEMO_USERS: false
               PROXY_HTTP_ADDR: 0.0.0.0:9200
