@@ -65,27 +65,20 @@ spec:
                   app.kubernetes.io/name: ${APP}
     persistence:
       config:
-        enabled: true
         type: configMap
         name: k8s-gateway-configmap
         globalMounts:
           - path: /etc/coredns/Corefile
             subPath: Corefile
             readOnly: true
-      hosts:
-        type: hostPath
-        hostPath: /etc/hosts
-        globalMounts:
-          - path: /etc/hosts
-            readOnly: true
     service:
       app:
-        controller: k8s-gateway
+        controller: &app k8s-gateway
         ports:
           http:
             port: 9153
       dns:
-        controller: k8s-gateway
+        controller: *app
         type: ClusterIP
         clusterIP: ${K8S_GATEWAY_IP}
         ports:
@@ -93,12 +86,19 @@ spec:
             enabled: true
             port: 53
             protocol: TCP
-            targetPort: 1053
           dns-udp:
             enabled: true
             port: 53
             protocol: UDP
-            targetPort: 1053
     serviceAccount:
       create: true
-      name: ${APP}
+      name: *app
+    serviceMonitor:
+      app:
+        serviceName: *app
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
