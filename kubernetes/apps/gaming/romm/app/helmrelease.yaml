@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: rommapp/romm
-              tag: 3.1.0
+              tag: 3.0.3
             resources:
               requests:
                 cpu: 10m
@@ -44,7 +44,6 @@ spec:
               DB_HOST: "mariadb.databases.svc.cluster.local"
               REDIS_HOST: "redis.databases.svc.cluster.local"
               REDIS_PORT: 6379
-              REDIS_DB: "romm"
             envFrom:
               - secretRef:
                   name: romm-secret
