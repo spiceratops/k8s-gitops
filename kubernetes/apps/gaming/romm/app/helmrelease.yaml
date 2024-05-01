@@ -42,7 +42,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               DB_HOST: "mariadb.databases.svc.cluster.local"
-              REDIS_HOST: "redis.databases.svc.cluster.local"
+              REDIS_HOST: "redis-sentinel.databases.svc.cluster.local"
               REDIS_PORT: 6379
             envFrom:
               - secretRef:
