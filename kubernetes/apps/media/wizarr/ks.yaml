@@ -25,5 +25,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: invites.${PRIVATE_DOMAIN}
+      HOSTNAME: join.${PRIVATE_DOMAIN}
       VOLSYNC_CLAIM: *appname
