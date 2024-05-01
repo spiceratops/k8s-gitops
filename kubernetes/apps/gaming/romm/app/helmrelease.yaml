@@ -44,6 +44,7 @@ spec:
               DB_HOST: "mariadb.databases.svc.cluster.local"
               REDIS_HOST: "redis.databases.svc.cluster.local"
               REDIS_PORT: 6379
+              REDIS_DB: "romm"
             envFrom:
               - secretRef:
                   name: romm-secret
