@@ -8,5 +8,5 @@ resources:
   - ./karma/ks.yaml
   - ./thanos/ks.yaml
   - ./unpoller/ks.yaml
-  - ./kube-prometheus-stack/ks.yaml
+  # - ./kube-prometheus-stack/ks.yaml
   - ./exporters
