@@ -137,7 +137,7 @@ data:
   widgets.yaml: |
     - search:
         provider: custom
-        url: https://whoogle.${PRIVATE_DOMAIN}/?search=
+        url: https://whoogle.${PRIVATE_DOMAIN}/search?q=%s
         target: _blank
     - kubernetes:
         cluster:
