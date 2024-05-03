@@ -21,4 +21,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: zeddit.${PRIVATE_DOMAIN}
+      HOSTNAME: reddit.${PRIVATE_DOMAIN}
