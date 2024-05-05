@@ -52,7 +52,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/readarr-develop
-              tag: 0.3.24.2510
+              tag: 0.3.25.2515
             env:
               TZ: ${TIMEZONE}
               READARR__INSTANCE_NAME: Readarr Audiobooks
