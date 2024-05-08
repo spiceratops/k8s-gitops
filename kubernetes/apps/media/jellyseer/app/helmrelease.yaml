@@ -69,7 +69,8 @@ spec:
           gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_JELLYSEER_API_KEY}}"
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
           hajimari.io/enable: "true"
-          hajimari.io/icon: simple-icons:jellyseerr
+          hajimari.io/icon: simple-icons:overseerr
+          hajimari.io/appName: Requests
         hosts:
           - host: "${HOSTNAME}"
             paths:

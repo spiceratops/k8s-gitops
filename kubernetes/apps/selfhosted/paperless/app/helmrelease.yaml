@@ -36,6 +36,7 @@ spec:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 2.8.2@sha256:fe0bb42ecbe4513e021ed612170c4728e963a7b3c47903d285793c9938219980
             env:
+              PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
               COMPOSE_PROJECT_NAME: paperless
               PAPERLESS_CONSUMER_POLLING: "60"
               PAPERLESS_CONSUMER_RECURSIVE: "true"
@@ -49,6 +50,8 @@ spec:
               PAPERLESS_TASK_WORKERS: 2
               PAPERLESS_TIME_ZONE: ${TIMEZONE}
               PAPERLESS_URL: https://${HOSTNAME}
+              PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: "false"
+              PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
               USERMAP_UID: 568
               USERMAP_GID: 568
             envFrom: *envFrom
@@ -78,12 +81,6 @@ spec:
           gethomepage.dev/name: Paperless
           gethomepage.dev/group: Home
           gethomepage.dev/description: Document Library
-          # nginx.ingress.kubernetes.io/auth-method: GET
-          # nginx.ingress.kubernetes.io/auth-url: http://authelia.security.svc.cluster.local/api/verify
-          # nginx.ingress.kubernetes.io/auth-signin: https://auth.${PRIVATE_DOMAIN}/rm=$request_method
-          # nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-          # nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
-          # nginx.ingress.kubernetes.io/proxy-body-size: "0"
         className: internal
         hosts:
           - host: "${HOSTNAME}"
