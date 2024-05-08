@@ -11,7 +11,6 @@ resources:
   - ./recyclarr/ks.yaml
   - ./sonarr/ks.yaml
   - ./flaresolverr/ks.yaml
-  - ./unpackerr/ks.yaml
   - ./jellyseer/ks.yaml
   - ./navidrome/ks.yaml
   - ./wizarr/ks.yaml
