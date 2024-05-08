@@ -20,49 +20,12 @@ spec:
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
     resizeInUseVolumes: true
     waitForVolumeResize: true
-  # replicas: 3
-
-  # galera:
-  #   enabled: true
-  #   primary:
-  #     podIndex: 0
-  #     automaticFailover: true
-  #   sst: mariabackup
-  #   availableWhenDonor: false
-  #   galeraLibPath: /usr/lib/galera/libgalera_smm.so
-  #   replicaThreads: 1
-  #   agent:
-  #     image: ghcr.io/mariadb-operator/mariadb-operator:v0.0.27
-  #     port: 5555
-  #     kubernetesAuth:
-  #       enabled: true
-  #     gracefulShutdownTimeout: 1s
-  #   recovery:
-  #     enabled: true
-  #     minClusterSize: 50%
-  #     clusterHealthyTimeout: 30s
-  #     clusterBootstrapTimeout: 10m
-  #     podRecoveryTimeout: 3m
-  #     podSyncTimeout: 3m
-  #   initContainer:
-  #     image: ghcr.io/mariadb-operator/mariadb-operator:v0.0.27
-  #   config:
-  #     reuseStorageVolume: true
 
   service:
     type: LoadBalancer
-    annotations:
-      io.cilium/lb-ipam-ips: "${MARIADB_LB_IP}"
-
-  # primaryService:
-  #   type: LoadBalancer
-  #   annotations:
-  #     io.cilium/lb-ipam-ips: "${MARIADB_PRIMARY_LB_IP}"
-
-  # secondaryService:
-  #   type: LoadBalancer
-  #   annotations:
-  #     io.cilium/lb-ipam-ips: "${MARIADB_SECONDARY_LB_IP}"
+    metadata:
+      annotations:
+        io.cilium/lb-ipam-ips: "${MARIADB_LB_IP}"
 
   podSecurityContext:
     runAsUser: 0
