@@ -14,3 +14,19 @@ spec:
   username: mariadb
   host: "%"
   grantOption: true
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: mariadb-metrics
+spec:
+  mariaDbRef:
+    name: mariadb
+    namespace: databases
+  privileges:
+    - "ALL"
+  database: "*"
+  table: "*"
+  username: mariadb-metrics
+  host: "%"
+  grantOption: true
