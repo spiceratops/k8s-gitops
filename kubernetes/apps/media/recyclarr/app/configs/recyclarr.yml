@@ -22,11 +22,13 @@ sonarr:
       - name: Best Available
         min_format_score: 0
         qualities:
+          - name: Remux-2160p
           - name: Bluray-2160p
           - name: WEB 2160p
             qualities:
               - WEBRip-2160p
               - WEBDL-2160p
+          - name: Remux-1080p
           - name: Bluray-1080p
           - name: WEB 1080p
             qualities:
@@ -152,6 +154,7 @@ radarr:
           - name: Best Available
             score: 1
       - trash_ids:
+          - c53085ddbd027d9624b320627748612f # DV HDR10Plus
           - e23edd2482476e595fb990b12e7c609c # DV HDR10  HDR/DV Custom Formats
         quality_profiles:
           - name: Best Available
