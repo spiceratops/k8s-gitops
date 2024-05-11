@@ -76,7 +76,7 @@ spec:
       app:
         controller: jellyfin
         type: LoadBalancer
-        loadBalancerIP: *loadBalancerIP
+        loadBalancerIP: ${JELLYFIN_LB_IP}
         externalTrafficPolicy: Local
         ports:
           http:
