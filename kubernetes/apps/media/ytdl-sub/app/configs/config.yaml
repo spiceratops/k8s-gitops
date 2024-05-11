@@ -48,7 +48,7 @@ data:
 
         date_range:
           before: "today-2days"
-          after: "20180101"
+          after: "20210101"
 
       ###############################################################################
       # base preset to use on all TV Show-based subscriptions
