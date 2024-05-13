@@ -1,0 +1,28 @@
+---
+apiVersion: shulkermc.io/v1alpha1
+kind: MinecraftServerFleet
+metadata:
+  name: minecraft-cobblemon
+spec:
+  clusterRef:
+    name: minecraft-cluster
+  replicas: 1
+  template:
+    spec:
+      clusterRef:
+        name: minecraft-cluster
+      tags:
+        - minecraft-cobblemon
+      version:
+        channel: Fabric
+        name: "1.20.1"
+      config:
+        serverProperties:
+          enforce-whitelist: "true"
+          max-players: "8"
+          gamemode: "survival"
+          difficulty: "easy"
+      podOverrides:
+        env:
+          MOD_PLATFORM: "MODRINTH"
+          MODRINTH_MODPACK: "https://modrinth.com/modpack/cobblemondelta/version/1.2.0"

@@ -5,4 +5,5 @@ namespace: gaming
 resources:
   - ./cluster.yaml
   - ./proxy.yaml
-  - ./minecraftserver.yaml
+  - ./lobby.yaml
+  - ./cobblemon.yaml

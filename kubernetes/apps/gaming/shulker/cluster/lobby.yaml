@@ -2,7 +2,7 @@
 apiVersion: shulkermc.io/v1alpha1
 kind: MinecraftServerFleet
 metadata:
-  name: lobby
+  name: minecraft-lobby
 spec:
   clusterRef:
     name: minecraft-cluster
@@ -12,13 +12,10 @@ spec:
       clusterRef:
         name: minecraft-cluster
       tags:
-        - lobby
+        - minecraft-lobby
       version:
         channel: Paper
         name: "1.20.1"
-      config: {}
-      podOverrides:
-        volumes:
-          - name: backups
-            persistentVolumeClaim:
-              claimName: "${VOLSYNC_CLAIM}"
+      config:
+        serverProperties:
+          enforce-whitelist: "true"
