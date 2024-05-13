@@ -55,6 +55,9 @@ spec:
           gethomepage.dev/group: Reading
           gethomepage.dev/icon: medium.png
           gethomepage.dev/name: Libmedium
+          hajimari.io/enable: "true"
+          hajimari.io/icon: simple-icons:medium
+          hajimari.io/appName: Libmedium
         hosts:
           - host: "${HOSTNAME}"
             paths:

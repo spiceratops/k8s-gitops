@@ -63,6 +63,9 @@ spec:
           gethomepage.dev/name: Romm
           gethomepage.dev/group: Gaming
           gethomepage.dev/description: Retro Game Library
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:controller-classic
+          hajimari.io/appName: Romm
         hosts:
           - host: "${HOSTNAME}"
             paths:

@@ -84,6 +84,9 @@ spec:
           gethomepage.dev/group: Reading
           gethomepage.dev/icon: reddit.png
           gethomepage.dev/name: Libreddit
+          hajimari.io/enable: "true"
+          hajimari.io/icon: simple-icons:reddit
+          hajimari.io/appName: Libreddit
         hosts:
           - host: "${HOSTNAME}"
             paths:
