@@ -17,3 +17,8 @@ spec:
         channel: Paper
         name: "1.20.2"
       config: {}
+      podOverrides:
+        volumes:
+          - name: server-data
+            persistentVolumeClaim:
+              claimName: "${VOLSYNC_CLAIM}"
