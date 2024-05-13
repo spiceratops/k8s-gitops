@@ -19,10 +19,10 @@ spec:
       config:
         serverProperties:
           enforce-whitelist: "true"
-          max-players: "8"
-          gamemode: "survival"
-          difficulty: "easy"
+          max-players: 8
+          gamemode: survival
+          difficulty: easy
       podOverrides:
         env:
-          MOD_PLATFORM: "MODRINTH"
-          MODRINTH_MODPACK: "https://modrinth.com/modpack/cobblemondelta/version/1.2.0"
+          MOD_PLATFORM: MODRINTH
+          MODRINTH_MODPACK: https://modrinth.com/modpack/cobblemondelta/version/1.2.0
