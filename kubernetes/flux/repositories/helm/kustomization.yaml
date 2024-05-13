@@ -43,3 +43,5 @@ resources:
   - ./stevehipwell-charts.yaml
   - ./xenitab-charts.yaml
   - ./1password-charts.yaml
+  - ./agones-charts.yaml
+  - ./shulker-charts.yaml
