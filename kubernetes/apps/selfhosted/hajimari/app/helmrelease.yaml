@@ -36,6 +36,7 @@ spec:
           - gaming
           - media
           - selfhosted
+          - dev
       defaultSearchProvider: Whoogle
       searchProviders:
         - name: Whoogle
