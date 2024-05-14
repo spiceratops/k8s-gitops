@@ -121,3 +121,15 @@ spec:
       target:
         kind: ClusterRole
         name: crd-controller-flux-system
+    # Enable in-memory-kustomize builds
+    # Ref: https://fluxcd.io/flux/installation/configuration/vertical-scaling/#enable-in-memory-kustomize-builds
+    - patch: |
+        - op: replace
+          path: /spec/template/spec/volumes/0
+          value:
+            name: temp
+            emptyDir:
+              medium: Memory
+      target:
+        kind: Deployment
+        name: kustomize-controller
