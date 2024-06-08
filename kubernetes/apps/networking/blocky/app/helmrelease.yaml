@@ -65,8 +65,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: secret
-        name: ${APP}-secret
+        type: configMap
+        name: ${APP}-config
         globalMounts:
           - path: /app/config.yml
             subPath: config.yml
