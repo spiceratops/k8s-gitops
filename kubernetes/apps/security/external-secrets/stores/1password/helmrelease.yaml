@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: onepassword-connect
-  namespace: kube-system
+  namespace: security
 spec:
   interval: 30m
   timeout: 15m
@@ -16,7 +16,7 @@ spec:
         name: 1password-charts
         namespace: flux-system
   values:
-    namespace: kube-system
+    namespace: security
     connect:
       credentialsName: onepassword-connect-secret
       credentialsKey: 1password-credentials.json
