@@ -41,7 +41,7 @@ spec:
             envFrom: *envFrom
             env:
               NODE_ENV: production
-              REDIS_HOST: redis.databases.svc.cluster.local
+              REDIS_HOST: dragonfly.databases.svc.cluster.local
               REDIS_PORT: 6379
             resources:
               requests:
