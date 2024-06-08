@@ -6,8 +6,8 @@ clusterPodNets:
 clusterSvcNets:
   - 10.245.0.0/16
 
-talosVersion: v1.7.1
-kubernetesVersion: v1.29.4
+talosVersion: v1.7.4
+kubernetesVersion: v1.30.1
 endpoint: https://k8s.${domainName}:6443
 
 additionalApiServerCertSans: &san
@@ -158,6 +158,22 @@ nodes:
       #     path: /machine/sysctls
       #     value:
       #       net.core.bpf_jit_harden: 1
+
+  - hostname: wk04.k8s.${domainName}
+    ipAddress: 192.168.10.214
+    installDisk: /dev/vda
+    controlPlane: false
+    disableSearchDomain: true
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/intel-ucode
+            - siderolabs/fuse3
+            - siderolabs/util-linux-tools
 
 controlPlane:
   nodeLabels:
@@ -334,6 +350,13 @@ controlPlane:
               - os:operator
             allowedKubernetesNamespaces:
               - kube-system
+
+    # Disable hostDNS:
+    - |-
+      machine:
+        features:
+          hostDNS:
+            enabled: false
 
 worker:
   nodeLabels:
