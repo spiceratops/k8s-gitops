@@ -45,3 +45,4 @@ resources:
   - ./1password-charts.yaml
   - ./agones-charts.yaml
   - ./shulker-charts.yaml
+  - ./openebs-charts.yaml
