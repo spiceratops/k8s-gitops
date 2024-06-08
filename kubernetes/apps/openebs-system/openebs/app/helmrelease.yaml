@@ -12,7 +12,7 @@ spec:
       version: 4.0.1
       sourceRef:
         kind: HelmRepository
-        name: openebs
+        name: openebs-charts
         namespace: flux-system
   install:
     remediation:
