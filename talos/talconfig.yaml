@@ -177,6 +177,7 @@ nodes:
             - siderolabs/intel-ucode
             - siderolabs/fuse3
             - siderolabs/util-linux-tools
+            - siderolabs/qemu-guest-agent
 
 controlPlane:
   nodeLabels:
