@@ -9,9 +9,9 @@ session:
       domain: ${PRIVATE_DOMAIN}
       authelia_url: https://auth.${PRIVATE_DOMAIN}
       default_redirection_url: https://${PRIVATE_DOMAIN}
-  redis:
-    database_index: 2
-    host: dragonfly.databases.svc.cluster.local
+  # redis:
+  #   database_index: 2
+  #   host: dragonfly.databases.svc.cluster.local
 
 access_control:
   default_policy: two_factor

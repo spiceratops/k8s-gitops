@@ -43,6 +43,8 @@ spec:
               AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
               AUTHELIA_TELEMETRY_METRICS_ENABLED: true
               AUTHELIA_THEME: dark
+              AUTHELIA_SESSION_REDIS_HOST: dragonfly.databases.svc.cluster.local.
+              AUTHELIA_SESSION_REDIS_PORT: 6379
               X_AUTHELIA_CONFIG: /config/configuration.yml
               X_AUTHELIA_CONFIG_FILTERS: expand-env
             envFrom: *envFrom
