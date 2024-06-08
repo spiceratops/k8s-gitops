@@ -6,8 +6,11 @@ clusterPodNets:
 clusterSvcNets:
   - 10.245.0.0/16
 
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosVersion: v1.7.4
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.30.1
+
 endpoint: https://k8s.${domainName}:6443
 
 additionalApiServerCertSans: &san
@@ -180,6 +183,15 @@ controlPlane:
     topology.kubernetes.io/region: *cluster
     topology.kubernetes.io/zone: cp
   patches:
+    # Set all disks to no scheduler
+    - &noschedulerPatch |-
+      machine:
+        udev:
+          rules:
+            # set all disks to `none` scheduler (optimal setting for Ceph and ZFS)
+            - SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", ATTR{queue/scheduler}="none"
+            # allow GID 44 (video) to use Intel GPU
+            - SUBSYSTEM=="drm", GROUP="44", MODE="0660"
     # Configure containerd
     - &containerdPatch |-
       machine:
@@ -347,9 +359,9 @@ controlPlane:
           kubernetesTalosAPIAccess:
             enabled: true
             allowedRoles:
-              - os:operator
+              - os:admin
             allowedKubernetesNamespaces:
-              - kube-system
+              - system-upgrade
 
     # Disable hostDNS:
     - |-
@@ -376,3 +388,4 @@ worker:
     - *sysctlPatch
     - *talosPatch
     - *tailscalePatch
+    - *noschedulerPatch
