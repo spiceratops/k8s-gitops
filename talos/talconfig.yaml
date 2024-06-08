@@ -324,6 +324,16 @@ controlPlane:
             path: /var/etc/tailscale/auth.env
             op: create
 
+    # Mount openebs-hostpath in kubelet
+    - &openebsPatch |-
+      machine:
+        kubelet:
+          extraMounts:
+            - destination: /var/openebs/local
+              type: bind
+              source: /var/openebs/local
+              options: ["bind", "rshared", "rw"]
+
     # Cluster configuration
     - |-
       cluster:
@@ -389,3 +399,4 @@ worker:
     - *talosPatch
     - *tailscalePatch
     - *noschedulerPatch
+    - *openebsPatch
