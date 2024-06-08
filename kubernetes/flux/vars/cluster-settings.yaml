@@ -13,8 +13,8 @@ data:
   CLUSTER_STORAGE_FILESYSTEM: "ceph-filesystem"
   CLUSTER_SNAPSHOT_FILESYSTEM: "csi-filesystemplugin-snapclass"
   CLUSTER_STORAGE_BUCKET: "ceph-bucket"
-  CLUSTER_STORAGE_HOSTPATH: "democratic-csi-local-hostpath"
-  CLUSTER_SNAPSHOT_HOSTPATH: "democratic-csi-local-hostpath"
+  CLUSTER_STORAGE_HOSTPATH: "openebs-hostpath"
+  CLUSTER_SNAPSHOT_HOSTPATH: "openebs-hostpath"
 
   # K8s
   CLUSTER_SERVICE_IP_CIDR: "10.245.0.0/16"
