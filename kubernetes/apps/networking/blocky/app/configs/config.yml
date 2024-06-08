@@ -97,11 +97,6 @@ redis:
   required: true
   address: dragonfly.databases.svc.cluster.local
 
-queryLog:
-  type: postgresql
-  target: postgresql://{{ .POSTGRES_USER }}:{{ .POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/blocky
-  logRetentionDays: 10
-
 prometheus:
   enable: true
   path: /metrics
