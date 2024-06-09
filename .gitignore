@@ -16,6 +16,7 @@ xanmanning.k3s*
 *.pub
 *.key
 *.pem
+*.sopsrc
 # kubernetes
 kubeconfig*
 kubernetes/schemas
