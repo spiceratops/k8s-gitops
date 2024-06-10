@@ -10,3 +10,4 @@ resources:
   - ./unpoller/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./exporters
+  - ./apprise/ks.yaml
