@@ -48,6 +48,7 @@ spec:
               TASK_WORKER_NUM: 4
               TIMEZONE: ${TIMEZONE}
               WEB_WORKER_NUM: 1
+              SHELL_VERBOSITY: 3
             envFrom: *envFrom
             probes:
               liveness: &probes
