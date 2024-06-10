@@ -24,3 +24,4 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: apprise.${PRIVATE_DOMAIN}
+      VOLSYNC_CLAIM: *appname
