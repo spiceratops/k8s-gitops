@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: windmill
-      version: 2.0.209
+      version: 2.0.211
       sourceRef:
         kind: HelmRepository
         name: windmill-charts
