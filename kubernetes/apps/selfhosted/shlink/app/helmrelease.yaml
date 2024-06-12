@@ -43,7 +43,6 @@ spec:
               ENABLE_PERIODIC_VISIT_LOCATE: "true"
               IS_HTTPS_ENABLED: "true"
               PORT: &port 8080
-              REDIS_PUB_SUB_ENABLED: "true"
               REDIS_SERVERS: dragonfly.databases.svc.cluster.local
               TASK_WORKER_NUM: 4
               TIMEZONE: ${TIMEZONE}
