@@ -2,22 +2,22 @@
 version: "3"
 
 vars:
-  PROJECT_DIR:
-    sh: "git rev-parse --show-toplevel"
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  TALOS_DIR: "{{.ROOT_DIR}}/talos"
 
 env:
-  TALOSCONFIG: ./talos/clusterconfig/talosconfig
+  KUBECONFIG: "{{.KUBERNETES_DIR}}/kubernetes/kubeconfig"
+  SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
 includes:
-  externalsecrets: .taskfiles/externalsecrets/tasks.yaml
-  flux: .taskfiles/flux/tasks.yaml
-  k8s: .taskfiles/k8s/tasks.yaml
-  rook: .taskfiles/rook/tasks.yaml
-  talos: .taskfiles/talos/tasks.yaml
-  volsync: .taskfiles/volsync/tasks.yaml
+  external-secrets: .taskfiles/ExternalSecrets
+  flux: .taskfiles/Flux
+  kubernetes: .taskfiles/Kubernetes
+  rook: .taskfiles/Rook
+  talos: .taskfiles/Talos
+  volsync: .taskfiles/VolSync
 
 tasks:
   default:
     silent: true
-    cmds:
-      - task -l
+    cmd: task -l

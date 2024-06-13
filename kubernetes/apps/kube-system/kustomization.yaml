@@ -12,5 +12,3 @@ resources:
   - ./node-feature-discovery/ks.yaml
   - ./node-problem-detector/ks.yaml
   - ./reloader/ks.yaml
-  - ./snapshot-controller/ks.yaml
-  - ./volsync/ks.yaml
