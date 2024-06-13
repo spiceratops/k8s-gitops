@@ -16,6 +16,11 @@ spec:
         name: postfinance-charts
         namespace: flux-system
 
+  valuesFrom:
+    - kind: ConfigMap
+      name: kubelet-csr-approver-helm-values
   values:
-    providerRegex: |
-      ^k(m|w)\d\d?$
+    metrics:
+      enable: true
+      serviceMonitor:
+        enabled: true

@@ -2,16 +2,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: spegel
+  name: &app coredns
 spec:
   interval: 30m
   chart:
     spec:
-      chart: spegel
-      version: v0.0.23
+      chart: coredns
+      version: 1.30.0
       sourceRef:
         kind: HelmRepository
-        name: spegel-charts
+        name: coredns-charts
         namespace: flux-system
   install:
     remediation:
@@ -19,14 +19,8 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   valuesFrom:
     - kind: ConfigMap
-      name: spegel-helm-values
-  values:
-    grafanaDashboard:
-      enabled: true
-    serviceMonitor:
-      enabled: true
+      name: coredns-helm-values

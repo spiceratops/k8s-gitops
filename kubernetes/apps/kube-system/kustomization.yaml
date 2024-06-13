@@ -12,3 +12,4 @@ resources:
   - ./node-feature-discovery/ks.yaml
   - ./node-problem-detector/ks.yaml
   - ./reloader/ks.yaml
+  - ./spegel/ks.yaml

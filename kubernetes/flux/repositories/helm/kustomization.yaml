@@ -41,7 +41,7 @@ resources:
   - ./tailscale-charts.yaml
   - ./coredns-charts.yaml
   - ./stevehipwell-charts.yaml
-  - ./xenitab-charts.yaml
+  - ./spegel-charts.yaml
   - ./1password-charts.yaml
   - ./agones-charts.yaml
   - ./shulker-charts.yaml
