@@ -3,7 +3,7 @@
 version: "3"
 
 tasks:
-  main:
+  k8s:
     vars: &vars
       cluster: k8s
       cephnodes: wk01 wk02 wk04

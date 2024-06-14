@@ -16,6 +16,7 @@ includes:
   rook: .taskfiles/Rook
   talos: .taskfiles/Talos
   volsync: .taskfiles/VolSync
+  bootstrap: .taskfiles/Bootstrap
 
 tasks:
   default:
