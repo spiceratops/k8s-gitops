@@ -6,7 +6,7 @@ vars:
   TALOS_DIR: "{{.ROOT_DIR}}/talos"
 
 env:
-  KUBECONFIG: "{{.KUBERNETES_DIR}}/kubernetes/kubeconfig"
+  KUBECONFIG: "{{.KUBERNETES_DIR}}/kubeconfig"
   SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
 includes:

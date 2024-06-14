@@ -40,8 +40,7 @@ nodes:
         systemExtensions:
           officialExtensions:
             - siderolabs/intel-ucode
-            - siderolabs/fuse3
-            - siderolabs/util-linux-tools
+            - siderolabs/i915-ucode
             - siderolabs/qemu-guest-agent
 
   - hostname: cp02.${PRIVATE_DOMAIN}
@@ -60,8 +59,7 @@ nodes:
         systemExtensions:
           officialExtensions:
             - siderolabs/intel-ucode
-            - siderolabs/fuse3
-            - siderolabs/util-linux-tools
+            - siderolabs/i915-ucode
             - siderolabs/qemu-guest-agent
 
   - hostname: cp03.${PRIVATE_DOMAIN}
@@ -80,8 +78,6 @@ nodes:
         systemExtensions:
           officialExtensions:
             - siderolabs/amd-ucode
-            - siderolabs/fuse3
-            - siderolabs/util-linux-tools
             - siderolabs/qemu-guest-agent
 
   - hostname: wk01.${PRIVATE_DOMAIN}
@@ -101,8 +97,6 @@ nodes:
           officialExtensions:
             - siderolabs/intel-ucode
             - siderolabs/i915-ucode
-            - siderolabs/fuse3
-            - siderolabs/util-linux-tools
             - siderolabs/qemu-guest-agent
 
   - hostname: wk02.${PRIVATE_DOMAIN}
@@ -122,8 +116,6 @@ nodes:
           officialExtensions:
             - siderolabs/intel-ucode
             - siderolabs/i915-ucode
-            - siderolabs/fuse3
-            - siderolabs/util-linux-tools
             - siderolabs/qemu-guest-agent
 
   # - hostname: wk03.${PRIVATE_DOMAIN}
@@ -177,8 +169,7 @@ nodes:
         systemExtensions:
           officialExtensions:
             - siderolabs/intel-ucode
-            - siderolabs/fuse3
-            - siderolabs/util-linux-tools
+            - siderolabs/i915-ucode
             - siderolabs/qemu-guest-agent
 
 controlPlane:

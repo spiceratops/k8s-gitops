@@ -4,8 +4,6 @@ bandwidthManager:
   enabled: true
   bbr: true
 bpf:
-  hostRouting: true
-  lbBypassFIBLookup: true
   masquerade: true
   tproxy: true
 bgpControlPlane:
@@ -17,8 +15,6 @@ cgroup:
 cluster:
   id: 1
   name: k8s
-containerRuntime:
-  integration: containerd
 devices: eth+
 enableRuntimeDeviceDetection: true
 endpointRoutes:
@@ -56,8 +52,15 @@ securityContext:
       - FOWNER
       - SETGID
       - SETUID
+    mountCgroup:
+      - SYS_ADMIN
+      - SYS_CHROOT
+      - SYS_PTRACE
+    applySysctlOverwrites:
+      - SYS_ADMIN
+      - SYS_CHROOT
+      - SYS_PTRACE
     cleanCiliumState:
       - NET_ADMIN
       - SYS_ADMIN
       - SYS_RESOURCE
-    tunnel: disabled
