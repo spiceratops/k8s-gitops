@@ -31,10 +31,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
-        vlans:
-          - vlanId: 10
-            dhcp: true
+        dhcp: true
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -54,10 +51,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
-        vlans:
-          - vlanId: 10
-            dhcp: true
+        dhcp: true
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -77,10 +71,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
-        vlans:
-          - vlanId: 10
-            dhcp: true
+        dhcp: true
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -100,10 +91,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
-        vlans:
-          - vlanId: 10
-            dhcp: true
+        dhcp: true
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -124,10 +112,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
-        vlans:
-          - vlanId: 10
-            dhcp: true
+        dhcp: true
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -183,13 +168,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
-        vlans:
-          - vlanId: 10
-            dhcp: true
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
+        dhcp: true
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
