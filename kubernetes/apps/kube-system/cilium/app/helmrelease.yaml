@@ -16,6 +16,9 @@ spec:
         name: cilium-charts
         namespace: flux-system
 
+  valuesFrom:
+    - kind: ConfigMap
+      name: cilium-helm-values
   values:
     hubble:
       enabled: true
