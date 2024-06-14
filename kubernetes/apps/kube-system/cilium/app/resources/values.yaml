@@ -15,8 +15,6 @@ cgroup:
 cluster:
   id: 1
   name: k8s
-devices: eth+
-enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
 hubble:
