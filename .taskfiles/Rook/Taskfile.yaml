@@ -69,7 +69,7 @@ tasks:
       vars: ["serial", "node"]
     vars:
       job: wipe-disk-{{.node}}-{{.serial | lower}}
-      disk: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_{{.serial}}
+      disk: /dev/disk/by-id/{{.serial}}
     preconditions:
       - test -f {{.rookScriptsDir}}/wait-for-job.sh
       - test -f {{.rookTemplatesDir}}/wipediskjob.tmpl.yaml
