@@ -1,4 +1,4 @@
 ---
 providerRegex: |
-  ^[cp|wk]\d$
+  ^(cp|wk)\d\d?$
 bypassDnsResolution: true
