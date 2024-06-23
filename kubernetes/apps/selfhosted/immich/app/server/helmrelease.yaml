@@ -36,12 +36,12 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.105.1
+              tag: v1.106.4
             args:
               - start-server.sh
             env:
               TZ: ${TIMEZONE}
-              SERVER_PORT: &port 3001
+              IMMICH_PORT: &port 3001
             envFrom:
               - secretRef:
                   name: immich-secret
@@ -52,7 +52,7 @@ spec:
                 cpu: 10m
                 memory: 256Mi
               limits:
-                memory: 1024Mi
+                memory: 2048Mi
     service:
       app:
         controller: immich-server

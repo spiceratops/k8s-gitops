@@ -6,7 +6,6 @@ metadata:
   namespace: selfhosted
 data:
   DB_PORT: "5432"
-  SERVER_PORT: "3001"
   LOG_LEVEL: log
   NODE_ENV: "production"
   REDIS_HOSTNAME: immich-redis.selfhosted.svc.cluster.local

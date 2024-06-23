@@ -47,13 +47,13 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.105.1
+              tag: v1.106.4
             env:
               # General
               IMMICH_MEDIA_LOCATION: /usr/src/app/upload
               # Ports
-              MACHINE_LEARNING_HOST: 0.0.0.0
-              MACHINE_LEARNING_PORT: &port 3003
+              IMMICH_HOST: 0.0.0.0
+              IMMICH_PORT: &port 3003
               # Machine learning
               MACHINE_LEARNING_CACHE_FOLDER: /cache
               TRANSFORMERS_CACHE: /cache

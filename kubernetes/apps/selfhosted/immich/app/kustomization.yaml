@@ -6,6 +6,5 @@ resources:
   - ./redis
   - ./configmap.yaml
   - ./externalsecret.yaml
-  - ./microservices
   - ./machine-learning
   - ./server
