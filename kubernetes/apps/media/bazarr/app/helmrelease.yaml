@@ -104,7 +104,7 @@ spec:
           gethomepage.dev/name: Bazarr
           gethomepage.dev/widget.type: bazarr
           gethomepage.dev/widget.url: http://bazarr.media.svc.cluster.local:6767
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_BAZARR_API_KEY}}"
+          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_BAZARR_API_KEY}}` }}"
         hosts:
           - host: "${HOSTNAME}"
             paths:

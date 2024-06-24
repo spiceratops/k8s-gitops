@@ -66,7 +66,7 @@ spec:
           gethomepage.dev/name: Jellyseer
           gethomepage.dev/widget.type: jellyseerr
           gethomepage.dev/widget.url: http://jellyseer.media.svc.cluster.local:8080
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_JELLYSEER_API_KEY}}"
+          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_JELLYSEER_API_KEY}}` }}"
           external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:jellyfish-outline
