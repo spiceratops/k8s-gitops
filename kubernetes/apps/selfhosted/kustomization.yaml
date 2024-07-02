@@ -19,8 +19,8 @@ resources:
   - ./ghostfolio/ks.yaml
   - ./whoogle/ks.yaml
   - ./drawio/ks.yaml
-  - ./obsidian-couchdb/ks.yaml
   - ./paperless/ks.yaml
   - ./ocis/ks.yaml
   - ./libmedium/ks.yaml
   - ./hajimari/ks.yaml
+  - ./wallos/ks.yaml
