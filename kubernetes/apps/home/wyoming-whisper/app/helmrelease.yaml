@@ -56,7 +56,7 @@ spec:
           io.cilium/lb-ipam-ips: ${WYOMING_WHISPER_LB_IP}
         ports:
           http:
-            port: 10200
+            port: 10300
     persistence:
       data:
         existingClaim: "${VOLSYNC_CLAIM}"
