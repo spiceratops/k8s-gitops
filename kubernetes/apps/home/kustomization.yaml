@@ -5,3 +5,4 @@ resources:
   - ./namespace.yaml
   - ./wyoming-piper/ks.yaml
   - ./wyoming-whisper/ks.yaml
+  - ./wyoming-openwakeword/ks.yaml
