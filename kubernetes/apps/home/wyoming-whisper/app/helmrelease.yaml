@@ -1,0 +1,62 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: wyoming-whisper
+  namespace: home
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    controllers:
+      wyoming-whisper:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: rhasspy/wyoming-whisper
+              tag: latest@sha256:ceaa162ec05e53b8fa883182cdbceb72e6a1422740ec35be038c9faa278323b3
+            args:
+              - --model
+              - small
+              - --language
+              - en
+            env:
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256M
+              limits:
+                memory: 4096M
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: wyoming-whisper
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${WYOMING_WHISPER_LB_IP}
+        ports:
+          http:
+            port: 10200
+    persistence:
+      data:
+        existingClaim: "${VOLSYNC_CLAIM}"
