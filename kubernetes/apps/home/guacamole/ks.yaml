@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  path: ./kubernetes/apps/home/guacd/app
+  path: ./kubernetes/apps/home/guacamole/guacd
   prune: true
   sourceRef:
     kind: GitRepository
