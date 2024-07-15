@@ -86,19 +86,11 @@ spec:
           - hosts:
               - "${HOSTNAME}"
     persistence:
-      migrations:
-        type: emptyDir
-        advancedMounts:
-          guacamole:
-            01-init-schema:
-              - path: /migrations
-            02-init-migrations:
-              - path: /migrations
       plugins:
         type: emptyDir
         advancedMounts:
           guacamole:
             app:
               - path: /guacamole
-            03-init-plugin:
+            init-plugin:
               - path: /guacamole
