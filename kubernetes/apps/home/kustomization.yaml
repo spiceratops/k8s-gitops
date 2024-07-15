@@ -6,3 +6,4 @@ resources:
   - ./wyoming-piper/ks.yaml
   - ./wyoming-whisper/ks.yaml
   - ./wyoming-openwakeword/ks.yaml
+  - ./guacamole/ks.yaml
