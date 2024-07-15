@@ -44,3 +44,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
+      HOSTNAME: guacamole.${PRIVATE_DOMAIN}
