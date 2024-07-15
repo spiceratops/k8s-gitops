@@ -23,30 +23,15 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
-          01-init-schema:
-            image:
-              repository: docker.io/guacamole/guacamole
-              tag: 1.5.5
-            envFrom: &envFrom
-              - secretRef:
-                  name: guacamole-db-secret
-            command:
-              - "/bin/sh"
-              - "-c"
-            args:
-              - /opt/guacamole/bin/initdb.sh --postgresql > /migrations/initdb.sql
-          02-init-migrations:
+          init-db:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16
-            envFrom: *envFrom
-            command:
-              - "/bin/bash"
-              - "-c"
-            args:
-              - export PGPASSWORD=$(POSTGRESQL_PASSWORD);
-                psql -h $(POSTGRESQL_HOSTNAME) -d $(POSTGRESQL_DATABASE) -U $(POSTGRESQL_USER) -a -w -f /migrations/initdb.sql || true;
-          03-init-plugin:
+              pullPolicy: IfNotPresent
+            envFrom: &envFrom
+              - secretRef:
+                  name: guacamole-db-secret
+          init-plugin:
             image:
               repository: docker.io/guacamole/guacamole
               tag: 1.5.5
