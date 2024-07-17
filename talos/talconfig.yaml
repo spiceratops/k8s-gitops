@@ -249,7 +249,7 @@ controlPlane:
       machine:
         network:
           nameservers:
-            - 192.168.1.253
+            - 192.168.1.1
 
     # Configure NFS mount options
     - &nfsPatch |-
@@ -385,12 +385,12 @@ controlPlane:
             allowedKubernetesNamespaces:
               - system-upgrade
 
-    # Enable host dns #### Temporary disable
+    # Enable host dns
     - &hostDnsPatch |-
       machine:
         features:
           hostDNS:
-            enabled: false
+            enabled: true
             resolveMemberNames: true
             forwardKubeDNSToHost: false
 
