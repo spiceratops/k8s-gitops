@@ -80,7 +80,8 @@ spec:
       dns:
         controller: *app
         type: LoadBalancer
-        clusterIP: ${K8S_GATEWAY_LB_IP}
+        annotations:
+          io.cilium/lb-ipam-ips: ${K8S_GATEWAY_LB_IP}
         ports:
           dns-tcp:
             enabled: true
