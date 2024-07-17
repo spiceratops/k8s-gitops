@@ -385,12 +385,12 @@ controlPlane:
             allowedKubernetesNamespaces:
               - system-upgrade
 
-    # Enable host dns
+    # Enable host dns #### Temporary disable
     - &hostDnsPatch |-
       machine:
         features:
           hostDNS:
-            enabled: true
+            enabled: false
             resolveMemberNames: true
             forwardKubeDNSToHost: false
 

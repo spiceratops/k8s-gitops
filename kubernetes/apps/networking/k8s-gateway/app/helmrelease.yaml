@@ -79,8 +79,8 @@ spec:
             port: 9153
       dns:
         controller: *app
-        type: ClusterIP
-        clusterIP: ${K8S_GATEWAY_IP}
+        type: LoadBalancer
+        clusterIP: ${K8S_GATEWAY_LB_IP}
         ports:
           dns-tcp:
             enabled: true
