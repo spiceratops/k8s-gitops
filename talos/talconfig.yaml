@@ -249,8 +249,7 @@ controlPlane:
       machine:
         network:
           nameservers:
-            - 192.168.1.253
-            - 192.168.15.53
+            - 192.168.1.1
 
     # Configure NFS mount options
     - &nfsPatch |-

@@ -30,8 +30,6 @@ servers:
           pods insecure
           fallthrough in-addr.arpa ip6.arpa
       - name: forward
-        parameters: ${PRIVATE_DOMAIN} ${K8S_GATEWAY_LB_IP}
-      - name: forward
         parameters: . /etc/resolv.conf
       - name: cache
         parameters: 30
