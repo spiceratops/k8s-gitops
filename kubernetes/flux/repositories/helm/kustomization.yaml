@@ -46,3 +46,4 @@ resources:
   - ./agones-charts.yaml
   - ./shulker-charts.yaml
   - ./openebs-charts.yaml
+  - ./k8s-gateway-charts.yaml
