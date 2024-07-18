@@ -249,7 +249,8 @@ controlPlane:
       machine:
         network:
           nameservers:
-            - 192.168.1.1
+            - 192.168.1.253
+            - 192.168.15.53
 
     # Configure NFS mount options
     - &nfsPatch |-
@@ -390,9 +391,9 @@ controlPlane:
       machine:
         features:
           hostDNS:
-            enabled: true
+            enabled: false
             resolveMemberNames: true
-            forwardKubeDNSToHost: false
+            forwardKubeDNSToHost: true
 
 worker:
   nodeLabels:
