@@ -23,11 +23,11 @@ bootstrapDns:
 
 conditional:
   mapping:
-    cluster.local: tcp+udp:${CLUSTER_DNS_IP}
-    ${PRIVATE_DOMAIN}: tcp+udp:${K8S_GATEWAY_LB_IP}
+    cluster.local: ${CLUSTER_DNS_IP}
+    ${PRIVATE_DOMAIN}: ${K8S_GATEWAY_IP}
 
 clientLookup:
-  upstream: tcp+udp:${LAN_SERVER_OPNSENSE_IP}
+  upstream: ${LAN_SERVER_OPNSENSE_IP}
 
 blocking:
   blackLists: # https://firebog.net/

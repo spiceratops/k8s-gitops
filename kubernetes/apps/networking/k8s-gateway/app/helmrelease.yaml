@@ -24,6 +24,5 @@ spec:
       - Ingress
       - Service
     service:
-      type: LoadBalancer
-      annotations:
-        io.cilium/lb-ipam-ips: ${K8S_GATEWAY_LB_IP}
+      type: ClusterIP
+      clusterIP: ${K8S_GATEWAY_IP}
