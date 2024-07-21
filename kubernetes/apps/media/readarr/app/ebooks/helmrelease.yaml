@@ -52,7 +52,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/readarr-develop
-              tag: 0.3.31.2578
+              tag: 0.3.32.2587
             env:
               TZ: ${TIMEZONE}
               READARR__INSTANCE_NAME: Readarr Ebooks
