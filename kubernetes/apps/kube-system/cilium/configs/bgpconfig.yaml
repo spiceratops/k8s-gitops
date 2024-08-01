@@ -12,7 +12,7 @@ spec:
       peers:
         - name: peer-64513
           peerASN: 64513
-          peerAddress: ${CILIUM_BGP_PEER}/32
+          peerAddress: ${CILIUM_BGP_PEER}
           peerConfigRef:
             name: cilium-peer
 ---
