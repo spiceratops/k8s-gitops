@@ -119,6 +119,8 @@ spec:
           - path: /media-data
       media:
         existingClaim: nfs-media
+        globalMounts:
+          - path: /media
       transcode:
         enabled: true
         type: emptyDir
