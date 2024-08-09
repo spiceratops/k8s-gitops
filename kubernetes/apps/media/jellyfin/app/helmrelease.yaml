@@ -117,6 +117,12 @@ spec:
         path: /mnt/data/media-data
         globalMounts:
           - path: /media-data
+      media:
+        type: nfs
+        server: mnas.${PUBLIC_DOMAIN}
+        path: /media
+        globalMounts:
+          - path: /media
       transcode:
         enabled: true
         type: emptyDir
