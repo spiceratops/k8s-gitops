@@ -118,11 +118,7 @@ spec:
         globalMounts:
           - path: /media-data
       media:
-        type: nfs
-        server: mnas.${PUBLIC_DOMAIN}
-        path: /media
-        globalMounts:
-          - path: /media
+        existingClaim: nfs-media
       transcode:
         enabled: true
         type: emptyDir
