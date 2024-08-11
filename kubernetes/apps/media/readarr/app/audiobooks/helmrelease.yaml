@@ -118,3 +118,7 @@ spec:
         path: /mnt/data/media-data
         globalMounts:
           - path: /media-data
+      media:
+        existingClaim: nfs-media
+        globalMounts:
+          - path: /media

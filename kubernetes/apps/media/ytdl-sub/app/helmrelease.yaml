@@ -82,3 +82,7 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp/ytdl-sub
+      media:
+        existingClaim: nfs-media
+        globalMounts:
+          - path: /media
