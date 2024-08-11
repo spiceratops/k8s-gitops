@@ -36,8 +36,6 @@ spec:
                 sabnzbd.media.svc.cluster,
                 sabnzbd.media.svc.cluster.local,
                 sabnzbd.${PRIVATE_DOMAIN}
-                usenet.${PRIVATE_DOMAIN}
-                sab.${PRIVATE_DOMAIN}
             envFrom:
               - secretRef:
                   name: sabnzbd-secret
