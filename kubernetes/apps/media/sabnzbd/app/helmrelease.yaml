@@ -38,7 +38,6 @@ spec:
                 sabnzbd.${PRIVATE_DOMAIN}
                 usenet.${PRIVATE_DOMAIN}
                 sab.${PRIVATE_DOMAIN}
-                sabnzbd.${PRIVATE_DOMAIN}
             envFrom:
               - secretRef:
                   name: sabnzbd-secret
