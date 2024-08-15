@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.111.0
+              tag: v1.112.1
             env:
               TZ: ${TIMEZONE}
               IMMICH_PORT: &port 3001
