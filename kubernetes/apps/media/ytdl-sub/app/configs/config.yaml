@@ -15,7 +15,7 @@ data:
       # Set tv_show_directory here instead of in the subscriptions file
       tv_show_paths:
         overrides:
-          tv_show_directory: "/media-data/media/youtube"
+          tv_show_directory: "/media/youtube"
 
       ###############################################################################
       # Filter out any YouTube shorts
