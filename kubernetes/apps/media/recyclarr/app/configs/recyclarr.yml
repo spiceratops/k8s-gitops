@@ -88,45 +88,39 @@ radarr:
     delete_old_custom_formats: true
     replace_existing_custom_formats: true
 
-    quality_profiles:
-      - name: SQP-1 (2160p)
-        # Uncomment the below line if you don't have access to top-tier indexers
-        # min_format_score: 10
-
     include:
       # Comment out any of the following includes to disable them
-      - template: radarr-quality-definition-sqp-streaming
-
-      # Choose *one* of the following four options to determine quality profile preference
-      # IMAX-E options also require uncommenting the IMAX Enhanced custom format below
-      # Comment out all four options to disable quality profile sync
-      # - template: radarr-quality-profile-sqp-1-2160p-default
-      - template: radarr-quality-profile-sqp-1-2160p-imax-e
-      # - template: radarr-quality-profile-sqp-1-2160p-4k-only-default
-      # - template: radarr-quality-profile-sqp-1-2160p-4k-only-imax-e
-
-      - template: radarr-custom-formats-sqp-1-2160p
+      - template: radarr-quality-definition-sqp-uhd
+      - template: radarr-quality-profile-sqp-2
+      - template: radarr-custom-formats-sqp-2
 
     # Custom Formats: https://recyclarr.dev/wiki/yaml/config-reference/custom-formats/
     custom_formats:
       # Movie Versions
       - trash_ids:
-          # Uncomment the next line if you prefer 1080p/2160p WEBDL with IMAX Enhanced
           - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: SQP-2
+            # score: 0 # Uncomment this line to disable prioritised IMAX Enhanced releases
+
+      # Misc
+      - trash_ids:
+          - 2899d84dc9372de3408e6d8cc18e9666 # x264
+        assign_scores_to:
+          - name: SQP-2
+            # score: 0 # Uncomment this line to enable x264 releases
 
       # Unwanted
       - trash_ids:
           # Uncomment the next six lines to block all x265 HD releases
           # - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
         # assign_scores_to:
-        # - name: SQP-1 (2160p)
+        # - name: SQP-2
         # score: 0
         # - trash_ids:
         # - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: SQP-2
 
       # Optional
       - trash_ids:
