@@ -126,12 +126,6 @@ spec:
         globalMounts:
           - path: /config/cache
             subPath: cache
-      media-data:
-        type: nfs
-        server: nas.${PRIVATE_DOMAIN}
-        path: /mnt/data/media-data
-        globalMounts:
-          - path: /media-data
       media:
         existingClaim: nfs-media
         globalMounts:
