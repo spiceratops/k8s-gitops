@@ -24,17 +24,17 @@ sonarr:
       - template: sonarr-v4-quality-profile-web-1080p
       - template: sonarr-v4-custom-formats-web-1080p
 
-        quality_profiles:
-          - name: WEB-2160p
+    quality_profiles:
+      - name: WEB-2160p
+        qualities:
+          - name: WEB 2160p
             qualities:
-              - name: WEB 2160p
-                qualities:
-                  - WEBDL-2160p
-                  - WEBRip-2160p
-              - name: WEB 1080p
-                qualities:
-                  - WEBDL-1080p
-                  - WEBRip-1080p
+              - WEBDL-2160p
+              - WEBRip-2160p
+          - name: WEB 1080p
+            qualities:
+              - WEBDL-1080p
+              - WEBRip-1080p
 
     # Custom Formats: https://recyclarr.dev/wiki/yaml/config-reference/custom-formats/
     custom_formats:
