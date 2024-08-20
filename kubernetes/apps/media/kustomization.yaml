@@ -9,7 +9,7 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
-  - ./recyclarr/ks.yaml
+  # - ./recyclarr/ks.yaml
   - ./sonarr/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./jellyseer/ks.yaml
