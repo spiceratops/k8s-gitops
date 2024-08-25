@@ -1,0 +1,57 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: wyoming-glados
+  namespace: home
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    controllers:
+      wyoming-glados:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: nalf3in/wyoming-glados
+              tag: latest@sha256:609a8fbf8d20f0e0cbd84fa2d41bbb1cff2590c95bd2bf9ba2d897c148eca8a0
+            env:
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128M
+              limits:
+                memory: 512M
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: wyoming-glados
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${WYOMING_GLADOS_LB_IP}
+        ports:
+          http:
+            port: 10200
+    persistence:
+      data:
+        existingClaim: "${VOLSYNC_CLAIM}"

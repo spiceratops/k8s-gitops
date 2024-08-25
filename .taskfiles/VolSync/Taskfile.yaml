@@ -40,7 +40,7 @@ tasks:
         app: Application to list snapshots for (required)
     cmds:
       - envsubst < <(cat {{.volsyncTemplatesDir}}/list.tmpl.yaml) | kubectl apply -f -
-      - bash {{.volsyncScriptsDir}}/wait-for-job.sh list-{{.app}}-{{.ts}} {{.ns}}
+      - bash {{.volsyncScriptsDir}}/wait.sh list-{{.app}}-{{.ts}} {{.ns}}
       - kubectl -n {{.ns}} wait job/list-{{.app}}-{{.ts}} --for condition=complete --timeout=1m
       - kubectl -n {{.ns}} logs job/list-{{.app}}-{{.ts}} --container list
       - kubectl -n {{.ns}} delete job list-{{.app}}-{{.ts}}
@@ -50,7 +50,7 @@ tasks:
     vars:
       ns: '{{.ns | default "default"}}'
     preconditions:
-      - test -f {{.volsyncScriptsDir}}/wait-for-job.sh
+      - test -f {{.volsyncScriptsDir}}/wait.sh
       - test -f {{.volsyncTemplatesDir}}/list.tmpl.yaml
     silent: true
 
@@ -62,7 +62,7 @@ tasks:
         app: Application to unlock (required)
     cmds:
       - envsubst < <(cat {{.volsyncTemplatesDir}}/unlock.tmpl.yaml) | kubectl apply -f -
-      - bash {{.volsyncScriptsDir}}/wait-for-job.sh unlock-{{.app}}-{{.ts}} {{.ns}}
+      - bash {{.volsyncScriptsDir}}/wait.sh unlock-{{.app}}-{{.ts}} {{.ns}}
       - kubectl -n {{.ns}} wait job/unlock-{{.app}}-{{.ts}} --for condition=complete --timeout=1m
       - kubectl -n {{.ns}} logs job/unlock-{{.app}}-{{.ts}} --container unlock
       - kubectl -n {{.ns}} delete job unlock-{{.app}}-{{.ts}}
@@ -72,7 +72,7 @@ tasks:
     vars:
       ns: '{{.ns | default "default"}}'
     preconditions:
-      - test -f {{.volsyncScriptsDir}}/wait-for-job.sh
+      - test -f {{.volsyncScriptsDir}}/wait.sh
       - test -f {{.volsyncTemplatesDir}}/unlock.tmpl.yaml
     silent: true
 
@@ -90,7 +90,7 @@ tasks:
       # - task: .suspend
       #   vars: *env
       - kubectl -n {{.ns}} patch replicationsources/{{.rs}} --type merge -p '{"spec":{"trigger":{"manual":"{{.ts}}"}}}'
-      - bash {{.volsyncScriptsDir}}/wait-for-job.sh volsync-src-{{.rs}} {{.ns}}
+      - bash {{.volsyncScriptsDir}}/wait.sh volsync-src-{{.rs}} {{.ns}}
       - kubectl -n {{.ns}} wait job/volsync-src-{{.rs}} --for condition=complete --timeout=120m
     env: *env
     requires:
@@ -103,7 +103,7 @@ tasks:
     preconditions:
       - kubectl -n {{.ns}} get replicationsources/{{.rs}}
       - test -f {{.volsyncScriptsDir}}/which-controller.sh
-      - test -f {{.volsyncScriptsDir}}/wait-for-job.sh
+      - test -f {{.volsyncScriptsDir}}/wait.sh
 
   # To run restore jobs in parallel for all replicationdestinations:
   #    - kubectl get replicationsources --all-namespaces --no-headers | awk '{print $2, $1}' | xargs --max-procs=4 -l bash -c 'task volsync:restore app=$0 ns=$1'
@@ -143,7 +143,7 @@ tasks:
     preconditions:
       - kubectl -n {{.ns}} get replicationsources/{{.rs}}
       - test -f {{.volsyncScriptsDir}}/which-controller.sh
-      - test -f {{.volsyncScriptsDir}}/wait-for-job.sh
+      - test -f {{.volsyncScriptsDir}}/wait.sh
       - test -f {{.volsyncTemplatesDir}}/replicationdestination.tmpl.yaml
       - test -f {{.volsyncTemplatesDir}}/wipe.tmpl.yaml
 
@@ -191,7 +191,7 @@ tasks:
     internal: true
     cmds:
       - envsubst < <(cat {{.volsyncTemplatesDir}}/wipe.tmpl.yaml) | kubectl apply -f -
-      - bash {{.volsyncScriptsDir}}/wait-for-job.sh wipe-{{.app}}-{{.ts}} {{.ns}}
+      - bash {{.volsyncScriptsDir}}/wait.sh wipe-{{.app}}-{{.ts}} {{.ns}}
       - kubectl -n {{.ns}} wait job/wipe-{{.app}}-{{.ts}} --for condition=complete --timeout=120m
       - kubectl -n {{.ns}} logs job/wipe-{{.app}}-{{.ts}} --container wipe
       - kubectl -n {{.ns}} delete job wipe-{{.app}}-{{.ts}}
@@ -202,7 +202,7 @@ tasks:
     internal: true
     cmds:
       - envsubst < <(cat {{.volsyncTemplatesDir}}/replicationdestination.tmpl.yaml) | kubectl apply -f -
-      - bash {{.volsyncScriptsDir}}/wait-for-job.sh volsync-dst-{{.app}}-{{.ts}} {{.ns}}
+      - bash {{.volsyncScriptsDir}}/wait.sh volsync-dst-{{.app}}-{{.ts}} {{.ns}}
       - kubectl -n {{.ns}} wait job/volsync-dst-{{.app}}-{{.ts}} --for condition=complete --timeout=120m
       - kubectl -n {{.ns}} delete replicationdestination {{.app}}-{{.ts}}
     env: *env
