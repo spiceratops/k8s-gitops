@@ -9,6 +9,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: external-secrets-stores
+    - name: ollama
   path: ./kubernetes/apps/ai/open-webui/app
   prune: true
   sourceRef:

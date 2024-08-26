@@ -147,6 +147,16 @@ nodes:
               - name: nvidia_uvm
               - name: nvidia_drm
               - name: nvidia_modeset
+        - op: add
+          path: /machine/files
+          value:
+            - content: |
+                [plugins]
+                  [plugins."io.containerd.grpc.v1.cri"]
+                    [plugins."io.containerd.grpc.v1.cri".containerd]
+                      default_runtime_name = "nvidia"
+              path: /etc/cri/conf.d/20-customization.part
+              op: create
 
   - hostname: wk04.${PRIVATE_DOMAIN}
     ipAddress: 192.168.10.214
