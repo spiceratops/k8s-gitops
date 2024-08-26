@@ -34,3 +34,12 @@ spec:
     runtimeClassName: nvidia
     nodeSelector:
       nvidia.feature.node.kubernetes.io/gpu: "true"
+    gfd:
+      enabled: true
+      nameOverride: gpu-feature-discovery
+      noTimestamp: null
+      sleepInterval: null
+      securityContext:
+        privileged: true
+    nfd:
+      enabled: false
