@@ -33,7 +33,7 @@ spec:
       tag: v0.16.2
     runtimeClassName: nvidia
     nodeSelector:
-      feature.node.kubernetes.io/custom-nvidia-gpu: "true"
+      nvidia.feature.node.kubernetes.io/gpu: "true"
     config:
       map:
         default: |-
