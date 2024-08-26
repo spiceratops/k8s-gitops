@@ -20,3 +20,13 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+values:
+  gfd:
+    enabled: true
+    nameOverride: gpu-feature-discovery
+    noTimestamp: null
+    sleepInterval: null
+    securityContext:
+      privileged: true
+  nfd:
+    enabled: false
