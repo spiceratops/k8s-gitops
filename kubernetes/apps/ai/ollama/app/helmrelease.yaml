@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app ollama
+  namespace: ai
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: ollama
+      version: 0.54.0
+      sourceRef:
+        kind: HelmRepository
+        name: ollama-charts
+        namespace: flux-system
+
+  values:
+    ollama:
+      gpu:
+        enabled: true
+        type: "nvidia"
+        number: 1
+      models:
+        - codellama
+        - mistral
+        - llama3
+    extraEnv:
+      - name: TZ
+        value: "${TIMEZONE}"
+      - name: OLLAMA_DEBUG
+        value: "1"
+    ingress:
+      enabled: true
+      className: internal
+      hosts:
+        - host: ${HOSTNAME}
+          paths:
+            - path: /
+              pathType: Prefix
+    persistentVolume:
+      enabled: true
+      existingClaim: ${VOLSYNC_CLAIM}
+    resources:
+      requests:
+        cpu: 200m
+        memory: 1Gi
+        nvidia.com/gpu: 1
+      limits:
+        memory: 8Gi
+        nvidia.com/gpu: 1
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: nvidia.feature.node.kubernetes.io/gpu
+                  operator: In
+                  values:
+                    - "true"
+    nodeSelector:
+      nvidia.feature.node.kubernetes.io/gpu: "true"
+    runtimeClassName: nvidia
+    podSecurityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities: { drop: ["ALL"] }
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+      seccompProfile: { type: RuntimeDefault }

@@ -1,0 +1,71 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app open-webui
+  namespace: ai
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: open-webui
+      version: 3.1.6
+      sourceRef:
+        kind: HelmRepository
+        name: open-webui-charts
+        namespace: flux-system
+
+  values:
+    ollama:
+      enabled: false
+    ollamaUrls: ["http://ollama.ai.svc.cluster.local.:11434"]
+    ingress:
+      enabled: true
+      class: internal
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: "/"
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Development
+        gethomepage.dev/name: Open WebUI
+        gethomepage.dev/icon: https://docs.openwebui.com/img/logo-dark.png
+      host: "${HOSTNAME}"
+    persistence:
+      enabled: true
+      existingClaim: *app
+    extraEnvVars:
+      - name: OPENID_PROVIDER_URL
+        value: https://auth.${PRIVATE_DOMAIN}/.well-known/openid-configuration
+      - name: OAUTH_PROVIDER_NAME
+        value: Authelia
+      - name: ENABLE_OAUTH_SIGNUP
+        value: "true"
+      - name: ENABLE_LOGIN_FORM
+        value: "false"
+      - name: WEBUI_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: *app
+            key: WEBUI_SECRET_KEY
+      - name: OAUTH_CLIENT_ID
+        valueFrom:
+          secretKeyRef:
+            name: *app
+            key: OAUTH_CLIENT_ID
+      - name: OAUTH_CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: *app
+            key: OAUTH_CLIENT_SECRET
+    podSecurityContext:
+      fsGroupChangePolicy: Always
+      fsGroup: 568
+    containerSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      runAsNonRoot: true
+      privileged: false
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: false
+      capabilities: { drop: ["ALL"] }
+      seccompProfile: { type: RuntimeDefault }

@@ -47,3 +47,5 @@ resources:
   - ./shulker-charts.yaml
   - ./openebs-charts.yaml
   - ./k8s-gateway-charts.yaml
+  - ./ollama-charts.yaml
+  - ./open-webui-charts.yaml
