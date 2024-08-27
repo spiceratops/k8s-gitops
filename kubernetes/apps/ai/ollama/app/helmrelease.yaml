@@ -25,7 +25,8 @@ spec:
       models:
         - codellama
         - mistral
-        - llama3
+        - llama3.1
+        - fixt/home-3b-v2
     extraEnv:
       - name: TZ
         value: "${TIMEZONE}"
