@@ -41,14 +41,6 @@ spec:
                 memory: 8Gi
                 nvidia.com/gpu: 1
         pod:
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-                - matchExpressions:
-                    - key: nvidia.feature.node.kubernetes.io/gpu
-                      operator: In
-                      values:
-                        - "true"
           nodeSelector:
             nvidia.feature.node.kubernetes.io/gpu: "true"
           runtimeClassName: nvidia
