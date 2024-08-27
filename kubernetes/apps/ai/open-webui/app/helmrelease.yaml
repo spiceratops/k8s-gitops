@@ -45,12 +45,12 @@ spec:
       - name: WEBUI_SECRET_KEY
         valueFrom:
           secretKeyRef:
-            name: *app
+            name: open-webui-secret
             key: WEBUI_SECRET_KEY
       - name: OAUTH_CLIENT_ID
         valueFrom:
           secretKeyRef:
-            name: *app
+            name: open-webui-secret
             key: OAUTH_CLIENT_ID
       - name: OAUTH_CLIENT_SECRET
         valueFrom:
