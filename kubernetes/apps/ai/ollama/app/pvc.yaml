@@ -5,7 +5,7 @@ metadata:
   name: ollama-models
   namespace: ai
 spec:
-  storageClassName: ${CLUSTER_STORAGE_BLOCK}
+  storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
   volumeName: ollama-models
   accessModes:
     - ReadWriteOnce
