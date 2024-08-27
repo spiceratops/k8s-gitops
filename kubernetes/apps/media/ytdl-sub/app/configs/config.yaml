@@ -180,7 +180,8 @@ data:
         "Numberblocks": "https://www.youtube.com/@Numberblocks"
         "Peppa Pig": "https://www.youtube.com/@PeppaPigOfficial"
         "PJ Masks": "https://www.youtube.com/@PJMasksOfficial"
-        "~Shiloh & Bros": "https://www.youtube.com/@shilohandbros"
+        "~Shiloh & Bros":
+          url: "https://www.youtube.com/@shilohandbros"
           date_range:
             after: "20210101"
         "Super Simple Songs": "https://www.youtube.com/@SuperSimpleSongs"
