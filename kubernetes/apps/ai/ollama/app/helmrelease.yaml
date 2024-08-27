@@ -66,6 +66,7 @@ spec:
               OAUTH_PROVIDER_NAME: Authelia
               ENABLE_OAUTH_SIGNUP: "true"
               ENABLE_LOGIN_FORM: "false"
+              WEBUI_AUTH_TRUSTED_EMAIL_HEADER: Remote-Email
             envFrom:
               - secretRef:
                   name: ollama-secret
