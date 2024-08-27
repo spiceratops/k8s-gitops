@@ -130,13 +130,13 @@ spec:
           ui:
             main:
               - path: /data
-      # models:
-      #   enabled: true
-      #   existingClaim: ollama-models
-      #   advancedMounts:
-      #     backend:
-      #       main:
-      #         - path: /models
+      models:
+        enabled: true
+        existingClaim: ollama-models
+        advancedMounts:
+          backend:
+            main:
+              - path: /models
       tmp:
         enabled: true
         type: emptyDir
