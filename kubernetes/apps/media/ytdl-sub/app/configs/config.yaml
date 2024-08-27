@@ -182,8 +182,7 @@ data:
         "PJ Masks": "https://www.youtube.com/@PJMasksOfficial"
         "~Shiloh & Bros":
           url: "https://www.youtube.com/@shilohandbros"
-          date_range:
-            after: "20210101"
+          date_range: "20210101-today"
         "Super Simple Songs": "https://www.youtube.com/@SuperSimpleSongs"
         "Sweat Kids TV": "https://www.youtube.com/@sweatkidstv9093"
         "The Bumble Nums": "https://www.youtube.com/@BumbleNums"
