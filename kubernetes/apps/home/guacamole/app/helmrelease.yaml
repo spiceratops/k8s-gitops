@@ -65,9 +65,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               WEBAPP_CONTEXT: ROOT
-              GUACD_HOSTNAME: guacd.home.svc.cluster.local
               GUACAMOLE_HOME: /guacamole
-              GUACD_PORT: "4822"
             envFrom: *envFrom
             resources:
               requests:
