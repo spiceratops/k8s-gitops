@@ -218,7 +218,7 @@ spec:
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
-    volumeSnapshotClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_HOSTPATH}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
@@ -242,7 +242,7 @@ spec:
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
-    volumeSnapshotClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_HOSTPATH}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
