@@ -67,6 +67,7 @@ spec:
               ENABLE_OAUTH_SIGNUP: "true"
               ENABLE_LOGIN_FORM: "false"
               WEBUI_AUTH_TRUSTED_EMAIL_HEADER: Remote-Email
+              OPENID_REDIRECT_URI: "https://ollama.${PRIVATE_DOMAIN}/oauth/oidc/callback"
             envFrom:
               - secretRef:
                   name: ollama-secret
@@ -94,7 +95,6 @@ spec:
         enabled: true
         className: internal
         annotations:
-          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Development
           gethomepage.dev/name: Open WebUI
