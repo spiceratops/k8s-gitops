@@ -217,7 +217,7 @@ spec:
     repository: ollama-models-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
-    storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_HOSTPATH}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
@@ -241,7 +241,7 @@ spec:
     repository: ollama-models-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
-    storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_HOSTPATH}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
