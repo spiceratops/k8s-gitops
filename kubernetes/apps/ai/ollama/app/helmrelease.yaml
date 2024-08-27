@@ -2,64 +2,140 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app ollama
+  name: ollama
   namespace: ai
 spec:
   interval: 30m
   timeout: 15m
   chart:
     spec:
-      chart: ollama
-      version: 0.54.0
+      chart: app-template
+      version: 3.3.2
       sourceRef:
         kind: HelmRepository
-        name: ollama-charts
+        name: bjw-s-charts
         namespace: flux-system
 
   values:
-    ollama:
-      gpu:
-        enabled: true
-        type: "nvidia"
-        number: 1
-      models:
-        - codellama
-        - mistral
-        - llama3.1
-        - fixt/home-3b-v2
-    extraEnv:
-      - name: TZ
-        value: "${TIMEZONE}"
-      - name: OLLAMA_DEBUG
-        value: "1"
+    controllers:
+      backend:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/ollama/ollama
+              tag: 0.3.6
+            env:
+              TZ: ${TIMEZONE}
+              OLLAMA_HOST: 0.0.0.0
+              OLLAMA_ORIGINS: "*"
+              OLLAMA_MODELS: /models
+            resources:
+              requests:
+                cpu: 200m
+                memory: 1Gi
+                nvidia.com/gpu: 1
+              limits:
+                memory: 8Gi
+                nvidia.com/gpu: 1
+        pod:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: nvidia.feature.node.kubernetes.io/gpu
+                      operator: In
+                      values:
+                        - "true"
+          nodeSelector:
+            nvidia.feature.node.kubernetes.io/gpu: "true"
+          runtimeClassName: nvidia
+      ui:
+        type: deployment
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/open-webui/open-webui
+              tag: main
+            env:
+              WEBUI_NAME: Ollama
+              WEBUI_URL: https://${HOSTNAME}
+              ENABLE_OLLAMA_API: true
+              DATA_DIR: /data
+              OLLAMA_BASE_URL: http://ollama.ai.svc.cluster.local:11434
+              WEBUI_AUTH_TRUSTED_EMAIL_HEADER: X-authentik-email
+              AUDIO_OPENAI_API_BASE_URL: https://piper.${PRIVATE_DOMAIN}/v1
+              AUDIO_OPENAI_API_KEY: sk-111111111111 # fake key needed to make ui happy
+              RAG_EMBEDDING_ENGINE: ollama
+            resources:
+              requests:
+                cpu: 200m
+                memory: 2Gi
+              limits:
+                memory: 2Gi
+
+    service:
+      backend:
+        controller: backend
+        ports:
+          http:
+            port: 11434
+      ui:
+        controller: ui
+        ports:
+          http:
+            port: &port 8080
+
     ingress:
-      enabled: true
-      className: internal
-      hosts:
-        - host: ${HOSTNAME}
-          paths:
-            - path: /
-              pathType: Prefix
-    persistentVolume:
-      enabled: true
-      existingClaim: ${VOLSYNC_CLAIM}
-    resources:
-      requests:
-        cpu: 200m
-        memory: 1Gi
-        nvidia.com/gpu: 1
-      limits:
-        memory: 8Gi
-        nvidia.com/gpu: 1
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: nvidia.feature.node.kubernetes.io/gpu
-                  operator: In
-                  values:
-                    - "true"
-    nodeSelector:
-      nvidia.feature.node.kubernetes.io/gpu: "true"
-    runtimeClassName: nvidia
+      ui:
+        enabled: true
+        className: internal
+        annotations:
+          nginx.ingress.kubernetes.io/rewrite-target: "/"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Development
+          gethomepage.dev/name: Open WebUI
+          gethomepage.dev/icon: https://docs.openwebui.com/img/logo-dark.png
+        hosts:
+          - host: ${HOSTNAME}
+            paths:
+              - path: /
+                service:
+                  identifier: ui
+                  port: *port
+        tls:
+          - hosts:
+              - ${HOSTNAME}
+
+    persistence:
+      backend-config:
+        enabled: true
+        existingClaim: ${VOLSYNC_CLAIM}
+        advancedMounts:
+          backend:
+            main:
+              - path: /.ollama
+      ui-config:
+        enabled: true
+        existingClaim: ${VOLSYNC_CLAIM2}
+        advancedMounts:
+          ui:
+            main:
+              - path: /data
+      models:
+        enabled: true
+        existingClaim: ollama-models
+        advancedMounts:
+          backend:
+            main:
+              - path: /models
+      tmp:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        globalMounts:
+          - path: /tmp

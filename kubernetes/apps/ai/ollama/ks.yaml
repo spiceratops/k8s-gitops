@@ -21,5 +21,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
+      APP2: &appname2 ollama-ui
       HOSTNAME: ollama.${PRIVATE_DOMAIN}
       VOLSYNC_CLAIM: *appname
+      VOLSYNC_CLAIM_UI: *appname2
