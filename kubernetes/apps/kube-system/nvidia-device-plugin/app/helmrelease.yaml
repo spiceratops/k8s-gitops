@@ -43,3 +43,19 @@ spec:
         privileged: true
     nfd:
       enabled: false
+    config:
+      map:
+        default: |-
+          version: v1
+          flags:
+            migStrategy: none
+        mig-single: |-
+          version: v1
+          flags:
+            migStrategy: single
+        mig-mixed: |-
+          version: v1
+          flags:
+            migStrategy: mixed
+      # Default config name within the ConfigMap
+      default: "default"
