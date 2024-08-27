@@ -148,7 +148,7 @@ kind: ReplicationSource
 metadata:
   name: ollama-ui-rsrc
 spec:
-  sourcePVC: ollama
+  sourcePVC: ollama-ui
   trigger:
     schedule: "15 */8 * * *"
   restic:
