@@ -147,14 +147,12 @@ nodes:
               - name: nvidia_uvm
               - name: nvidia_drm
               - name: nvidia_modeset
+            sysctls:
+              net.core.bpf_jit_harden: 1
         - op: add
           path: /machine/files
           value:
             - content: |
-                [plugins]
-                  [plugins."io.containerd.grpc.v1.cri"]
-                    [plugins."io.containerd.grpc.v1.cri".containerd]
-                      default_runtime_name = "nvidia"
                 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia]
                   privileged_without_host_devices = false
                   runtime_engine = ""
