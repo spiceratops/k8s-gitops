@@ -135,7 +135,7 @@ nodes:
           officialExtensions:
             - siderolabs/amd-ucode
             - siderolabs/qemu-guest-agent
-            - siderolabs/nvidia-open-gpu-kernel-modules
+            - siderolabs/nonfree-kmod-nvidia
             - siderolabs/nvidia-container-toolkit
     patches:
       - |-
@@ -147,8 +147,10 @@ nodes:
               - name: nvidia_uvm
               - name: nvidia_drm
               - name: nvidia_modeset
-            sysctls:
-              net.core.bpf_jit_harden: 1
+        - op: add
+          path: /machine/sysctls
+          value:
+            net.core.bpf_jit_harden: 1
 
   - hostname: wk04.${PRIVATE_DOMAIN}
     ipAddress: 192.168.10.214
