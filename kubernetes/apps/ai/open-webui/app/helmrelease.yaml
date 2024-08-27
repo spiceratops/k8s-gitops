@@ -55,7 +55,7 @@ spec:
       - name: OAUTH_CLIENT_SECRET
         valueFrom:
           secretKeyRef:
-            name: *app
+            name: open-webui-secret
             key: OAUTH_CLIENT_SECRET
     podSecurityContext:
       fsGroupChangePolicy: Always
