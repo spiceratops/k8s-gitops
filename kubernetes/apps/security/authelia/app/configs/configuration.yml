@@ -175,9 +175,9 @@ identity_providers:
             "https://audiobooks.${PRIVATE_DOMAIN}/auth/openid/mobile-redirect",
           ]
 
-      - id: open_webui
+      - id: openwebui
         description: Open Webui
-        secret: "{{ .OPEN_WEBUI_OIDC_CLIENT_SECRET }}"
+        secret: "${OPEN_WEBUI_OIDC_CLIENT_SECRET}"
         redirect_uris: ["https://ollama.${PRIVATE_DOMAIN}/oauth/oidc/callback"]
         scopes: ["openid", "profile", "email"]
         response_types: ["code"]
