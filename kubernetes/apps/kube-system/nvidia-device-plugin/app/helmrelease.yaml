@@ -49,13 +49,12 @@ spec:
           version: v1
           flags:
             migStrategy: none
-        mig-single: |-
-          version: v1
-          flags:
-            migStrategy: single
-        mig-mixed: |-
-          version: v1
-          flags:
-            migStrategy: mixed
+          sharing:
+            timeSlicing:
+              renameByDefault: false
+              failRequestsGreaterThanOne: false
+              resources:
+                - name: nvidia.com/gpu
+                  replicas: 6
       # Default config name within the ConfigMap
       default: "default"
