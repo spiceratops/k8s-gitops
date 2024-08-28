@@ -99,11 +99,6 @@ spec:
           gethomepage.dev/group: Development
           gethomepage.dev/name: Open WebUI
           gethomepage.dev/icon: https://docs.openwebui.com/img/logo-dark.png
-          # nginx.ingress.kubernetes.io/auth-url: http://authelia.security.svc.cluster.local:9091/api/authz/auth-request
-          # nginx.ingress.kubernetes.io/auth-signin: https://auth.${PRIVATE_DOMAIN}?rm=$request_method
-          # nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-          # nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
-          # nginx.ingress.kubernetes.io/rewrite-target: "/"
         hosts:
           - host: ${HOSTNAME}
             paths:
@@ -131,9 +126,12 @@ spec:
             main:
               - path: /data
       models:
-        existingClaim: nfs-ai
-        globalMounts:
-          - path: /mnt/ai
+        enabled: true
+        existingClaim: ollama-models-storage
+        advancedMounts:
+          backend:
+            main:
+              - path: /models
       tmp:
         enabled: true
         type: emptyDir
