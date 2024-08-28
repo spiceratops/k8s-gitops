@@ -62,13 +62,12 @@ spec:
               AUDIO_OPENAI_API_BASE_URL: https://piper.${PRIVATE_DOMAIN}/v1
               AUDIO_OPENAI_API_KEY: sk-111111111111 # fake key needed to make ui happy
               RAG_EMBEDDING_ENGINE: ollama
-              # OPENID_PROVIDER_URL: https://auth.${PRIVATE_DOMAIN}/.well-known/openid-configuration
-              # OAUTH_PROVIDER_NAME: Authelia
-              # ENABLE_OAUTH_SIGNUP: true
+              OPENID_PROVIDER_URL: https://auth.${PRIVATE_DOMAIN}/.well-known/openid-configuration
+              OAUTH_PROVIDER_NAME: Authelia
+              ENABLE_OAUTH_SIGNUP: true
               ENABLE_LOGIN_FORM: false
-              # WEBUI_AUTH_TRUSTED_EMAIL_HEADER: Remote-Email
-              # OPENID_REDIRECT_URI: "https://ollama.${PRIVATE_DOMAIN}/oauth/oidc/callback"
-              WEBUI_AUTH: false
+              WEBUI_AUTH_TRUSTED_EMAIL_HEADER: Remote-Email
+              OPENID_REDIRECT_URI: "https://ollama.${PRIVATE_DOMAIN}/oauth/oidc/callback"
             envFrom:
               - secretRef:
                   name: ollama-secret
