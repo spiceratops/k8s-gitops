@@ -64,8 +64,8 @@ spec:
               RAG_EMBEDDING_ENGINE: ollama
               OPENID_PROVIDER_URL: https://auth.${PRIVATE_DOMAIN}/.well-known/openid-configuration
               OAUTH_PROVIDER_NAME: Authelia
-              ENABLE_OAUTH_SIGNUP: "true"
-              ENABLE_LOGIN_FORM: "false"
+              ENABLE_OAUTH_SIGNUP: true
+              ENABLE_LOGIN_FORM: false
               WEBUI_AUTH_TRUSTED_EMAIL_HEADER: Remote-Email
               OPENID_REDIRECT_URI: "https://ollama.${PRIVATE_DOMAIN}/oauth/oidc/callback"
             envFrom:
