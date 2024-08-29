@@ -113,15 +113,15 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: ${HOSTNAME}
+          - host: ${HOSTNAME2}
             paths:
-              - path: /api
+              - path: /
                 service:
                   identifier: backend
                   port: *api-port
         tls:
           - hosts:
-              - ${HOSTNAME}
+              - ${HOSTNAME2}
 
     persistence:
       backend-config:

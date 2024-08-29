@@ -23,5 +23,6 @@ spec:
       APP: *appname
       APP2: &appname2 ollama-ui
       HOSTNAME: ollama.${PRIVATE_DOMAIN}
+      HOSTNAME2: ollama-api.${PRIVATE_DOMAIN}
       VOLSYNC_CLAIM: *appname
       VOLSYNC_CLAIM2: *appname2
