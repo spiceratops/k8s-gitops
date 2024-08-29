@@ -29,7 +29,7 @@ spec:
               tag: latest@sha256:ceaa162ec05e53b8fa883182cdbceb72e6a1422740ec35be038c9faa278323b3
             args:
               - --model
-              - small
+              - medium
               - --language
               - en
             env:
@@ -38,8 +38,10 @@ spec:
               requests:
                 cpu: 100m
                 memory: 256M
+                nvidia.com/gpu: 1
               limits:
-                memory: 4096M
+                memory: 4Gi
+                nvidia.com/gpu: 1
         pod:
           enableServiceLinks: false
           securityContext:
