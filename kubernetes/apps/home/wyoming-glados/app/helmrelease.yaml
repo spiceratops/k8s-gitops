@@ -37,14 +37,6 @@ spec:
               limits:
                 memory: 512M
                 nvidia.com/gpu: 1
-        pod:
-          enableServiceLinks: false
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: wyoming-glados
