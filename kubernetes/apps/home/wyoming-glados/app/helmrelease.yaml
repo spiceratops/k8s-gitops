@@ -35,7 +35,7 @@ spec:
                 memory: 128M
                 nvidia.com/gpu: 1
               limits:
-                memory: 512M
+                memory: 1Gi
                 nvidia.com/gpu: 1
     service:
       app:
