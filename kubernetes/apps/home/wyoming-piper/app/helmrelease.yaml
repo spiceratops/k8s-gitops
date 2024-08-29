@@ -53,7 +53,21 @@ spec:
           io.cilium/lb-ipam-ips: ${WYOMING_PIPER_LB_IP}
         ports:
           http:
-            port: 10200
+            port: &port 10200
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        hosts:
+          - host: &host piper.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: *port
+        tls:
+          - hosts:
+              - *host
     persistence:
       data:
         existingClaim: "${VOLSYNC_CLAIM}"
