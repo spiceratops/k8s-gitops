@@ -83,7 +83,7 @@ spec:
         controller: backend
         ports:
           http:
-            port: 11434
+            port: &api-port 11434
       ui:
         controller: ui
         ports:
@@ -106,6 +106,19 @@ spec:
                 service:
                   identifier: ui
                   port: *port
+        tls:
+          - hosts:
+              - ${HOSTNAME}
+      backend:
+        enabled: true
+        className: internal
+        hosts:
+          - host: ${HOSTNAME}
+            paths:
+              - path: /api
+                service:
+                  identifier: backend
+                  port: *api-port
         tls:
           - hosts:
               - ${HOSTNAME}
