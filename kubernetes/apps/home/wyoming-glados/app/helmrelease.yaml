@@ -45,7 +45,7 @@ spec:
           io.cilium/lb-ipam-ips: ${WYOMING_GLADOS_LB_IP}
         ports:
           http:
-            port: 10200
+            port: 10201
     persistence:
       data:
         existingClaim: "${VOLSYNC_CLAIM}"
