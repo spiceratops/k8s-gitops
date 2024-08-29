@@ -7,4 +7,4 @@ resources:
   - ./wyoming-whisper/ks.yaml
   - ./wyoming-openwakeword/ks.yaml
   - ./guacamole/ks.yaml
-  # - ./wyoming-glados/ks.yaml
+  - ./wyoming-glados/ks.yaml

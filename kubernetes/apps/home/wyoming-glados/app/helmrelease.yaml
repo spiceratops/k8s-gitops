@@ -33,8 +33,10 @@ spec:
               requests:
                 cpu: 100m
                 memory: 128M
+                nvidia.com/gpu: 1
               limits:
                 memory: 512M
+                nvidia.com/gpu: 1
         pod:
           enableServiceLinks: false
           securityContext:
