@@ -36,11 +36,15 @@ spec:
             env:
               TZ: ${TIMEZONE}
               DB_HOST: mariadb.databases.svc.cluster.local
-              REDIS_HOST: dragonfly.databases.svc.cluster.local
-              REDIS_PORT: 6379
+              # REDIS_HOST: dragonfly.databases.svc.cluster.local
+              # REDIS_PORT: 6379
             envFrom:
               - secretRef:
                   name: romm-secret
+    redis:
+      enabled: true
+      redisPort: 6379
+      architecture: standalone
     service:
       app:
         controller: romm
