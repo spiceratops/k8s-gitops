@@ -66,6 +66,7 @@ spec:
               OAUTH_PROVIDER_NAME: Authelia
               ENABLE_OAUTH_SIGNUP: true
               ENABLE_LOGIN_FORM: false
+              OLLAMA_MODELS: /models
               WEBUI_AUTH_TRUSTED_EMAIL_HEADER: Remote-Email
               OPENID_REDIRECT_URI: "https://ollama.${PRIVATE_DOMAIN}/oauth/oidc/callback"
             envFrom:
