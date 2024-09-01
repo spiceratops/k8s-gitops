@@ -26,5 +26,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: romm.${PUBLIC_DOMAIN}
+      HOSTNAME: romm.${PRIVATE_DOMAIN}
       VOLSYNC_CLAIM: *appname
