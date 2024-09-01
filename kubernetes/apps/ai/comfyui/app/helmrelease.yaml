@@ -23,18 +23,9 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
-          runtimeClassName: nvidia
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                  - matchExpressions:
-                      - key: nvidia.com/gpu.present
-                        operator: In
-                        values:
-                          - "true"
           nodeSelector:
-            nvidia.com/gpu.present: "true"
+            nvidia.feature.node.kubernetes.io/gpu: "true"
+          runtimeClassName: nvidia
         containers:
           app:
             image:
