@@ -82,9 +82,7 @@ spec:
         globalMounts:
           - path: /romm
       library:
-        type: nfs
-        server: nas.${PRIVATE_DOMAIN}
-        path: /mnt/data/media-data/games/emulation
+        existingClaim: nfs-games
         globalMounts:
           - path: /romm/library
       config-file:
