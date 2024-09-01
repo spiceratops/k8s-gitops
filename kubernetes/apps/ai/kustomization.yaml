@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./ollama/ks.yaml
-  - ./comfyui/ks.yaml
+  # - ./comfyui/ks.yaml
