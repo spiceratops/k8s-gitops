@@ -16,7 +16,6 @@ exclude:
         - "psy.ggjud.nfo"
     multi_file:
       names:
-        - "roms"
         - "pfx"
         - "mlc01"
         - ".Trash*"
