@@ -1,0 +1,91 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: comfyui
+  namespace: ai
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    controllers:
+      comfyui:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          runtimeClassName: nvidia
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: nvidia.com/gpu.present
+                        operator: In
+                        values:
+                          - "true"
+          nodeSelector:
+            nvidia.com/gpu.present: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/rwlove/comfyui
+              tag: latest@sha256:dff0e1db17b7264e4ec76fc71161f861c1e6158a82defda3b8c598498a1cb6c9
+            resources:
+              requests:
+                nvidia.com/gpu: 1
+                cpu: 500m
+                memory: 6Gi
+              limits:
+                memory: 6Gi
+                nvidia.com/gpu: 1
+    service:
+      app:
+        controller: comfyui
+        ports:
+          http:
+            port: 7860
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: AI
+          gethomepage.dev/name: ComfyUI
+          gethomepage.dev/icon: mdi-draw
+        hosts:
+          - host: ${HOSTNAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - ${HOSTNAME}
+    persistence:
+      models:
+        enabled: true
+        existingClaim: comfyui-models
+        globalMounts:
+          - path: /data/models
+      config:
+        enabled: true
+        existingClaim: comfyui
+        globalMounts:
+          - path: /data/config
+      output:
+        enabled: true
+        existingClaim: comfyui-export
+        globalMounts:
+          - path: /output

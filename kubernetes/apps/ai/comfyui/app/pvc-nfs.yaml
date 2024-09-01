@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: comfyui-export
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: mnas.${PUBLIC_DOMAIN}
+    path: /ai/export
+  mountOptions:
+    - nfsvers=4.2
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: comfyui-export
+  namespace: ai
+spec:
+  storageClassName: ""
+  volumeName: comfyui-export
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
