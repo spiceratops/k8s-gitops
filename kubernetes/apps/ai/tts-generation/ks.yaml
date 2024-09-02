@@ -22,4 +22,3 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: ttsgen.${PRIVATE_DOMAIN}
-      VOLSYNC_CLAIM: *appname
