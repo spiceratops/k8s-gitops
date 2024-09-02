@@ -45,7 +45,7 @@ spec:
         controller: tts-generation
         ports:
           http:
-            port: 7860
+            port: 7770
     ingress:
       app:
         enabled: true
