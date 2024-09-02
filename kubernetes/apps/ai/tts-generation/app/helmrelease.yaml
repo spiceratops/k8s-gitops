@@ -24,7 +24,7 @@ spec:
         containers:
           app:
             image:
-              repository: rsxdalv/tts-generation-webui
+              repository: ghcr.io/rsxdalv/tts-generation-webui
               tag: main@sha256:3a0362cf6527f602cd89c6c3b1b91c0d3257f61097b46feb5f043f4f22a55d91
             env:
               TZ: ${TIMEZONE}
