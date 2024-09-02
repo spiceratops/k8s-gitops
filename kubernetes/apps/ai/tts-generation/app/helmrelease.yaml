@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: comfyui
+  name: tts-generation
   namespace: ai
 spec:
   interval: 30m
@@ -18,29 +18,31 @@ spec:
 
   values:
     controllers:
-      comfyui:
+      tts-generation:
         annotations:
           reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: rsxdalv/tts-generation-webui
+              tag: main@sha256:3a0362cf6527f602cd89c6c3b1b91c0d3257f61097b46feb5f043f4f22a55d91
+            env:
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1Gi
+                nvidia.com/gpu: 1
+              limits:
+                memory: 2Gi
+                nvidia.com/gpu: 1
         pod:
           nodeSelector:
             nvidia.feature.node.kubernetes.io/gpu: "true"
           runtimeClassName: nvidia
-        containers:
-          app:
-            image:
-              repository: ghcr.io/rwlove/comfyui
-              tag: latest@sha256:dff0e1db17b7264e4ec76fc71161f861c1e6158a82defda3b8c598498a1cb6c9
-            resources:
-              requests:
-                nvidia.com/gpu: 1
-                cpu: 500m
-                memory: 6Gi
-              limits:
-                memory: 6Gi
-                nvidia.com/gpu: 1
     service:
       app:
-        controller: comfyui
+        controller: tts-generation
         ports:
           http:
             port: 7860
@@ -51,8 +53,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: AI
-          gethomepage.dev/name: ComfyUI
-          gethomepage.dev/icon: mdi-draw
+          gethomepage.dev/name: TTS Generation
         hosts:
           - host: ${HOSTNAME}
             paths:
@@ -64,18 +65,8 @@ spec:
           - hosts:
               - ${HOSTNAME}
     persistence:
-      models:
-        enabled: true
-        existingClaim: comfyui-models
-        globalMounts:
-          - path: /data/models
       config:
         enabled: true
-        existingClaim: comfyui
+        existingClaim: ${VOLSYNC_CLAIM}
         globalMounts:
-          - path: /data/config
-      output:
-        enabled: true
-        existingClaim: comfyui-export
-        globalMounts:
-          - path: /output
+          - path: /app
