@@ -79,3 +79,10 @@ spec:
         existingClaim: comfyui-export
         globalMounts:
           - path: /output
+      config-file:
+        type: configMap
+        name: comfyui-configmap
+        globalMounts:
+          - path: /data/config/extra_model_paths.yaml
+            subPath: extra_model_paths.yaml
+            readOnly: true

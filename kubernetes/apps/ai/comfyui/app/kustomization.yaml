@@ -6,3 +6,9 @@ resources:
   - ./volsync.yaml
   - ./pvc-nfs.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: comfyui-configmap
+    files:
+      - ./configs/extra_model_paths.yaml
+generatorOptions:
+  disableNameSuffixHash: true
