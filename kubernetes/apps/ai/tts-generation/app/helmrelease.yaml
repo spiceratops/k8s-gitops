@@ -73,7 +73,5 @@ spec:
       models:
         enabled: true
         existingClaim: tts-generation-models
-        advancedMounts:
-          backend:
-            main:
-              - path: /models
+        globalMounts:
+          - path: /models
