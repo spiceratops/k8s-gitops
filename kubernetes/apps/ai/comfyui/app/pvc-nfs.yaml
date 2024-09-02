@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: mnas.${PUBLIC_DOMAIN}
-    path: /ai/sd/export
+    path: /ai/export
   mountOptions:
     - nfsvers=4.2
 ---
