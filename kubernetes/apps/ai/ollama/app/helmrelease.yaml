@@ -141,7 +141,7 @@ spec:
               - path: /data
       models:
         enabled: true
-        existingClaim: ollama-models-storage
+        existingClaim: ollama-models
         advancedMounts:
           backend:
             main:

@@ -70,3 +70,10 @@ spec:
         existingClaim: ${VOLSYNC_CLAIM}
         globalMounts:
           - path: /app
+      models:
+        enabled: true
+        existingClaim: tts-generation-models
+        advancedMounts:
+          backend:
+            main:
+              - path: /models

@@ -5,5 +5,5 @@ namespace: ai
 resources:
   - ./externalsecret.yaml
   - ./volsync.yaml
-  - ./pvc.yaml
+  - ./pvc-nfs.yaml
   - ./helmrelease.yaml
