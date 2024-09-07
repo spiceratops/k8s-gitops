@@ -85,14 +85,17 @@ radarr:
     base_url: http://radarr.media.svc.cluster.local:7878
     api_key: !env_var RADARR_API_KEY
 
+    quality_profiles:
+      - name: SQP-1 (2160p)
+
     delete_old_custom_formats: true
     replace_existing_custom_formats: true
 
     include:
       # Comment out any of the following includes to disable them
-      - template: radarr-quality-definition-sqp-uhd
-      - template: radarr-quality-profile-sqp-2
-      - template: radarr-custom-formats-sqp-2
+      - template: radarr-quality-definition-sqp-streaming
+      - template: radarr-quality-profile-sqp-1-2160p-imax-e
+      - template: radarr-custom-formats-sqp-1-2160p
 
     # Custom Formats: https://recyclarr.dev/wiki/yaml/config-reference/custom-formats/
     custom_formats:
@@ -100,14 +103,14 @@ radarr:
       - trash_ids:
           - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
         assign_scores_to:
-          - name: SQP-2
+          - name: SQP-1 (2160p)
             # score: 0 # Uncomment this line to disable prioritised IMAX Enhanced releases
 
       # Misc
       - trash_ids:
           - 2899d84dc9372de3408e6d8cc18e9666 # x264
         assign_scores_to:
-          - name: SQP-2
+          - name: SQP-1 (2160p)
             # score: 0 # Uncomment this line to enable x264 releases
 
       # Unwanted
@@ -120,7 +123,7 @@ radarr:
         # - trash_ids:
         # - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
         assign_scores_to:
-          - name: SQP-2
+          - name: SQP-1 (2160p)
 
       # Optional
       - trash_ids:
