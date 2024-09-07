@@ -17,15 +17,15 @@ spec:
         namespace: flux-system
 
   values:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: intel.feature.node.kubernetes.io/gpu
-                    operator: In
-                    values:
-                      - "true"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: intel.feature.node.kubernetes.io/gpu
+                  operator: In
+                  values:
+                    - "true"
     controllers:
       tdarr-node:
         containers:
