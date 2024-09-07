@@ -20,3 +20,4 @@ resources:
   - ./ytdl-sub/ks.yaml
   - ./lidarr/ks.yaml
   - ./audiobookshelf/ks.yaml
+  - ./tdarr/ks.yaml
