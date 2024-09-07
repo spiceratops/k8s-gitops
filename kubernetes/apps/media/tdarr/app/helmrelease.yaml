@@ -45,7 +45,6 @@ spec:
       server:
         controller: *app
         type: LoadBalancer
-        loadBalancerIP: 192.168.169.117
         externalTrafficPolicy: Local
         ports:
           server:
