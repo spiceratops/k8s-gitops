@@ -71,9 +71,11 @@ spec:
           - hosts:
               - "${HOSTNAME}"
     persistence:
-      app:
+      config:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
+        globalMounts:
+          - path: /app/configs
       media:
         existingClaim: nfs-media
         globalMounts:
