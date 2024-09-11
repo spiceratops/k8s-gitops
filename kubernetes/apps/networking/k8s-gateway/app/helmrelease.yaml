@@ -20,9 +20,13 @@ spec:
     fullnameOverride: k8s-gateway
     replicaCount: 2
     domain: ${PRIVATE_DOMAIN}
+    ttl: 1
     watchedResources:
       - Ingress
       - Service
     service:
-      type: ClusterIP
-      clusterIP: ${K8S_GATEWAY_IP}
+      type: LoadBalancer
+      port: 53
+      annotations:
+        io.cilium/lb-ipam-ips: "${K8S_GATEWAY_LB_IP}"
+      externalTrafficPolicy: Cluster
