@@ -12,8 +12,10 @@ exclude:
         - "info.txt"
         - "metadata.txt"
         - "systeminfo.txt"
+        - "systems.txt"
         - "psy.ggjud.iso"
         - "psy.ggjud.nfo"
+        - ".nomedia"
     multi_file:
       names:
         - "pfx"
