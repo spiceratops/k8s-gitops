@@ -24,3 +24,4 @@ resources:
   - ./libmedium/ks.yaml
   - ./hajimari/ks.yaml
   - ./wallos/ks.yaml
+  - ./mmp/ks.yaml
