@@ -1,0 +1,122 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mmp
+  namespace: selfhosted
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    controllers:
+      mmp:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          agent:
+            image:
+              repository: ghcr.io/maker-management-platform/agent
+              tag: v1.3.2
+            env:
+              LIBRARY_PATH: /library
+              LOG_PATH: ""
+            resources:
+              requests:
+                cpu: 12m
+                memory: 128M
+              limits:
+                memory: 512M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+          ui:
+            image:
+              repository: ghcr.io/maker-management-platform/mmp-ui
+              tag: v1.3.0
+            env:
+              AGENT_ADDRESS: localhost:8000
+            resources:
+              requests:
+                cpu: 12m
+                memory: 128M
+              limits:
+                memory: 128M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: mmp
+        ports:
+          http:
+            port: 8081
+    ingress:
+      app:
+        enabled: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: MMP
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/description: Maker Management Platform
+        className: internal
+        hosts:
+          - host: "${HOSTNAME}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - "${HOSTNAME}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: "${VOLSYNC_CLAIM}"
+        advancedMounts:
+          mmp:
+            agent:
+              - path: /data
+                subPath: data
+      library:
+        existingClaim: mmp-library
+        globalMounts:
+          - path: /library
+      # Prevents errors due to running as non-default user
+      temp:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          maker-management-platform:
+            agent:
+              - path: /app/temp
+                subPath: agent-tmp
+              - path: /app/cache
+                subPath: agent-cache
+            ui:
+              - path: /config/caddy
+                subPath: caddy

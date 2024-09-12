@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mmp-library
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: mnas.${PUBLIC_DOMAIN}
+    path: /maker/library
+  mountOptions:
+    - nfsvers=4.2
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mmp-library
+  namespace: ai
+spec:
+  storageClassName: ""
+  volumeName: mmp-library
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
