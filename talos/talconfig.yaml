@@ -9,7 +9,7 @@ clusterSvcNets:
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosVersion: v1.7.6
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: v1.31.0
+kubernetesVersion: v1.31.1
 
 endpoint: https://k8s.${PRIVATE_DOMAIN}:6443
 
