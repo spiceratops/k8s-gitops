@@ -28,8 +28,12 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/rwlove/comfyui
-              tag: latest@sha256:dff0e1db17b7264e4ec76fc71161f861c1e6158a82defda3b8c598498a1cb6c9
+              repository: ghcr.io/ai-dock/comfyui
+              tag: v2-cuda-12.1.1-base-22.04
+            env:
+              TZ: ${TIMEZONE}
+              COMFYUI_URL: https://${HOSTNAME}
+              CF_QUICK_TUNNELS: false
             resources:
               requests:
                 nvidia.com/gpu: 1
@@ -43,7 +47,7 @@ spec:
         controller: comfyui
         ports:
           http:
-            port: 7860
+            port: 8188
     ingress:
       app:
         enabled: true
@@ -79,10 +83,3 @@ spec:
         existingClaim: comfyui-export
         globalMounts:
           - path: /output
-      config-file:
-        type: configMap
-        name: comfyui-configmap
-        globalMounts:
-          - path: /data/config/extra_model_paths.yaml
-            subPath: extra_model_paths.yaml
-            readOnly: true
