@@ -34,6 +34,10 @@ spec:
               TZ: ${TIMEZONE}
               COMFYUI_URL: https://${HOSTNAME}
               CF_QUICK_TUNNELS: false
+              DIRECT_ADDRESS: ${HOSTNAME}
+            envFrom:
+              - secretRef:
+                  name: comfyui-secret
             resources:
               requests:
                 nvidia.com/gpu: 1
