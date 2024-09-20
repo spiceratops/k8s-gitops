@@ -30,7 +30,7 @@ spec:
               TZ: ${TIMEZONE}
               OLLAMA_HOST: 0.0.0.0
               OLLAMA_ORIGINS: "*"
-              OLLAMA_MODELS: /mnt/ai/models
+              OLLAMA_MODELS: /models
             resources:
               requests:
                 cpu: 200m

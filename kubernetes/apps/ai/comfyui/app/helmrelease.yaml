@@ -57,6 +57,7 @@ spec:
         enabled: true
         className: internal
         annotations:
+          nginx.ingress.kubernetes.io/rewrite-target: "/"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: AI
           gethomepage.dev/name: ComfyUI
