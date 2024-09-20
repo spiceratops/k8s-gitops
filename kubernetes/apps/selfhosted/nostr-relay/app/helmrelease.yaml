@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: docker.io/scsibug/nostr-rs-relay
-              tag: 0.8.13@sha256:d54849aac0a47b2cede0aadf26d4777180fb9c669ee7e8ffd0992c7f8fe81bb6
+              tag: 0.9.0@sha256:03f54bfbffff80a50db62c9287913bd25a2dec08033b56d2122bc2550363d5c5
             resources:
               requests:
                 cpu: 5m
