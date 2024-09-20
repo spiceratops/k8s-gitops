@@ -13,7 +13,7 @@ spec:
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/ollama"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/ollama2"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -33,8 +33,8 @@ spec:
     name: ollama-rdst
   resources:
     requests:
-      storage: 10Gi
-  storageClassName: ${CLUSTER_STORAGE_BLOCK}
+      storage: 150Gi
+  storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
@@ -47,8 +47,8 @@ spec:
     repository: ollama-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
-    storageClassName: ${CLUSTER_STORAGE_BLOCK}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
@@ -56,7 +56,7 @@ spec:
       runAsUser: 568
       runAsGroup: 568
       fsGroup: 568
-    capacity: 10Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+    capacity: 150Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
@@ -71,8 +71,8 @@ spec:
     repository: ollama-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
-    storageClassName: ${CLUSTER_STORAGE_BLOCK}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}

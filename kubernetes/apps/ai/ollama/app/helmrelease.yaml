@@ -28,9 +28,7 @@ spec:
               tag: 0.3.11
             env:
               TZ: ${TIMEZONE}
-              OLLAMA_HOST: 0.0.0.0
               OLLAMA_ORIGINS: "*"
-              OLLAMA_MODELS: /models
             resources:
               requests:
                 cpu: 200m
@@ -65,7 +63,6 @@ spec:
               OAUTH_PROVIDER_NAME: Authelia
               ENABLE_OAUTH_SIGNUP: true
               ENABLE_LOGIN_FORM: false
-              OLLAMA_MODELS: /models
               WEBUI_AUTH_TRUSTED_EMAIL_HEADER: Remote-Email
               OPENID_REDIRECT_URI: "https://ollama.${PRIVATE_DOMAIN}/oauth/oidc/callback"
             envFrom:
@@ -138,13 +135,6 @@ spec:
           ui:
             main:
               - path: /data
-      models:
-        enabled: true
-        existingClaim: ollama-models
-        advancedMounts:
-          backend:
-            main:
-              - path: /models
       tmp:
         enabled: true
         type: emptyDir
