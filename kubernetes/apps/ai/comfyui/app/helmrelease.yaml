@@ -29,12 +29,12 @@ spec:
           app:
             image:
               repository: ghcr.io/ai-dock/comfyui
-              tag: v2-cuda-12.1.1-base-22.04
+              tag: v2-cuda-12.1.1-base-22.04-v0.2.0@sha256:eacd7b9281383b13b53d86cacc283f856417c79a1312634e8a9cc6308cbe60f6
             env:
               TZ: ${TIMEZONE}
               COMFYUI_URL: https://${HOSTNAME}
               CF_QUICK_TUNNELS: false
-              DIRECT_ADDRESS: ${HOSTNAME}
+              PROVISIONING_SCRIPT: "https://raw.githubusercontent.com/ai-dock/comfyui/main/config/provisioning/flux.sh"
             envFrom:
               - secretRef:
                   name: comfyui-secret
@@ -51,7 +51,7 @@ spec:
         controller: comfyui
         ports:
           http:
-            port: 18188
+            port: 8188
     ingress:
       app:
         enabled: true
@@ -72,18 +72,8 @@ spec:
           - hosts:
               - ${HOSTNAME}
     persistence:
-      models:
+      workspace:
         enabled: true
         existingClaim: comfyui-models
         globalMounts:
-          - path: /data/models
-      config:
-        enabled: true
-        existingClaim: comfyui
-        globalMounts:
-          - path: /data/config
-      output:
-        enabled: true
-        existingClaim: comfyui-export
-        globalMounts:
-          - path: /output
+          - path: /workspace
