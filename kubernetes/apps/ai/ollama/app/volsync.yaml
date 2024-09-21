@@ -13,7 +13,7 @@ spec:
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/ollamafs"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/ollama"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -24,22 +24,22 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ollamafs
+  name: ollama
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: ollamafs-rdst
+    name: ollama-rdst
   resources:
     requests:
       storage: 150Gi
-  storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: ollamafs-rdst
+  name: ollama-rdst
 spec:
   trigger:
     manual: restore-once
@@ -47,8 +47,8 @@ spec:
     repository: ollama-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
-    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
@@ -61,9 +61,9 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: ollamafs-rsrc
+  name: ollama-rsrc
 spec:
-  sourcePVC: ollamafs
+  sourcePVC: ollama
   trigger:
     schedule: "15 */8 * * *"
   restic:
@@ -71,8 +71,8 @@ spec:
     repository: ollama-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
-    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
