@@ -85,6 +85,6 @@ spec:
     persistence:
       workspace:
         enabled: true
-        existingClaim: comfyui-models
+        existingClaim: comfyui
         globalMounts:
           - path: /workspace

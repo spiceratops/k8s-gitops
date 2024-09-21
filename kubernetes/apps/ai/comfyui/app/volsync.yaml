@@ -26,14 +26,14 @@ kind: PersistentVolumeClaim
 metadata:
   name: comfyui
 spec:
-  accessModes: ["ReadWriteOnce"]
+  accessModes: ["ReadWriteMany"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
     name: comfyui-rdst
   resources:
     requests:
-      storage: 10Gi
+      storage: 20Gi
   storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
 ---
 apiVersion: volsync.backube/v1alpha1
@@ -46,7 +46,7 @@ spec:
   restic:
     repository: comfyui-restic-secret
     copyMethod: Snapshot
-    accessModes: ["ReadWriteOnce"]
+    accessModes: ["ReadWriteMany"]
     storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
     cacheAccessModes: ["ReadWriteOnce"]
@@ -56,7 +56,7 @@ spec:
       runAsUser: 568
       runAsGroup: 568
       fsGroup: 568
-    capacity: 10Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+    capacity: 20Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
@@ -70,7 +70,7 @@ spec:
     pruneIntervalDays: 10
     repository: comfyui-restic-secret
     copyMethod: Snapshot
-    accessModes: ["ReadWriteOnce"]
+    accessModes: ["ReadWriteMany"]
     storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
     cacheAccessModes: ["ReadWriteOnce"]
