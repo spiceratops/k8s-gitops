@@ -139,6 +139,6 @@ spec:
         enabled: true
         existingClaim: nfs-media
         advancedMounts:
-          qbtools:
+          orphaned:
             app:
               - path: /data/nas-media
