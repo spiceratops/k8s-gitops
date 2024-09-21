@@ -71,7 +71,7 @@ spec:
                 service:
                   identifier: app
                   port: http
-          - host: sp.${HOSTNAME}
+          - host: sp-${HOSTNAME}
             paths:
               - path: /
                 service:
@@ -80,7 +80,7 @@ spec:
         tls:
           - hosts:
               - ${HOSTNAME}
-              - sp.${HOSTNAME}
+              - sp-${HOSTNAME}
     persistence:
       workspace:
         enabled: true
