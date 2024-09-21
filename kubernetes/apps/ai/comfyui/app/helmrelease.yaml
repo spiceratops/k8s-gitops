@@ -33,7 +33,8 @@ spec:
             env:
               TZ: ${TIMEZONE}
               COMFYUI_URL: https://${HOSTNAME}
-              # CF_QUICK_TUNNELS: false
+              SERVICEPORTAL_URL: https://sp-${HOSTNAME}
+              CF_QUICK_TUNNELS: false
               PROVISIONING_SCRIPT: "https://raw.githubusercontent.com/ai-dock/comfyui/main/config/provisioning/flux.sh"
             envFrom:
               - secretRef:
