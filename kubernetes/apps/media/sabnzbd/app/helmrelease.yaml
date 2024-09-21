@@ -36,6 +36,8 @@ spec:
                 sabnzbd.media.svc.cluster,
                 sabnzbd.media.svc.cluster.local,
                 sabnzbd.${PRIVATE_DOMAIN}
+              XSEED_HOST: cross-seed.media.svc.cluster.local
+              XSEED_PORT: 2468
             envFrom:
               - secretRef:
                   name: sabnzbd-secret
@@ -113,6 +115,14 @@ spec:
         existingClaim: nfs-media
         globalMounts:
           - path: /media
+      scripts:
+        type: configMap
+        name: sabnzbd-scripts
+        defaultMode: 0775
+        advancedMounts:
+          sabnzbd:
+            app:
+              - path: /config/scripts
     service:
       app:
         controller: sabnzbd

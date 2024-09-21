@@ -32,11 +32,6 @@ spec:
               QBITTORRENT__PORT: &port 8080
               XSEED_HOST: cross-seed.media.svc.cluster.local
               XSEED_PORT: 2468
-              XSEED_APIKEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: sabnzbd-secret
-                    key: xseed_api_key
             envFrom:
               - secretRef:
                   name: qbittorrent-secret
