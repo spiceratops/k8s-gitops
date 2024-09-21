@@ -13,7 +13,7 @@ spec:
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/ollama"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/ollamafs"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -24,13 +24,13 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ollama
+  name: ollamafs
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: ollama-rdst
+    name: ollamafs-rdst
   resources:
     requests:
       storage: 150Gi
@@ -39,7 +39,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: ollama-rdst
+  name: ollamafs-rdst
 spec:
   trigger:
     manual: restore-once
@@ -61,9 +61,9 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: ollama-rsrc
+  name: ollamafs-rsrc
 spec:
-  sourcePVC: ollama
+  sourcePVC: ollamafs
   trigger:
     schedule: "15 */8 * * *"
   restic:
