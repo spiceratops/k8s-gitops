@@ -7,4 +7,3 @@ resources:
   - ./romm/ks.yaml
   # - ./agones/ks.yaml
   # - ./shulker/ks.yaml
-  - ./wolf/ks.yaml
