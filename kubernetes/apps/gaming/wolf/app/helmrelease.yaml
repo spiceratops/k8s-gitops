@@ -1,0 +1,75 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: wolf
+  namespace: gaming
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    controllers:
+      wolf:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/games-on-whales/wolf
+              tag: stable@sha256:e6b742e69719098082a478c1cb4fb60944bb8d06dc866fe68164767fb0f158d7
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 1024Mi
+            env:
+              TZ: ${TIMEZONE}
+    service:
+      app:
+        controller: wolf
+        ports:
+          http:
+            port: 47989
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/icon: mdi-controller-classic
+          gethomepage.dev/name: Wolf
+          gethomepage.dev/group: Gaming
+          gethomepage.dev/description: Game Streaming
+        hosts:
+          - host: "${HOSTNAME}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - "${HOSTNAME}"
+    # persistence:
+    #   data:
+    #     existingClaim: "${VOLSYNC_CLAIM}"
+    #     globalMounts:
+    #       - path: /etc/wolf
+    # config-file:
+    #   type: configMap
+    #   name: wolf-configmap
+    #   globalMounts:
+    #     - path: /etc/wolf/config.toml
+    #       subPath: config.toml
+    #       readOnly: true
