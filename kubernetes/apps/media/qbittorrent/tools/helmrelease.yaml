@@ -128,13 +128,13 @@ spec:
               - --port
               - *qbittorrent_port
     persistence:
-      # config-file:
-      #   type: secret
-      #   name: qbtools-secret
-      #   globalMounts:
-      #     - path: /config/config.yaml
-      #       subPath: config.yaml
-      #       readOnly: true
+      config-file:
+        type: secret
+        name: qbtools-secret
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
       media:
         enabled: true
         existingClaim: nfs-media
