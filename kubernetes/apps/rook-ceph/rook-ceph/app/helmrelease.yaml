@@ -20,7 +20,7 @@ spec:
     crds:
       enabled: true
     csi:
-      cephFSKernelMountOptions: ms_mode=prefer-crc
+      cephFSKernelMountOptions: ms_mode=legacy
       enableLiveness: true
       serviceMonitor:
         enabled: true
