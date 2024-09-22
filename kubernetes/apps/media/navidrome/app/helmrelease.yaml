@@ -36,11 +36,11 @@ spec:
               ND_DATAFOLDER: /config
               ND_ENABLEGRAVATAR: "true"
               ND_LOGLEVEL: info
-              ND_MUSICFOLDER: /media-data/media/music
+              ND_MUSICFOLDER: /data/nfs-media/music
               ND_PORT: &port 8080
               ND_PROMETHEUS_ENABLED: "true"
               ND_REVERSEPROXYUSERHEADER: "Remote-User"
-              ND_REVERSEPROXYWHITELIST: "192.168.0.0/16"
+              ND_REVERSEPROXYWHITELIST: "10.244.0.0/16"
               ND_SCANSCHEDULE: "@every 1h"
               ND_SESSIONTIMEOUT: 24h
             envFrom:
@@ -86,7 +86,7 @@ spec:
       media:
         existingClaim: nfs-media
         globalMounts:
-          - path: /media
+          - path: /data/nfs-media
     resources:
       requests:
         cpu: 10m
