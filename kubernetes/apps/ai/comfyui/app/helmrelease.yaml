@@ -87,4 +87,4 @@ spec:
         enabled: true
         existingClaim: comfyui
         globalMounts:
-          - path: /workspace
+          - path: /opt/ComfyUI
