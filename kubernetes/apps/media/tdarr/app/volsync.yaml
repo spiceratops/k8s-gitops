@@ -2,18 +2,18 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: tdarr-restic
+  name: tdarr-config-restic
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: tdarr-restic-secret
+    name: tdarr-config-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/tdarr"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/tdarr-config"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -24,13 +24,98 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tdarr
+  name: tdarr-config
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: tdarr-rdst
+    name: tdarr-config-rdst
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: tdarr-config-rdst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: tdarr-config-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    capacity: 2Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: tdarr-config-rsrc
+spec:
+  sourcePVC: tdarr
+  trigger:
+    schedule: "15 */8 * * *"
+  restic:
+    pruneIntervalDays: 10
+    repository: tdarr-config-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      daily: 10
+      within: 3d
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: tdarr-server-restic
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: tdarr-server-restic-secret
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/tdarr-server"
+        RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
+        AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
+        AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
+  dataFrom:
+    - extract:
+        key: volsync-restic-template
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tdarr-server
+spec:
+  accessModes: ["ReadWriteOnce"]
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: tdarr-server-rdst
   resources:
     requests:
       storage: 20Gi
@@ -39,12 +124,12 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: tdarr-rdst
+  name: tdarr-server-rdst
 spec:
   trigger:
     manual: restore-once
   restic:
-    repository: tdarr-restic-secret
+    repository: tdarr-server-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
@@ -61,14 +146,14 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: tdarr-rsrc
+  name: tdarr-server-rsrc
 spec:
-  sourcePVC: tdarr
+  sourcePVC: tdarr-server
   trigger:
     schedule: "15 */8 * * *"
   restic:
     pruneIntervalDays: 10
-    repository: tdarr-restic-secret
+    repository: tdarr-server-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}

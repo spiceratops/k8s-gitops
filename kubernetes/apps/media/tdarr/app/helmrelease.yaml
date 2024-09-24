@@ -73,9 +73,14 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: "${VOLSYNC_CLAIM}"
+        existingClaim: tdarr-config
         globalMounts:
           - path: /app/configs
+      server:
+        enabled: true
+        existingClaim: tdarr-server
+        globalMounts:
+          - path: /app/server
       media:
         existingClaim: nfs-media
         globalMounts:
