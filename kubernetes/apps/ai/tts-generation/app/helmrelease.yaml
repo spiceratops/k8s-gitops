@@ -69,4 +69,4 @@ spec:
         enabled: true
         existingClaim: tts-generation-models
         globalMounts:
-          - path: /models
+          - path: /root/.cache
