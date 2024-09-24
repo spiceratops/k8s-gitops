@@ -83,8 +83,8 @@ spec:
               - ${HOSTNAME}
               - sp-${HOSTNAME}
     persistence:
-      comfyui:
+      workspace:
         enabled: true
         existingClaim: comfyui
         globalMounts:
-          - path: /opt/ComfyUI
+          - path: /workspace
