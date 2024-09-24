@@ -67,6 +67,6 @@ spec:
     persistence:
       models:
         enabled: true
-        existingClaim: tts-generation-models
+        existingClaim: tts-generation
         globalMounts:
           - path: /root/.cache
