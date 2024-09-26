@@ -73,6 +73,45 @@ spec:
                 memory: 256M
               limits:
                 memory: 1024M
+      radarr-concerts:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: radarr-concerts-secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/radarr-develop
+              tag: 5.11.0.9244@sha256:db4b57f5e05304f6b2d47a6863da9e584f1f05af3b61584cb146dc358dd1430b
+            env:
+              TZ: ${TIMEZONE}
+              RADARR__AUTHENTICATION_METHOD: External
+              RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              RADARR__INSTANCE_NAME: Radarr-Concerts
+              RADARR__PORT: &port2 7979
+              RADARR__LOG_LEVEL: info
+              RADARR__THEME: dark
+            envFrom:
+              - secretRef:
+                  name: radarr-concerts-secret
+            probes:
+              liveness: *probes
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256M
+              limits:
+                memory: 1024M
         pod:
           affinity:
             podAntiAffinity:
@@ -84,13 +123,18 @@ spec:
                         values: ["sonarr"]
                   topologyKey: kubernetes.io/hostname
     service:
-      app:
+      movies:
         controller: radarr
         ports:
           http:
             port: *port
+      concerts:
+        controller: radarr-concerts
+        ports:
+          http:
+            port: *port2
     ingress:
-      app:
+      movies:
         enabled: true
         className: internal
         annotations:
@@ -112,15 +156,53 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: movies
                   port: http
         tls:
           - hosts:
               - "${HOSTNAME}"
+      concerts:
+        enabled: true
+        className: internal
+        annotations:
+          nginx.ingress.kubernetes.io/auth-method: GET
+          nginx.ingress.kubernetes.io/auth-url: http://authelia.security.svc.cluster.local:9091/api/authz/auth-request
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.${PRIVATE_DOMAIN}?rm=$request_method
+          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Concerts Downloader
+          gethomepage.dev/group: Downloaders
+          gethomepage.dev/icon: radarr.png
+          gethomepage.dev/name: Radarr-Concerts
+          gethomepage.dev/widget.type: radarr
+          gethomepage.dev/widget.url: "http://radarr-concerts.media.svc.cluster.local:7878"
+          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_RADARR_TOKEN}}` }}"
+        hosts:
+          - host: "${HOSTNAME}"
+            paths:
+              - path: /
+                service:
+                  identifier: concerts
+                  port: http
+        tls:
+          - hosts:
+              - radarr-concerts.${PRIVATE_DOMAIN}
     persistence:
       config:
         enabled: true
-        existingClaim: "${VOLSYNC_CLAIM}"
+        existingClaim: radarr
+        advancedMounts:
+          radarr:
+            app:
+              - path: /config
+      config-concerts:
+        enabled: true
+        existingClaim: radarr-concerts
+        advancedMounts:
+          radarr-concerts:
+            app:
+              - path: /config
       media:
         existingClaim: nfs-media
         globalMounts:
