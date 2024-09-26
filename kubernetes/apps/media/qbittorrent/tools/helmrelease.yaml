@@ -141,4 +141,4 @@ spec:
         advancedMounts:
           orphaned:
             app:
-              - path: /data/nas-media
+              - path: /media
