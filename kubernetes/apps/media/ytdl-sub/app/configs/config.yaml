@@ -163,6 +163,11 @@ data:
       = Cooking | = TV-G:
         "Nerdy Nummies Cooking": "https://www.youtube.com/@RosannaPansino"
 
+      = Gaming | = TV-G:
+        "Krydax": "https://www.youtube.com/@Krydax"
+        "EthosLab": "https://www.youtube.com/@EthosLab"
+        "TDBRICKS": "https://www.youtube.com/@TDBRICKS"
+
       = Kids | = TV-G:
         "Hey Bear": "https://www.youtube.com/@HeyBear"
         "Badanamu": "https://www.youtube.com/@Badanamu"
@@ -198,8 +203,6 @@ data:
         "PE with Mr. G": "https://www.youtube.com/@PEwithMrG"
         "Secret Life of my Hamster": "https://www.youtube.com/@SecretLifeofmyHamster"
         "Nelson Boys": "https://www.youtube.com/@NelsonBoys"
-        "EthosLab": "https://www.youtube.com/@EthosLab"
-        "TDBRICKS": "https://www.youtube.com/@TDBRICKS"
         "howridiculous": "https://www.youtube.com/@howridiculous"
 
     # TV Show Only Recent:
