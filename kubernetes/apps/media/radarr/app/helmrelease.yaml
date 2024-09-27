@@ -95,7 +95,7 @@ spec:
               RADARR__AUTHENTICATION_METHOD: External
               RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               RADARR__INSTANCE_NAME: Radarr-Concerts
-              RADARR__PORT: &port2 7979
+              RADARR__PORT: *port
               RADARR__LOG_LEVEL: info
               RADARR__THEME: dark
             envFrom:
@@ -132,7 +132,7 @@ spec:
         controller: radarr-concerts
         ports:
           http:
-            port: *port2
+            port: *port
     ingress:
       movies:
         enabled: true
