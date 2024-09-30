@@ -36,7 +36,7 @@ spec:
               COMFYUI_URL: https://${HOSTNAME}
               SERVICEPORTAL_URL: https://sp-${HOSTNAME}
               CF_QUICK_TUNNELS: false
-              PROVISIONING_SCRIPT: "https://raw.githubusercontent.com/ai-dock/comfyui/main/config/provisioning/flux.sh"
+              # PROVISIONING_SCRIPT: "https://raw.githubusercontent.com/ai-dock/comfyui/main/config/provisioning/flux.sh"
             envFrom:
               - secretRef:
                   name: comfyui-secret
@@ -84,8 +84,8 @@ spec:
               - ${HOSTNAME}
               - sp-${HOSTNAME}
     persistence:
-      workspace:
+      app:
         enabled: true
         existingClaim: comfyui
         globalMounts:
-          - path: /workspace
+          - path: /opt/ComfyUI
