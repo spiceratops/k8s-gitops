@@ -36,6 +36,7 @@ spec:
     maxUnavailable: 33%
 
   updateStrategy:
+    autoUpdateDataPlane: true
     type: RollingUpdate
 
   myCnf: |
