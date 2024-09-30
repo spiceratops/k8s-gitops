@@ -88,4 +88,4 @@ spec:
         enabled: true
         existingClaim: comfyui
         globalMounts:
-          - path: /opt/ComfyUI
+          - path: /opt/ComfyUI/models
