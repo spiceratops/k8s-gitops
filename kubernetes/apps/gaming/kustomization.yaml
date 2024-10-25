@@ -8,3 +8,4 @@ resources:
   # - ./agones/ks.yaml
   # - ./shulker/ks.yaml
   - ./satisfactory/ks.yaml
+  - ./ownfoil/ks.yaml
