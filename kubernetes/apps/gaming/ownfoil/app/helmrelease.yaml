@@ -81,7 +81,7 @@ spec:
       data:
         existingClaim: "${VOLSYNC_CLAIM}"
         globalMounts:
-          - path: /app/config
+          - path: /app
       library:
         existingClaim: nfs-games
         globalMounts:
