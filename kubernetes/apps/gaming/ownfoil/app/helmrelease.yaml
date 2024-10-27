@@ -25,8 +25,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/a1ex4/ownfoil
-              tag: v1.2.3
+              repository: a1ex4/ownfoil
+              tag: latest@sha256:77726c0818386e1c7912d44a136008d9c629f1d36bc8e545de7e328e7bde5340
             resources:
               requests:
                 cpu: 10m
