@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: docker.io/benbusby/whoogle-search
-              tag: 0.9.0
+              tag: 0.9.1
             env:
               # WHOOGLE_ALT_YT: invidious.${PRIVATE_DOMAIN}
               WHOOGLE_ALT_IG: imginn.com
