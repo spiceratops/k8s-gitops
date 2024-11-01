@@ -27,8 +27,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/vinanrra/satisfactory-server
-              tag: v0.1.2@sha256:d0adc1e2f8a3d009a1b28efb6021a6c9c3c08eb515870d1736848a81cadd09dd
+              repository: docker.io/wolveix/satisfactory-server
+              tag: v1.8.9@sha256:2829a00545ba3000ad767ace326cc31bb42de3bfd0b7904f4e65c1159606a14e
             resources:
               requests:
                 cpu: 100m
@@ -49,16 +49,22 @@ spec:
               startup:
                 enabled: false
             env:
-              TimeZone: ${TIMEZONE}
-              START_MODE: 1
-              BACKUP: "YES"
-              MONITOR: "YES"
-              VERSION: "public"
+              TZ: ${TIMEZONE}
+              ROOTLESS: "true"
+              AUTOPAUSE: "true"
+              AUTOSAVEINTERVAL: "60"
+              AUTOSAVENUM: "60"
+              AUTOSAVEONDISCONNECT: "true"
+              CRASHREPORT: "false"
+              MAXPLAYERS: "4"
+              MAXTICKRATE: "120" # default is a low 30
+              NETWORKQUALITY: "3" # 0-3, 3 is Ultra (default)
+              TIMEOUT: "300"
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
+        runAsNonRoot: false
         runAsUser: 1000
-        runAsGroup: 1000
+        runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
     service:
@@ -86,7 +92,7 @@ spec:
       data:
         existingClaim: "${VOLSYNC_CLAIM}"
         globalMounts:
-          - path: /home/sfserver/
+          - path: /config
       backup:
         existingClaim: nfs-games
         globalMounts:
