@@ -62,9 +62,9 @@ spec:
               TIMEOUT: "300"
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 1000
+        runAsNonRoot: false
+        runAsUser: 1000
+        runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
     service:
