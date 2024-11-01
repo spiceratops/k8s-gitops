@@ -87,3 +87,7 @@ spec:
         existingClaim: "${VOLSYNC_CLAIM}"
         globalMounts:
           - path: /home/sfserver/
+      backup:
+        existingClaim: nfs-games
+        globalMounts:
+          - path: /backup
