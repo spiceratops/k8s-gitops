@@ -53,8 +53,8 @@ spec:
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
+      runAsUser: 1000
+      runAsGroup: 1000
       fsGroup: 568
     capacity: 25Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
@@ -77,8 +77,8 @@ spec:
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
+      runAsUser: 1000
+      runAsGroup: 1000
       fsGroup: 568
     retain:
       daily: 10
