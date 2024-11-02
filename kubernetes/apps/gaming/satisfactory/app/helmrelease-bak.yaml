@@ -20,27 +20,21 @@ spec:
   values:
     controllers:
       satisfactory:
-        type: deployment
+        type: statefulset
         replicas: 1
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: docker.io/wolveix/satisfactory-server
-              tag: v1.8.9@sha256:2829a00545ba3000ad767ace326cc31bb42de3bfd0b7904f4e65c1159606a14e
+              repository: ghcr.io/gameservermanagers/gameserver
+              tag: sf@sha256:b00962c58a986dd9e85680a0e920c003bef53c21002adedd8cb1d47ed0be19b9
             resources:
               requests:
                 cpu: 100m
                 memory: 4Gi
               limits:
-                memory: 16Gi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
+                memory: 8Gi
             probes:
               liveness:
                 enabled: false
@@ -49,29 +43,17 @@ spec:
               startup:
                 enabled: false
             env:
-              TZ: ${TIMEZONE}
-              ROOTLESS: "true"
-              AUTOPAUSE: "true"
-              AUTOSAVEINTERVAL: "60"
-              AUTOSAVENUM: "60"
-              AUTOSAVEONDISCONNECT: "true"
-              CRASHREPORT: "false"
-              MAXPLAYERS: "4"
-              MAXTICKRATE: "120" # default is a low 30
-              NETWORKQUALITY: "3" # 0-3, 3 is Ultra (default)
-              TIMEOUT: "300"
-        initContainers:
-          01-cp:
-            <<: *ct
-            command: ["/bin/sh", "-c", "cp -r /home/steam/. /home/fake/"]
-            resources: {}
+              TimeZone: ${TIMEZONE}
+              START_MODE: 1
+              BACKUP: "YES"
+              MONITOR: "YES"
+              VERSION: "public"
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: Always
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: satisfactory
@@ -95,27 +77,9 @@ spec:
             protocol: UDP
     persistence:
       data:
-        existingClaim: satisfactory-data
+        existingClaim: "${VOLSYNC_CLAIM}"
         globalMounts:
-          - path: /config
-      game:
-        existingClaim: satisfactory-game
-        globalMounts:
-          - subPath: game
-            path: /config/gamefiles
-      tmp:
-        type: emptyDir
-        medium: Memory
-        advancedMounts:
-          satisfactory:
-            01-cp:
-              - subPath: configdir
-                path: /home/fake
-            main:
-              - subPath: configdir
-                path: /home/steam
-              - subPath: tmp
-                path: /tmp
+          - path: /data
       backup:
         existingClaim: nfs-games
         globalMounts:
