@@ -144,6 +144,14 @@ data:
         overrides:
           date_range: "6months"
 
+
+      # Custom preset to archive an entire channel (based on playlists)
+      TV Show Full Archive by Playlist:
+        preset:
+          - "base"
+          - "season_by_collection__episode_by_playlist_index"
+          - "sponsorblock_wait"
+
   subscriptions.yaml: |-
     TV Show Full Archive:
       # = Learning | = TV-G:
@@ -154,7 +162,6 @@ data:
         # "PBS Spacetime": "https://youtube.com/@pbsspacetime"
         "Bill Nye The Science Guy": "https://www.youtube.com/@TheRealBillNye"
         "Doctor Mad Science": "https://www.youtube.com/@doctormadscience"
-        "AumSum": "https://www.youtube.com/@AumSum"
 
       = Art and Crafts | = TV-G:
         "Art for Kids Hub": "https://www.youtube.com/@ArtforKidsHub"
@@ -165,8 +172,6 @@ data:
         "Nerdy Nummies Cooking": "https://www.youtube.com/@RosannaPansino"
 
       = Gaming | = TV-G:
-        "Krydax": "https://www.youtube.com/@Krydax8"
-        "EthosLab": "https://www.youtube.com/@EthosLab"
         "TDBRICKS": "https://www.youtube.com/@TDBRICKS"
 
       = Kids | = TV-G:
@@ -205,6 +210,16 @@ data:
         "Secret Life of my Hamster": "https://www.youtube.com/@SecretLifeofmyHamster"
         "Nelson Boys": "https://www.youtube.com/@NelsonBoys"
         "howridiculous": "https://www.youtube.com/@howridiculous"
+
+    TV Show Full Archive by Playlist:
+      = Science | = TV-G:
+        "AumSum": "https://www.youtube.com/@AumSum"
+
+      = Gaming | = TV-G:
+        "Krydax": "https://www.youtube.com/@Krydax8"
+        "EthosLab": "https://www.youtube.com/@EthosLab"
+        "Lets Game It Out": "https://www.youtube.com/playlist?list=PLrBjj4brdIRwRkGTLKqH5hlS_mlMYn_J0"
+        "TotalXclipse": "https://www.youtube.com/watch?v=Pgipp-eDipQ&list=PLxpToD1Are7hyEOv6JmnIi2n7I3ig28LH&pp=iAQB"
 
     # TV Show Only Recent:
     #   = News | = TV-PG:
