@@ -19,12 +19,12 @@ spec:
           limits:
             memory: 4000Mi
         volumeMounts:
-          - name: lobby
+          - name: cobblemon
             mountPath: /mnt/path
         volumes:
-          - name: lobby
+          - name: cobblemon
             persistentVolumeClaim:
-              claimName: minecraft-lobby
+              claimName: minecraft-cobblemon
       tags:
         - minecraft-cobblemon
       version:
