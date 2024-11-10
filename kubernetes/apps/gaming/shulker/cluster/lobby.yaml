@@ -11,6 +11,22 @@ spec:
     spec:
       clusterRef:
         name: minecraft-cluster
+      podOverrides:
+        volumeMounts:
+          - name: lobby
+            mountPath: /mnt/path
+        volumes:
+          - name: lobby
+            persistentVolumeClaim:
+              claimName: minecraft-lobby
+        env:
+          - name: DIFFICULTY
+            value: "easy"
+          - name: ENABLE_WHITELIST
+            value: "true"
+        image:
+          imagePullSecrets: []
+          name: "itzg/minecraft-server:java17@sha256:c0fde979d35a726e17fdafafc6e4ef1b50aa711e576bc76c9de4f2e916577177"
       tags:
         - minecraft-lobby
       version:

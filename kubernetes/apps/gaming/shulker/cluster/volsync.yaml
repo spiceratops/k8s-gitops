@@ -1,0 +1,170 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: minecraft-cobblemon-restic
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: minecraft-cobblemon-restic-secret
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/minecraft-cobblemon"
+        RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
+        AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
+        AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
+  dataFrom:
+    - extract:
+        key: volsync-restic-template
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minecraft-cobblemon
+spec:
+  accessModes: ["ReadWriteOnce"]
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: minecraft-cobblemon-rdst
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: minecraft-cobblemon-rdst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: minecraft-cobblemon-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    capacity: 5Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: minecraft-cobblemon-rsrc
+spec:
+  sourcePVC: minecraft-cobblemon
+  trigger:
+    schedule: "15 */8 * * *"
+  restic:
+    pruneIntervalDays: 10
+    repository: minecraft-cobblemon-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      daily: 10
+      within: 3d
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: minecraft-lobby-restic
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: minecraft-lobby-restic-secret
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/minecraft-lobby"
+        RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
+        AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
+        AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
+  dataFrom:
+    - extract:
+        key: volsync-restic-template
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minecraft-lobby
+spec:
+  accessModes: ["ReadWriteOnce"]
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: minecraft-lobby-rdst
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: minecraft-lobby-rdst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: minecraft-lobby-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    capacity: 5Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: minecraft-lobby-rsrc
+spec:
+  sourcePVC: minecraft-lobby
+  trigger:
+    schedule: "15 */8 * * *"
+  restic:
+    pruneIntervalDays: 10
+    repository: minecraft-lobby-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      daily: 10
+      within: 3d
