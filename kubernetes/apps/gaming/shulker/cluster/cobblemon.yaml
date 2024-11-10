@@ -40,4 +40,4 @@ spec:
         value: "-XX:MaxRAMPercentage=75"
     image:
       imagePullSecrets: []
-      name: "itzg/minecraft-server:java17@sha256:c0fde979d35a726e17fdafafc6e4ef1b50aa711e576bc76c9de4f2e916577177"
+      name: "itzg/minecraft-server:java21@sha256:7605a582444efbf57aefa257480ad5c282bfa677cda792a4781d3917ac6406c6"
