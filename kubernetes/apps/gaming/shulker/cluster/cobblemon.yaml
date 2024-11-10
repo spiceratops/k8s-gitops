@@ -1,43 +1,48 @@
 ---
 apiVersion: shulkermc.io/v1alpha1
-kind: MinecraftServer
+kind: MinecraftServerFleet
 metadata:
   name: minecraft-cobblemon
 spec:
   clusterRef:
     name: minecraft-cluster
-  tags:
-    - minecraft-cobblemon
-  version:
-    channel: Paper
-    name: "1.20.2"
-  config:
-    serverProperties:
-      enforce-whitelist: "true"
-      max-players: "8"
-      gamemode: "survival"
-      difficulty: "easy"
-  podOverrides:
-    volumeMounts:
-      - name: cobblemon
-        mountPath: /mnt/path
-    volumes:
-      - name: cobblemon
-        persistentVolumeClaim:
-          claimName: minecraft-cobblemon
-    resources:
-      requests:
-        memory: 2000Mi
-        cpu: 100m
-      limits:
-        memory: 4000Mi
-    env:
-      - name: MOD_PLATFORM
-        value: MODRINTH
-      - name: MODRINTH_MODPACK
-        value: https://modrinth.com/modpack/cobblemon-fabric/version/1.5.2
-      - name: JVM_XX_OPTS
-        value: "-XX:MaxRAMPercentage=75"
-    image:
-      imagePullSecrets: []
-      name: "itzg/minecraft-server:java21@sha256:7605a582444efbf57aefa257480ad5c282bfa677cda792a4781d3917ac6406c6"
+  replicas: 1
+  template:
+    spec:
+      clusterRef:
+        name: minecraft-cluster
+      podOverrides:
+        resources:
+          requests:
+            memory: 2000Mi
+            cpu: 100m
+          limits:
+            memory: 4000Mi
+        volumeMounts:
+          - name: lobby
+            mountPath: /mnt/path
+        volumes:
+          - name: lobby
+            persistentVolumeClaim:
+              claimName: minecraft-lobby
+      tags:
+        - minecraft-cobblemon
+      version:
+        channel: Paper
+        name: "1.20.1"
+      config:
+        serverProperties:
+          enforce-whitelist: "true"
+          max-players: "8"
+          gamemode: "survival"
+          difficulty: "easy"
+        env:
+          - name: MOD_PLATFORM
+            value: MODRINTH
+          - name: MODRINTH_MODPACK
+            value: https://modrinth.com/modpack/cobblemon-fabric/version/1.5
+          - name: JVM_XX_OPTS
+            value: "-XX:MaxRAMPercentage=75"
+        image:
+          imagePullSecrets: []
+          name: "itzg/minecraft-server:java21@sha256:7605a582444efbf57aefa257480ad5c282bfa677cda792a4781d3917ac6406c6"

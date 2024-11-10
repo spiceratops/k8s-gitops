@@ -9,6 +9,7 @@ spec:
   replicas: 1
   service:
     type: LoadBalancer
+    externalTrafficPolicy: Local
     annotations:
       io.cilium/lb-ipam-ips: "${MINECRAFT_LB_IP}"
       coredns.io/hostname: minecraft.${PRIVATE_DOMAIN}
