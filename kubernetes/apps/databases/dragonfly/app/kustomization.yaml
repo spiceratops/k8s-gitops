@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: databases
 resources:
   # renovate: datasource=github-releases depName=dragonflydb/dragonfly-operator
-  - https://raw.githubusercontent.com/dragonflydb/dragonfly-operator/v1.1.7/manifests/crd.yaml
+  - https://raw.githubusercontent.com/dragonflydb/dragonfly-operator/v1.1.8/manifests/crd.yaml
   - ./helmrelease.yaml
   - ./rbac.yaml
