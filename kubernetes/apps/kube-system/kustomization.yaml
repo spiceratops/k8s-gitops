@@ -14,3 +14,4 @@ resources:
   - ./reloader/ks.yaml
   - ./spegel/ks.yaml
   - ./nvidia-device-plugin/ks.yaml
+  - ./generic-device-plugin/ks.yaml
