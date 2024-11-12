@@ -16,7 +16,6 @@ resources:
   - ./linkding/ks.yaml
   - ./homebox/ks.yaml
   - ./homepage/ks.yaml
-  - ./ghostfolio/ks.yaml
   - ./whoogle/ks.yaml
   - ./drawio/ks.yaml
   - ./paperless/ks.yaml
