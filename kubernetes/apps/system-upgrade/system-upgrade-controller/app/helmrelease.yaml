@@ -8,8 +8,6 @@ spec:
   interval: 30m
   chart:
     spec:
-  chart:
-    spec:
       chart: app-template
       version: 3.5.1
       sourceRef:

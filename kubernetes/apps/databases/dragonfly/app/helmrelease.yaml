@@ -9,8 +9,6 @@ spec:
   timeout: 15m
   chart:
     spec:
-  chart:
-    spec:
       chart: app-template
       version: 3.5.1
       sourceRef:
