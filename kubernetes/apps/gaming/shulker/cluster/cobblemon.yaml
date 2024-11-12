@@ -32,6 +32,9 @@ spec:
             value: https://modrinth.com/modpack/cobblemon-fabric/version/1.5
           - name: JVM_XX_OPTS
             value: "-XX:MaxRAMPercentage=75"
+        image:
+          imagePullSecrets: []
+          name: "itzg/minecraft-server:java21@sha256:7605a582444efbf57aefa257480ad5c282bfa677cda792a4781d3917ac6406c6"
       tags:
         - minecraft-cobblemon
       version:
@@ -43,6 +46,3 @@ spec:
           max-players: "8"
           gamemode: "survival"
           difficulty: "easy"
-        image:
-          imagePullSecrets: []
-          name: "itzg/minecraft-server:java21@sha256:7605a582444efbf57aefa257480ad5c282bfa677cda792a4781d3917ac6406c6"
