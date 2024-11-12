@@ -54,7 +54,7 @@ tasks:
       - for: { var: workers }
         cmd: kubectl label node {{.ITEM}} node-role.kubernetes.io/worker=
     vars:
-      workers: wk01 wk02 wk04
+      workers: wk01 wk02 wk03 wk04
 
   upgrade:
     desc: Upgrade Talos on a node

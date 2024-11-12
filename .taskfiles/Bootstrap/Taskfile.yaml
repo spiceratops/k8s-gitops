@@ -6,7 +6,7 @@ tasks:
   k8s:
     vars: &vars
       cluster: k8s
-      cephnodes: wk01 wk02 wk04
+      cephnodes: wk01 wk02 wk03 wk04
       cephdisk: /dev/nvme0n1
     cmds:
       - task: :talos:bootstrap
