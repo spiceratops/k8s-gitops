@@ -59,6 +59,7 @@ spec:
     - name: external-secrets-stores
     - name: external-dns
     - name: openebs
+    - name: cloudnative-pg-cluster
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster-vecto
   prune: true
   sourceRef:
