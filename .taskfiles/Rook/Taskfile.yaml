@@ -39,11 +39,11 @@ tasks:
         vars:
           node: wk02
           serial: "{{.ITEM}}"
-      # - for: ["nvme-KINGSTON_SKC3000S1024G_50026B76863B29EF"]
-      #   task: .reset-disk
-      #   vars:
-      #     node: wk03
-      #     serial: "{{.ITEM}}"
+      - for: ["nvme-KINGSTON_SKC3000S1024G_50026B76863B29EF"]
+        task: .reset-disk
+        vars:
+          node: wk03
+          serial: "{{.ITEM}}"
       - for: ["nvme-Samsung_SSD_970_EVO_250GB_S46CNX0KA05974T"]
         task: .reset-disk
         vars:
