@@ -98,6 +98,7 @@ nodes:
             - siderolabs/intel-ucode
             - siderolabs/i915-ucode
             - siderolabs/qemu-guest-agent
+            - siderolabs/intel-ice-firmware
 
   - hostname: wk02.${PRIVATE_DOMAIN}
     ipAddress: 192.168.10.212
@@ -117,6 +118,7 @@ nodes:
             - siderolabs/intel-ucode
             - siderolabs/i915-ucode
             - siderolabs/qemu-guest-agent
+            - siderolabs/intel-ice-firmware
 
   - hostname: wk03.${PRIVATE_DOMAIN}
     ipAddress: 192.168.10.213
