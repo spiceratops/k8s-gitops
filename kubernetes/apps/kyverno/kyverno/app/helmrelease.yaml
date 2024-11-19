@@ -22,60 +22,49 @@ spec:
     grafana:
       enabled: true
     admissionController:
-      replicas: 3
-      rbac:
-        clusterRole:
-          extraResources:
-            - apiGroups:
-                - ""
-              resources:
-                - pods
-              verbs:
-                - create
-                - update
-                - delete
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: DoNotSchedule
-          labelSelector:
-            matchLabels:
-              app.kubernetes.io/instance: kyverno
-              app.kubernetes.io/component: kyverno
+      clusterRole:
+        extraResources:
+          - apiGroups:
+              - "*"
+            resources:
+              - "*"
+            verbs:
+              - get
+              - list
+              - watch
       serviceMonitor:
         enabled: true
     backgroundController:
-      rbac:
-        clusterRole:
-          extraResources:
-            - apiGroups:
-                - ""
-              resources:
-                - pods
-              verbs:
-                - create
-                - update
-                - patch
-                - delete
-                - get
-                - list
+      clusterRole:
+        extraResources:
+          - apiGroups:
+              - "*"
+            resources:
+              - "*"
+            verbs:
+              - get
+              - list
+              - watch
       resources:
         requests:
           cpu: 100m
-          memory: 256Mi
         limits:
-          memory: 512Mi
+          memory: 1Gi
+      serviceMonitor:
+        enabled: true
+    reportsController:
+      clusterRole:
+        extraResources:
+          - apiGroups:
+              - "*"
+            resources:
+              - "*"
+            verbs:
+              - get
+              - list
+              - watch
       serviceMonitor:
         enabled: true
     cleanupController:
       serviceMonitor:
         enabled: true
-    reportsController:
-      serviceMonitor:
-        enabled: true
-    config:
-      webhooks:
-        - objectSelector:
-            matchExpressions:
-              - key: webhooks.kyverno.io/exclude
-                operator: DoesNotExist
