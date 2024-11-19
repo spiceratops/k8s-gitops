@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/gameservermanagers/gameserver
-              tag: sf@sha256:be80880cdf6220f0b5fa3c6593072881a9eeb1ca80b982840c6014efdfdfbb48
+              tag: sf@sha256:2fa99d73ec0473c748f0ae53aa4ab7421a56f4c0be1eb1ff55b28a659803b39e
             resources:
               requests:
                 cpu: 100m
