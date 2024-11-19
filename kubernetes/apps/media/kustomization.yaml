@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./_pvc/ks.yaml
-  # - ./bazarr/ks.yaml
+  - ./bazarr/ks.yaml
   - ./jellyfin/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./prowlarr/ks.yaml
@@ -14,7 +14,7 @@ resources:
   - ./flaresolverr/ks.yaml
   - ./jellyseer/ks.yaml
   - ./navidrome/ks.yaml
-  # - ./wizarr/ks.yaml
+  - ./wizarr/ks.yaml
   - ./feishin/ks.yaml
   - ./readarr/ks.yaml
   - ./ytdl-sub/ks.yaml
