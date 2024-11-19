@@ -12,8 +12,6 @@ spec:
   dependsOn:
     - name: volsync
     - name: rook-ceph-cluster
-    - name: cloudnative-pg-cluster
-    - name: external-secrets-stores
   path: ./kubernetes/apps/media/bazarr/app
   prune: true
   sourceRef:
