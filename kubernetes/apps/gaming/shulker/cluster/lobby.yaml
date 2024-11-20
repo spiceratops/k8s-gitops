@@ -12,9 +12,6 @@ spec:
       clusterRef:
         name: minecraft-cluster
       podOverrides:
-        volumeMounts:
-          - name: lobby
-            mountPath: /data
         volumes:
           - name: lobby
             persistentVolumeClaim:

@@ -18,9 +18,6 @@ spec:
             cpu: 100m
           limits:
             memory: 4000Mi
-        volumeMounts:
-          - name: cobblemon
-            mountPath: /data
         volumes:
           - name: cobblemon
             persistentVolumeClaim:
