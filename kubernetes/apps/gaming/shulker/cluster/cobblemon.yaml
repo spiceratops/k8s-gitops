@@ -29,7 +29,7 @@ spec:
           - name: MOD_PLATFORM
             value: MODRINTH
           - name: MODRINTH_MODPACK
-            value: https://modrinth.com/modpack/cobblemon-fabric/version/1.5
+            value: https://cdn.modrinth.com/data/5FFgwNNP/versions/bpaivauC/Cobblemon%20Modpack%20%5BFabric%5D%201.5.2.mrpack
           - name: JVM_XX_OPTS
             value: "-XX:MaxRAMPercentage=75"
         image:

@@ -11,7 +11,7 @@ x-env: &env
   app: "{{.app}}"
   controller: "{{.controller}}"
   claim: "{{.claim}}"
-  ks: "cluster-apps-{{.app}}"
+  ks: "{{.app}}"
   puid: "{{.puid}}"
   pgid: "{{.pgid}}"
   ns: "{{.ns}}"
@@ -99,10 +99,10 @@ tasks:
       ns: '{{.ns | default "default"}}'
       rs: "{{.app}}-rsrc"
       controller:
-        sh: true && {{.volsyncScriptsDir}}/which-controller.sh {{.app}} {{.ns}}
+        sh: true && {{.volsyncScriptsDir}}/controller.sh {{.app}} {{.ns}}
     preconditions:
       - kubectl -n {{.ns}} get replicationsources/{{.rs}}
-      - test -f {{.volsyncScriptsDir}}/which-controller.sh
+      - test -f {{.volsyncScriptsDir}}/controller.sh
       - test -f {{.volsyncScriptsDir}}/wait.sh
 
   # To run restore jobs in parallel for all replicationdestinations:
@@ -133,7 +133,7 @@ tasks:
       rs: "{{.app}}-rsrc"
       previous: "{{.previous | default 2}}"
       controller:
-        sh: "{{.volsyncScriptsDir}}/which-controller.sh {{.app}} {{.ns}}"
+        sh: "{{.volsyncScriptsDir}}/controller.sh {{.app}} {{.ns}}"
       claim:
         sh: kubectl -n {{.ns}} get replicationsources/{{.rs}} -o jsonpath="{.spec.sourcePVC}"
       puid:
@@ -142,7 +142,7 @@ tasks:
         sh: kubectl -n {{.ns}} get replicationsources/{{.rs}} -o jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
     preconditions:
       - kubectl -n {{.ns}} get replicationsources/{{.rs}}
-      - test -f {{.volsyncScriptsDir}}/which-controller.sh
+      - test -f {{.volsyncScriptsDir}}/controller.sh
       - test -f {{.volsyncScriptsDir}}/wait.sh
       - test -f {{.volsyncTemplatesDir}}/replicationdestination.tmpl.yaml
       - test -f {{.volsyncTemplatesDir}}/wipe.tmpl.yaml
