@@ -77,7 +77,7 @@ spec:
         controller: tailscale
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: ${TAILSCALE_LB_IP}
+          lbipam.cilium.io/ips: ${TAILSCALE_LB_IP}
         labels:
           io.cilium/lb-ipam-layer2: "true"
         ports:

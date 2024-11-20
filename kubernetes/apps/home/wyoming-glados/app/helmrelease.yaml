@@ -44,7 +44,7 @@ spec:
         controller: wyoming-glados
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: ${WYOMING_GLADOS_LB_IP}
+          lbipam.cilium.io/ips: ${WYOMING_GLADOS_LB_IP}
         ports:
           http:
             port: 10201

@@ -52,7 +52,7 @@ spec:
         controller: wyoming-piper
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: ${WYOMING_PIPER_LB_IP}
+          lbipam.cilium.io/ips: ${WYOMING_PIPER_LB_IP}
         ports:
           http:
             port: &port 10200

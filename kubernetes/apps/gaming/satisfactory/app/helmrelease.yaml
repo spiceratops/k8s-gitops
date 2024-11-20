@@ -78,7 +78,7 @@ spec:
         type: LoadBalancer
         annotations:
           coredns.io/hostname: satisfactory.${PRIVATE_DOMAIN}
-          io.cilium/lb-ipam-ips: ${SATISFACTORY_LB_IP}
+          lbipam.cilium.io/ips: ${SATISFACTORY_LB_IP}
         externalTrafficPolicy: Local
         ports:
           game-udp:
@@ -103,19 +103,6 @@ spec:
         globalMounts:
           - subPath: game
             path: /config/gamefiles
-      tmp:
-        type: emptyDir
-        medium: Memory
-        advancedMounts:
-          satisfactory:
-            01-cp:
-              - subPath: configdir
-                path: /home/fake
-            main:
-              - subPath: configdir
-                path: /home/steam
-              - subPath: tmp
-                path: /tmp
       backup:
         existingClaim: nfs-games
         globalMounts:

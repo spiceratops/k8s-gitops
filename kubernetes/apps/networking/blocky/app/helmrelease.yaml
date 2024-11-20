@@ -83,7 +83,7 @@ spec:
         controller: blocky
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: ${BLOCKY_LB_IP}
+          lbipam.cilium.io/ips: ${BLOCKY_LB_IP}
           external-dns.alpha.kubernetes.io/hostname: "${HOSTNAME}"
         labels:
           io.cilium/lb-ipam-layer2: "true"

@@ -11,7 +11,7 @@ spec:
     type: LoadBalancer
     externalTrafficPolicy: Local
     annotations:
-      io.cilium/lb-ipam-ips: "${MINECRAFT_LB_IP}"
+      lbipam.cilium.io/ips: "${MINECRAFT_LB_IP}"
       coredns.io/hostname: minecraft.${PRIVATE_DOMAIN}
       service.beta.kubernetes.io/scw-loadbalancer-proxy-protocol-v2: "true"
       service.beta.kubernetes.io/scw-loadbalancer-use-hostname: "true"

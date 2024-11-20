@@ -25,7 +25,7 @@ spec:
     type: LoadBalancer
     metadata:
       annotations:
-        io.cilium/lb-ipam-ips: "${MARIADB_LB_IP}"
+        lbipam.cilium.io/ips: "${MARIADB_LB_IP}"
 
   podSecurityContext:
     runAsUser: 0

@@ -57,7 +57,7 @@ spec:
         controller: wyoming-whisper
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: ${WYOMING_WHISPER_LB_IP}
+          lbipam.cilium.io/ips: ${WYOMING_WHISPER_LB_IP}
         ports:
           http:
             port: 10300

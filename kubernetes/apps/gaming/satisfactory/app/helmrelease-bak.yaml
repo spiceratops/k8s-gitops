@@ -60,7 +60,7 @@ spec:
         type: LoadBalancer
         annotations:
           coredns.io/hostname: satisfactory.${PRIVATE_DOMAIN}
-          io.cilium/lb-ipam-ips: ${SATISFACTORY_LB_IP}
+          lbipam.cilium.io/ips: ${SATISFACTORY_LB_IP}
         externalTrafficPolicy: Local
         ports:
           game-udp:
