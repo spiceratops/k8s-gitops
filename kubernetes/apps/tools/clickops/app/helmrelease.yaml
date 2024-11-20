@@ -76,6 +76,7 @@ spec:
             port: *port
     ingress:
       app:
+        className: internal
         hosts:
           - host: *host
             paths:
@@ -83,6 +84,9 @@ spec:
                 service:
                   identifier: app
                   port: http
+        tls:
+          - hosts:
+              - "${HOSTNAME}"
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Kube Management
