@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: agones
-      version: 1.44.0
+      version: 1.45.0
       sourceRef:
         kind: HelmRepository
         name: agones-charts
