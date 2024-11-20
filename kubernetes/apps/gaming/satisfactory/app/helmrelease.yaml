@@ -20,12 +20,12 @@ spec:
   values:
     controllers:
       satisfactory:
-        type: deployment
+        type: statefulset
         replicas: 1
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          app: &ct
+          app:
             image:
               repository: docker.io/wolveix/satisfactory-server
               tag: v1.8.9@sha256:2829a00545ba3000ad767ace326cc31bb42de3bfd0b7904f4e65c1159606a14e
@@ -34,7 +34,7 @@ spec:
                 cpu: 100m
                 memory: 4Gi
               limits:
-                memory: 16Gi
+                memory: 12Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
@@ -60,11 +60,6 @@ spec:
               MAXTICKRATE: "120" # default is a low 30
               NETWORKQUALITY: "3" # 0-3, 3 is Ultra (default)
               TIMEOUT: "300"
-        initContainers:
-          01-cp:
-            <<: *ct
-            command: ["/bin/sh", "-c", "cp -r /home/steam/. /home/fake/"]
-            resources: {}
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -79,20 +74,14 @@ spec:
         annotations:
           coredns.io/hostname: satisfactory.${PRIVATE_DOMAIN}
           lbipam.cilium.io/ips: ${SATISFACTORY_LB_IP}
-        externalTrafficPolicy: Local
         ports:
           game-udp:
+            primary: true
             port: 7777
             protocol: UDP
           game-tcp:
             port: 7777
             protocol: TCP
-          beacon:
-            port: 15000
-            protocol: UDP
-          query:
-            port: 15777
-            protocol: UDP
     persistence:
       data:
         existingClaim: satisfactory-data
