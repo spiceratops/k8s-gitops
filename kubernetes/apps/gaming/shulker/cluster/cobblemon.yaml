@@ -20,7 +20,7 @@ spec:
             memory: 4000Mi
         volumeMounts:
           - name: cobblemon
-            mountPath: /mnt/path
+            mountPath: /data
         volumes:
           - name: cobblemon
             persistentVolumeClaim:

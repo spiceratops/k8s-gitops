@@ -14,7 +14,7 @@ spec:
       podOverrides:
         volumeMounts:
           - name: lobby
-            mountPath: /mnt/path
+            mountPath: /data
         volumes:
           - name: lobby
             persistentVolumeClaim:
