@@ -64,6 +64,7 @@ spec:
         - 36618
       modrinth:
         projects:
+          - P7dR8mSH
           - MdwFAVRL
         allowedVersionType: release
       rcon:
