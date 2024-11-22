@@ -66,6 +66,7 @@ spec:
       modrinth:
         projects:
           - dynmap
+          - datapack:terralith
         allowedVersionType: beta
       rcon:
         enabled: true

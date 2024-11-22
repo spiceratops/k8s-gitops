@@ -65,6 +65,8 @@ spec:
       modrinth:
         projects:
           - dynmap
+          - datapack:terralith
+          - datapack:dungeons-and-taverns
         allowedVersionType: beta
       rcon:
         enabled: true
