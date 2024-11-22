@@ -5,7 +5,4 @@ resources:
   - ./namespace.yaml
   - ./_pvc/ks.yaml
   - ./romm/ks.yaml
-  - ./agones/ks.yaml
-  - ./shulker/ks.yaml
   - ./satisfactory/ks.yaml
-  # - ./ownfoil/ks.yaml
