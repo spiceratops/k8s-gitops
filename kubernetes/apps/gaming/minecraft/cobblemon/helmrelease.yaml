@@ -64,8 +64,7 @@ spec:
         - 36618
       modrinth:
         projects:
-          - P7dR8mSH
-          - MdwFAVRL
+          - modpack:cobblemon-fabric
         allowedVersionType: release
       rcon:
         enabled: true
