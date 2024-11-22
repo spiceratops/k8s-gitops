@@ -64,10 +64,8 @@ spec:
         - 36618
       modrinth:
         projects:
-          - dynmap
           - MdwFAVRL
-        allowedVersionType: beta
-        optionalDependencies: true
+        allowedVersionType: release
       rcon:
         enabled: true
         serviceType: LoadBalancer
