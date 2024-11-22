@@ -47,7 +47,7 @@ spec:
     servicePort: 25565
     minecraftServer:
       eula: true
-      version: 1.20.1
+      version: 1.21.1
       type: PAPER
       difficulty: normal
       gameMode: survival
