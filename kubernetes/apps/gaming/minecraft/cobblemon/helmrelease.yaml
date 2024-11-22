@@ -64,7 +64,7 @@ spec:
         - 36618
       modrinth:
         projects:
-          - modpack:cobblemon-fabric
+          - datapack:cobblemon-fabric
         allowedVersionType: release
       rcon:
         enabled: true
