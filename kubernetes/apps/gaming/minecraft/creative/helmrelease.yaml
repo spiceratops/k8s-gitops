@@ -63,10 +63,11 @@ spec:
       enableCommandBlock: true
       spigetResources:
         - 36618
+      downloadModpackUrl: https://github.com/Fabulously-Optimized/fabulously-optimized/releases/download/v6.2.3-mr.1/Fabulously.Optimized-6.2.3.zip
       modrinth:
         projects:
-          - fabric-api:P7uGFii0
-          - dynmap:IIQSYMHC
+          - fabric-api
+          - dynmap
           - datapack:terralith
         allowedVersionType: beta
         optionalDependencies: true
