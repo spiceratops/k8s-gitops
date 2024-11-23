@@ -65,6 +65,7 @@ spec:
         - 36618
       modrinth:
         projects:
+          - fabric-api:P7uGFii0
           - dynmap:IIQSYMHC
           - datapack:terralith
         allowedVersionType: beta
