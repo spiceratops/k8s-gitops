@@ -48,7 +48,7 @@ spec:
     minecraftServer:
       eula: true
       version: 1.21.1
-      type: PAPER
+      type: FABRIC
       difficulty: normal
       gameMode: survival
       # whitelist: ""
