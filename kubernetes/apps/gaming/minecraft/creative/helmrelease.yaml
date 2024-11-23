@@ -69,6 +69,7 @@ spec:
           - dynmap:IIQSYMHC
           - datapack:terralith
         allowedVersionType: beta
+        optionalDependencies: true
       rcon:
         enabled: true
         serviceType: LoadBalancer
