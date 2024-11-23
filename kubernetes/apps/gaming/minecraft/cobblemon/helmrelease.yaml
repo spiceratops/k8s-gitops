@@ -60,7 +60,7 @@ spec:
       memory: "8G"
       jvmXXOpts: "-XX:MaxRAMPercentage=70"
       enableCommandBlock: true
-      downloadModpackUrl: https://www.curseforge.com/minecraft/modpacks/cobblemon-fabric/files/5376582
+      downloadModpackUrl: https://mediafilez.forgecdn.net/files/5375/408/Cobblemon-fabric-1.5.2%2B1.20.1.jar
       spigetResources:
         - 36618
       modrinth:
