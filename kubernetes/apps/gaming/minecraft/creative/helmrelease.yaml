@@ -34,10 +34,10 @@ spec:
     extraEnv:
       TZ: ${TZ}
       ENABLE_ROLLING_LOGS: true
-    persistence:
-      dataDir:
-        enabled: true
-        existingClaim: *app
+    # persistence:
+    #   dataDir:
+    #     enabled: true
+    #     existingClaim: *app
     rconServiceAnnotations:
       lbipam.cilium.io/sharing-key: *app
     serviceAnnotations:

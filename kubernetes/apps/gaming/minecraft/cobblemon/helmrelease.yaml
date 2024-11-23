@@ -34,10 +34,10 @@ spec:
     extraEnv:
       TZ: ${TZ}
       ENABLE_ROLLING_LOGS: true
-    persistence:
-      dataDir:
-        enabled: true
-        existingClaim: *app
+    # persistence:
+    #   dataDir:
+    #     enabled: true
+    #     existingClaim: *app
     rconServiceAnnotations:
       lbipam.cilium.io/sharing-key: *app
     serviceAnnotations:
@@ -60,12 +60,13 @@ spec:
       memory: "8G"
       jvmXXOpts: "-XX:MaxRAMPercentage=70"
       enableCommandBlock: true
+      downloadModpackUrl: https://www.curseforge.com/minecraft/modpacks/cobblemon-fabric/files/5376582
       spigetResources:
         - 36618
       modrinth:
         projects:
           - datapack:terralith
-          - cobblemon
+          # - cobblemon
         allowedVersionType: release
       rcon:
         enabled: true
