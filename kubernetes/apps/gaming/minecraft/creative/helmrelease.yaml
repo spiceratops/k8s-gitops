@@ -47,7 +47,7 @@ spec:
     servicePort: 25565
     minecraftServer:
       eula: true
-      version: 1.20.1
+      version: 1.21.1
       type: FABRIC
       difficulty: normal
       gameMode: creative
@@ -63,7 +63,6 @@ spec:
       enableCommandBlock: true
       spigetResources:
         - 36618
-      downloadModpackUrl: https://github.com/Fabulously-Optimized/fabulously-optimized/releases/download/v6.2.3-mr.1/Fabulously.Optimized-6.2.3.zip
       modrinth:
         projects:
           - fabric-api
