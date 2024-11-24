@@ -47,7 +47,7 @@ spec:
     servicePort: 25565
     minecraftServer:
       eula: true
-      version: 1.21.1
+      version: 1.20.1
       type: FABRIC
       difficulty: normal
       gameMode: creative
@@ -66,7 +66,7 @@ spec:
       modrinth:
         projects:
           - fabric-api
-          - dynmap:IIQSYMHC
+          - dynmap
           - datapack:terralith
         allowedVersionType: beta
         optionalDependencies: true
