@@ -13,7 +13,7 @@ spec:
     name: mariadb-secret
     key: password
 
-  image: "mariadb:11.5.2"
+  image: "mariadb:11.6.2"
 
   storage:
     size: 5Gi
