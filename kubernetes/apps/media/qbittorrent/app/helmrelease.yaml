@@ -27,7 +27,7 @@ spec:
           app:
             nameOverride: qbittorrent
             image:
-              repository: ghcr.io/onedr0p/qbittorrent
+              repository: ghcr.io/onedr0p/qbittorrent-beta
               tag: 5.0.2@sha256:adfd625f9cc7226eabad8aa117a551d42d5818c914850ef7fa3be60111383107
             env:
               UMASK: "022"
