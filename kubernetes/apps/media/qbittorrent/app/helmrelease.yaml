@@ -60,7 +60,7 @@ spec:
               limits:
                 memory: 8192Mi
             securityContext:
-              runAsUser: 1000
+              runAsUser: 568
               runAsGroup: 568
               runAsNonRoot: true
               allowPrivilegeEscalation: false
@@ -111,7 +111,7 @@ spec:
               CRON_SCHEDULE: "*/5 * * * *"
               LOG_TIMESTAMP: false
             securityContext:
-              runAsUser: 1000
+              runAsUser: 568
               runAsGroup: 568
               runAsNonRoot: true
               allowPrivilegeEscalation: false
