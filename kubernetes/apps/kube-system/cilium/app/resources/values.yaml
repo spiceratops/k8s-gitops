@@ -5,7 +5,7 @@ bandwidthManager:
   bbr: true
 bpf:
   hostLegacyRouting: true
-  masquerade: true
+  masquerade: false
   tproxy: true
 bgpControlPlane:
   enabled: true
