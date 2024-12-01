@@ -21,5 +21,5 @@ resources:
   - ./lidarr/ks.yaml
   - ./audiobookshelf/ks.yaml
   # - ./tdarr/ks.yaml
-  # - ./qbittorrent/ks.yaml
-  # - ./cross-seed/ks.yaml
+  - ./qbittorrent/ks.yaml
+  - ./cross-seed/ks.yaml
