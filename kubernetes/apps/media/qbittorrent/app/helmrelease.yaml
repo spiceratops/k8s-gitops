@@ -29,34 +29,6 @@ spec:
               repository: docker.io/powerdns/dnsdist-19
               tag: 1.9.7
             restartPolicy: Always
-          gluetun:
-            dependsOn:
-              - dnsdist
-            image:
-              repository: ghcr.io/qdm12/gluetun
-              tag: v3.39.1
-            env:
-              DOT: "off"
-              DNS_ADDRESS: "127.0.0.2"
-              VPN_SERVICE_PROVIDER: custom
-              VPN_TYPE: wireguard
-              VPN_INTERFACE: wg0
-              WIREGUARD_ENDPOINT_PORT: 51820
-              VPN_PORT_FORWARDING: on
-              VPN_PORT_FORWARDING_PROVIDER: protonvpn
-              FIREWALL_INPUT_PORTS: 8080
-              FIREWALL_OUTBOUND_SUBNETS: 10.245.0.0/16,10.244.0.0/16 # Allow access to k8s subnets
-            envFrom:
-              - secretRef:
-                  name: qbittorrent-secret
-            resources:
-              limits:
-                squat.ai/tun: "1"
-            securityContext:
-              capabilities:
-                add:
-                  - NET_ADMIN
-              allowPrivilegeEscalation: false
         containers:
           app:
             nameOverride: qbittorrent
@@ -102,6 +74,34 @@ spec:
               capabilities:
                 drop:
                   - ALL
+          gluetun:
+            dependsOn:
+              - dnsdist
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.39.1
+            env:
+              DOT: "off"
+              DNS_ADDRESS: "127.0.0.2"
+              VPN_SERVICE_PROVIDER: custom
+              VPN_TYPE: wireguard
+              VPN_INTERFACE: wg0
+              WIREGUARD_ENDPOINT_PORT: 51820
+              VPN_PORT_FORWARDING: on
+              VPN_PORT_FORWARDING_PROVIDER: protonvpn
+              FIREWALL_INPUT_PORTS: 8080
+              FIREWALL_OUTBOUND_SUBNETS: 10.245.0.0/16,10.244.0.0/16 # Allow access to k8s subnets
+            envFrom:
+              - secretRef:
+                  name: qbittorrent-secret
+            resources:
+              limits:
+                squat.ai/tun: "1"
+            securityContext:
+              capabilities:
+                add:
+                  - NET_ADMIN
+              allowPrivilegeEscalation: false
           vuetorrent:
             dependsOn: app
             image:
