@@ -4,3 +4,11 @@ kind: Kustomization
 namespace: media
 resources:
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: firefox-dnsdist
+    files:
+      - ./config/dnsdist.conf
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

@@ -114,3 +114,13 @@ spec:
         ports:
           http:
             port: 5800
+    persistence:
+      dnsdist:
+        type: configMap
+        name: firefox-dnsdist
+        advancedMounts:
+          firefox:
+            dnsdist:
+              - path: /etc/dnsdist/dnsdist.conf
+                subPath: dnsdist.conf
+                readOnly: true
