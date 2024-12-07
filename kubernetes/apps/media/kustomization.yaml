@@ -23,4 +23,4 @@ resources:
   # - ./tdarr/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./cross-seed/ks.yaml
-  - ./firefox/ks.yaml
+  # - ./firefox/ks.yaml
