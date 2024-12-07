@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: jlesage/firefox
-              tag: 24.11.1
+              tag: v24.11.1
             env:
               TZ: ${TIMEZONE}
             resources:
