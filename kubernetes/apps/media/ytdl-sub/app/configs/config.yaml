@@ -210,11 +210,11 @@ data:
         "Secret Life of my Hamster": "https://www.youtube.com/@SecretLifeofmyHamster"
         "Nelson Boys": "https://www.youtube.com/@NelsonBoys"
         "howridiculous": "https://www.youtube.com/@howridiculous"
-        "Unspeakable": "https://www.youtube.com/@Unspeakable"
+        # "Unspeakable": "https://www.youtube.com/@Unspeakable"
 
     TV Show Full Archive by Playlist:
-      = Science | = TV-G:
-        "AumSum": "https://www.youtube.com/@AumSum"
+      # = Science | = TV-G:
+      #   "AumSum": "https://www.youtube.com/@AumSum"
 
       = Gaming | = TV-G:
         "Krydax": "https://www.youtube.com/@Krydax8"
