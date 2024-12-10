@@ -98,8 +98,6 @@ spec:
         globalMounts:
           - path: /.npm
       recs:
-        type: nfs
-        server: mnas.${PUBLIC_DOMAIN}
-        path: /nvr/scrypted
+        existingClaim: nfs-nvr
         globalMounts:
           - path: /recs
