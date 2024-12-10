@@ -49,7 +49,7 @@ spec:
                 cpu: 136m
                 memory: 1024Mi
               limits:
-                gpu.intel.com/i915: 1
+                # gpu.intel.com/i915: 1
                 memory: 8192Mi
 
     service:
@@ -69,6 +69,11 @@ spec:
         className: "internal"
         annotations:
           external-dns.alpha.kubernetes.io/target: internal.${PRIVATE_DOMAIN}
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: NVR
+          gethomepage.dev/group: Home
+          gethomepage.dev/icon: scrypted.png
+          gethomepage.dev/name: Scrypted
         hosts:
           - host: nvr.${PRIVATE_DOMAIN}
             paths:
