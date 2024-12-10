@@ -70,7 +70,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: internal.${PRIVATE_DOMAIN}
         hosts:
-          - host: "${HOSTNAME}"
+          - host: nvr.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:

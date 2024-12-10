@@ -9,3 +9,4 @@ resources:
   - ./guacamole/ks.yaml
   - ./wyoming-glados/ks.yaml
   - ./scrypted/ks.yaml
+  - ./go2rtc/ks.yaml
