@@ -1,6 +1,6 @@
 ---
 log:
   output: "stdout"
-# streams:
-#   3d_printer: rtsp://scrypted.home.svc.cluster.local:34136/tbc
-#   doorbell: rtsp://scrypted.home.svc.cluster.local:34135/tbc
+  # streams:
+  #   3d_printer: rtsp://scrypted.home.svc.cluster.local:34136/tbc
+  doorbell: rtsp://scrypted.home.svc.cluster.local:38101/53e15dd48b48e313
