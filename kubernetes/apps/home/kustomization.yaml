@@ -8,3 +8,4 @@ resources:
   - ./wyoming-openwakeword/ks.yaml
   - ./guacamole/ks.yaml
   - ./wyoming-glados/ks.yaml
+  - ./scrypted/ks.yaml
