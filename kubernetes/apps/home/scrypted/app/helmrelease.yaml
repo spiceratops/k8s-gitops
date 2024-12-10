@@ -100,6 +100,6 @@ spec:
       recs:
         type: nfs
         server: mnas.${PUBLIC_DOMAIN}
-        path: /tank/nvr/scrypted
+        path: /nvr/scrypted
         globalMounts:
           - path: /recs
