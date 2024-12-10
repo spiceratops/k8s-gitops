@@ -391,7 +391,9 @@ controlPlane:
       machine:
         features:
           hostDNS:
-            enabled: false
+            enabled: true
+            resolveMemberNames: true
+            forwardKubeDNSToHost: false
 
 worker:
   nodeLabels:
