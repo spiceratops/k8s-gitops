@@ -36,7 +36,7 @@ spec:
               NEXTAUTH_URL: https://hoarder.${PRIVATE_DOMAIN}
               # OAuth setup
               OAUTH_PROVIDER_NAME: Authelia
-              OAUTH_WELLKNOWN_URL: http://authelia.security.svc.cluster.local:9091/.well-known/openid-configuration
+              OAUTH_WELLKNOWN_URL: https://auth.${PRIVATE_DOMAIN}/.well-known/oauth-authorization-server
               DISABLE_PASSWORD_AUTH: "true"
             envFrom: &envFrom
               - secretRef:
