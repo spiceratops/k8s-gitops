@@ -24,3 +24,4 @@ resources:
   - ./hajimari/ks.yaml
   - ./wallos/ks.yaml
   - ./mmp/ks.yaml
+  - ./hoarder/ks.yaml
