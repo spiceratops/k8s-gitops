@@ -42,7 +42,7 @@ spec:
           app:
             image:
               repository: ghcr.io/spiceratops/lidarr
-              tag: 2.7.1
+              tag: 2.8.2
             env:
               TZ: "${TIMEZONE}"
               LIDARR__INSTANCE_NAME: Lidarr
