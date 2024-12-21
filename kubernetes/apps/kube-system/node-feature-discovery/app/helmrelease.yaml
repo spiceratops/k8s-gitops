@@ -39,3 +39,21 @@ spec:
           pci:
             deviceClassWhitelist: ["02", "0200", "0207", "0300", "0302"]
             deviceLabelFields: ["vendor"]
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+    master:
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: "node-role.kubernetes.io/control-plane"
+                    operator: In
+                    values: [""]
+    prometheus:
+      enable: true
