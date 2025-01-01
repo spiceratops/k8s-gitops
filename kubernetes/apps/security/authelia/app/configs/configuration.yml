@@ -179,7 +179,8 @@ identity_providers:
         description: Open Webui
         secret: "${OPEN_WEBUI_OAUTH_CLIENT_SECRET}"
         public: false
-        redirect_uris: ["https://ollama.${PRIVATE_DOMAIN}/oauth/oidc/callback"]
+        redirect_uris:
+          ["https://open-webui.${PRIVATE_DOMAIN}/oauth/oidc/callback"]
         scopes: ["openid", "profile", "email"]
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
