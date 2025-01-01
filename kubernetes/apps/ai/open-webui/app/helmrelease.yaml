@@ -31,7 +31,6 @@ spec:
               WEBUI_NAME: Ollama
               WEBUI_URL: https://${HOSTNAME}
               ENABLE_OLLAMA_API: true
-              DATA_DIR: /data
               OLLAMA_API_BASE_URL: http://ollama.ai.svc.cluster.local:11434
               # AUDIO_OPENAI_API_BASE_URL: https://piper.${PRIVATE_DOMAIN}/v1
               # AUDIO_OPENAI_API_KEY: sk-111111111111 # fake key needed to make ui happy
