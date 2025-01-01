@@ -39,7 +39,8 @@ spec:
               OAUTH_PROVIDER_NAME: Authelia
               ENABLE_OAUTH_SIGNUP: true
               ENABLE_LOGIN_FORM: false
-              WEBUI_AUTH_TRUSTED_EMAIL_HEADER: Remote-User
+              WEBUI_AUTH_TRUSTED_EMAIL_HEADER: Remote-Email
+              OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
               OPENID_REDIRECT_URI: "https://open-webui.${PRIVATE_DOMAIN}/oauth/oidc/callback"
             envFrom:
               - secretRef:
