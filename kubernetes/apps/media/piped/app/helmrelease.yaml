@@ -1,0 +1,219 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: piped
+  namespace: media
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+
+  values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+
+    controllers:
+      backend:
+        strategy: RollingUpdate
+        annotations:
+          secret.reloader.stakater.com/reload: piped-secret
+
+        containers:
+          app:
+            image:
+              repository: 1337kavin/piped
+              tag: latest@sha256:dd5a79a00b7db0672844709f6c5f67b938ad6b62673e07c24072324a0326966b
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 500Mi
+              limits:
+                memory: 2000Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              seccompProfile:
+                type: RuntimeDefault
+
+      frontend:
+        strategy: RollingUpdate
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/bjw-s-labs/piped-frontend
+              tag: 2024.12.27@sha256:f97ff00c9869712a3061435db6b19b35c21f151732d0aae9817e7cef9f6adab6
+            env:
+              BACKEND_HOSTNAME: piped-api.${PRIVATE_DOMAIN}
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 256Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
+
+      ytproxy:
+        strategy: RollingUpdate
+
+        containers:
+          app:
+            image:
+              repository: 1337kavin/piped-proxy
+              tag: latest@sha256:c4527fc53b5a4a948a6fcf64be9d3f08f481064f1300ce0476709f603fda8498
+            command:
+              - /app/piped-proxy
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 500Mi
+              limits:
+                memory: 2000Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              seccompProfile:
+                type: RuntimeDefault
+
+      update-subscriptions:
+        type: cronjob
+
+        cronjob:
+          schedule: "@daily"
+          backoffLimit: 0
+          concurrencyPolicy: Forbid
+          failedJobsHistory: 1
+          successfulJobsHistory: 0
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/bjw-s-labs/piped-scripts
+              tag: 0.0.2@sha256:7df2d32562b28995a5c973eac912874335e69bc65d678a6cc7fbb1258d54bf8b
+            env:
+              SCRIPT_NAME: update_subscriptions.sh
+              PIPED_BACKEND: http://piped-backend.media.svc.cluster.local:8080
+              MIN_SLEEP_BETWEEN_FEEDS: 30
+              MAX_SLEEP_BETWEEN_FEEDS: 120
+            envFrom:
+              - secretRef:
+                  name: piped-db-secret
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 128Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              seccompProfile:
+                type: RuntimeDefault
+
+    service:
+      backend:
+        controller: backend
+        ports:
+          http:
+            port: 8080
+      frontend:
+        controller: frontend
+        ports:
+          http:
+            port: 8080
+      ytproxy:
+        controller: ytproxy
+        ports:
+          http:
+            port: 8080
+
+    ingress:
+      backend:
+        annotations:
+          nginx.ingress.kubernetes.io/enable-cors: "true"
+          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${PRIVATE_DOMAIN}, https://piped-api.${PRIVATE_DOMAIN}, https://piped-proxy.${PRIVATE_DOMAIN}"
+        className: internal"
+        hosts:
+          - host: piped-api.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: backend
+                  port: http
+      frontend:
+        annotations:
+          nginx.ingress.kubernetes.io/enable-cors: "true"
+          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${PRIVATE_DOMAIN}, https://piped-api.${PRIVATE_DOMAIN}, https://piped-proxy.${PRIVATE_DOMAIN}"
+        className: "internal"
+        hosts:
+          - host: piped.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: frontend
+                  port: http
+      ytproxy:
+        annotations:
+          nginx.ingress.kubernetes.io/enable-cors: "true"
+          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${PRIVATE_DOMAIN}, https://piped-api.${PRIVATE_DOMAIN}, https://piped-proxy.${PRIVATE_DOMAIN}"
+        className: "internal"
+        hosts:
+          - host: piped-proxy.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: ytproxy
+                  port: http
+
+    persistence:
+      config:
+        type: secret
+        name: piped-secret
+        advancedMounts:
+          backend:
+            app:
+              - path: /app/config.properties
+                subPath: config.properties
+                readOnly: true
