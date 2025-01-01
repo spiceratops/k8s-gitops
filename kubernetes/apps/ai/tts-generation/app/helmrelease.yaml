@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/rsxdalv/tts-generation-webui
-              tag: main@sha256:defca7fbfeb51926f29c7e90f0c29c831ced218c992efd4752c9fe86ede95fa9
+              tag: main@sha256:3dd5ef05aa18d39e0de26123a8b7171f93d399bb5454ffe10a86a5fe981afc5d
             env:
               TZ: ${TIMEZONE}
             resources:
