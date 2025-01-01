@@ -21,8 +21,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      APP2: &appname2 open-webui-ui
       HOSTNAME: open-webui.${PRIVATE_DOMAIN}
-      HOSTNAME2: open-webui-api.${PRIVATE_DOMAIN}
-      VOLSYNC_CLAIM: *appname
-      VOLSYNC_CLAIM2: *appname2
