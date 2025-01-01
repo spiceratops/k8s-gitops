@@ -195,6 +195,11 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/enable-cors: "true"
           nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${PRIVATE_DOMAIN}, https://piped-api.${PRIVATE_DOMAIN}, https://piped-proxy.${PRIVATE_DOMAIN}"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: YT Proxy
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: youtube.png
+          gethomepage.dev/name: Piped
         className: "internal"
         hosts:
           - host: piped.${PRIVATE_DOMAIN}
