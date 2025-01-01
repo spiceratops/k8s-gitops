@@ -1,0 +1,91 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: comfyui
+  namespace: ai
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    controllers:
+      comfyui:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          nodeSelector:
+            nvidia.feature.node.kubernetes.io/gpu: "true"
+          runtimeClassName: nvidia
+        containers:
+          app:
+            image:
+              repository: ghcr.io/ai-dock/comfyui
+              tag: v2-cuda-12.1.1-base-22.04-v0.2.0@sha256:eacd7b9281383b13b53d86cacc283f856417c79a1312634e8a9cc6308cbe60f6
+            env:
+              TZ: ${TIMEZONE}
+              AUTO_UPDATE: true
+              COMFYUI_URL: https://${HOSTNAME}
+              SERVICEPORTAL_URL: https://sp-${HOSTNAME}
+              CF_QUICK_TUNNELS: false
+              # PROVISIONING_SCRIPT: "https://raw.githubusercontent.com/ai-dock/comfyui/main/config/provisioning/flux.sh"
+            envFrom:
+              - secretRef:
+                  name: comfyui-secret
+            resources:
+              requests:
+                nvidia.com/gpu: 1
+                cpu: 500m
+                memory: 6Gi
+              limits:
+                memory: 6Gi
+                nvidia.com/gpu: 1
+    service:
+      app:
+        controller: comfyui
+        ports:
+          http:
+            port: 8188
+          serviceportal:
+            port: 1111
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          nginx.ingress.kubernetes.io/rewrite-target: "/"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: AI
+          gethomepage.dev/name: ComfyUI
+          gethomepage.dev/icon: mdi-draw
+        hosts:
+          - host: ${HOSTNAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+          - host: sp-${HOSTNAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: serviceportal
+        tls:
+          - hosts:
+              - ${HOSTNAME}
+              - sp-${HOSTNAME}
+    persistence:
+      app:
+        enabled: true
+        existingClaim: comfyui
+        globalMounts:
+          - path: /opt/storage
