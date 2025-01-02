@@ -146,7 +146,7 @@ spec:
               MAX_SLEEP_BETWEEN_FEEDS: 120
             envFrom:
               - secretRef:
-                  name: piped-db-secret
+                  name: piped-secret
             resources:
               requests:
                 cpu: 10m
