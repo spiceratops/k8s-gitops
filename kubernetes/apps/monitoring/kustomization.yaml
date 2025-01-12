@@ -7,7 +7,6 @@ resources:
   - ./grafana/ks.yaml
   - ./karma/ks.yaml
   - ./thanos/ks.yaml
-  - ./unpoller/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./exporters
   - ./apprise/ks.yaml
