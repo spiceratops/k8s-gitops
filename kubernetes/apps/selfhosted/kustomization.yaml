@@ -11,7 +11,7 @@ resources:
   - ./miniflux/ks.yaml
   - ./windmill/ks.yaml
   - ./actual/ks.yaml
-  # - ./immich/ks.yaml
+  - ./immich/ks.yaml
   - ./wallabag/ks.yaml
   - ./linkding/ks.yaml
   - ./homebox/ks.yaml
