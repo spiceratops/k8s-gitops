@@ -21,4 +21,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: open-webui.${PRIVATE_DOMAIN}
+      HOSTNAME: ollama.${PRIVATE_DOMAIN}
