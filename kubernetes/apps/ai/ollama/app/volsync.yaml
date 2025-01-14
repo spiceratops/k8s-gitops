@@ -61,14 +61,14 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: ollama-models-rsrc
+  name: ollama-rsrc
 spec:
-  sourcePVC: ollama-models
+  sourcePVC: ollama
   trigger:
     schedule: "15 */8 * * *"
   restic:
     pruneIntervalDays: 10
-    repository: ollama-models-restic-secret
+    repository: ollama-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteMany"]
     storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
