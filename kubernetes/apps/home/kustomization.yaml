@@ -5,7 +5,7 @@ resources:
   - ./namespace.yaml
   - ./_pvc/ks.yaml
   - ./wyoming-piper/ks.yaml
-  # - ./wyoming-whisper/ks.yaml
+  - ./wyoming-whisper/ks.yaml
   - ./wyoming-openwakeword/ks.yaml
   - ./guacamole/ks.yaml
   - ./wyoming-glados/ks.yaml
