@@ -79,7 +79,7 @@ spec:
           gethomepage.dev/description: Search Engine
         className: internal
         hosts:
-          - host: "${HOSTNAME}"
+          - host: &host search.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:
@@ -87,7 +87,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - "${HOSTNAME}"
+              - *host
     persistence:
       config:
         type: configMap
