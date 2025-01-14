@@ -50,8 +50,15 @@ spec:
           http:
             port: 11434
     persistence:
+      models:
+        enabled: true
+        existingClaim: ollama-models
+        advancedMounts:
+          ollama:
+            app:
+              - path: /models
       config:
         enabled: true
         existingClaim: ollama
         globalMounts:
-          - path: /models
+          - path: /root/.ollama

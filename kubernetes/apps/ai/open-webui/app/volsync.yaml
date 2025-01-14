@@ -1,0 +1,85 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: open-webui-restic
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: open-webui-restic-secret
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/open-webui"
+        RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
+        AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
+        AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
+  dataFrom:
+    - extract:
+        key: volsync-restic-template
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: open-webui
+spec:
+  accessModes: ["ReadWriteMany"]
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: open-webui-rdst
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: open-webui-rdst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: open-webui-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteMany"]
+    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    capacity: 10Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: open-webui-rsrc
+spec:
+  sourcePVC: open-webui
+  trigger:
+    schedule: "15 */8 * * *"
+  restic:
+    pruneIntervalDays: 10
+    repository: open-webui-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteMany"]
+    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      daily: 10
+      within: 3d
