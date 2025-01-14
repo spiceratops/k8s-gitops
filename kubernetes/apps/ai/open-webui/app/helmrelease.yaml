@@ -41,8 +41,8 @@ spec:
               WEBUI_URL: https://${HOSTNAME}
               ENABLE_OLLAMA_API: true
               OLLAMA_API_BASE_URL: http://ollama.ai.svc.cluster.local:11434
-              # AUDIO_OPENAI_API_BASE_URL: https://piper.${PRIVATE_DOMAIN}/v1
-              # AUDIO_OPENAI_API_KEY: sk-111111111111 # fake key needed to make ui happy
+              AUDIO_OPENAI_API_BASE_URL: https://piper.${PRIVATE_DOMAIN}/v1
+              AUDIO_OPENAI_API_KEY: sk-111111111111 # fake key needed to make ui happy
               RAG_EMBEDDING_ENGINE: open-webui
               # OPENID_PROVIDER_URL: https://auth.${PRIVATE_DOMAIN}/.well-known/openid-configuration
               # OAUTH_PROVIDER_NAME: Authelia
@@ -51,9 +51,9 @@ spec:
               # WEBUI_AUTH_TRUSTED_EMAIL_HEADER: Remote-Email
               # OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
               # OPENID_REDIRECT_URI: "https://open-webui.${PRIVATE_DOMAIN}/oauth/oidc/callback"
-              # ENABLE_RAG_WEB_SEARCH: true
-              # RAG_WEB_SEARCH_ENGINE: searxng
-              # SEARXNG_QUERY_URL: http://searxng.selfhosted.svc.cluster.local:8080/search?q=<query>
+              ENABLE_RAG_WEB_SEARCH: true
+              RAG_WEB_SEARCH_ENGINE: searxng
+              SEARXNG_QUERY_URL: http://searxng.selfhosted.svc.cluster.local:8080/search?q=<query>
               WEBUI_SESSION_COOKIE_SAME_SITE: "lax"
               WEBUI_SESSION_COOKIE_SECURE: "True"
               # OAUTH_USERNAME_CLAIM: "preferred_username"
