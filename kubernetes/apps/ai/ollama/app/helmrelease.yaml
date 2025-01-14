@@ -18,11 +18,11 @@ spec:
 
   values:
     controllers:
-      main:
+      ollama:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/ollama/ollama
               tag: 0.5.5
@@ -44,8 +44,8 @@ spec:
             nvidia.feature.node.kubernetes.io/gpu: "true"
           runtimeClassName: nvidia
     service:
-      main:
-        controller: main
+      app:
+        controller: ollama
         ports:
           http:
             port: 11434
@@ -55,7 +55,7 @@ spec:
         existingClaim: ollama-models
         advancedMounts:
           ollama:
-            main:
+            app:
               - path: /models
       config:
         enabled: true
