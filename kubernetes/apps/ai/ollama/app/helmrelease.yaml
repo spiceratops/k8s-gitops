@@ -55,7 +55,7 @@ spec:
         existingClaim: ollama-models
         advancedMounts:
           ollama:
-            app:
+            main:
               - path: /models
       config:
         enabled: true
