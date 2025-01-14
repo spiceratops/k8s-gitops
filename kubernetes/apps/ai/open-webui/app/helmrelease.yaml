@@ -84,7 +84,7 @@ spec:
           gethomepage.dev/group: AI
           gethomepage.dev/name: Ollama
         hosts:
-          - host: ${HOSTNAME}
+          - host: &host chat.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:
@@ -92,7 +92,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - ${HOSTNAME}
+              - *host
     persistence:
       config:
         enabled: true

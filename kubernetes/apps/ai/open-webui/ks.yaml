@@ -21,4 +21,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: ollama.${PRIVATE_DOMAIN}
+      HOSTNAME: chat.${PRIVATE_DOMAIN}
