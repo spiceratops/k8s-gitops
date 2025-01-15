@@ -74,16 +74,16 @@ spec:
           - hosts:
               - ${HOSTNAME}
     persistence:
-      workspace:
+      app:
         enabled: true
         existingClaim: comfyui
         globalMounts:
           - path: /app
-      output:
-        enabled: true
-        existingClaim: nfs-ai-output
-        globalMounts:
-          - path: /app/ComfyUI/output
+      # output:
+      #   enabled: true
+      #   existingClaim: nfs-ai-output
+      #   globalMounts:
+      #     - path: /app/ComfyUI/output
       # config:
       #   type: configMap
       #   name: comfyui-configmap
