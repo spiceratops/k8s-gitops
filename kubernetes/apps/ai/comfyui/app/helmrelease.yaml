@@ -28,7 +28,7 @@ spec:
             nvidia.feature.node.kubernetes.io/gpu: "true"
           runtimeClassName: nvidia
           securityContext:
-            runAsUser: 1000
+            runAsUser: 0
             runAsGroup: 1111
             fsGroup: 1111
             fsGroupChangePolicy: "OnRootMismatch"
