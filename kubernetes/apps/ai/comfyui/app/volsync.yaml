@@ -33,7 +33,7 @@ spec:
     name: comfyui-rdst
   resources:
     requests:
-      storage: 50Gi
+      storage: 20Gi
   storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
 ---
 apiVersion: volsync.backube/v1alpha1
@@ -54,9 +54,9 @@ spec:
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
       runAsUser: 568
-      runAsGroup: 1111
-      fsGroup: 1111
-    capacity: 50Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+      runAsGroup: 568
+      fsGroup: 568
+    capacity: 20Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
@@ -78,8 +78,8 @@ spec:
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
       runAsUser: 568
-      runAsGroup: 1111
-      fsGroup: 1111
+      runAsGroup: 568
+      fsGroup: 568
     retain:
       daily: 10
       within: 3d
