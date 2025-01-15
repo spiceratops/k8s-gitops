@@ -111,3 +111,8 @@ spec:
               - path: /workspace/ComfyUI/custom_nodes/ComfyUI-Manager/config.ini
                 subPath: config.ini
                 readOnly: true
+      cache:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /home/user/.cache
