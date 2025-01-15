@@ -49,3 +49,4 @@ resources:
   - ./k8s-gateway-charts.yaml
   - ./ollama-charts.yaml
   - ./open-webui-charts.yaml
+  - ./k8sgpt-charts.yaml
