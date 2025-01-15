@@ -34,7 +34,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
@@ -47,15 +47,15 @@ spec:
     repository: ollama-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteMany"]
-    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
     capacity: 10Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
@@ -71,15 +71,15 @@ spec:
     repository: ollama-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteMany"]
-    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
     retain:
       daily: 10
       within: 3d
@@ -119,7 +119,7 @@ spec:
   resources:
     requests:
       storage: 150Gi
-  storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
@@ -132,15 +132,15 @@ spec:
     repository: ollama-models-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteMany"]
-    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
     capacity: 150Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
@@ -156,15 +156,15 @@ spec:
     repository: ollama-models-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteMany"]
-    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
     retain:
       daily: 10
       within: 3d
