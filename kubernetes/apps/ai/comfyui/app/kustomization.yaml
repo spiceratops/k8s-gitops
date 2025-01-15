@@ -6,9 +6,9 @@ resources:
   - ./externalsecret.yaml
   - ./volsync.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: comfyui-configmap
-    files:
-      - config.ini=./config/config.ini
-generatorOptions:
-  disableNameSuffixHash: true
+# configMapGenerator:
+#   - name: comfyui-configmap
+#     files:
+#       - config.ini=./config/config.ini
+# generatorOptions:
+#   disableNameSuffixHash: true
