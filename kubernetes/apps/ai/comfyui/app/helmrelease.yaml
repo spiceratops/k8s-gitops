@@ -79,7 +79,7 @@ spec:
         existingClaim: comfyui
         globalMounts:
           - path: /app
-      cache:
+      scripts:
         type: emptyDir
         globalMounts:
           - path: /scripts
