@@ -115,4 +115,4 @@ spec:
         enabled: true
         type: emptyDir
         globalMounts:
-          - path: /home/user/.cache
+          - path: /home/user
