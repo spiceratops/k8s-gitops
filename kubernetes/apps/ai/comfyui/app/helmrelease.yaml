@@ -79,6 +79,10 @@ spec:
         existingClaim: comfyui
         globalMounts:
           - path: /app
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /scripts
       # output:
       #   enabled: true
       #   existingClaim: nfs-ai-output
