@@ -40,7 +40,7 @@ nodes:
         systemExtensions:
           officialExtensions:
             - siderolabs/intel-ucode
-            - siderolabs/i915-ucode
+            - siderolabs/i915
             - siderolabs/qemu-guest-agent
 
   - hostname: cp02.${PRIVATE_DOMAIN}
@@ -59,7 +59,7 @@ nodes:
         systemExtensions:
           officialExtensions:
             - siderolabs/intel-ucode
-            - siderolabs/i915-ucode
+            - siderolabs/i915
             - siderolabs/qemu-guest-agent
 
   - hostname: cp03.${PRIVATE_DOMAIN}
@@ -96,7 +96,7 @@ nodes:
         systemExtensions:
           officialExtensions:
             - siderolabs/intel-ucode
-            - siderolabs/i915-ucode
+            - siderolabs/i915
             - siderolabs/qemu-guest-agent
             - siderolabs/intel-ice-firmware
 
@@ -116,7 +116,7 @@ nodes:
         systemExtensions:
           officialExtensions:
             - siderolabs/intel-ucode
-            - siderolabs/i915-ucode
+            - siderolabs/i915
             - siderolabs/qemu-guest-agent
             - siderolabs/intel-ice-firmware
 
@@ -170,7 +170,7 @@ nodes:
         systemExtensions:
           officialExtensions:
             - siderolabs/intel-ucode
-            - siderolabs/i915-ucode
+            - siderolabs/i915
             - siderolabs/qemu-guest-agent
 
 controlPlane:
