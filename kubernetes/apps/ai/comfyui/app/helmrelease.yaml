@@ -44,9 +44,9 @@ spec:
               requests:
                 nvidia.com/gpu: 1
                 cpu: 500m
-                memory: 8Gi
+                memory: 4Gi
               limits:
-                memory: 8Gi
+                memory: 6Gi
                 nvidia.com/gpu: 1
     service:
       app:
