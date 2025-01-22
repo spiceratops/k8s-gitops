@@ -80,6 +80,12 @@ sonarr:
         assign_scores_to:
           - name: WEB-2160p
 
+      # English Only
+      - trash_ids:
+          - 69aa1e159f97d860440b04cd6d590c4f # Language: Not English (English Only)
+        assign_scores_to:
+          - name: WEB-2160p
+
 radarr:
   sqp-2:
     base_url: http://radarr.media.svc.cluster.local:7878
