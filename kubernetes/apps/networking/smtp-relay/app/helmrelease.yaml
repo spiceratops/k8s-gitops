@@ -34,7 +34,7 @@ spec:
             env:
               MADDY_HTTP_PORT: &httpPort 8080
               MADDY_SMTP_PORT: &smtpPort 2525
-              DEBUG: "true"
+              DEBUG: "false"
             envFrom:
               - secretRef:
                   name: smtp-relay-secret
