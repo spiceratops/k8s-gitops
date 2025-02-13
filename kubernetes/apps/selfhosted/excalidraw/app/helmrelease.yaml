@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: docker.io/excalidraw/excalidraw
-              tag: latest@sha256:6a7455ae9f07f13e1f9b25f919f79ac3b20f0d24686cabebcf24fb5cb503d8c2
+              tag: latest@sha256:03146468df779bae984a60b0c88dd00cc66b9bfd3acafb119ec3fd1f27a24d0a
               pullPolicy: IfNotPresent
             resources:
               requests:
