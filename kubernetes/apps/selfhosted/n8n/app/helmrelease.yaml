@@ -1,0 +1,93 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: n8n
+  namespace: selfhosted
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+
+  values:
+    controllers:
+      n8n:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/n8n-io/n8n
+              tag: 1.79.0
+            env:
+              DB_SQLITE_VACUUM_ON_STARTUP: true
+              EXECUTIONS_DATA_PRUNE: true
+              EXECUTIONS_DATA_MAX_AGE: 14
+              EXECUTIONS_DATA_PRUNE_MAX_COUNT: 50000
+              GENERIC_TIMEZONE: ${TIMEZONE}
+              N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: false
+              N8N_PROTOCOL: "https"
+              N8N_PORT: &port 8080
+              N8N_HOST: &hostName n8n.${PRIVATE_DOMAIN}
+              N8N_LOG_LEVEL: info
+              N8N_LOG_OUTPUT: console
+              N8N_ENCRYPTION_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: n8n-secret
+                    key: N8N_ENCRYPTION_KEY
+            resources:
+              requests:
+                cpu: 5m
+                memory: 128Mi
+              limits:
+                memory: 2Gi
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: n8n
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        enabled: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/icon: n8n.png
+          gethomepage.dev/name: N8N
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/description: Automation
+        className: internal
+        hosts:
+          - host: *hostname
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *hostname
+    persistence:
+      data:
+        existingClaim: "${VOLSYNC_CLAIM}"
+        advancedMounts:
+          n8n:
+            app:
+              - path: /home/node/.n8n

@@ -6,6 +6,6 @@ resources:
   - ./_pvc/ks.yaml
   - ./ollama/ks.yaml
   - ./open-webui/ks.yaml
-  - ./comfyui/ks.yaml
+  # - ./comfyui/ks.yaml
   - ./k8sgpt/ks.yaml
   - ./perplexica/ks.yaml
