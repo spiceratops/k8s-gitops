@@ -1,0 +1,22 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname kasm
+  namespace: flux-system
+spec:
+  targetNamespace: selfhosted
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: cert-manager
+  path: ./kubernetes/apps/selfhosted/kasm/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m

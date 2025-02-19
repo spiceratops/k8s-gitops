@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kasm
+  namespace: selfhosted
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: kasm-single-zone
+      version: 1.16.1
+      sourceRef:
+        kind: HelmRepository
+        name: kasm-charts
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+
+  values:
+    global:
+      ## @param global.namespace Kubernetes namespace where all Kasm resources will be deployed (overrides Release.Namespace)
+      ## @param global.clusterDomain Kubernetes clusterDomain name - default K8s Cluster Domain is "cluster.local". Consult your K8s admin for your cluster domain name.
+      ##
+      namespace: selfhosted
+      clusterDomain: "cluster.local"
+      ingressClassName: internal
+      hostname: kasm.${PRIVATE_DOMAIN}
+      kasmCerts:
+        ## @param kasmCerts.ingress.name Name used for Kasm Ingres Certificate Secret (if resource already exists, use resource name here and set create = false)
+        ## @param kasmCerts.ingress.create true/false used to create the Ingress resource
+        ## @param kasmCerts.ingress.cert Add externally-generated Intress TLS Public certificate
+        ## @param kasmCerts.ingress.key Add externally-generated Intress TLS Private key
+        ##
+        ingress:
+          name: wildcard-tls
+          create: false
