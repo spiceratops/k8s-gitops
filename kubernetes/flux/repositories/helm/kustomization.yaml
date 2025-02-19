@@ -50,4 +50,3 @@ resources:
   - ./ollama-charts.yaml
   - ./open-webui-charts.yaml
   - ./k8sgpt-charts.yaml
-  - ./kasm-charts.yaml

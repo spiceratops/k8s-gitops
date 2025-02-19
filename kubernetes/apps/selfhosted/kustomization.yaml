@@ -23,4 +23,3 @@ resources:
   - ./hoarder/ks.yaml
   - ./searxng/ks.yaml
   - ./n8n/ks.yaml
-  - ./kasm/ks.yaml
