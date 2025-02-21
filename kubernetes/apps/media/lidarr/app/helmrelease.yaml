@@ -48,7 +48,7 @@ spec:
               LIDARR__INSTANCE_NAME: Lidarr
               LIDARR__PORT: &port 8080
               LIDARR__LOG_LEVEL: info
-              LIDARR__AUTHENTICATION_METHOD: "External"
+              # LIDARR__AUTHENTICATION_METHOD: "External"
             envFrom:
               - secretRef:
                   name: lidarr-secret
