@@ -256,6 +256,8 @@ controlPlane:
           nodeIP:
             validSubnets:
               - 192.168.10.0/24
+          extraConfig:
+            maxPods: 150
 
     # Enable KubePrism
     - &kubePrismPatch |-
@@ -266,12 +268,12 @@ controlPlane:
             port: 7445
 
     # Enable logging
-    - &loggingPatch |-
-      machine:
-        logging:
-          destinations:
-            - endpoint: udp://vector.${PRIVATE_DOMAIN}:6002
-              format: json_lines
+    # - &loggingPatch |-
+    #   machine:
+    #     logging:
+    #       destinations:
+    #         - endpoint: udp://vector.${PRIVATE_DOMAIN}:6002
+    #           format: json_lines
 
     # Force nameserver
     - &nameserverPatch |-
@@ -379,6 +381,19 @@ controlPlane:
         scheduler:
           extraArgs:
             bind-address: 0.0.0.0
+          config:
+            apiVersion: kubescheduler.config.k8s.io/v1
+            kind: KubeSchedulerConfiguration
+            profiles:
+              - schedulerName: default-scheduler
+                pluginConfig:
+                  - name: PodTopologySpread
+                    args:
+                      defaultingType: List
+                      defaultConstraints:
+                        - maxSkew: 1
+                          topologyKey: kubernetes.io/hostname
+                          whenUnsatisfiable: ScheduleAnyway
 
     # ETCD configuration
     - |-
