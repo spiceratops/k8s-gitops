@@ -42,6 +42,14 @@ nodes:
             - siderolabs/intel-ucode
             - siderolabs/i915
             - siderolabs/qemu-guest-agent
+        extraKernelArgs: &intelcpKernalArgs
+          - cpufreq.default_governor=performance
+          - intel_iommu=on
+          - intel_pstate=disable
+          - iommu=pt
+          - iommu.passthrough=1
+          - mitigations=off
+          - net.ifnames=0
 
   - hostname: cp02.${PRIVATE_DOMAIN}
     ipAddress: 192.168.10.202
@@ -61,6 +69,7 @@ nodes:
             - siderolabs/intel-ucode
             - siderolabs/i915
             - siderolabs/qemu-guest-agent
+        extraKernelArgs: *intelcpKernalArgs
 
   - hostname: cp03.${PRIVATE_DOMAIN}
     ipAddress: 192.168.10.203
@@ -79,6 +88,13 @@ nodes:
           officialExtensions:
             - siderolabs/amd-ucode
             - siderolabs/qemu-guest-agent
+        extraKernelArgs: &amdKernalArgs
+          - cpufreq.default_governor=performance
+          - amd_pstate=active
+          - iommu=pt
+          - iommu.passthrough=1
+          - mitigations=off
+          - net.ifnames=0
 
   - hostname: wk01.${PRIVATE_DOMAIN}
     ipAddress: 192.168.10.211
@@ -99,6 +115,15 @@ nodes:
             - siderolabs/i915
             - siderolabs/qemu-guest-agent
             - siderolabs/intel-ice-firmware
+        extraKernelArgs: &intelKernalArgs
+          - cpufreq.default_governor=performance
+          - intel_iommu=on
+          - intel_pstate=disable
+          - iommu=pt
+          - iommu.passthrough=1
+          - i915.enable_guc=3
+          - mitigations=off
+          - net.ifnames=0
 
   - hostname: wk02.${PRIVATE_DOMAIN}
     ipAddress: 192.168.10.212
@@ -119,6 +144,7 @@ nodes:
             - siderolabs/i915
             - siderolabs/qemu-guest-agent
             - siderolabs/intel-ice-firmware
+        extraKernelArgs: *intelKernalArgs
 
   - hostname: wk03.${PRIVATE_DOMAIN}
     ipAddress: 192.168.10.213
@@ -139,6 +165,7 @@ nodes:
             - siderolabs/qemu-guest-agent
             - siderolabs/nonfree-kmod-nvidia-production
             - siderolabs/nvidia-container-toolkit-production
+        extraKernelArgs: *amdKernalArgs
     patches:
       - |-
         - op: add
@@ -172,6 +199,7 @@ nodes:
             - siderolabs/intel-ucode
             - siderolabs/i915
             - siderolabs/qemu-guest-agent
+        extraKernelArgs: *intelKernalArgs
 
 controlPlane:
   nodeLabels:
@@ -315,14 +343,6 @@ controlPlane:
     - &talosPatch |-
       machine:
         install:
-          extraKernelArgs:
-            - cpufreq.default_governor=performance
-            - intel_iommu=on
-            - intel_pstate=disable
-            - iommu=pt
-            - mitigations=off
-            - net.ifnames=0
-            - talos.logging.kernel=udp://vector.${PRIVATE_DOMAIN}:6001/
           legacyBIOSSupport: true
 
     # Tailscale auth
