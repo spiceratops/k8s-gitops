@@ -41,8 +41,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/spiceratops/lidarr
-              tag: 2.9.6
+              repository: ghcr.io/hotio/lidarr:pr-plugins
+              tag: latest@sha256:7cbe6a9a10ba183504f63c7a5ffce11ba3e56e6aa631d882dc417c7713376b85
             env:
               TZ: "${TIMEZONE}"
               LIDARR__INSTANCE_NAME: Lidarr
