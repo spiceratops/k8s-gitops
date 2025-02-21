@@ -18,7 +18,7 @@ resources:
   - ./feishin/ks.yaml
   - ./readarr/ks.yaml
   - ./ytdl-sub/ks.yaml
-  - ./lidarr/ks.yaml
+  # - ./lidarr/ks.yaml
   - ./audiobookshelf/ks.yaml
   # - ./tdarr/ks.yaml
   - ./qbittorrent/ks.yaml
