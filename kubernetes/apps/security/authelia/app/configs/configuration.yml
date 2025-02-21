@@ -8,7 +8,11 @@ session:
     - name: k_session
       domain: ${PRIVATE_DOMAIN}
       authelia_url: https://auth.${PRIVATE_DOMAIN}
-      default_redirection_url: https://${PRIVATE_DOMAIN}
+      default_redirection_url: https://homepage.${PRIVATE_DOMAIN}
+  redis:
+    host: dragonfly.databases.svc.cluster.local.
+    port: 6379
+    database_index: 2
 
 access_control:
   default_policy: two_factor
@@ -16,6 +20,9 @@ access_control:
     - name: internal
       networks: ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
   rules:
+    - domain:
+        - auth.${PRIVATE_DOMAIN}
+      policy: bypass
     - domain: ["invite.${PRIVATE_DOMAIN}"]
       resources:
         - "^/join(/.*)?$"
@@ -67,6 +74,9 @@ duo_api:
 
 identity_providers:
   oidc:
+    jwks:
+      - key: |
+          "${OIDC_JWKS_KEY}"
     cors:
       endpoints:
         ["authorization", "token", "revocation", "introspection", "userinfo"]
@@ -179,8 +189,7 @@ identity_providers:
         description: Open Webui
         secret: "${OPEN_WEBUI_OAUTH_CLIENT_SECRET}"
         public: false
-        redirect_uris:
-          ["https://open-webui.${PRIVATE_DOMAIN}/oauth/oidc/callback"]
+        redirect_uris: ["https://chat.${PRIVATE_DOMAIN}/oauth/oidc/callback"]
         scopes: ["openid", "profile", "email"]
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
