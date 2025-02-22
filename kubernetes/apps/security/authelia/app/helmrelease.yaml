@@ -46,7 +46,7 @@ spec:
               AUTHELIA_TELEMETRY_METRICS_ENABLED: true
               AUTHELIA_THEME: dark
               X_AUTHELIA_CONFIG: /config/configuration.yml
-              X_AUTHELIA_CONFIG_FILTERS: expand-env
+              X_AUTHELIA_CONFIG_FILTERS: template
             envFrom: *envFrom
             resources:
               requests:
@@ -85,6 +85,14 @@ spec:
             add_header Pragma "no-cache";
             add_header X-Frame-Options "SAMEORIGIN";
             add_header X-XSS-Protection "1; mode=block";
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Infrastructure
+          gethomepage.dev/name: Authelia
+          gethomepage.dev/icon: authelia.png
+          gethomepage.dev/pod-selector: >-
+            app in (
+              authelia
+            )
         hosts:
           - host: "${HOSTNAME}"
             paths:
@@ -104,6 +112,12 @@ spec:
           - path: /config/configuration.yml
             subPath: configuration.yml
             readOnly: true
+      secret-files:
+        enabled: true
+        type: secret
+        name: authelia-secret
+        globalMounts:
+          - path: /config/secret
     service:
       app:
         controller: authelia
