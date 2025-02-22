@@ -121,6 +121,7 @@ spec:
     service:
       app:
         controller: authelia
+        type: LoadBalancer
         ports:
           http:
             port: 9091
