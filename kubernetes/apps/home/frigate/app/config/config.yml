@@ -42,26 +42,29 @@ record:
     mode: all
 
 objects:
-  track: [person]
-  filters:
-    person:
-      min_area: 5000
-      max_area: 100000
-      threshold: 0.7
+  track:
+    - person
+    - car
+    - dog
+    - cat
+  # filters:
+  #   person:
+  #     min_area: 5000
+  #     max_area: 100000
+  #     threshold: 0.7
 
 go2rtc:
   streams:
     doorbell:
-      - "ffmpeg:http://192.168.1.16/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=${FRIGATE_CAMERA_USER}&password=${FRIGATE_CAMERA_PASSWORD}#video=copy#audio=copy#audio=opus"
-      - rtsp://192.168.1.16/Preview_01_sub
+      - rtsp://scrypted:37861/a5fed762ead34556
     doorbell_sub:
-      - "ffmpeg:http://192.168.1.16/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=${FRIGATE_CAMERA_USER}&password=${FRIGATE_CAMERA_PASSWORD}"
+      - rtsp://scrypted:37861/e2db458dac17b321
 
 cameras:
   doorbell:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/doorbell?video=copy&audio=aac
+        - path: rtsp://localhost:8554/doorbell?video=copy&audio=copy&audio=opus
           input_args: preset-rtsp-restream
           roles: [record]
         - path: rtsp://localhost:8554/doorbell_sub?video=copy
