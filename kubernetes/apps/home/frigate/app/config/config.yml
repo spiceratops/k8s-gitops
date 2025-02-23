@@ -56,9 +56,9 @@ objects:
 go2rtc:
   streams:
     doorbell:
-      - rtsp://scrypted:34135/7357d35d48fab9af
+      - rtsp://scrypted:43551/7357d35d48fab9af
     doorbell_sub:
-      - rtsp://scrypted:34135/e2db458dac17b321
+      - rtsp://scrypted:43551/e2db458dac17b321
 
 cameras:
   doorbell:
