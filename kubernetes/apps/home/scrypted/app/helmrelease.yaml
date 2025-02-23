@@ -75,7 +75,7 @@ spec:
           gethomepage.dev/icon: scrypted.png
           gethomepage.dev/name: Scrypted
         hosts:
-          - host: nvr.${PRIVATE_DOMAIN}
+          - host: scrypted.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:
