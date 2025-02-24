@@ -3,4 +3,10 @@ log:
   output: "stdout"
   # streams:
   #   3d_printer: rtsp://scrypted.home.svc.cluster.local:34136/tbc
-  doorbell: rtsp://scrypted.home.svc.cluster.local:38101/53e15dd48b48e313
+  # doorbell: rtsp://scrypted.home.svc.cluster.local:38101/53e15dd48b48e313
+  doorbell:
+    # - "ffmpeg:http://192.168.1.16/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_CAMERA_USER}&password={FRIGATE_CAMERA_PASSWORD}#video=copy#audio=copy#audio=opus"
+    - rtsp://{FRIGATE_CAMERA_USER}:{FRIGATE_CAMERA_PASSWORD}@192.168.1.16:554/h264Preview_01_main
+  doorbell_sub:
+    #   - "ffmpeg:http://192.168.1.16/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_CAMERA_USER}&password={FRIGATE_CAMERA_PASSWORD}"
+    - rtsp://{FRIGATE_CAMERA_USER}:{FRIGATE_CAMERA_PASSWORD}@192.168.1.16:554/h264Preview_01_sub
