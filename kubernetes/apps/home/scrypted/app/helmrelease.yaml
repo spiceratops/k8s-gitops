@@ -103,5 +103,7 @@ spec:
           - path: /.npm
       recs:
         existingClaim: nfs-nvr
-        globalMounts:
-          - path: /recs
+        advancedMounts:
+          scrypted:
+            app:
+              - path: /recs
