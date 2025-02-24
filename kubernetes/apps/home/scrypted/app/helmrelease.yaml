@@ -60,9 +60,9 @@ spec:
             port: 11080
             primary: true
           rebroadcast1:
-            port: 34135
+            port: 35317
           rebroadcast2:
-            port: 34136
+            port: 35318
 
     ingress:
       app:

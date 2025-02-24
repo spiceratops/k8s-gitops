@@ -57,7 +57,7 @@ objects:
 go2rtc:
   streams:
     doorbell:
-      - rtsp://scrypted.home.svc.cluster.local:34135/53e15dd48b48e313
+      - rtsp://scrypted.home.svc.cluster.local:35317/32f2ef0148075ebf
     # doorbell_sub:
     #   - rtsp://scrypted.home.svc.cluster.local:38101/53e15dd48b48e313
 
