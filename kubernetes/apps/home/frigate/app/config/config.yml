@@ -63,7 +63,7 @@ go2rtc:
       - "ffmpeg:http://192.168.1.16/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_CAMERA_USER}&password={FRIGATE_CAMERA_PASSWORD}"
 
   ffmpeg:
-    bin: ffmpeg
+    hwaccel_args: preset-intel-qsv-h265
     volume: '-af "volume=30dB"'
 
 cameras:
