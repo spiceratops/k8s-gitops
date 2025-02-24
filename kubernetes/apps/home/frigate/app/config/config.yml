@@ -59,7 +59,7 @@ go2rtc:
     doorbell:
       - rtsp://scrypted.home.svc.cluster.local:37861/a5fed762ead34556
     doorbell_sub:
-      - rtsp://scrypted.home.svc.cluster.local:37861/0c0134f6c0559779
+      - rtsp://scrypted.home.svc.cluster.local:37861/9f410aa97c49c795
 
   ffmpeg:
     volume: '-af "volume=30dB"'
