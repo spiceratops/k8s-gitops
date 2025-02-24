@@ -70,11 +70,11 @@ cameras:
   doorbell:
     ffmpeg:
       inputs:
-        - path: rtsp://127.0.0.1:8554/doorbell
+        - path: rtsp://localhost:8554/doorbell
           input_args: preset-rtsp-restream
           roles:
             - record
-        - path: rtsp://127.0.0.1:8554/doorbell_sub
+        - path: rtsp://localhost:8554/doorbell_sub
           input_args: preset-rtsp-restream
           roles:
             - detect
