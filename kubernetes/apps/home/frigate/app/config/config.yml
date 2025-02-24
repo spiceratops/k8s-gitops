@@ -57,9 +57,9 @@ objects:
 go2rtc:
   streams:
     doorbell:
-      - rtsp://scrypted.home.svc.cluster.local:35317/32f2ef0148075ebf
-    # doorbell_sub:
-    #   - rtsp://scrypted.home.svc.cluster.local:38101/53e15dd48b48e313
+      - rtsp://scrypted.home.svc.cluster.local:37861/a5fed762ead34556
+    doorbell_sub:
+      - rtsp://scrypted.home.svc.cluster.local:37861/e2db458dac17b321
 
   ffmpeg:
     volume: '-af "volume=30dB"'
@@ -72,10 +72,10 @@ cameras:
           input_args: preset-rtsp-restream
           roles:
             - record
-        # - path: rtsp://localhost:8554/doorbell_sub
-        #   input_args: preset-rtsp-restream
-        #   roles:
-        #     - detect
+        - path: rtsp://localhost:8554/doorbell_sub
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
     detect:
       width: 640
       height: 480
