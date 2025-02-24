@@ -10,6 +10,9 @@ configMapGenerator:
   - name: frigate-configmap
     files:
       - config.yml=./config/config.yml
+  - name: frigate-scripts
+    files:
+      - ./scripts/intel-runtimes.sh
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

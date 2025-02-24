@@ -122,3 +122,9 @@ spec:
         existingClaim: nfs-nvr
         globalMounts:
           - path: /recs
+      scripts:
+        type: configMap
+        name: frigate-scripts
+        defaultMode: 0775
+        globalMounts:
+          - readOnly: true
