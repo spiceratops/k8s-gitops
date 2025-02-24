@@ -51,9 +51,6 @@ spec:
               capabilities:
                 drop:
                   - ALL
-            args:
-              - /bin/bash
-              - /scripts/intel-runtimes.sh
 
     service:
       app:
