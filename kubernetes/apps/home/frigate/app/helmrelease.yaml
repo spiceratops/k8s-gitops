@@ -22,8 +22,7 @@ spec:
   values:
     defaultPodOptions:
       nodeSelector:
-        nvidia.feature.node.kubernetes.io/gpu: "true"
-      runtimeClassName: nvidia
+        intel.feature.node.kubernetes.io/gpu: "true"
     controllers:
       frigate:
         annotations:
@@ -58,10 +57,10 @@ spec:
               requests:
                 cpu: 10m
                 memory: 1000Mi
-                nvidia.com/gpu: 1
+                gpu.intel.com/i915: 1
               limits:
                 memory: 6000Mi
-                nvidia.com/gpu: 1
+                gpu.intel.com/i915: 1
             securityContext:
               privileged: true
 

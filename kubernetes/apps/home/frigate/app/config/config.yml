@@ -26,7 +26,7 @@ database:
 
 ffmpeg:
   global_args: [-hide_banner, -loglevel, info]
-  hwaccel_args: auto
+  hwaccel_args: preset-intel-qsv-h265
 
 snapshots:
   enabled: true
