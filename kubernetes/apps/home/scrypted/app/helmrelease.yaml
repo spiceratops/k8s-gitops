@@ -20,6 +20,9 @@ spec:
     mode: enabled
 
   values:
+    defaultPodOptions:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
     controllers:
       scrypted:
         annotations:
@@ -48,8 +51,9 @@ spec:
               requests:
                 cpu: 136m
                 memory: 1024Mi
+                gpu.intel.com/i915: 1
               limits:
-                # gpu.intel.com/i915: 1
+                gpu.intel.com/i915: 1
                 memory: 8192Mi
 
     service:
