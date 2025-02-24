@@ -57,10 +57,10 @@ objects:
 go2rtc:
   streams:
     doorbell:
-      - "ffmpeg:http://192.168.1.16/flv?port=1935&app=bcs&stream=channel1_main.bcs&user={FRIGATE_CAMERA_USER}&password={FRIGATE_CAMERA_PASSWORD}#video=copy#audio=copy#audio=opus"
+      # - "ffmpeg:http://192.168.1.16/flv?port=1935&app=bcs&stream=channel1_main.bcs&user={FRIGATE_CAMERA_USER}&password={FRIGATE_CAMERA_PASSWORD}#video=copy#audio=copy#audio=opus"
       - rtsp://{FRIGATE_CAMERA_USER}:{FRIGATE_CAMERA_PASSWORD}@192.168.1.16:554/Preview_01_sub
-    doorbell_sub:
-      - "ffmpeg:http://192.168.1.16/flv?port=1935&app=bcs&stream=channel1_ext.bcs&user={FRIGATE_CAMERA_USER}&password={FRIGATE_CAMERA_PASSWORD}"
+    # doorbell_sub:
+    #   - "ffmpeg:http://192.168.1.16/flv?port=1935&app=bcs&stream=channel1_ext.bcs&user={FRIGATE_CAMERA_USER}&password={FRIGATE_CAMERA_PASSWORD}"
 
   ffmpeg:
     volume: '-af "volume=30dB"'
