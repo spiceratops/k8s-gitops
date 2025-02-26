@@ -1,0 +1,148 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: esphome
+  namespace: home
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+
+  values:
+    controllers:
+      esphome:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "networking",
+                "mac": "90:cf:d7:05:70:86"
+              }]
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 568
+        containers:
+          app:
+            image:
+              repository: ghcr.io/bjw-s-labs/esphome
+              tag: 2025.2.1@sha256:bae818a514de097cecba94f1d6b0c9f038abcda63029818954b781ece5be9794
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 5m
+                memory: 512Mi
+              limits:
+                memory: 3072Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+          code-server:
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.97.2@sha256:6ff0e9cf5a553b3961ece200be75e21e8c887ed0ae28a7c28213722dccf74b0c
+            args:
+              - --auth
+              - none
+              - --disable-telemetry
+              - --disable-update-check
+              - --user-data-dir
+              - /config/.code-server
+              - --extensions-dir
+              - /config/.code-server
+              - --port
+              - "12321"
+              - /config
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+    service:
+      app:
+        controller: esphome
+        ports:
+          http:
+            port: 6052
+          code-server:
+            port: 12321
+    ingress:
+      app:
+        className: "internal"
+        annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${PRIVATE_DOMAIN}
+          nginx.ingress.kubernetes.io/rewrite-target: /$1
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: ESPHome Config
+          gethomepage.dev/group: Home
+          gethomepage.dev/icon: esphome.png
+          gethomepage.dev/name: ESPHome
+        hosts:
+          - host: esphome.${PRIVATE_DOMAIN}
+            paths:
+              - path: /(.*)
+                service:
+                  identifier: app
+                  port: http
+              - path: /code/(.*)
+                service:
+                  identifier: app
+                  port: code-server
+    persistence:
+      config:
+        existingClaim: esphome-config
+        advancedMounts:
+          esphome:
+            app:
+              - path: /config
+            code-server:
+              - path: /config
+      secrets:
+        type: secret
+        name: esphome-secrets
+        globalMounts:
+          - path: /config/secrets.yaml
+            subPath: secrets.yaml
+      cache:
+        type: emptyDir
+        advancedMounts:
+          esphome:
+            app:
+              - path: /cache
+      # TODO: Look into creating deploy key for esphome
+      # deploy-key:
+      #   type: secret
+      #   name: esphome-deploykey
+      #   defaultMode: 256
+      #   advancedMounts:
+      #     esphome:
+      #       code-server:
+      #         - path: /home/coder/.ssh/id_ed25519
+      #           subPath: id_ed25519

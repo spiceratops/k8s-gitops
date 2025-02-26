@@ -32,6 +32,8 @@ spec:
       type: LoadBalancer
       loadBalancerIP: ${EMQX_LB_IP}
       externalTrafficPolicy: Local
+      annotations:
+        coredns.io/hostname: mqtt.${PRIVATE_DOMAIN}
     ingress:
       dashboard:
         enabled: true
