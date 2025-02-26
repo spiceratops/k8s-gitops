@@ -12,3 +12,4 @@ resources:
   - ./smtp-relay/ks.yaml
   - ./opnsense-backup/ks.yaml
   - ./tailscale/ks.yaml
+  - ./multus/ks.yaml
