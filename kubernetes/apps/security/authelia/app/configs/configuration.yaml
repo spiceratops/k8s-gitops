@@ -102,16 +102,6 @@ identity_providers:
         redirect_uris:
           - "https://nr.${PRIVATE_DOMAIN}/auth/strategy/callback"
 
-      - client_id: miniflux
-        client_name: Miniflux
-        client_secret: '{{ secret "/config/secret/MINIFLUX_OAUTH_CLIENT_DIGEST" }}'
-        public: false
-        authorization_policy: two_factor
-        pre_configured_consent_duration: 1y
-        scopes: ["openid", "profile", "groups", "email"]
-        redirect_uris:
-          ["https://miniflux.${PRIVATE_DOMAIN}/oauth2/oidc/callback"]
-
       - client_id: windmill
         client_name: Windmill
         client_secret: '{{ secret "/config/secret/WINDMILL_OAUTH_CLIENT_DIGEST" }}'
