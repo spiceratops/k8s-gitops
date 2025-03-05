@@ -40,7 +40,7 @@ spec:
               repository: ghcr.io/authelia/authelia
               tag: 4.38.19@sha256:46021dc20efdcc5cdc38a29e3050b8835429a155ae6215388ed3b793a02eb0ab
             env:
-              AUTHELIA_SERVER_ADDRESS: tcp://0.0.0.0:9091
+              AUTHELIA_SERVER_ADDRESS: tcp://0.0.0.0:8888
               AUTHELIA_SERVER_DISABLE_HEALTHCHECK: true
               AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
               AUTHELIA_TELEMETRY_METRICS_ENABLED: true
@@ -126,7 +126,7 @@ spec:
           lbipam.cilium.io/ips: ${AUTH_LB_IP}
         ports:
           http:
-            port: 9091
+            port: 8888
           metrics:
             port: 8080
     serviceMonitor:
