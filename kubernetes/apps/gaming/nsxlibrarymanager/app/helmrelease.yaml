@@ -29,11 +29,6 @@ spec:
             image:
               repository: ghcr.io/ivaano/nsxlibrarymanager
               tag: 0.4.2@sha256:0644e4cde0c74966a0ce47ce4e9750390ba49762556118ded8338d9d4b86b012
-            command:
-              - "/bin/sh"
-              - "-c"
-            args:
-              - chown 1000:1000 /app -R
             resources:
               requests:
                 cpu: 10m
