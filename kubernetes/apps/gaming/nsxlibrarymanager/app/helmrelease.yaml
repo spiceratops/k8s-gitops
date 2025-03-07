@@ -68,15 +68,15 @@ spec:
           - hosts:
               - "${HOSTNAME}"
     persistence:
-      data:
-        existingClaim: "${VOLSYNC_CLAIM}"
-        advancedMounts:
-          nsxlibrarymanager:
-            app:
-              - path: /app/config
-                subPath: config
-              - path: /app/data
-                subPath: data
+      # data:
+      #   existingClaim: "${VOLSYNC_CLAIM}"
+      #   advancedMounts:
+      #     nsxlibrarymanager:
+      #       app:
+      #         - path: /app/config
+      #           subPath: config
+      #         - path: /app/data
+      #           subPath: data
       library:
         existingClaim: nfs-games
         globalMounts:
