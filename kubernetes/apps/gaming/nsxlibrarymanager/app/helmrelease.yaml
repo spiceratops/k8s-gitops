@@ -64,13 +64,8 @@ spec:
     persistence:
       data:
         existingClaim: "${VOLSYNC_CLAIM}"
-        advancedMounts:
-          nsxlibrarymanager:
-            app:
-              - path: /app/config
-                subPath: config
-              - path: /app/data
-                subPath: data
+        globalMounts:
+          - path: /app/data
       library:
         existingClaim: nfs-games
         globalMounts:
