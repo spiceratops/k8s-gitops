@@ -20,12 +20,6 @@ spec:
     mode: enabled
 
   values:
-    defaultPodOptions:
-      enableServiceLinks: false
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 568
     controllers:
       nsxlibrarymanager:
         annotations:
