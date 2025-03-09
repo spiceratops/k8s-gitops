@@ -11,5 +11,6 @@ resources:
   - ./k8s-gateway/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./opnsense-backup/ks.yaml
-  - ./tailscale/ks.yaml
+  # - ./tailscale/ks.yaml
   - ./multus/ks.yaml
+  # - ./tailscale-operator/ks.yaml
