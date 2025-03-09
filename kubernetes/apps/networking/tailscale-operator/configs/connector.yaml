@@ -8,3 +8,5 @@ spec:
     advertiseRoutes:
       - "192.168.1.0/24"
   exitNode: true
+  tags:
+    - "tag:sc-k8s"
