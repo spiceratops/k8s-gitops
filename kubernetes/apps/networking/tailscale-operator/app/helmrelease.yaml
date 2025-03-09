@@ -21,7 +21,7 @@ spec:
       defaultTags:
         - "tag:sc-k8s"
     apiServerProxyConfig:
-      mode: "true"
+      mode: "false"
   valuesFrom:
     - kind: Secret
       name: tailscale-operator-secret
