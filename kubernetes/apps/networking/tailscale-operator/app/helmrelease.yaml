@@ -24,10 +24,10 @@ spec:
       mode: "true"
   valuesFrom:
     - kind: Secret
-      name: tailscale-operator
+      name: tailscale-operator-secret
       valuesKey: client_id
       targetPath: oauth.clientId
     - kind: Secret
-      name: tailscale-operator
+      name: tailscale-operator-secret
       valuesKey: client_secret
       targetPath: oauth.clientSecret
