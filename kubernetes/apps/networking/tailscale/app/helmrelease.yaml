@@ -35,7 +35,7 @@ spec:
               TS_USERSPACE: true
               TS_KUBE_SECRET: ""
               TS_EXTRA_ARGS: "--advertise-exit-node=true --advertise-connector=true --advertise-tags=tag:sc-k8s"
-              TS_TAILSCALED_EXTRA_ARGS: "--debug=0.0.0.0:58169 --socks5-server=0.0.0.0:61080 --outbound-http-proxy-listen=0.0.0.0:58081"
+              TS_TAILSCALED_EXTRA_ARGS: "--debug=0.0.0.0:58169"
               TS_STATE_DIR: /tmp
             envFrom:
               - secretRef:
