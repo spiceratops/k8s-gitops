@@ -44,8 +44,8 @@ spec:
               tag: 10.10.6@sha256:96b09723b22fdde74283274bdc1f63b9b76768afd6045dd80d4a4559fc4bb7f3
             env:
               DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
-              JELLYFIN_FFmpeg__probesize: 50000000
-              JELLYFIN_FFmpeg__analyzeduration: 50000000
+              JELLYFIN_FFmpeg__probesize: 100000000
+              JELLYFIN_FFmpeg__analyzeduration: 100000000
               JELLYFIN_PublishedServerUrl: "${HOSTNAME}"
               TZ: ${TIMEZONE}
             args:
@@ -120,7 +120,6 @@ spec:
       transcode:
         enabled: true
         type: emptyDir
-        sizeLimit: 10Gi
       cache:
         enabled: true
         type: emptyDir
