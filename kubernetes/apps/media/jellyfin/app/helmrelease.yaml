@@ -120,6 +120,7 @@ spec:
       transcode:
         enabled: true
         type: emptyDir
+        sizeLimit: 10Gi
       cache:
         enabled: true
         type: emptyDir
