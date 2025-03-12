@@ -1,0 +1,20 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ext-home-assistant
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: home.${PRIVATE_DOMAIN}
+spec:
+  type: ExternalName
+  externalName: 192.168.1.107
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ext-home-assistant
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: nas.${PRIVATE_DOMAIN}, s3.${PRIVATE_DOMAIN}
+spec:
+  type: ExternalName
+  externalName: 192.168.10.10
