@@ -116,7 +116,7 @@ spec:
         enabled: true
         existingClaim: adguard-home
         globalMounts:
-          - path: /opt/adguardhome
+          - path: /opt/adguardhome/conf
     ingress:
       app:
         enabled: true
