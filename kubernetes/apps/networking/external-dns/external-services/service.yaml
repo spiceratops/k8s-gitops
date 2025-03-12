@@ -12,7 +12,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: ext-home-assistant
+  name: ext-nas
   annotations:
     external-dns.alpha.kubernetes.io/hostname: nas.${PRIVATE_DOMAIN}, s3.${PRIVATE_DOMAIN}
 spec:
