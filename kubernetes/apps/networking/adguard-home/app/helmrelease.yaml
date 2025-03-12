@@ -111,8 +111,8 @@ spec:
         enabled: true
         existingClaim: adguard-home
         advancedMounts:
-          adguard:
-            adguard:
+          adguard-home:
+            app:
               - path: /opt/adguardhome/conf
                 subPath: conf
               - path: /opt/adguardhome/work
