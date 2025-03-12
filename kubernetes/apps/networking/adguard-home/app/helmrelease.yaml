@@ -49,11 +49,6 @@ spec:
               runAsUser: 1000
               runAsGroup: 1000
               allowPrivilegeEscalation: false
-        pod:
-          priorityClassName: system-cluster-critical
-          securityContext:
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
       # TODO
       # sync:
       #   containers:
@@ -115,8 +110,13 @@ spec:
       config:
         enabled: true
         existingClaim: adguard-home
-        globalMounts:
-          - path: /opt/adguardhome/conf
+        advancedMounts:
+          adguard:
+            adguard:
+              - path: /opt/adguardhome/conf
+                subPath: conf
+              - path: /opt/adguardhome/work
+                subPath: work
     ingress:
       app:
         enabled: true
