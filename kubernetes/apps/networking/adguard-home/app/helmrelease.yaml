@@ -116,13 +116,8 @@ spec:
       config:
         enabled: true
         existingClaim: "${VOLSYNC_CLAIM}"
-        advancedMounts:
-          app:
-            - path: /opt/adguardhome/conf
-              subPath: conf
-            - path: /opt/adguardhome/work
-              subPath: work
-
+        globalMounts:
+          - path: /opt/adguardhome
     ingress:
       app:
         enabled: true
