@@ -115,7 +115,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: "${VOLSYNC_CLAIM}"
+        existingClaim: adguard-home
         globalMounts:
           - path: /opt/adguardhome
     ingress:
