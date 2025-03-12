@@ -21,7 +21,6 @@ spec:
   values:
     controllers:
       adguard-home:
-        replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
