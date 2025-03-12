@@ -32,22 +32,22 @@ spec:
               pullPolicy: IfNotPresent
             env:
               TZ: ${TIMEZONE}
-            probes:
-              liveness: &probe
-                enabled: true
-                type: HTTP
-                port: 3000
-                path: /login.html
-              readiness: *probe
-              startup:
-                <<: *probe
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
+            # probes:
+            #   liveness: &probe
+            #     enabled: true
+            #     type: HTTP
+            #     port: 3000
+            #     path: /login.html
+            #   readiness: *probe
+            #   startup:
+            #     <<: *probe
+            #     spec:
+            #       failureThreshold: 30
+            #       periodSeconds: 5
             securityContext:
               readOnlyRootFilesystem: true
-              runAsUser: 1000
-              runAsGroup: 1000
+              # runAsUser: 1000
+              # runAsGroup: 1000
               allowPrivilegeEscalation: false
       # TODO
       # sync:
