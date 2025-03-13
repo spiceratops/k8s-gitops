@@ -114,7 +114,7 @@ spec:
         globalMounts:
           - path: /opt/adguardhome/conf/AdGuardHome.yaml
             subPath: AdGuardHome.yaml
-            readOnly: true
+            readOnly: false
       work:
         enabled: true
         existingClaim: adguard-home
