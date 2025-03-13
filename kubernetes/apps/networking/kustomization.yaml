@@ -14,4 +14,4 @@ resources:
   # - ./tailscale/ks.yaml
   - ./multus/ks.yaml
   - ./tailscale-operator/ks.yaml
-  # - ./adguard-home/ks.yaml
+  - ./adguard-home/ks.yaml
