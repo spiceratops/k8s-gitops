@@ -142,3 +142,15 @@ spec:
       recordType: A
       targets:
         - 192.168.1.107
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: dns
+spec:
+  endpoints:
+    - dnsName: dns01.${PRIVATE_DOMAIN}
+      recordTTL: 180
+      recordType: A
+      targets:
+        - 192.168.15.54
