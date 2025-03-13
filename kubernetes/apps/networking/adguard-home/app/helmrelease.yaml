@@ -104,6 +104,10 @@ spec:
             enabled: true
             port: 443
             protocol: TCP
+          dns-tls:
+            enabled: true
+            port: 853
+            protocol: TCP
       # sync:
       #   controller: sync
       #   ports:
