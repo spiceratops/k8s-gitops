@@ -2,29 +2,9 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: ext-home-assistant
+  name: ext-npm
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: home.${PRIVATE_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: npm.${PRIVATE_DOMAIN}, pve-hass.${PRIVATE_DOMAIN}, omada-web.${PRIVATE_DOMAIN}, unifi-web.${PRIVATE_DOMAIN}, docker.${PRIVATE_DOMAIN}, dnd.${PRIVATE_DOMAIN}, pedalboard.${PRIVATE_DOMAIN}, kasm.${PRIVATE_DOMAIN}
 spec:
   type: ExternalName
-  externalName: 192.168.1.107
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: ext-nas
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: nas.${PRIVATE_DOMAIN}, s3.${PRIVATE_DOMAIN}
-spec:
-  type: ExternalName
-  externalName: 192.168.10.10
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: ext-opnsense
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: opnsense.${PRIVATE_DOMAIN}, bind.${PRIVATE_DOMAIN}
-spec:
-  type: ExternalName
-  externalName: 192.168.1.1
+  externalName: 192.168.1.220
