@@ -73,7 +73,7 @@ spec:
 
     extraArgs:
       - --webhook-provider-url=http://localhost:8888
-    sources: ["crd", "ingress"]
+    sources: ["crd", "ingress", "service"]
     podAnnotations:
       secret.reloader.stakater.com/reload: *secret
     resources:
