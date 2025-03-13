@@ -126,7 +126,7 @@ spec:
                 subPath: work
       certs:
         type: secret
-        name: wildcard-tls
+        name: dns-tls
         globalMounts:
           - path: /certs
     # ingress:

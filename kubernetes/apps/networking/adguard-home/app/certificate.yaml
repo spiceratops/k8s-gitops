@@ -1,0 +1,17 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dns
+  namespace: networking
+spec:
+  secretName: dns-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: ${PRIVATE_DOMAIN}
+  dnsNames:
+    - ${PRIVATE_DOMAIN}
+    - "*.${PRIVATE_DOMAIN}"
+  ipAddresses:
+    - 192.168.15.54
