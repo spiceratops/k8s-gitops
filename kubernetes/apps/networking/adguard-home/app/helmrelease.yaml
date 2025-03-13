@@ -89,6 +89,7 @@ spec:
         annotations:
           lbipam.cilium.io/ips: ${ADGUARD_LB_IP}
           external-dns.alpha.kubernetes.io/hostname: &host dns01.${PRIVATE_DOMAIN}
+          coredns.io/hostname: *host
         labels:
           io.cilium/lb-ipam-layer2: "true"
         ports:
@@ -130,18 +131,18 @@ spec:
         name: dns-tls
         globalMounts:
           - path: /certs
-    ingress:
-      app:
-        enabled: true
-        className: internal
-        annotations:
-        hosts:
-          - host: *host
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
+    # ingress:
+    #   app:
+    #     enabled: true
+    #     className: internal
+    #     annotations:
+    #     hosts:
+    #       - host: *host
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: app
+    #               port: http
+    #     tls:
+    #       - hosts:
+    #           - *host
