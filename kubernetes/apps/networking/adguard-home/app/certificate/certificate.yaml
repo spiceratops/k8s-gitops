@@ -14,3 +14,4 @@ spec:
     - dns.${PRIVATE_DOMAIN}
     - dns01.${PRIVATE_DOMAIN}
     - dns02.${PRIVATE_DOMAIN}
+    - ${PRIVATE_DOMAIN}
