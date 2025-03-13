@@ -109,14 +109,6 @@ spec:
     persistence:
       config:
         enabled: true
-        type: configMap
-        name: adguard-home-config
-        globalMounts:
-          - path: /opt/adguardhome/conf/AdGuardHome.yaml
-            subPath: AdGuardHome.yaml
-            readOnly: false
-      work:
-        enabled: true
         existingClaim: adguard-home
         advancedMounts:
           adguard-home:
