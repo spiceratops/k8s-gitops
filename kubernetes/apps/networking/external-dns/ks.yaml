@@ -21,26 +21,26 @@ spec:
   postBuild:
     substitute:
       APP: *appname
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &appname external-dns-bind
-  namespace: flux-system
-spec:
-  targetNamespace: networking
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
-  path: ./kubernetes/apps/networking/external-dns/bind
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: k8s-gitops
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: &appname external-dns-bind
+#   namespace: flux-system
+# spec:
+#   targetNamespace: networking
+#   commonMetadata:
+#     labels:
+#       app.kubernetes.io/name: *appname
+#   path: ./kubernetes/apps/networking/external-dns/bind
+#   prune: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: k8s-gitops
+#   wait: true
+#   interval: 30m
+#   retryInterval: 1m
+#   timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -53,6 +53,26 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   path: ./kubernetes/apps/networking/external-dns/external-services
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname external-dns-adguard-home
+  namespace: flux-system
+spec:
+  targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  path: ./kubernetes/apps/networking/external-dns/adguard-home
   prune: true
   sourceRef:
     kind: GitRepository
