@@ -112,7 +112,7 @@ spec:
         type: configMap
         name: adguard-home-config
         globalMounts:
-          - path: /conf/AdGuardHome.yaml
+          - path: /opt/adguardhome/conf/AdGuardHome.yaml
             subPath: AdGuardHome.yaml
             readOnly: true
       work:
