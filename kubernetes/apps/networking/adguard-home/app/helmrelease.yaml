@@ -83,13 +83,14 @@ spec:
         ports:
           http:
             port: 3000
+          https:
+            port: 4443
       dns:
         controller: adguard-home
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${ADGUARD_LB_IP}
           external-dns.alpha.kubernetes.io/hostname: &host dns01.${PRIVATE_DOMAIN}
-          coredns.io/hostname: *host
         labels:
           io.cilium/lb-ipam-layer2: "true"
         ports:
@@ -101,10 +102,6 @@ spec:
             enabled: true
             port: 53
             protocol: UDP
-          dns-https:
-            enabled: true
-            port: 443
-            protocol: TCP
           dns-tls:
             enabled: true
             port: 853
@@ -131,18 +128,23 @@ spec:
         name: dns-tls
         globalMounts:
           - path: /certs
-    # ingress:
-    #   app:
-    #     enabled: true
-    #     className: internal
-    #     annotations:
-    #     hosts:
-    #       - host: *host
-    #         paths:
-    #           - path: /
-    #             service:
-    #               identifier: app
-    #               port: http
-    #     tls:
-    #       - hosts:
-    #           - *host
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+        hosts:
+          - host: *host
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+              - path: /dns-query
+                service:
+                  identifier: app
+                  port: https
+        tls:
+          - hosts:
+              - *host
+              - dns.${PRIVATE_DOMAIN}
