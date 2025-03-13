@@ -54,9 +54,16 @@ spec:
             value: http://adguard-home-app:3000
           - name: SERVER_HOST
             value: 0.0.0.0
-        envFrom:
-          - secretRef:
-              name: &secret external-dns-adguard-home-secret
+          - name: &name ADGUARD_USER
+            valueFrom:
+              secretKeyRef:
+                name: &secret external-dns-adguard-secret
+                key: *name
+          - name: &name ADGUARD_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: *secret
+                key: *name
         securityContext:
           readOnlyRootFilesystem: true
     interval: 1h
