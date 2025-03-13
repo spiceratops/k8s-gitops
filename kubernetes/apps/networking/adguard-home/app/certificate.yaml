@@ -13,5 +13,3 @@ spec:
   dnsNames:
     - ${PRIVATE_DOMAIN}
     - "*.${PRIVATE_DOMAIN}"
-  ipAddresses:
-    - 192.168.15.54
