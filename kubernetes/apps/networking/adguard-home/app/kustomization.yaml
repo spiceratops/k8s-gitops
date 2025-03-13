@@ -4,10 +4,5 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./volsync.yaml
+  - ./certificate/certificate.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: adguard-home-config
-    files:
-      - AdGuardHome.yaml=./config/AdGuardHome.yaml
-generatorOptions:
-  disableNameSuffixHash: true
