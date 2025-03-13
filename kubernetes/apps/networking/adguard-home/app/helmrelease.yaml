@@ -121,6 +121,8 @@ spec:
         advancedMounts:
           adguard-home:
             app:
+              - path: /opt/adguardhome/conf
+                subPath: conf
               - path: /opt/adguardhome/work
                 subPath: work
     ingress:
