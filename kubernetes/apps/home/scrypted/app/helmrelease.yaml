@@ -72,7 +72,6 @@ spec:
       app:
         className: "internal"
         annotations:
-          external-dns.alpha.kubernetes.io/target: internal.${PRIVATE_DOMAIN}
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: NVR
           gethomepage.dev/group: Home

@@ -97,7 +97,6 @@ spec:
       app:
         className: "internal"
         annotations:
-          external-dns.alpha.kubernetes.io/target: internal.${PRIVATE_DOMAIN}
           nginx.ingress.kubernetes.io/rewrite-target: /$1
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: ESPHome Config
