@@ -1,0 +1,85 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app external-dns-opnsense
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: external-dns
+      version: 1.15.2
+      sourceRef:
+        kind: HelmRepository
+        name: external-dns-charts
+        namespace: flux-system
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    fullnameOverride: external-dns-opnsense
+    logLevel: info
+    interval: 2m
+    provider:
+      name: webhook
+      managedRecordTypes:
+        - A
+        - AAAA
+      webhook:
+        image:
+          repository: ghcr.io/jobs62/opnsense_unbound_external-dns_webhook
+          tag: v0.4.5@sha256:22d3bd25bacaa0a8445a746d6541a8994bcb54e6047f5a079574adc792f88034
+        env:
+          - name: OPNSENSE_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: &secret external-dns-opnsense-secret
+                key: OPNSENSE_API_SECRET
+          - name: OPNSENSE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: *secret
+                key: OPNSENSE_API_KEY
+          - name: OPNSENSE_BASE
+            value: https://opnsense.${PRIVATE_DOMAIN}
+          - name: OPNSENSE_ALLOW_INVALID_CERTS
+            value: "false"
+          - name: OPNSENSE_DOMAIN_FILTERS
+            value: '[".${PRIVATE_DOMAIN}"]'
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+    extraArgs:
+      - --ignore-ingress-tls-spec
+      - --webhook-provider-url=http://localhost:8800
+    policy: sync
+    sources:
+      - ingress
+      - service
+      - crd
+    registry: noop
+    domainFilters:
+      - "${PRIVATE_DOMAIN}"
+    txtPrefix: k8s.
+    txtOwnerId: k8s
+    serviceMonitor:
+      enabled: true
+    podAnnotations:
+      secret.reloader.stakater.com/reload: *secret
