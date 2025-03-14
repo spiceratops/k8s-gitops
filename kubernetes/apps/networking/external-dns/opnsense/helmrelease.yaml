@@ -35,8 +35,8 @@ spec:
         - AAAA
       webhook:
         image:
-          repository: ghcr.io/jobs62/opnsense_unbound_external-dns_webhook
-          tag: v0.4.5@sha256:22d3bd25bacaa0a8445a746d6541a8994bcb54e6047f5a079574adc792f88034
+          repository: ghcr.io/crutonjohn/external-dns-opnsense-webhook
+          tag: v0.1.0@sha256:72d4f5c79e515b8a70bb2e48f6472c746671a3ae3d8ad224aa686dd7192e1609
         env:
           - name: OPNSENSE_SECRET
             valueFrom:
@@ -48,12 +48,8 @@ spec:
               secretKeyRef:
                 name: *secret
                 key: OPNSENSE_API_KEY
-          - name: OPNSENSE_BASE
+          - name: OPNSENSE_HOST
             value: https://opnsense.${PRIVATE_DOMAIN}
-          - name: OPNSENSE_ALLOW_INVALID_CERTS
-            value: "false"
-          - name: OPNSENSE_DOMAIN_FILTERS
-            value: '[".${PRIVATE_DOMAIN}"]'
         livenessProbe:
           httpGet:
             path: /healthz
@@ -68,17 +64,11 @@ spec:
           timeoutSeconds: 5
     extraArgs:
       - --ignore-ingress-tls-spec
-      - --webhook-provider-url=http://localhost:8800
     policy: sync
-    sources:
-      - ingress
-      - service
-      - crd
+    sources: ["ingress", "service", "crd"]
     registry: noop
     domainFilters:
       - "${PRIVATE_DOMAIN}"
-    txtPrefix: k8s.
-    txtOwnerId: k8s
     serviceMonitor:
       enabled: true
     podAnnotations:
