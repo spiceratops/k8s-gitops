@@ -43,12 +43,12 @@ spec:
           - containerPort: 8080
             name: healthz
         env:
-          - name: OPNSENSE_SECRET
+          - name: OPNSENSE_API_SECRET
             valueFrom:
               secretKeyRef:
                 name: &secret external-dns-opnsense-secret
                 key: OPNSENSE_API_SECRET
-          - name: OPNSENSE_KEY
+          - name: OPNSENSE_API_KEY
             valueFrom:
               secretKeyRef:
                 name: *secret
