@@ -32,13 +32,13 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        vlans:
-          - &vlan30
-            vlanId: 30
-            mtu: 1500
-            dhcp: true
-            dhcpOptions:
-              routeMetric: 4096
+        # vlans:
+        #   - &vlan30
+        #     vlanId: 30
+        #     mtu: 1500
+        #     dhcp: true
+        #     dhcpOptions:
+        #       routeMetric: 4096
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -66,8 +66,8 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        vlans:
-          - *vlan30
+        # vlans:
+        #   - *vlan30
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -88,8 +88,8 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        vlans:
-          - *vlan30
+        # vlans:
+        #   - *vlan30
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -115,8 +115,8 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        vlans:
-          - *vlan30
+        # vlans:
+        #   - *vlan30
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -137,7 +137,6 @@ nodes:
           - i915.enable_guc=3
           - mitigations=off
           - net.ifnames=0
-          - sysctl.kernel.kexec_load_disabled=1
 
   - hostname: wk02.${PRIVATE_DOMAIN}
     ipAddress: 192.168.10.212
@@ -147,8 +146,8 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        vlans:
-          - *vlan30
+        # vlans:
+        #   - *vlan30
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -170,8 +169,8 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        vlans:
-          - *vlan30
+        # vlans:
+        #   - *vlan30
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -207,8 +206,8 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        vlans:
-          - *vlan30
+        # vlans:
+        #   - *vlan30
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
