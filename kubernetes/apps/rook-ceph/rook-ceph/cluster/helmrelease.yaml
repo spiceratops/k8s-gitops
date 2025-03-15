@@ -41,12 +41,24 @@ spec:
     cephClusterSpec:
       network:
         provider: host
+        addressRanges:
+          public: ["192.168.10.0/24"]
+          cluster: ["10.244.0.0/16", "10.245.0.0/16"]
+        connections:
+          requireMsgr2: true
       crashCollector:
         disable: false
       dashboard:
         enabled: true
         urlPrefix: /
         ssl: false
+      csi:
+        readAffinity:
+          enabled: true
+      mgr:
+        modules:
+          - name: pg_autoscaler
+            enabled: true
       storage:
         useAllNodes: false
         useAllDevices: false
@@ -91,7 +103,7 @@ spec:
           allowVolumeExpansion: true
           parameters:
             imageFormat: "2"
-            imageFeatures: layering
+            imageFeatures: layering,exclusive-lock,object-map,fast-diff,deep-flatten
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner

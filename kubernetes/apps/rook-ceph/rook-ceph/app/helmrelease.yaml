@@ -19,8 +19,12 @@ spec:
   values:
     crds:
       enabled: true
+    image:
+      repository: ghcr.io/rook/ceph
     csi:
       cephFSKernelMountOptions: ms_mode=legacy
+      enableCephfsDriver: false
+      enableCephfsSnapshotter: false
       enableLiveness: true
       serviceMonitor:
         enabled: true
