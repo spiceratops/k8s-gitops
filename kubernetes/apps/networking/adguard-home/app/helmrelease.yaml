@@ -88,7 +88,7 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${ADGUARD_LB_IP}
-          external-dns.alpha.kubernetes.io/hostname: &host dns01.${PRIVATE_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: &host dns02.${PRIVATE_DOMAIN}
           coredns.io/hostname: *host
         labels:
           io.cilium/lb-ipam-layer2: "true"
