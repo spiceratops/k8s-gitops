@@ -3,7 +3,7 @@ connectIPVersion: v4
 
 upstream:
   default:
-    - ${LAN_SERVER_OPNSENSE_IP}
+    - https://dns.nextdns.io/17daa9
   192.168.1.235:
     - https://dns.nextdns.io/38d6fe
   192.168.1.242:
