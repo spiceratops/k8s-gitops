@@ -21,7 +21,7 @@
       runs-on: ["arc-runner-set-k8s-gitops"]
       steps:
         - name: Generate Token
-          uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1.11.6
+          uses: actions/create-github-app-token@af35edadc00be37caa72ed9f3e6d5f7801bfdf09 # v1.11.7
           id: app-token
           with:
             app-id: "${{ secrets.BOT_APP_ID }}"
@@ -48,7 +48,7 @@
         - if: ${{ github.event.inputs.helmRepoNamespace == '' && github.event.inputs.helmRepoName == '' }}
           name: Get changed files
           id: changed-files
-          uses: tj-actions/changed-files@2f7c5bfce28377bc069a65ba478de0a74aa0ca32 # v46.0.1
+          uses: tj-actions/changed-files@823fcebdb31bb35fdf2229d9f769b400309430d0 # v46.0.3
           with:
             files: kubernetes/**/helmrelease.yaml
             safe_output: false

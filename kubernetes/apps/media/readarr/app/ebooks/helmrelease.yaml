@@ -44,8 +44,8 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16.8
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17.4.0
               pullPolicy: IfNotPresent
             envFrom:
               - secretRef:
@@ -53,8 +53,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/readarr-develop
-              tag: 0.3.32.2587
+              repository: ghcr.io/home-operations/readarr
+              tag: 0.4.12.2753
             env:
               TZ: ${TIMEZONE}
               READARR__INSTANCE_NAME: Readarr Ebooks

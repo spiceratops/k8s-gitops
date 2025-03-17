@@ -33,10 +33,11 @@ spec:
       managedRecordTypes:
         - A
         - AAAA
+        - CNAME
       webhook:
         image:
           repository: ghcr.io/crutonjohn/external-dns-opnsense-webhook
-          tag: v0.1.0@sha256:72d4f5c79e515b8a70bb2e48f6472c746671a3ae3d8ad224aa686dd7192e1609
+          tag: pr-29@sha256:be9dba76644664a939dc152c4fcd86a39d7933874104120eba31f846d518b96e
         ports:
           - containerPort: 8888
             name: http
@@ -58,10 +59,13 @@ spec:
     extraArgs:
       - --ignore-ingress-tls-spec
     policy: sync
-    sources: ["ingress", "service", "crd"]
+    sources: ["crd", "ingress", "service"]
     registry: noop
     domainFilters:
       - "${PRIVATE_DOMAIN}"
+      - "${PUBLIC_DOMAIN}"
+    txtOwnerId: k8s
+    txtPrefix: k8s.
     serviceMonitor:
       enabled: true
     podAnnotations:

@@ -19,17 +19,17 @@ spec:
   values:
     extraInitContainers:
       - name: init-db
-        image: ghcr.io/onedr0p/postgres-init:16.8
+        image: ghcr.io/home-operations/postgres-init:17.4.0
         imagePullPolicy: IfNotPresent
         envFrom:
           - secretRef:
               name: &secret grafana-secret
     replicas: 3
     env:
-      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
-      GF_AUTH_GENERIC_OAUTH_API_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
-      GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.${PRIVATE_DOMAIN}/api/oidc/authorization
-      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
+      # GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
+      # GF_AUTH_GENERIC_OAUTH_API_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
+      # GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.${PRIVATE_DOMAIN}/api/oidc/authorization
+      # GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
       GF_FEATURE_TOGGLES_ENABLE: publicDashboards
@@ -43,24 +43,24 @@ spec:
         check_for_updates: false
         check_for_plugin_updates: false
         reporting_enabled: false
-      auth:
-        signout_redirect_url: https://auth.${PRIVATE_DOMAIN}/logout
-        oauth_auto_login: true
-        oauth_allow_insecure_email_lookup: true # https://github.com/grafana/grafana/issues/70203
-      auth.generic_oauth:
-        enabled: true
-        name: Authelia
-        icon: signin
-        scopes: openid profile email groups
-        empty_scopes: false
-        login_attribute_path: preferred_username
-        groups_attribute_path: groups
-        name_attribute_path: name
-        use_pkce: true
-      auth.generic_oauth.group_mapping:
-        org_id: 1
-        role_attribute_path: |
-          contains(groups[*], 'admins') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
+      # auth:
+      #   signout_redirect_url: https://auth.${PRIVATE_DOMAIN}/logout
+      #   oauth_auto_login: true
+      #   oauth_allow_insecure_email_lookup: true # https://github.com/grafana/grafana/issues/70203
+      # auth.generic_oauth:
+      #   enabled: true
+      #   name: Authelia
+      #   icon: signin
+      #   scopes: openid profile email groups
+      #   empty_scopes: false
+      #   login_attribute_path: preferred_username
+      #   groups_attribute_path: groups
+      #   name_attribute_path: name
+      #   use_pkce: true
+      # auth.generic_oauth.group_mapping:
+      #   org_id: 1
+      #   role_attribute_path: |
+      #     contains(groups[*], 'admins') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
       auth.basic:
         enabled: true
       auth.anonymous:
@@ -113,22 +113,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/nginx
-          - name: blocky
-            orgId: 1
-            folder: Blocky
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/blocky
-          - name: thanos
-            orgId: 1
-            folder: Thanos
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/thanos
           - name: unifi
             orgId: 1
             folder: Unifi
@@ -156,9 +140,7 @@ spec:
             type: prometheus
             uid: prometheus
             access: proxy
-            url: http://thanos-query-frontend.monitoring.svc.cluster.local:9090
-            jsonData:
-              prometheusType: Thanos
+            url: http://prometheus-operated.monitoring.svc.cluster.local:9090
             isDefault: true
           - name: Alertmanager
             type: alertmanager
@@ -280,47 +262,6 @@ spec:
           datasource: Prometheus
         nginx-request-handling-performance:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
-          datasource: Prometheus
-      blocky:
-        blocky:
-          # renovate: depName="blocky"
-          gnetId: 14768
-          revision: 4
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
-        blocky-query:
-          url: https://raw.githubusercontent.com/0xERR0R/blocky/main/docs/blocky-query-grafana-postgres.json
-          datasource:
-            - name: DS_POSTGRES
-              value: Blocky
-      thanos:
-        thanos-bucket-replicate:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/bucket-replicate.json
-          datasource: Prometheus
-        thanos-compact:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/compact.json
-          datasource: Prometheus
-        thanos-overview:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/overview.json
-          datasource: Prometheus
-        thanos-query:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/query.json
-          datasource: Prometheus
-        thanos-query-frontend:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/query-frontend.json
-          datasource: Prometheus
-        thanos-receieve:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/receive.json
-          datasource: Prometheus
-        thanos-rule:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/rule.json
-          datasource: Prometheus
-        thanos-sidecar:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/sidecar.json
-          datasource: Prometheus
-        thanos-store:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/store.json
           datasource: Prometheus
       unifi:
         unifi-insights:

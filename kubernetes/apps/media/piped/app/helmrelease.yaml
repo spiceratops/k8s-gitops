@@ -36,8 +36,8 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17.4.0
               pullPolicy: IfNotPresent
             envFrom:
               - secretRef:
@@ -102,7 +102,7 @@ spec:
           app:
             image:
               repository: 1337kavin/piped-proxy
-              tag: latest@sha256:6a42a8c129a558cc01d5747ae0c508516d61fcfd374c76dadfca96d19067670f
+              tag: latest@sha256:9ac2c4b2fe386f40be9e7ea21e60608b89271c0be896f9717e17b3a5cdf9c276
             command:
               - /app/piped-proxy
             probes:
