@@ -58,7 +58,7 @@ spec:
               pullPolicy: IfNotPresent
             args: [run]
             env:
-              ORIGIN_URL: http://adguard-home:3000
+              ORIGIN_URL: http://localhost:3000
               ORIGIN_WEB_URL: https://dns01.${PRIVATE_DOMAIN}
               REPLICA_URL: http://192.168.1.53:3000
               REPLICA_WEB_URL: https://dns02.${PRIVATE_DOMAIN}
