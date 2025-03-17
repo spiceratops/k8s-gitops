@@ -74,7 +74,7 @@ spec:
           app:
             image:
               repository: ghcr.io/bjw-s-labs/piped-frontend
-              tag: 2025.3.17@sha256:d5b9d0964354e76d2251f052e321c6ea6e0f0a0eeec05110c881cd19fc8ec0e0
+              tag: 2025.3.17@sha256:5d05b0a3fe3fa9e2c7eff839c9e1f76654a8d55f5d0c3f8d282b896e46146f73
             env:
               BACKEND_HOSTNAME: piped-api.${PRIVATE_DOMAIN}
             probes:
