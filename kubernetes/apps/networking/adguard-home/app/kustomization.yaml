@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./volsync.yaml
+  - ./externalsecret.yaml
   # - ./certificate.yaml
   - ./helmrelease.yaml

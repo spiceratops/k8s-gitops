@@ -49,33 +49,31 @@ spec:
               # runAsUser: 1000
               # runAsGroup: 1000
               allowPrivilegeEscalation: false
-      # TODO
-      # sync:
-      #   containers:
-      #     app:
-      #       image:
-      #         repository: ghcr.io/bakito/adguardhome-sync
-      #         tag: alpine-v0.7.1@sha256:4409e1301375647bf177934c8441d79566d2c2557f0e0fa06a28fc6daeea65d4
-      #         pullPolicy: IfNotPresent
-      #       args: [run]
-      #       env:
-      #         ORIGIN_URL: http://adguard-home-origin:3000
-      #         ORIGIN_WEB_URL: https://${app_url}
-      #         ORIGIN_USERNAME: ${sync_username}
-      #         ORIGIN_PASSWORD: ${sync_password}
-      #         REPLICA_URL: http://adguard-home-replica:3000
-      #         REPLICA_WEB_URL: https://replica.${app_url}
-      #         REPLICA_USERNAME: ${sync_username}
-      #         REPLICA_PASSWORD: ${sync_password}
-      #         REPLICA_AUTO_SETUP: "true"
-      #         CRON: "*/10 * * * *"
-      #       securityContext:
-      #         readOnlyRootFilesystem: true
-      #         allowPrivilegeEscalation: false
-      #         capabilities: {drop: [ALL]}
-      #   pod:
-      #     securityContext:
-      #       runAsNonRoot: true
+      sync:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/bakito/adguardhome-sync
+              tag: alpine-v0.7.1@sha256:4409e1301375647bf177934c8441d79566d2c2557f0e0fa06a28fc6daeea65d4
+              pullPolicy: IfNotPresent
+            args: [run]
+            env:
+              ORIGIN_URL: http://adguard-home:3000
+              ORIGIN_WEB_URL: https://dns01.${PRIVATE_DOMAIN}
+              REPLICA_URL: http://192.168.1.53:3000
+              REPLICA_WEB_URL: https://dns02.${PRIVATE_DOMAIN}
+              REPLICA_AUTO_SETUP: "true"
+              CRON: "*/10 * * * *"
+            envFrom:
+              - secretRef:
+                  name: adguard-home-secret
+            securityContext:
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              capabilities: { drop: [ALL] }
+        pod:
+          securityContext:
+            runAsNonRoot: true
 
     service:
       app:
@@ -107,11 +105,11 @@ spec:
             protocol: TCP
           https:
             port: 443
-      # sync:
-      #   controller: sync
-      #   ports:
-      #     http:
-      #       port: 8080
+      sync:
+        controller: sync
+        ports:
+          http:
+            port: 8080
 
     persistence:
       config:
