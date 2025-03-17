@@ -4,7 +4,7 @@ bandwidthManager:
   enabled: false
   bbr: true
 bpf:
-  hostLegacyRouting: true
+  # hostLegacyRouting: true
   masquerade: true
   tproxy: true
 bgpControlPlane:
@@ -16,6 +16,8 @@ cgroup:
 cluster:
   id: 1
   name: k8s
+directRoutingSkipUnreachable: true
+enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
 hubble:
@@ -23,7 +25,11 @@ hubble:
 ipam:
   mode: kubernetes
 ipv4NativeRoutingCIDR: 10.244.0.0/16
+<<<<<<< HEAD
 ipv6NativeRoutingCIDR: "fddf:f7bc:9670::/112"
+=======
+ipv6NativeRoutingCIDR: "fdad:cafe:244::/112"
+>>>>>>> 0b58ebd2 (ipv6 configuration)
 ipv6:
   enabled: true
 k8sServiceHost: 127.0.0.1

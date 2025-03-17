@@ -117,10 +117,6 @@ spec:
         tls:
           - hosts:
               - "${HOSTNAME_PROM}"
-      thanosService:
-        enabled: true
-      thanosServiceMonitor:
-        enabled: true
       prometheusSpec:
         replicas: 3
         replicaExternalLabelName: __replica__
@@ -135,21 +131,15 @@ spec:
           - auto-gomaxprocs
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
-        thanos:
-          image: quay.io/thanos/thanos:v0.37.2
-          objectStorageConfig:
-            existingSecret:
-              name: thanos-objstore-config
-              key: config
-        retention: 2d
-        retentionSize: 15GB
+        retention: 7d
+        retentionSize: 25GB
         storageSpec:
           volumeClaimTemplate:
             spec:
               storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
               resources:
                 requests:
-                  storage: 20Gi
+                  storage: 25Gi
         resources:
           requests:
             cpu: 100m

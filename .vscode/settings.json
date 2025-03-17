@@ -1,7 +1,4 @@
 {
-  "files.associations": {
-    "*.yaml": "home-assistant"
-  },
   "material-icon-theme.folders.associations": {
     ".taskfiles": "utils",
     "bootstrap": "import",
@@ -9,15 +6,26 @@
     "hack": "scripts",
     "repositories": "database",
     "terraforms": "terraform",
-    "talos": "core",
     "vars": "other",
+    ".github/workflows": "ci",
+    ".private": "archive",
+    ".renovate": "robot",
+    "flux": "pipe",
+    "talos": "linux",
     // namespaces
     "cert-manager": "guard",
     "external-secrets": "keys",
     "kube-system": "kubernetes",
+    "flux-system": "pipe",
     "monitoring": "event",
     "networking": "connection",
     "rook-ceph": "dump"
+  },
+  "material-icon-theme.files.associations": {
+    "*.sops.yaml": "lock",
+    "helmfile.yaml": "helm",
+    "kubeconfig": "kubernetes",
+    "talosconfig": "kubernetes"
   },
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
@@ -34,4 +42,15 @@
   ],
   "explorer.autoReveal": false,
   "files.trimTrailingWhitespace": true,
+  "yaml.schemaStore.enable": true,
+  "yaml.schemas": {
+    "kubernetes": "./kubernetes/**/*.yaml"
+  },
+  "sops.defaults.ageKeyFile": "age.key",
+  "vs-kubernetes": {
+    "vs-kubernetes.kubeconfig": "./kubeconfig",
+    "vs-kubernetes.knownKubeconfigs": [
+      "./kubernetes/kubeconfig"
+    ]
+  }
 }

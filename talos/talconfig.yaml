@@ -2,9 +2,11 @@
 clusterName: &cluster k8s
 
 clusterPodNets:
-  - 10.244.0.0/16
+  - "10.244.0.0/16"
+  - "fdad:cafe:244::/112"
 clusterSvcNets:
-  - 10.245.0.0/16
+  - "10.245.0.0/16"
+  - "fdad:cafe:245::/112"
 
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosVersion: v1.9.5
@@ -32,6 +34,9 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
+        mtu: 1500
+        vip:
+          ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
         #   - &vlan30
         #     vlanId: 30
@@ -66,6 +71,9 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
+        mtu: 1500
+        vip:
+          ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -88,6 +96,9 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
+        mtu: 1500
+        vip:
+          ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -115,6 +126,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
+        mtu: 1500
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -137,6 +149,7 @@ nodes:
           - i915.enable_guc=3
           - mitigations=off
           - net.ifnames=0
+          - sysctl.kernel.kexec_load_disabled=1
 
   - hostname: wk02.${PRIVATE_DOMAIN}
     ipAddress: 192.168.10.212
@@ -146,6 +159,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
+        mtu: 1500
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -169,6 +183,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
+        mtu: 1500
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -206,6 +221,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
+        mtu: 1500
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -261,9 +277,17 @@ controlPlane:
         discovery:
           registries:
             kubernetes:
-              disabled: false
-            service:
               disabled: true
+            service:
+              disabled: false
+
+    # Enable MutatingAdmissionPolicy
+    - |-
+      cluster:
+        apiServer:
+          extraArgs:
+            runtime-config: admissionregistration.k8s.io/v1alpha1=true
+            feature-gates: MutatingAdmissionPolicy=true
 
     # Configure kubelet
     - &kubeletPatch |-
@@ -275,6 +299,7 @@ controlPlane:
           nodeIP:
             validSubnets:
               - 192.168.10.0/24
+              - ${PUBLIC_IPV6_PREFIX}:10::/64
           extraConfig:
             maxPods: 150
 
@@ -360,6 +385,11 @@ controlPlane:
           net.ipv4.tcp_wmem: 4096 65536 33554432
           net.ipv4.tcp_tw_reuse: 1
           net.ipv4.tcp_window_scaling: 1
+          net.core.default_qdisc: fq
+          net.ipv4.tcp_fastopen: 3
+          vm.nr_hugepages: 1024
+          net.ipv6.conf.all.accept_ra: "2"
+          net.ipv6.conf.all.forwarding: "1"
 
     # Custom Talos installer patch
     - &talosPatch |-
@@ -394,6 +424,8 @@ controlPlane:
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
+            node-cidr-mask-size-ipv4: "24"
+            node-cidr-mask-size-ipv6: "120"
         coreDNS:
           disabled: true
         proxy:
