@@ -58,8 +58,10 @@ spec:
             value: https://192.168.1.1
     extraArgs:
       - --ignore-ingress-tls-spec
+      - --ingress-class=external
+      - --default-targets=${INGRESS_EXT_LB_IP}
     policy: sync
-    sources: ["ingress", "service", "crd"]
+    sources: ["ingress"]
     registry: noop
     domainFilters:
       - "${PRIVATE_DOMAIN}"
