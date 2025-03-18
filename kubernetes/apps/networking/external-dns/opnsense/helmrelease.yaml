@@ -33,6 +33,7 @@ spec:
       managedRecordTypes:
         - A
         - AAAA
+        - CNAME
       webhook:
         image:
           repository: ghcr.io/crutonjohn/external-dns-opnsense-webhook
