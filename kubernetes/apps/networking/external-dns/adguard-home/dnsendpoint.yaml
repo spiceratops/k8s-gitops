@@ -154,17 +154,7 @@ spec:
       recordType: A
       targets:
         - 192.168.15.53
-    - dnsName: dns01.${PUBLIC_DOMAIN}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.15.53
     - dnsName: dns02.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.1.53
-    - dnsName: dns02.${PUBLIC_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
