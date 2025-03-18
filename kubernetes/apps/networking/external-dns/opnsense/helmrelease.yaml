@@ -59,7 +59,7 @@ spec:
     extraArgs:
       - --ignore-ingress-tls-spec
     policy: sync
-    sources: ["ingress"]
+    sources: ["crd", "ingress", "service"]
     registry: noop
     domainFilters:
       - "${PRIVATE_DOMAIN}"
