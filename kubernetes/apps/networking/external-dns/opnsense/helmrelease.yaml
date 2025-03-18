@@ -63,6 +63,8 @@ spec:
     registry: noop
     domainFilters:
       - "${PRIVATE_DOMAIN}"
+    txtOwnerId: k8s
+    txtPrefix: k8s.
     serviceMonitor:
       enabled: true
     podAnnotations:
