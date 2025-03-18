@@ -63,6 +63,7 @@ spec:
     registry: noop
     domainFilters:
       - "${PRIVATE_DOMAIN}"
+      - "${PUBLIC_DOMAIN}"
     txtOwnerId: k8s
     txtPrefix: k8s.
     serviceMonitor:
