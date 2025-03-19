@@ -59,4 +59,4 @@ metadata:
 spec:
   blocks:
     - cidr: ${CILIUM_LB_CIDR}
-    - cidr: ${CILIUM_LB_CIDR_V6}
+    # - cidr: ${CILIUM_LB_CIDR_V6}
