@@ -159,3 +159,15 @@ spec:
       recordType: A
       targets:
         - 192.168.1.53
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: jellyfin
+spec:
+  endpoints:
+    - dnsName: jellyfin.${PRIVATE_DOMAIN}
+      recordTTL: 180
+      recordType: A
+      targets:
+        - 192.168.15.80
