@@ -277,6 +277,7 @@ controlPlane:
           nodeIP:
             validSubnets:
               - 192.168.10.0/24
+              - 2403:5815:af44:2::/64
           extraConfig:
             maxPods: 150
 
@@ -362,6 +363,8 @@ controlPlane:
           net.ipv4.tcp_wmem: 4096 65536 33554432
           net.ipv4.tcp_tw_reuse: 1
           net.ipv4.tcp_window_scaling: 1
+          net.ipv6.conf.all.accept_ra: "2"
+          net.ipv6.conf.all.forwarding: "1"
 
     # Custom Talos installer patch
     - &talosPatch |-
