@@ -3,10 +3,10 @@ clusterName: &cluster k8s
 
 clusterPodNets:
   - 10.244.0.0/16
-  - fd44:ad40:bd40::/44
+  - fd00:5815:af44:244::/112
 clusterSvcNets:
   - 10.245.0.0/16
-  - fd44:ad40:cd40::/44
+  - fd00:5815:af44:245::/112
 
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosVersion: v1.9.5
@@ -34,6 +34,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
+        mtu: 1500
         # vlans:
         #   - &vlan30
         #     vlanId: 30
@@ -68,6 +69,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
+        mtu: 1500
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -90,6 +92,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
+        mtu: 1500
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -302,8 +305,7 @@ controlPlane:
       machine:
         network:
           nameservers:
-            - 192.168.1.53
-            - 192.168.15.53
+            - 192.168.1.1
 
     # Configure NFS mount options
     - &nfsPatch |-
@@ -361,8 +363,6 @@ controlPlane:
           net.core.wmem_max: 67108864
           net.ipv4.tcp_rmem: 4096 87380 33554432
           net.ipv4.tcp_wmem: 4096 65536 33554432
-          net.ipv4.tcp_tw_reuse: 1
-          net.ipv4.tcp_window_scaling: 1
           net.ipv6.conf.all.accept_ra: "2"
           net.ipv6.conf.all.forwarding: "1"
 
@@ -399,6 +399,7 @@ controlPlane:
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
+            node-cidr-mask-size-ipv6: "112"
         coreDNS:
           disabled: true
         proxy:
