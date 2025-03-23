@@ -4,7 +4,7 @@ bandwidthManager:
   enabled: false
   bbr: true
 bpf:
-  hostLegacyRouting: true
+  # hostLegacyRouting: true
   masquerade: true
   tproxy: true
 bgpControlPlane:
@@ -16,6 +16,8 @@ cgroup:
 cluster:
   id: 1
   name: k8s
+enableIPv6Masquerade: false
+enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
 hubble:

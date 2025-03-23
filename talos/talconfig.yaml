@@ -27,14 +27,23 @@ cniConfig:
 
 nodes:
   - hostname: cp01.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.201
+    ipAddress: 192.168.100.201
     installDisk: /dev/vda
     controlPlane: true
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
+        # addresses:
+        #   - 192.168.10.201/24
+        #   - 2403:5815:af44:2:8c94:cff:fe67:cc84/64
         dhcp: true
-        mtu: 1500
+        # routes:
+        #   - network: 0.0.0.0/0
+        #     gateway: 192.168.10.1
+        #   - network: ::/0
+        #     gateway: 2403:5815:af44:2:21b:21ff:febc:690d
+        vip:
+          ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
         #   - &vlan30
         #     vlanId: 30
@@ -62,14 +71,23 @@ nodes:
           - net.ifnames=0
 
   - hostname: cp02.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.202
+    ipAddress: 192.168.100.202
     installDisk: /dev/vda
     controlPlane: true
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
+        # addresses:
+        #   - 192.168.10.202/24
+        #   - 2403:5815:af44:2:d01b:40ff:fe68:2ebe/64
         dhcp: true
-        mtu: 1500
+        # routes:
+        #   - network: 0.0.0.0/0
+        #     gateway: 192.168.10.1
+        #   - network: ::/0
+        #     gateway: 2403:5815:af44:2:21b:21ff:febc:690d
+        vip:
+          ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -85,14 +103,23 @@ nodes:
         extraKernelArgs: *intelcpKernalArgs
 
   - hostname: cp03.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.203
+    ipAddress: 192.168.100.203
     installDisk: /dev/vda
     controlPlane: true
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
+        # addresses:
+        #   - 192.168.10.203/24
+        #   - 2403:5815:af44:2:c09:bbff:feeb:c979/64
         dhcp: true
-        mtu: 1500
+        # routes:
+        #   - network: 0.0.0.0/0
+        #     gateway: 192.168.10.1
+        #   - network: ::/0
+        #     gateway: 2403:5815:af44:2:21b:21ff:febc:690d
+        vip:
+          ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -113,13 +140,21 @@ nodes:
           - net.ifnames=0
 
   - hostname: wk01.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.211
+    ipAddress: 192.168.100.211
     installDisk: /dev/vda
     controlPlane: false
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
+        # addresses:
+        #   - 192.168.10.211/24
+        #   - 2403:5815:af44:2:2cd1:86ff:fe5c:913f/64
         dhcp: true
+        # routes:
+        #   - network: 0.0.0.0/0
+        #     gateway: 192.168.10.1
+        #   - network: ::/0
+        #     gateway: 2403:5815:af44:2:21b:21ff:febc:690d
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -144,13 +179,21 @@ nodes:
           - net.ifnames=0
 
   - hostname: wk02.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.212
+    ipAddress: 192.168.100.212
     installDisk: /dev/vda
     controlPlane: false
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
+        # addresses:
+        #   - 192.168.10.212/24
+        #   - 2403:5815:af44:2:f406:c0ff:fe08:d73e/64
         dhcp: true
+        # routes:
+        #   - network: 0.0.0.0/0
+        #     gateway: 192.168.10.1
+        #   - network: ::/0
+        #     gateway: 2403:5815:af44:2:21b:21ff:febc:690d
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -167,13 +210,21 @@ nodes:
         extraKernelArgs: *intelKernalArgs
 
   - hostname: wk03.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.213
+    ipAddress: 192.168.100.213
     installDisk: /dev/vda
     controlPlane: false
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
+        # addresses:
+        #   - 192.168.10.213/24
+        #   - 2403:5815:af44:2:1495:a8ff:fe98:579c/64
         dhcp: true
+        # routes:
+        #   - network: 0.0.0.0/0
+        #     gateway: 192.168.10.1
+        #   - network: ::/0
+        #     gateway: 2403:5815:af44:2:21b:21ff:febc:690d
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -204,13 +255,21 @@ nodes:
             net.core.bpf_jit_harden: 1
 
   - hostname: wk04.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.214
+    ipAddress: 192.168.100.214
     installDisk: /dev/vda
     controlPlane: false
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
+        # addresses:
+        #   - 192.168.10.214/24
+        #   - 2403:5815:af44:2:be24:11ff:fe7d:f8/64
         dhcp: true
+        # routes:
+        #   - network: 0.0.0.0/0
+        #     gateway: 192.168.10.1
+        #   - network: ::/0
+        #     gateway: 2403:5815:af44:2:21b:21ff:febc:690d
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -266,9 +325,9 @@ controlPlane:
         discovery:
           registries:
             kubernetes:
-              disabled: false
-            service:
               disabled: true
+            service:
+              disabled: false
 
     # Configure kubelet
     - &kubeletPatch |-
@@ -279,8 +338,8 @@ controlPlane:
             rotate-server-certificates: true
           nodeIP:
             validSubnets:
-              - 192.168.10.0/24
-              - 2403:5815:af44:2::/64
+              - 192.168.100.0/24
+              - 2403:5815:af44:100::/64
           extraConfig:
             maxPods: 150
 
@@ -399,7 +458,8 @@ controlPlane:
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
-            node-cidr-mask-size-ipv6: "112"
+            node-cidr-mask-size-ipv4: "24"
+            node-cidr-mask-size-ipv6: "64"
         coreDNS:
           disabled: true
         proxy:
@@ -429,7 +489,7 @@ controlPlane:
             listen-metrics-urls: http://0.0.0.0:2381
             unsafe-no-fsync: true
           advertisedSubnets:
-            - 192.168.10.0/24
+            - 192.168.100.0/24
 
     # Disable default API server admission plugins.
     - |-
