@@ -16,8 +16,7 @@ cgroup:
 cluster:
   id: 1
   name: k8s
-direct-routing-skip-uncreachable: true
-enableIPv6Masquerade: false
+directRoutingSkipUnreachable: true
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true

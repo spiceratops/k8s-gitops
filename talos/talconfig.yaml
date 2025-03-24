@@ -2,11 +2,11 @@
 clusterName: &cluster k8s
 
 clusterPodNets:
-  - 10.244.0.0/16
-  - fdad:cafe:244::/112
+  - "10.244.0.0/16"
+  - "fdad:cafe:244::/112"
 clusterSvcNets:
-  - 10.245.0.0/16
-  - fdad:cafe:245::/112
+  - "10.245.0.0/16"
+  - "fdad:cafe:245::/112"
 
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosVersion: v1.9.5
@@ -277,9 +277,9 @@ controlPlane:
         discovery:
           registries:
             kubernetes:
-              disabled: false
-            service:
               disabled: true
+            service:
+              disabled: false
 
     # Enable MutatingAdmissionPolicy
     - |-
@@ -384,6 +384,9 @@ controlPlane:
           net.ipv4.tcp_wmem: 4096 65536 33554432
           net.ipv4.tcp_tw_reuse: 1
           net.ipv4.tcp_window_scaling: 1
+          net.core.default_qdisc: fq
+          net.ipv4.tcp_fastopen: 3
+          vm.nr_hugepages: 1024
           net.ipv6.conf.all.accept_ra: "2"
           net.ipv6.conf.all.forwarding: "1"
 
@@ -421,7 +424,7 @@ controlPlane:
           extraArgs:
             bind-address: 0.0.0.0
             node-cidr-mask-size-ipv4: "24"
-            node-cidr-mask-size-ipv6: "112"
+            node-cidr-mask-size-ipv6: "120"
         coreDNS:
           disabled: true
         proxy:
