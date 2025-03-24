@@ -6,7 +6,7 @@ metadata:
   namespace: databases
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.8-6
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.8-7
   inheritedMetadata:
     annotations:
       kyverno.io/exclude: "true"
