@@ -26,10 +26,10 @@ spec:
               name: &secret grafana-secret
     replicas: 3
     env:
-      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
-      GF_AUTH_GENERIC_OAUTH_API_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
-      GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.${PRIVATE_DOMAIN}/api/oidc/authorization
-      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
+      # GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
+      # GF_AUTH_GENERIC_OAUTH_API_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
+      # GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.${PRIVATE_DOMAIN}/api/oidc/authorization
+      # GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
       GF_FEATURE_TOGGLES_ENABLE: publicDashboards
@@ -43,24 +43,24 @@ spec:
         check_for_updates: false
         check_for_plugin_updates: false
         reporting_enabled: false
-      auth:
-        signout_redirect_url: https://auth.${PRIVATE_DOMAIN}/logout
-        oauth_auto_login: true
-        oauth_allow_insecure_email_lookup: true # https://github.com/grafana/grafana/issues/70203
-      auth.generic_oauth:
-        enabled: true
-        name: Authelia
-        icon: signin
-        scopes: openid profile email groups
-        empty_scopes: false
-        login_attribute_path: preferred_username
-        groups_attribute_path: groups
-        name_attribute_path: name
-        use_pkce: true
-      auth.generic_oauth.group_mapping:
-        org_id: 1
-        role_attribute_path: |
-          contains(groups[*], 'admins') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
+      # auth:
+      #   signout_redirect_url: https://auth.${PRIVATE_DOMAIN}/logout
+      #   oauth_auto_login: true
+      #   oauth_allow_insecure_email_lookup: true # https://github.com/grafana/grafana/issues/70203
+      # auth.generic_oauth:
+      #   enabled: true
+      #   name: Authelia
+      #   icon: signin
+      #   scopes: openid profile email groups
+      #   empty_scopes: false
+      #   login_attribute_path: preferred_username
+      #   groups_attribute_path: groups
+      #   name_attribute_path: name
+      #   use_pkce: true
+      # auth.generic_oauth.group_mapping:
+      #   org_id: 1
+      #   role_attribute_path: |
+      #     contains(groups[*], 'admins') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
       auth.basic:
         enabled: true
       auth.anonymous:
