@@ -55,7 +55,7 @@ spec:
     moverSecurityContext:
       runAsUser: 1654
       runAsGroup: 1000
-      fsGroup: 568
+      fsGroup: 1000
     capacity: 10Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
@@ -79,7 +79,7 @@ spec:
     moverSecurityContext:
       runAsUser: 1654
       runAsGroup: 1000
-      fsGroup: 568
+      fsGroup: 1000
     retain:
       daily: 10
       within: 3d

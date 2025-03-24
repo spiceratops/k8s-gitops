@@ -7,4 +7,4 @@ resources:
   # - ./romm/ks.yaml
   - ./satisfactory/ks.yaml
   - ./minecraft/ks.yaml
-  # - ./nsxlibrarymanager/ks.yaml
+  - ./nsxlibrarymanager/ks.yaml
