@@ -154,7 +154,7 @@ spec:
       recordType: A
       targets:
         - 192.168.1.53
-        - 2403:5815:af44:1:be24:11ff:feff:1cdb
+        - ${PUBLIC_IPV6_PREFIX}:1:be24:11ff:feff:1cdb
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
