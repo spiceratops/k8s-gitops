@@ -1,6 +1,6 @@
 {
   "files.associations": {
-    "**/*.json5": "json5"
+    "*.yaml": "home-assistant"
   },
   "material-icon-theme.folders.associations": {
     ".taskfiles": "utils",
