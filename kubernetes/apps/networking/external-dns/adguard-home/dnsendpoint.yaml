@@ -149,23 +149,12 @@ metadata:
   name: dns02
 spec:
   endpoints:
-<<<<<<< HEAD
-    - dnsName: dns01.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.15.53
-=======
->>>>>>> 0b58ebd2 (ipv6 configuration)
     - dnsName: dns02.${PRIVATE_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.53
-<<<<<<< HEAD
-=======
         - ${PUBLIC_IPV6_PREFIX}:1:be24:11ff:feff:1cdb
->>>>>>> 0b58ebd2 (ipv6 configuration)
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
