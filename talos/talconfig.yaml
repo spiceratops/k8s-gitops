@@ -33,23 +33,32 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: true
+        dhcp: false
         mtu: 9000
-        vip:
-          ip: ${CLUSTER_ENDPOINT_IP}
         vlans:
-          - &vlan20
-            vlanId: 20
+          - vlanId: 10
             mtu: 9000
-            dhcp: true
-            dhcpOptions:
-              routeMetric: 4096
-          - &vlan30
-            vlanId: 30
+            addresses:
+              - "192.168.10.201/24"
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 192.168.10.1
+            vip:
+              ip: ${CLUSTER_ENDPOINT_IP}
+          - vlanId: 20
+            mtu: 9000
+            addresses:
+              - "192.168.20.201/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
+          - vlanId: 30
             mtu: 1500
-            dhcp: true
-            dhcpOptions:
-              routeMetric: 4096
+            addresses:
+              - "192.168.30.201/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -76,13 +85,32 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: true
+        dhcp: false
         mtu: 9000
-        vip:
-          ip: ${CLUSTER_ENDPOINT_IP}
         vlans:
-          - *vlan20
-          - *vlan30
+          - vlanId: 10
+            mtu: 9000
+            addresses:
+              - "192.168.10.202/24"
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 192.168.10.1
+            vip:
+              ip: ${CLUSTER_ENDPOINT_IP}
+          - vlanId: 20
+            mtu: 9000
+            addresses:
+              - "192.168.20.202/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
+          - vlanId: 30
+            mtu: 1500
+            addresses:
+              - "192.168.30.202/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -102,13 +130,32 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: true
+        dhcp: false
         mtu: 9000
-        vip:
-          ip: ${CLUSTER_ENDPOINT_IP}
         vlans:
-          - *vlan20
-          - *vlan30
+          - vlanId: 10
+            mtu: 9000
+            addresses:
+              - "192.168.10.203/24"
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 192.168.10.1
+            vip:
+              ip: ${CLUSTER_ENDPOINT_IP}
+          - vlanId: 20
+            mtu: 9000
+            addresses:
+              - "192.168.20.203/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
+          - vlanId: 30
+            mtu: 1500
+            addresses:
+              - "192.168.30.203/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -133,11 +180,30 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: true
+        dhcp: false
         mtu: 9000
         vlans:
-          - *vlan20
-          - *vlan30
+          - vlanId: 10
+            mtu: 9000
+            addresses:
+              - "192.168.10.211/24"
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 192.168.10.1
+          - vlanId: 20
+            mtu: 9000
+            addresses:
+              - "192.168.20.211/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
+          - vlanId: 30
+            mtu: 1500
+            addresses:
+              - "192.168.30.211/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -167,11 +233,30 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: true
+        dhcp: false
         mtu: 9000
         vlans:
-          - *vlan20
-          - *vlan30
+          - vlanId: 10
+            mtu: 9000
+            addresses:
+              - "192.168.10.212/24"
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 192.168.10.1
+          - vlanId: 20
+            mtu: 9000
+            addresses:
+              - "192.168.20.212/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
+          - vlanId: 30
+            mtu: 1500
+            addresses:
+              - "192.168.30.212/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -192,11 +277,30 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: true
+        dhcp: false
         mtu: 9000
         vlans:
-          - *vlan20
-          - *vlan30
+          - vlanId: 10
+            mtu: 9000
+            addresses:
+              - "192.168.10.213/24"
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 192.168.10.1
+          - vlanId: 20
+            mtu: 9000
+            addresses:
+              - "192.168.20.213/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
+          - vlanId: 30
+            mtu: 1500
+            addresses:
+              - "192.168.30.213/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -231,11 +335,30 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: true
+        dhcp: false
         mtu: 9000
         vlans:
-          - *vlan20
-          - *vlan30
+          - vlanId: 10
+            mtu: 9000
+            addresses:
+              - "192.168.10.214/24"
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 192.168.10.1
+          - vlanId: 20
+            mtu: 9000
+            addresses:
+              - "192.168.20.214/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
+          - vlanId: 30
+            mtu: 1500
+            addresses:
+              - "192.168.30.214/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -311,7 +434,7 @@ controlPlane:
           nodeIP:
             validSubnets:
               - 192.168.10.0/24
-              - ${PUBLIC_IPV6_PREFIX}:10::/64
+              - ${PUBLIC_IPV6_PREFIX}:1::/64
           extraConfig:
             maxPods: 150
 
