@@ -46,7 +46,7 @@ nodes:
               routeMetric: 4096
           - &vlan30
             vlanId: 30
-            mtu: 9000
+            mtu: 1500
             dhcp: true
             dhcpOptions:
               routeMetric: 4096
