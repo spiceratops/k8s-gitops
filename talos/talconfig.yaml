@@ -34,7 +34,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        mtu: 1500
+        mtu: 9000
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
@@ -71,7 +71,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        mtu: 1500
+        mtu: 9000
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
@@ -96,7 +96,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        mtu: 1500
+        mtu: 9000
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
@@ -126,7 +126,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        mtu: 1500
+        mtu: 9000
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -159,7 +159,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        mtu: 1500
+        mtu: 9000
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -183,7 +183,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        mtu: 1500
+        mtu: 9000
         # vlans:
         #   - *vlan30
     nodeLabels:
@@ -221,7 +221,7 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: true
-        mtu: 1500
+        mtu: 9000
         # vlans:
         #   - *vlan30
     nodeLabels:
