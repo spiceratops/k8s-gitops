@@ -9,6 +9,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: rook-ceph
+    - name: snapshot-controller
   path: ./kubernetes/apps/volsync-system/volsync/app
   prune: true
   sourceRef:
