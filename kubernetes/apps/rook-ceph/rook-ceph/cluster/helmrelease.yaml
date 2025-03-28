@@ -66,9 +66,9 @@ spec:
           - name: wk02
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SKC3000S1024G_50026B76863B2A0C
-          - name: wk03
-            devices:
-              - name: /dev/disk/by-id/nvme-KINGSTON_SKC3000S1024G_50026B76863B29EF
+          # - name: wk03
+          #   devices:
+          #     - name: /dev/disk/by-id/nvme-KINGSTON_SKC3000S1024G_50026B76863B29EF
           - name: wk04
             devices:
               - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_250GB_S46CNX0KA05974T

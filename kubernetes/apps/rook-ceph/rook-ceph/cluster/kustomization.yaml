@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: rook-ceph
 resources:
   - ./helmrelease.yaml
-  - ./groupsnapshotclass.yaml
+  # - ./groupsnapshotclass.yaml

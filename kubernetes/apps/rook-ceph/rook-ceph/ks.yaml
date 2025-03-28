@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: snapshot-controller
   path: ./kubernetes/apps/rook-ceph/rook-ceph/app
   prune: true
   sourceRef:
