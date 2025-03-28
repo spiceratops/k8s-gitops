@@ -1,12 +1,12 @@
 ---
 autoDirectNodeRoutes: true
 bandwidthManager:
-  enabled: false
+  enabled: true
   bbr: true
 bpf:
-  # hostLegacyRouting: true
   masquerade: true
-  tproxy: true
+  datapathMode: netkit
+  preallocateMaps: true
 bgpControlPlane:
   enabled: true
 cgroup:
@@ -16,10 +16,16 @@ cgroup:
 cluster:
   id: 1
   name: k8s
+cni:
+  exclusive: false
+dashboards:
+  enabled: true
 directRoutingSkipUnreachable: true
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
+enableIPv4BIGTCP: true
+enableIPv6BIGTCP: true
 hubble:
   enabled: false
 ipam:
@@ -39,7 +45,19 @@ loadBalancer:
   mode: dsr
 localRedirectPolicy: true
 operator:
+  replicas: 2
   rollOutPods: true
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  dashboards:
+    enabled: true
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    trustCRDsExist: true
 rollOutCiliumPods: true
 routingMode: native
 securityContext:
