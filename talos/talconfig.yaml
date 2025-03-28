@@ -37,13 +37,19 @@ nodes:
         mtu: 9000
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
-        # vlans:
-        #   - &vlan30
-        #     vlanId: 30
-        #     mtu: 1500
-        #     dhcp: true
-        #     dhcpOptions:
-        #       routeMetric: 4096
+        vlans:
+          - &vlan20
+            vlanId: 20
+            mtu: 9000
+            dhcp: true
+            dhcpOptions:
+              routeMetric: 4096
+          - &vlan30
+            vlanId: 30
+            mtu: 9000
+            dhcp: true
+            dhcpOptions:
+              routeMetric: 4096
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -74,8 +80,9 @@ nodes:
         mtu: 9000
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
-        # vlans:
-        #   - *vlan30
+        vlans:
+          - *vlan20
+          - *vlan30
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -99,8 +106,9 @@ nodes:
         mtu: 9000
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
-        # vlans:
-        #   - *vlan30
+        vlans:
+          - *vlan20
+          - *vlan30
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -127,8 +135,9 @@ nodes:
       - interface: eth0
         dhcp: true
         mtu: 9000
-        # vlans:
-        #   - *vlan30
+        vlans:
+          - *vlan20
+          - *vlan30
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -160,8 +169,9 @@ nodes:
       - interface: eth0
         dhcp: true
         mtu: 9000
-        # vlans:
-        #   - *vlan30
+        vlans:
+          - *vlan20
+          - *vlan30
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -184,8 +194,9 @@ nodes:
       - interface: eth0
         dhcp: true
         mtu: 9000
-        # vlans:
-        #   - *vlan30
+        vlans:
+          - *vlan20
+          - *vlan30
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -222,8 +233,9 @@ nodes:
       - interface: eth0
         dhcp: true
         mtu: 9000
-        # vlans:
-        #   - *vlan30
+        vlans:
+          - *vlan20
+          - *vlan30
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk

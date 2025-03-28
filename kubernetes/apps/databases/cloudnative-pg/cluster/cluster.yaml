@@ -38,7 +38,7 @@ spec:
       - { regex: cluster, action: labeldrop }
   bootstrap:
     recovery:
-      source: postgres-v18
+      source: postgres-v19
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
@@ -47,7 +47,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://postgresql/
       endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
-      serverName: postgres-v19
+      serverName: postgres-v20
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -56,7 +56,7 @@ spec:
           name: cloudnative-pg-secret
           key: AWS_SECRET_ACCESS_KEY
   externalClusters:
-    - name: postgres-v18
+    - name: postgres-v19
       barmanObjectStore:
         wal:
           compression: bzip2
