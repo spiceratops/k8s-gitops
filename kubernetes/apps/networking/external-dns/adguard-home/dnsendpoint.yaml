@@ -98,10 +98,10 @@ spec:
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: opnsense
+  name: unifi
 spec:
   endpoints:
-    - dnsName: opnsense.${PRIVATE_DOMAIN}
+    - dnsName: unifi.${PRIVATE_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
