@@ -62,16 +62,13 @@ spec:
         nodes:
           - name: wk01
             devices:
-              - name: /dev/disk/by-id/nvme-KINGSTON_SKC3000S1024G_50026B76863B2B62
+              - name: /dev/disk/by-id/nvme-Micron_7450_MTFDKBG1T9TFR_224444C102E8
           - name: wk02
             devices:
-              - name: /dev/disk/by-id/nvme-KINGSTON_SKC3000S1024G_50026B76863B2A0C
-          # - name: wk03
-          #   devices:
-          #     - name: /dev/disk/by-id/nvme-KINGSTON_SKC3000S1024G_50026B76863B29EF
-          - name: wk04
+              - name: /dev/disk/by-id/nvme-Micron_7450_MTFDKBG1T9TFR_2232454608D5
+          - name: wk03
             devices:
-              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_250GB_S46CNX0KA05974T
+              - name: /dev/disk/by-id/nvme-Micron_7450_MTFDKBG1T9TFR_224444C112CF
       placement:
         mgr:
           nodeAffinity: &nodeAffinity
