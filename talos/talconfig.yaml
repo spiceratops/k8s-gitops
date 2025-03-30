@@ -323,6 +323,7 @@ nodes:
               - name: nvidia_uvm
               - name: nvidia_drm
               - name: nvidia_modeset
+              - name: nbd
         - op: add
           path: /machine/sysctls
           value:

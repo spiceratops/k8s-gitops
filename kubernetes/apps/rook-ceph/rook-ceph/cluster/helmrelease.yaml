@@ -77,7 +77,7 @@ spec:
               - name: /dev/disk/by-id/nvme-Micron_7450_MTFDKBG1T9TFR_2232454608D5
           - name: wk03
             devices:
-              - name: /dev/disk/by-id/nvme-Micron_7450_MTFDKBG1T9TFR_224444C112CF
+              - name: /dev/disk/by-id/nvme-Micron_7450_MTFDKBG1T9TFR_234544C2C1FA
       placement:
         mgr:
           nodeAffinity: &nodeAffinity
