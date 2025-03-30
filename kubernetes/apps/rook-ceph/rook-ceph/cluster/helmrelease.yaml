@@ -36,8 +36,8 @@ spec:
     cephClusterSpec:
       network:
         provider: host
-        connections:
-          requireMsgr2: true
+        # connections:
+        #   requireMsgr2: true
       cephConfig:
         global:
           bdev_enable_discard: "true" # quote
