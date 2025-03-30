@@ -625,6 +625,13 @@ controlPlane:
             resolveMemberNames: true
             forwardKubeDNSToHost: false
 
+    # Add nbd module
+    - &nbdModule |-
+      machine:
+        kernel:
+          modules:
+            - name: nbd
+
 worker:
   nodeLabels:
     topology.kubernetes.io/region: *cluster
@@ -646,3 +653,4 @@ worker:
     - *noschedulerPatch
     - *openebsPatch
     - *hostDnsPatch
+    - *nbdModule
