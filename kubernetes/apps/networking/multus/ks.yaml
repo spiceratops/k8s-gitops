@@ -29,6 +29,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: multus
   path: ./kubernetes/apps/networking/multus/networks
   prune: true
   sourceRef:
