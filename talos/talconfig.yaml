@@ -40,9 +40,9 @@ nodes:
             mtu: 9000
             addresses:
               - "192.168.10.201/24"
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
+            # routes:
+            #   - network: 0.0.0.0/0
+            #     gateway: 192.168.10.1
             vip:
               ip: ${CLUSTER_ENDPOINT_IP}
           - vlanId: 20
@@ -92,9 +92,9 @@ nodes:
             mtu: 9000
             addresses:
               - "192.168.10.202/24"
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
+            # routes:
+            #   - network: 0.0.0.0/0
+            #     gateway: 192.168.10.1
             vip:
               ip: ${CLUSTER_ENDPOINT_IP}
           - vlanId: 20
@@ -137,9 +137,9 @@ nodes:
             mtu: 9000
             addresses:
               - "192.168.10.203/24"
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
+            # routes:
+            #   - network: 0.0.0.0/0
+            #     gateway: 192.168.10.1
             vip:
               ip: ${CLUSTER_ENDPOINT_IP}
           - vlanId: 20
@@ -187,9 +187,9 @@ nodes:
             mtu: 9000
             addresses:
               - "192.168.10.211/24"
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
+            # routes:
+            #   - network: 0.0.0.0/0
+            #     gateway: 192.168.10.1
           - vlanId: 20
             mtu: 9000
             addresses:
@@ -240,9 +240,9 @@ nodes:
             mtu: 9000
             addresses:
               - "192.168.10.212/24"
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
+            # routes:
+            #   - network: 0.0.0.0/0
+            #     gateway: 192.168.10.1
           - vlanId: 20
             mtu: 9000
             addresses:
@@ -284,9 +284,9 @@ nodes:
             mtu: 9000
             addresses:
               - "192.168.10.213/24"
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
+            # routes:
+            #   - network: 0.0.0.0/0
+            #     gateway: 192.168.10.1
           - vlanId: 20
             mtu: 9000
             addresses:
@@ -343,9 +343,9 @@ nodes:
             mtu: 9000
             addresses:
               - "192.168.10.214/24"
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
+            # routes:
+            #   - network: 0.0.0.0/0
+            #     gateway: 192.168.10.1
           - vlanId: 20
             mtu: 9000
             addresses:

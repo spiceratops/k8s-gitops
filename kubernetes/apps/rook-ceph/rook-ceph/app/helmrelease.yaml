@@ -28,7 +28,10 @@ spec:
       enableLiveness: true
       serviceMonitor:
         enabled: true
+      csiAddons:
+        enabled: true
     enableDiscoveryDaemon: true
+
     monitoring:
       enabled: true
     resources:
