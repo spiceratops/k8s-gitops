@@ -53,16 +53,16 @@ spec:
       csi:
         readAffinity:
           enabled: true
-      mgr:
-        modules:
-          - name: diskprediction_local
-            enabled: true
-          - name: insights
-            enabled: true
-          - name: pg_autoscaler
-            enabled: true
-          - name: rook
-            enabled: true
+      # mgr:
+      #   modules:
+      #     - name: diskprediction_local
+      #       enabled: true
+      #     - name: insights
+      #       enabled: true
+      #     - name: pg_autoscaler
+      #       enabled: true
+      #     - name: rook
+      #       enabled: true
       storage:
         useAllNodes: false
         useAllDevices: false
@@ -102,8 +102,8 @@ spec:
           isDefault: true
           reclaimPolicy: Delete
           allowVolumeExpansion: true
-          volumeBindingMode: Immediate
-          mountOptions: ["discard"]
+          # volumeBindingMode: Immediate
+          # mountOptions: ["discard"]
           parameters:
             imageFormat: "2"
             imageFeatures: layering,exclusive-lock,object-map,fast-diff,deep-flatten
