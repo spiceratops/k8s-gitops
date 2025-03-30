@@ -54,7 +54,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/readarr
-              tag: 0.4.12.2753
+              tag: 0.4.13.2760
             env:
               TZ: ${TIMEZONE}
               READARR__INSTANCE_NAME: Readarr Audiobooks
