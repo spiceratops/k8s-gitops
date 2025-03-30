@@ -27,7 +27,7 @@ cniConfig:
 
 nodes:
   - hostname: cp01.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.201
+    ipAddress: 192.168.1.201
     installDisk: /dev/vda
     controlPlane: true
     disableSearchDomain: true
@@ -35,30 +35,23 @@ nodes:
       - interface: eth0
         dhcp: true
         mtu: 9000
-        vlans:
-          - vlanId: 10
-            mtu: 9000
-            addresses:
-              - "192.168.10.201/24"
-            # routes:
-            #   - network: 0.0.0.0/0
-            #     gateway: 192.168.10.1
-            vip:
-              ip: ${CLUSTER_ENDPOINT_IP}
-          - vlanId: 20
-            mtu: 9000
-            addresses:
-              - "192.168.20.201/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            mtu: 1500
-            addresses:
-              - "192.168.30.201/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
+        vip:
+          ip: ${CLUSTER_ENDPOINT_IP}
+        # vlans:
+        # - vlanId: 20
+        #   mtu: 9000
+        #   addresses:
+        #     - "192.168.20.201/24"
+        #   routes:
+        #     - network: 192.168.20.0/24
+        #       gateway: 192.168.20.1
+        # - vlanId: 30
+        #   mtu: 1500
+        #   addresses:
+        #     - "192.168.30.201/24"
+        #   routes:
+        #     - network: 192.168.30.0/24
+        #       gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -79,7 +72,7 @@ nodes:
           - net.ifnames=0
 
   - hostname: cp02.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.202
+    ipAddress: 192.168.1.202
     installDisk: /dev/vda
     controlPlane: true
     disableSearchDomain: true
@@ -87,30 +80,23 @@ nodes:
       - interface: eth0
         dhcp: true
         mtu: 9000
-        vlans:
-          - vlanId: 10
-            mtu: 9000
-            addresses:
-              - "192.168.10.202/24"
-            # routes:
-            #   - network: 0.0.0.0/0
-            #     gateway: 192.168.10.1
-            vip:
-              ip: ${CLUSTER_ENDPOINT_IP}
-          - vlanId: 20
-            mtu: 9000
-            addresses:
-              - "192.168.20.202/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            mtu: 1500
-            addresses:
-              - "192.168.30.202/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
+        vip:
+          ip: ${CLUSTER_ENDPOINT_IP}
+        # vlans:
+        # - vlanId: 20
+        #   mtu: 9000
+        #   addresses:
+        #     - "192.168.20.202/24"
+        #   routes:
+        #     - network: 192.168.20.0/24
+        #       gateway: 192.168.20.1
+        # - vlanId: 30
+        #   mtu: 1500
+        #   addresses:
+        #     - "192.168.30.202/24"
+        #   routes:
+        #     - network: 192.168.30.0/24
+        #       gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -124,7 +110,7 @@ nodes:
         extraKernelArgs: *intelcpKernalArgs
 
   - hostname: cp03.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.203
+    ipAddress: 192.168.1.203
     installDisk: /dev/vda
     controlPlane: true
     disableSearchDomain: true
@@ -132,30 +118,23 @@ nodes:
       - interface: eth0
         dhcp: true
         mtu: 9000
-        vlans:
-          - vlanId: 10
-            mtu: 9000
-            addresses:
-              - "192.168.10.203/24"
-            # routes:
-            #   - network: 0.0.0.0/0
-            #     gateway: 192.168.10.1
-            vip:
-              ip: ${CLUSTER_ENDPOINT_IP}
-          - vlanId: 20
-            mtu: 9000
-            addresses:
-              - "192.168.20.203/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            mtu: 1500
-            addresses:
-              - "192.168.30.203/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
+        vip:
+          ip: ${CLUSTER_ENDPOINT_IP}
+        # vlans:
+        # - vlanId: 20
+        #   mtu: 9000
+        #   addresses:
+        #     - "192.168.20.203/24"
+        #   routes:
+        #     - network: 192.168.20.0/24
+        #       gateway: 192.168.20.1
+        # - vlanId: 30
+        #   mtu: 1500
+        #   addresses:
+        #     - "192.168.30.203/24"
+        #   routes:
+        #     - network: 192.168.30.0/24
+        #       gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -174,7 +153,7 @@ nodes:
           - net.ifnames=0
 
   - hostname: wk01.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.211
+    ipAddress: 192.168.1.211
     installDisk: /dev/vda
     controlPlane: false
     disableSearchDomain: true
@@ -182,28 +161,21 @@ nodes:
       - interface: eth0
         dhcp: true
         mtu: 9000
-        vlans:
-          - vlanId: 10
-            mtu: 9000
-            addresses:
-              - "192.168.10.211/24"
-            # routes:
-            #   - network: 0.0.0.0/0
-            #     gateway: 192.168.10.1
-          - vlanId: 20
-            mtu: 9000
-            addresses:
-              - "192.168.20.211/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            mtu: 1500
-            addresses:
-              - "192.168.30.211/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
+        # vlans:
+        # - vlanId: 20
+        #   mtu: 9000
+        #   addresses:
+        #     - "192.168.20.211/24"
+        #   routes:
+        #     - network: 192.168.20.0/24
+        #       gateway: 192.168.20.1
+        # - vlanId: 30
+        #   mtu: 1500
+        #   addresses:
+        #     - "192.168.30.211/24"
+        #   routes:
+        #     - network: 192.168.30.0/24
+        #       gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -227,7 +199,7 @@ nodes:
           - sysctl.kernel.kexec_load_disabled=1
 
   - hostname: wk02.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.212
+    ipAddress: 192.168.1.212
     installDisk: /dev/vda
     controlPlane: false
     disableSearchDomain: true
@@ -235,28 +207,26 @@ nodes:
       - interface: eth0
         dhcp: true
         mtu: 9000
-        vlans:
-          - vlanId: 10
-            mtu: 9000
-            addresses:
-              - "192.168.10.212/24"
-            # routes:
-            #   - network: 0.0.0.0/0
-            #     gateway: 192.168.10.1
-          - vlanId: 20
-            mtu: 9000
-            addresses:
-              - "192.168.20.212/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            mtu: 1500
-            addresses:
-              - "192.168.30.212/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
+        # vlans:
+        # addresses:
+        #   - "192.168.10.212/24"
+        # routes:
+        #   - network: 0.0.0.0/0
+        #     gateway: 192.168.10.1
+        # - vlanId: 20
+        #   mtu: 9000
+        #   addresses:
+        #     - "192.168.20.212/24"
+        #   routes:
+        #     - network: 192.168.20.0/24
+        #       gateway: 192.168.20.1
+        # - vlanId: 30
+        #   mtu: 1500
+        #   addresses:
+        #     - "192.168.30.212/24"
+        #   routes:
+        #     - network: 192.168.30.0/24
+        #       gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -271,7 +241,7 @@ nodes:
         extraKernelArgs: *intelKernalArgs
 
   - hostname: wk03.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.213
+    ipAddress: 192.168.1.213
     installDisk: /dev/vda
     controlPlane: false
     disableSearchDomain: true
@@ -279,28 +249,26 @@ nodes:
       - interface: eth0
         dhcp: true
         mtu: 9000
-        vlans:
-          - vlanId: 10
-            mtu: 9000
-            addresses:
-              - "192.168.10.213/24"
-            # routes:
-            #   - network: 0.0.0.0/0
-            #     gateway: 192.168.10.1
-          - vlanId: 20
-            mtu: 9000
-            addresses:
-              - "192.168.20.213/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            mtu: 1500
-            addresses:
-              - "192.168.30.213/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
+        # vlans:
+        # addresses:
+        #   - "192.168.10.213/24"
+        # routes:
+        #   - network: 0.0.0.0/0
+        #     gateway: 192.168.10.1
+        # - vlanId: 20
+        #   mtu: 9000
+        #   addresses:
+        #     - "192.168.20.213/24"
+        #   routes:
+        #     - network: 192.168.20.0/24
+        #       gateway: 192.168.20.1
+        # - vlanId: 30
+        #   mtu: 1500
+        #   addresses:
+        #     - "192.168.30.213/24"
+        #   routes:
+        #     - network: 192.168.30.0/24
+        #       gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -330,7 +298,7 @@ nodes:
             net.core.bpf_jit_harden: 1
 
   - hostname: wk04.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.10.214
+    ipAddress: 192.168.1.214
     installDisk: /dev/vda
     controlPlane: false
     disableSearchDomain: true
@@ -338,28 +306,26 @@ nodes:
       - interface: eth0
         dhcp: true
         mtu: 9000
-        vlans:
-          - vlanId: 10
-            mtu: 9000
-            addresses:
-              - "192.168.10.214/24"
-            # routes:
-            #   - network: 0.0.0.0/0
-            #     gateway: 192.168.10.1
-          - vlanId: 20
-            mtu: 9000
-            addresses:
-              - "192.168.20.214/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            mtu: 1500
-            addresses:
-              - "192.168.30.214/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
+        # vlans:
+        # addresses:
+        #   - "192.168.10.214/24"
+        # routes:
+        #   - network: 0.0.0.0/0
+        #     gateway: 192.168.10.1
+        # - vlanId: 20
+        #   mtu: 9000
+        #   addresses:
+        #     - "192.168.20.214/24"
+        #   routes:
+        #     - network: 192.168.20.0/24
+        #       gateway: 192.168.20.1
+        # - vlanId: 30
+        #   mtu: 1500
+        #   addresses:
+        #     - "192.168.30.214/24"
+        #   routes:
+        #     - network: 192.168.30.0/24
+        #       gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -434,7 +400,7 @@ controlPlane:
             rotate-server-certificates: true
           nodeIP:
             validSubnets:
-              - 192.168.10.0/24
+              - 192.168.1.0/24
               - ${PUBLIC_IPV6_PREFIX}:1::/64
           extraConfig:
             maxPods: 150
@@ -500,7 +466,7 @@ controlPlane:
                 - k8s.${PRIVATE_DOMAIN}
             - ip: 192.168.1.1
               aliases:
-                - opnsense.${PRIVATE_DOMAIN}
+                - unifi.${PRIVATE_DOMAIN}
             - ip: 192.168.10.10
               aliases:
                 - nas.${PRIVATE_DOMAIN}
@@ -597,7 +563,7 @@ controlPlane:
             listen-metrics-urls: http://0.0.0.0:2381
             unsafe-no-fsync: true
           advertisedSubnets:
-            - 192.168.10.0/24
+            - 192.168.1.0/24
 
     # Disable default API server admission plugins.
     - |-

@@ -58,8 +58,6 @@ spec:
             enabled: true
           - name: pg_autoscaler
             enabled: true
-          - name: rook
-            enabled: true
       storage:
         useAllNodes: false
         useAllDevices: false
@@ -100,9 +98,10 @@ spec:
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           volumeBindingMode: Immediate
+          mountOptions: ["discard"]
           parameters:
             imageFormat: "2"
-            imageFeatures: layering
+            imageFeatures: layering,exclusive-lock,object-map,fast-diff,deep-flatten
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
