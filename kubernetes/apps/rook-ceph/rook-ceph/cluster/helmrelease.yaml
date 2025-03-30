@@ -33,14 +33,17 @@ spec:
               - ${HOSTNAME}
     toolbox:
       enabled: true
-    configOverride: |
-      [global]
-      bdev_enable_discard = true
-      bdev_async_discard = true
-      osd_class_update_on_start = false
     cephClusterSpec:
       network:
         provider: host
+        connections:
+          requireMsgr2: true
+      cephConfig:
+        global:
+          bdev_enable_discard: "true" # quote
+          bdev_async_discard_threads: "1" # quote
+          osd_class_update_on_start: "false" # quote
+          device_failure_prediction_mode: local # requires mgr module
       crashCollector:
         disable: false
       dashboard:
@@ -52,7 +55,13 @@ spec:
           enabled: true
       mgr:
         modules:
+          - name: diskprediction_local
+            enabled: true
+          - name: insights
+            enabled: true
           - name: pg_autoscaler
+            enabled: true
+          - name: rook
             enabled: true
       storage:
         useAllNodes: false
@@ -93,6 +102,8 @@ spec:
           isDefault: true
           reclaimPolicy: Delete
           allowVolumeExpansion: true
+          volumeBindingMode: Immediate
+          mountOptions: ["discard"]
           parameters:
             imageFormat: "2"
             imageFeatures: layering,exclusive-lock,object-map,fast-diff,deep-flatten

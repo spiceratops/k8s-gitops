@@ -22,10 +22,13 @@ spec:
     image:
       repository: ghcr.io/rook/ceph
     csi:
-      cephFSKernelMountOptions: ms_mode=legacy
+      cephFSKernelMountOptions: ms_mode=prefer-crc
+      enableCephfsDriver: true
+      enableCephfsSnapshotter: true
       enableLiveness: true
       serviceMonitor:
         enabled: true
+    enableDiscoveryDaemon: true
     monitoring:
       enabled: true
     resources:
