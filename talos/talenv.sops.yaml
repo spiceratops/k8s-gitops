@@ -3,7 +3,7 @@ CLUSTER_ENDPOINT_IP: ENC[AES256_GCM,data:cIR/+urmMtZFoem4aA==,iv:fEvH7fristUjAs0
 SECRET_TS_AUTHKEY: ENC[AES256_GCM,data:CQTlTf/H/Qgfu1KcMeNvXz7f6obE45YspvxvMfON82yTlWjr1/fCisJf5XKbJGYc1qN+3h2ptiZb,iv:ew/IS+wzIICxibKuaSIDug/EHpdooUrb1UKfpWCwcAc=,tag:uqq+LCM2y+icg857UY3jEw==,type:str]
 PUBLIC_IPV6_PREFIX: ENC[AES256_GCM,data:GWh9zixY+2qx2D0H7WM=,iv:B8WRJSedCutoKLooMSSez4lpBWu8qvRWFKVbq8hb8WA=,tag:CNDjshOm2VqBcENfPJ8Yqw==,type:str]
 DNS01_IPV6: ENC[AES256_GCM,data:v5sHACTVEyYim+aE4LIReT3nOfqe,iv:BSbcXQqpCbOGnj5NdWCBNoYgRJ/4BD6HjNTHdJGJZPY=,tag:r5k6u1gILomaxOdtsG/xCg==,type:str]
-DNS02_IPV6: ENC[AES256_GCM,data:DC+ZIyMN6DblndobMbP7KX2vpXTt+VrIXk62xI7frhgcsr76,iv:qo5bywwTNV+5lyaAgZTYqZQDojyOueUEwyXWqVSniR8=,tag:3zPhNz3x55ps/xm4V32ceQ==,type:str]
+DNS02_IPV6: ENC[AES256_GCM,data:lOUYsqDS0d5zoJVKKvjA4m+/IBfpHcH00nSE6Pu6jUfsuFL2,iv:hfTB0Jgm6/2Q7dEiYZgrMjMQ2rDh1KNF8MKWJ5vpqdE=,tag:iYJ0LEdtx/DRef5XuZDIGg==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -19,8 +19,8 @@ sops:
             YWtFRnRxQnI4ZC9lZmErTW95RituQmcKasDGg5t1qd389+g5CiuR5L6vGOGQs6WE
             KmlNAYgcHBmiQCUYf7U4OI+fr4wuJwqI3o7l8dnt9jSW7H5NoRXc2g==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-03-30T21:19:32Z"
-    mac: ENC[AES256_GCM,data:dw+36AsTJjerGgU8vgfV6niF3pS03a4by6YxS1AOdyWKQO+3yHrrLujL0xiJcxAHEZLpoyTdIXgz72meugEqwp9nvQQe8Q3jos/7MeSWqc/LROG/iMb1wJDx41v6IsYWiTLVc5qBhs6eaJxGrtDy5MnJQBlzjLr8iw/wX+I9iwA=,iv:Spny6EyRi6yNzHFcArOTdHa203HPs3BN/KVzjXteq00=,tag:aSutauZBH7xy/E3kQevxfg==,type:str]
+    lastmodified: "2025-03-30T21:53:02Z"
+    mac: ENC[AES256_GCM,data:YB9p2Q/ptPeBNEVnFSqOIvFNfSvm8JF6kaAT9baVvfLiYwJYQ14y62SJs7S3X3i8ACpdTdbWuhbvLEUrM88EQ9v4u7Xq7sLg+YjKNU5wDjaaiHkrzQ7Rhi1fYApu+7E73tjOhdLF3PNLqd6cNSPJRPioabEpvgxNcLSQz/R9ogI=,iv:HtumBNiHlu3ivQ22DTqL7ZO4akPU77jKb2AxoxijJAI=,tag:7fagP83AO9LlOw3u9ecSuw==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.8.0

@@ -401,7 +401,7 @@ controlPlane:
           nodeIP:
             validSubnets:
               - 192.168.1.0/24
-              - ${PUBLIC_IPV6_PREFIX}:1::/64
+              - ${PUBLIC_IPV6_PREFIX}:0::/64
           extraConfig:
             maxPods: 150
 
