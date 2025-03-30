@@ -36,9 +36,6 @@ spec:
     cephClusterSpec:
       network:
         provider: host
-        addressRanges:
-          public: ["192.168.10.0/24"]
-          cluster: ["169.254.255.0/24"]
         connections:
           requireMsgr2: true
       cephConfig:
@@ -60,6 +57,8 @@ spec:
           - name: insights
             enabled: true
           - name: pg_autoscaler
+            enabled: true
+          - name: rook
             enabled: true
       storage:
         useAllNodes: false
@@ -101,10 +100,9 @@ spec:
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           volumeBindingMode: Immediate
-          mountOptions: ["discard"]
           parameters:
             imageFormat: "2"
-            imageFeatures: layering,exclusive-lock,object-map,fast-diff,deep-flatten
+            imageFeatures: layering
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
