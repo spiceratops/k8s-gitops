@@ -33,7 +33,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
+        dhcp: true
         mtu: 9000
         vlans:
           - vlanId: 10
@@ -85,7 +85,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
+        dhcp: true
         mtu: 9000
         vlans:
           - vlanId: 10
@@ -130,7 +130,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
+        dhcp: true
         mtu: 9000
         vlans:
           - vlanId: 10
@@ -180,7 +180,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
+        dhcp: true
         mtu: 9000
         vlans:
           - vlanId: 10
@@ -233,7 +233,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
+        dhcp: true
         mtu: 9000
         vlans:
           - vlanId: 10
@@ -277,7 +277,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
+        dhcp: true
         mtu: 9000
         vlans:
           - vlanId: 10
@@ -336,7 +336,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - interface: eth0
-        dhcp: false
+        dhcp: true
         mtu: 9000
         vlans:
           - vlanId: 10
