@@ -20,7 +20,6 @@ cni:
   exclusive: false
 dashboards:
   enabled: true
-directRoutingSkipUnreachable: true
 enableIPv6Masquerade: false
 enableRuntimeDeviceDetection: true
 endpointRoutes:
