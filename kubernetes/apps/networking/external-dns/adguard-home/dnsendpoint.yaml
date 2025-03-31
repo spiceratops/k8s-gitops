@@ -9,42 +9,42 @@ spec:
       recordTTL: 180
       recordType: A
       targets:
-        - 192.168.10.250
+        - 192.168.1.250
     - dnsName: cp01.${PRIVATE_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
-        - 192.168.10.201
+        - 192.168.1.201
     - dnsName: cp02.${PRIVATE_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
-        - 192.168.10.202
+        - 192.168.1.202
     - dnsName: cp03.${PRIVATE_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
-        - 192.168.10.203
+        - 192.168.1.203
     - dnsName: wk01.${PRIVATE_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
-        - 192.168.10.211
+        - 192.168.1.211
     - dnsName: wk02.${PRIVATE_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
-        - 192.168.10.212
+        - 192.168.1.212
     - dnsName: wk03.${PRIVATE_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
-        - 192.168.10.213
+        - 192.168.1.213
     - dnsName: wk04.${PRIVATE_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
-        - 192.168.10.214
+        - 192.168.1.214
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
