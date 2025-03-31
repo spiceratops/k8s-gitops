@@ -106,11 +106,11 @@ spec:
           https:
             port: 443
         ipFamilyPolicy: PreferDualStack
-      sync:
-        controller: sync
-        ports:
-          http:
-            port: 8080
+      # sync:
+      #   controller: sync
+      #   ports:
+      #     http:
+      #       port: 8080
 
     persistence:
       config:

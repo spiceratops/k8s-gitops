@@ -34,6 +34,7 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "8e:94:0c:67:cc:84"
+          driver: virtio_net
         dhcp: true
         mtu: 9000
         vip:
@@ -80,6 +81,7 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "d2:1b:40:68:2e:be"
+          driver: virtio_net
         dhcp: true
         mtu: 9000
         vip:
@@ -119,6 +121,7 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "0e:09:bb:eb:c9:79"
+          driver: virtio_net
         dhcp: true
         mtu: 9000
         vip:
@@ -163,6 +166,7 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "2e:d1:86:5c:91:3f"
+          driver: virtio_net
         dhcp: true
         mtu: 9000
         # vlans:
@@ -210,6 +214,7 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "f6:06:c0:08:d7:3e"
+          driver: virtio_net
         dhcp: true
         mtu: 9000
         # vlans:
@@ -253,6 +258,7 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "16:95:a8:98:57:9c"
+          driver: virtio_net
         dhcp: true
         mtu: 9000
         # vlans:
@@ -311,6 +317,7 @@ nodes:
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:7d:00:f8"
+          driver: virtio_net
         dhcp: true
         mtu: 9000
         # vlans:
