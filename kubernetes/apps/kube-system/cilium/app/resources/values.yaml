@@ -21,6 +21,7 @@ cni:
 dashboards:
   enabled: true
 directRoutingSkipUnreachable: true
+enableIPv6Masquerade: false
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
@@ -39,10 +40,9 @@ k8sServicePort: 7445
 kubeProxyReplacement: true
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 l2announcements:
-  enabled: true
+  enabled: false
 loadBalancer:
   algorithm: maglev
-  acceleration: best-effort
   mode: dsr
 localRedirectPolicy: true
 operator:
