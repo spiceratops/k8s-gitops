@@ -29,7 +29,7 @@ spec:
       serviceMonitor:
         enabled: true
       csiAddons:
-        enabled: true
+        enabled: false
     enableDiscoveryDaemon: true
 
     monitoring:

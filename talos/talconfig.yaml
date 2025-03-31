@@ -32,9 +32,10 @@ nodes:
     controlPlane: true
     disableSearchDomain: true
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "8e:94:0c:67:cc:84"
         dhcp: true
-        mtu: 9000
+        mtu: 1500
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
@@ -77,9 +78,10 @@ nodes:
     controlPlane: true
     disableSearchDomain: true
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "d2:1b:40:68:2e:be"
         dhcp: true
-        mtu: 9000
+        mtu: 1500
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
@@ -115,9 +117,10 @@ nodes:
     controlPlane: true
     disableSearchDomain: true
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "0e:09:bb:eb:c9:79"
         dhcp: true
-        mtu: 9000
+        mtu: 1500
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
@@ -158,9 +161,10 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "2e:d1:86:5c:91:3f"
         dhcp: true
-        mtu: 9000
+        mtu: 1500
         # vlans:
         # - vlanId: 20
         #   mtu: 9000
@@ -204,9 +208,10 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "f6:06:c0:08:d7:3e"
         dhcp: true
-        mtu: 9000
+        mtu: 1500
         # vlans:
         # addresses:
         #   - "192.168.10.212/24"
@@ -246,9 +251,10 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "16:95:a8:98:57:9c"
         dhcp: true
-        mtu: 9000
+        mtu: 1500
         # vlans:
         # addresses:
         #   - "192.168.10.213/24"
@@ -303,9 +309,10 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:7d:00:f8"
         dhcp: true
-        mtu: 9000
+        mtu: 1500
         # vlans:
         # addresses:
         #   - "192.168.10.214/24"
