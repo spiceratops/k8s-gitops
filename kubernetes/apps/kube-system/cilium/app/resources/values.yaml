@@ -20,7 +20,7 @@ cni:
   exclusive: false
 dashboards:
   enabled: true
-enableIPv6Masquerade: false
+enableIPv6Masquerade: true
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
