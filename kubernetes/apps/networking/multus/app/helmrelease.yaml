@@ -35,19 +35,18 @@ spec:
           multus:
             image:
               repository: ghcr.io/k8snetworkplumbingwg/multus-cni
-              tag: v4.1.4
-            command:
-              - /thin_entrypoint
+              tag: v4.2.0
             args:
               - --cleanup-config-on-exit=true
             resources:
               requests:
                 cpu: "10m"
               limits:
-                memory: "512Mi"
+                memory: "128Mi"
             securityContext:
               privileged: true
-
+    defaultPodOptions:
+      hostNetwork: true
     persistence:
       etc-cni-net-d:
         type: hostPath
