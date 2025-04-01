@@ -43,7 +43,7 @@ spec:
         proxy-send-timeout: 7d
         ssl-protocols: TLSv1.3 TLSv1.2
         use-forwarded-headers: true
-        proxy-real-ip-cidr: ${CLUSTER_POD_IP_CIDR}
+        proxy-real-ip-cidr: ${CLUSTER_POD_IP_CIDR},${CLUSTER_POD_IP_CIDR_V6}
       extraArgs:
         default-ssl-certificate: networking/wildcard-tls
       ingressClass: internal
@@ -66,7 +66,7 @@ spec:
           memory: 512M
       service:
         annotations:
-          lbipam.cilium.io/ips: ${INGRESS_INT_LB_IP}
+          lbipam.cilium.io/ips: ${INGRESS_INT_LB_IP},${INGRESS_INT_LB_IP_V6}
           external-dns.alpha.kubernetes.io/hostname: internal.${PRIVATE_DOMAIN}
         labels:
           io.cilium/lb-ipam-layer2: "true"
