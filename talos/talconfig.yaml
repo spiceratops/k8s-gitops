@@ -36,24 +36,21 @@ nodes:
           hardwareAddr: "8e:94:0c:67:cc:84"
           driver: virtio_net
         dhcp: true
-        mtu: 9000
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
-        # vlans:
-        # - vlanId: 20
-        #   mtu: 9000
-        #   addresses:
-        #     - "192.168.20.201/24"
-        #   routes:
-        #     - network: 192.168.20.0/24
-        #       gateway: 192.168.20.1
-        # - vlanId: 30
-        #   mtu: 1500
-        #   addresses:
-        #     - "192.168.30.201/24"
-        #   routes:
-        #     - network: 192.168.30.0/24
-        #       gateway: 192.168.30.1
+        vlans:
+          - vlanId: 10
+            addresses:
+              - "192.168.10.201/24"
+            routes:
+              - network: 192.168.10.0/24
+                gateway: 192.168.10.1
+          - vlanId: 30
+            addresses:
+              - "192.168.30.201/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -83,24 +80,21 @@ nodes:
           hardwareAddr: "d2:1b:40:68:2e:be"
           driver: virtio_net
         dhcp: true
-        mtu: 9000
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
-        # vlans:
-        # - vlanId: 20
-        #   mtu: 9000
-        #   addresses:
-        #     - "192.168.20.202/24"
-        #   routes:
-        #     - network: 192.168.20.0/24
-        #       gateway: 192.168.20.1
-        # - vlanId: 30
-        #   mtu: 1500
-        #   addresses:
-        #     - "192.168.30.202/24"
-        #   routes:
-        #     - network: 192.168.30.0/24
-        #       gateway: 192.168.30.1
+        vlans:
+          - vlanId: 10
+            addresses:
+              - "192.168.10.202/24"
+            routes:
+              - network: 192.168.10.0/24
+                gateway: 192.168.10.1
+          - vlanId: 30
+            addresses:
+              - "192.168.30.202/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -123,24 +117,21 @@ nodes:
           hardwareAddr: "0e:09:bb:eb:c9:79"
           driver: virtio_net
         dhcp: true
-        mtu: 9000
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
-        # vlans:
-        # - vlanId: 20
-        #   mtu: 9000
-        #   addresses:
-        #     - "192.168.20.203/24"
-        #   routes:
-        #     - network: 192.168.20.0/24
-        #       gateway: 192.168.20.1
-        # - vlanId: 30
-        #   mtu: 1500
-        #   addresses:
-        #     - "192.168.30.203/24"
-        #   routes:
-        #     - network: 192.168.30.0/24
-        #       gateway: 192.168.30.1
+        vlans:
+          - vlanId: 10
+            addresses:
+              - "192.168.10.203/24"
+            routes:
+              - network: 192.168.10.0/24
+                gateway: 192.168.10.1
+          - vlanId: 30
+            addresses:
+              - "192.168.30.203/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -168,22 +159,19 @@ nodes:
           hardwareAddr: "2e:d1:86:5c:91:3f"
           driver: virtio_net
         dhcp: true
-        mtu: 9000
-        # vlans:
-        # - vlanId: 20
-        #   mtu: 9000
-        #   addresses:
-        #     - "192.168.20.211/24"
-        #   routes:
-        #     - network: 192.168.20.0/24
-        #       gateway: 192.168.20.1
-        # - vlanId: 30
-        #   mtu: 1500
-        #   addresses:
-        #     - "192.168.30.211/24"
-        #   routes:
-        #     - network: 192.168.30.0/24
-        #       gateway: 192.168.30.1
+        vlans:
+          - vlanId: 10
+            addresses:
+              - "192.168.10.211/24"
+            routes:
+              - network: 192.168.10.0/24
+                gateway: 192.168.10.1
+          - vlanId: 30
+            addresses:
+              - "192.168.30.211/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -216,27 +204,19 @@ nodes:
           hardwareAddr: "f6:06:c0:08:d7:3e"
           driver: virtio_net
         dhcp: true
-        mtu: 9000
-        # vlans:
-        # addresses:
-        #   - "192.168.10.212/24"
-        # routes:
-        #   - network: 0.0.0.0/0
-        #     gateway: 192.168.10.1
-        # - vlanId: 20
-        #   mtu: 9000
-        #   addresses:
-        #     - "192.168.20.212/24"
-        #   routes:
-        #     - network: 192.168.20.0/24
-        #       gateway: 192.168.20.1
-        # - vlanId: 30
-        #   mtu: 1500
-        #   addresses:
-        #     - "192.168.30.212/24"
-        #   routes:
-        #     - network: 192.168.30.0/24
-        #       gateway: 192.168.30.1
+        vlans:
+          - vlanId: 10
+            addresses:
+              - "192.168.10.212/24"
+            routes:
+              - network: 192.168.10.0/24
+                gateway: 192.168.10.1
+          - vlanId: 30
+            addresses:
+              - "192.168.30.212/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -260,27 +240,19 @@ nodes:
           hardwareAddr: "16:95:a8:98:57:9c"
           driver: virtio_net
         dhcp: true
-        mtu: 9000
-        # vlans:
-        # addresses:
-        #   - "192.168.10.213/24"
-        # routes:
-        #   - network: 0.0.0.0/0
-        #     gateway: 192.168.10.1
-        # - vlanId: 20
-        #   mtu: 9000
-        #   addresses:
-        #     - "192.168.20.213/24"
-        #   routes:
-        #     - network: 192.168.20.0/24
-        #       gateway: 192.168.20.1
-        # - vlanId: 30
-        #   mtu: 1500
-        #   addresses:
-        #     - "192.168.30.213/24"
-        #   routes:
-        #     - network: 192.168.30.0/24
-        #       gateway: 192.168.30.1
+        vlans:
+          - vlanId: 10
+            addresses:
+              - "192.168.10.213/24"
+            routes:
+              - network: 192.168.10.0/24
+                gateway: 192.168.10.1
+          - vlanId: 30
+            addresses:
+              - "192.168.30.213/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
@@ -319,27 +291,19 @@ nodes:
           hardwareAddr: "bc:24:11:7d:00:f8"
           driver: virtio_net
         dhcp: true
-        mtu: 9000
-        # vlans:
-        # addresses:
-        #   - "192.168.10.214/24"
-        # routes:
-        #   - network: 0.0.0.0/0
-        #     gateway: 192.168.10.1
-        # - vlanId: 20
-        #   mtu: 9000
-        #   addresses:
-        #     - "192.168.20.214/24"
-        #   routes:
-        #     - network: 192.168.20.0/24
-        #       gateway: 192.168.20.1
-        # - vlanId: 30
-        #   mtu: 1500
-        #   addresses:
-        #     - "192.168.30.214/24"
-        #   routes:
-        #     - network: 192.168.30.0/24
-        #       gateway: 192.168.30.1
+        vlans:
+          - vlanId: 10
+            addresses:
+              - "192.168.10.214/24"
+            routes:
+              - network: 192.168.10.0/24
+                gateway: 192.168.10.1
+          - vlanId: 30
+            addresses:
+              - "192.168.30.214/24"
+            routes:
+              - network: 192.168.30.0/24
+                gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: wk
