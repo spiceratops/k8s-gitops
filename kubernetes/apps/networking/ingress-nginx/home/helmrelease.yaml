@@ -50,7 +50,7 @@ spec:
       ingressClassResource:
         name: home
         default: false
-        controllerValue: k8s.io/internal
+        controllerValue: k8s.io/home
       metrics:
         enabled: true
         serviceMonitor:
