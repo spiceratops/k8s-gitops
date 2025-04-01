@@ -23,21 +23,18 @@ spec:
     controllers:
       multus:
         type: daemonset
-        pod:
-          hostNetwork: true
         initContainers:
           cni-plugins:
             image:
               repository: ghcr.io/home-operations/cni-plugins
               tag: 1.6.2@sha256:078ddbb602860268c20c4fd3e31a047315f5b686545588de534aade7059a7764
-
         containers:
           multus:
             image:
               repository: ghcr.io/k8snetworkplumbingwg/multus-cni
               tag: v4.2.0
             args:
-              - --cleanup-config-on-exit=true
+              - --cleanup-config-on-exit
             resources:
               requests:
                 cpu: "10m"
