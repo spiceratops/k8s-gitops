@@ -7,6 +7,7 @@ bpf:
   masquerade: true
   datapathMode: netkit
   preallocateMaps: true
+bpfClockProbe: true
 bgpControlPlane:
   enabled: true
 cgroup:
@@ -20,6 +21,7 @@ cni:
   exclusive: false
 dashboards:
   enabled: true
+devices: eth+
 enableIPv6Masquerade: true
 enableRuntimeDeviceDetection: true
 endpointRoutes:
