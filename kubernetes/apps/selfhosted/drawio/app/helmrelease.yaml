@@ -40,7 +40,7 @@ spec:
     ingress:
       app:
         enabled: true
-        className: "internal"
+        className: "home"
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/icon: si-daigrams.net
@@ -56,7 +56,7 @@ spec:
           hajimari.io/icon: simple-icons:diagramsdotnet
           hajimari.io/appName: Drawio
         hosts:
-          - host: "${HOSTNAME}"
+          - host: &host diagrams.${PRIVATE_DOMAIN_HOME}
             paths:
               - path: /
                 service:
@@ -64,4 +64,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - "${HOSTNAME}"
+              - *host
