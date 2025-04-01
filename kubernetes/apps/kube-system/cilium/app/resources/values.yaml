@@ -8,7 +8,7 @@ bpf:
   datapathMode: netkit
   preallocateMaps: true
 bgpControlPlane:
-  enabled: false
+  enabled: true
 cgroup:
   automount:
     enabled: false
