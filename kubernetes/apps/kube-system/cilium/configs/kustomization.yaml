@@ -5,3 +5,4 @@ namespace: kube-system
 resources:
   - ./l2announcementpolicy.yaml
   # - ./bgpconfig.yaml
+  - ./lbpool.yaml
