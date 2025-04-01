@@ -32,48 +32,34 @@ spec:
               pullPolicy: IfNotPresent
             env:
               TZ: ${TIMEZONE}
-            # probes:
-            #   liveness: &probe
-            #     enabled: true
-            #     type: HTTP
-            #     port: 3000
-            #     path: /login.html
-            #   readiness: *probe
-            #   startup:
-            #     <<: *probe
-            #     spec:
-            #       failureThreshold: 30
-            #       periodSeconds: 5
             securityContext:
               readOnlyRootFilesystem: true
-              # runAsUser: 1000
-              # runAsGroup: 1000
               allowPrivilegeEscalation: false
-      # sync:
-      #   containers:
-      #     app:
-      #       image:
-      #         repository: ghcr.io/bakito/adguardhome-sync
-      #         tag: alpine-v0.7.1@sha256:4409e1301375647bf177934c8441d79566d2c2557f0e0fa06a28fc6daeea65d4
-      #         pullPolicy: IfNotPresent
-      #       args: [run]
-      #       env:
-      #         ORIGIN_URL: http://adguard-home-app:3000
-      #         ORIGIN_WEB_URL: https://dns01.${PRIVATE_DOMAIN}
-      #         REPLICA_URL: http://192.168.1.53:3000
-      #         REPLICA_WEB_URL: https://dns02.${PRIVATE_DOMAIN}
-      #         REPLICA_AUTO_SETUP: "true"
-      #         CRON: "*/10 * * * *"
-      #       envFrom:
-      #         - secretRef:
-      #             name: adguard-home-secret
-      #       securityContext:
-      #         readOnlyRootFilesystem: true
-      #         allowPrivilegeEscalation: false
-      #         capabilities: { drop: [ALL] }
-      #   pod:
-      #     securityContext:
-      #       runAsNonRoot: true
+      sync:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/bakito/adguardhome-sync
+              tag: alpine-v0.7.1@sha256:4409e1301375647bf177934c8441d79566d2c2557f0e0fa06a28fc6daeea65d4
+              pullPolicy: IfNotPresent
+            args: [run]
+            env:
+              ORIGIN_URL: http://adguard-home-app:3000
+              ORIGIN_WEB_URL: https://dns01.${PRIVATE_DOMAIN}
+              REPLICA_URL: http://192.168.1.53:3000
+              REPLICA_WEB_URL: https://dns02.${PRIVATE_DOMAIN}
+              REPLICA_AUTO_SETUP: "true"
+              CRON: "*/10 * * * *"
+            envFrom:
+              - secretRef:
+                  name: adguard-home-secret
+            securityContext:
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              capabilities: { drop: [ALL] }
+        pod:
+          securityContext:
+            runAsNonRoot: true
 
     service:
       app:
@@ -106,11 +92,11 @@ spec:
           https:
             port: 443
         ipFamilyPolicy: PreferDualStack
-      # sync:
-      #   controller: sync
-      #   ports:
-      #     http:
-      #       port: 8080
+      sync:
+        controller: sync
+        ports:
+          http:
+            port: 8080
 
     persistence:
       config:
@@ -128,18 +114,3 @@ spec:
         name: wildcard-tls
         globalMounts:
           - path: /certs
-    # ingress:
-    #   app:
-    #     enabled: true
-    #     className: internal
-    #     annotations:
-    #     hosts:
-    #       - host: *host
-    #         paths:
-    #           - path: /
-    #             service:
-    #               identifier: app
-    #               port: http
-    #     tls:
-    #       - hosts:
-    #           - *host

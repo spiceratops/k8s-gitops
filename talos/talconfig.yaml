@@ -566,7 +566,7 @@ controlPlane:
       machine:
         features:
           hostDNS:
-            enabled: true
+            enabled: false
             resolveMemberNames: true
             forwardKubeDNSToHost: false
 
