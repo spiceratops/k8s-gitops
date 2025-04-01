@@ -13,3 +13,18 @@ spec:
   dnsNames:
     - ${PRIVATE_DOMAIN}
     - "*.${PRIVATE_DOMAIN}"
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-np
+  namespace: networking
+spec:
+  secretName: wildcard-np-tls
+  issuerRef:
+    name: letsencrypt-prod-sp
+    kind: ClusterIssuer
+  commonName: ${PRIVATE_DOMAIN_HOME}
+  dnsNames:
+    - ${PRIVATE_DOMAIN_HOME}
+    - "*.${PRIVATE_DOMAIN_HOME}"

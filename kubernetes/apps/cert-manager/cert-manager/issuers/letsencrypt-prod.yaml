@@ -19,3 +19,24 @@ spec:
         selector:
           dnsZones:
             - ${PRIVATE_DOMAIN}
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod-sp
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: &email ${PRIVATE_EMAIL}
+    privateKeySecretRef:
+      name: letsencrypt-production-sp
+    solvers:
+      - dns01:
+          cloudflare:
+            email: *email
+            apiTokenSecretRef:
+              name: cloudflare-secret
+              key: API_TOKEN_SP
+        selector:
+          dnsZones:
+            - ${PRIVATE_DOMAIN_HOME}
