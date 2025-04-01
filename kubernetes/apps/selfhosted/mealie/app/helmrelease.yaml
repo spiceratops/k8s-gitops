@@ -93,7 +93,7 @@ spec:
     ingress:
       app:
         enabled: true
-        className: internal
+        className: home
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Meal Recipes
@@ -110,4 +110,3 @@ spec:
         tls:
           - hosts:
               - *host-home
-            secretName: wildcard-np-tls
