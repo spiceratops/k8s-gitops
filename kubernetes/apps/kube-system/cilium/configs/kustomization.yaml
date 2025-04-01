@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./l2announcementpolicy.yaml
-  - ./bgpconfig.yaml
+  # - ./bgpconfig.yaml
