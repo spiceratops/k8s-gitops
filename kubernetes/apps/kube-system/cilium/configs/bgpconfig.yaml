@@ -7,8 +7,8 @@ spec:
     matchExpressions:
       - { key: somekey, operator: NotIn, values: ["never-used-value"] }
   bgpInstances:
-    - name: instance-64513
-      localASN: 64513
+    - name: instance-64514
+      localASN: 64514
       peers:
         - name: peer-64513
           peerASN: 64513

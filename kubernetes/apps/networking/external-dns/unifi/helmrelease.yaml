@@ -53,6 +53,7 @@ spec:
               secretKeyRef:
                 name: &secret external-dns-unifi-secret
                 key: UNIFI_API_KEY
+    managedRecordTypes: ["A", "AAAA", "CNAME", "SRV"]
     triggerLoopOnEvent: true
     policy: sync
     sources: ["crd", "ingress", "service"]
