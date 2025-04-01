@@ -33,8 +33,10 @@ spec:
             image:
               repository: ghcr.io/k8snetworkplumbingwg/multus-cni
               tag: v4.2.0
+            command:
+              - /thin_entrypoint
             args:
-              - --cleanup-config-on-exit
+              - --cleanup-config-on-exit=true
             resources:
               requests:
                 cpu: "10m"
