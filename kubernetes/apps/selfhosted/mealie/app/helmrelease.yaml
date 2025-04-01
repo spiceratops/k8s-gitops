@@ -101,7 +101,7 @@ spec:
           gethomepage.dev/icon: mealie.png
           gethomepage.dev/name: Mealie
         hosts:
-          - host: &host-home meals.${PRIVATE_DOMAIN_HOME}
+          - host: &host meals.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:
@@ -109,4 +109,4 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host-home
+              - *host
