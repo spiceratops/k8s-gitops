@@ -70,6 +70,7 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: internal.${PRIVATE_DOMAIN_HOME}
         labels:
           io.cilium/lb-ipam-layer2: "true"
+        ipFamilyPolicy: PreferDualStack
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
