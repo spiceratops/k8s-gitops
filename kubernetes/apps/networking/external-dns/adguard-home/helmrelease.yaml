@@ -74,6 +74,7 @@ spec:
       - --webhook-provider-url=http://localhost:8888
       - --ignore-ingress-tls-spec
       - --ingress-class=internal
+      - --ingress-class=home
     sources: ["crd", "ingress", "service"]
     podAnnotations:
       secret.reloader.stakater.com/reload: *secret
