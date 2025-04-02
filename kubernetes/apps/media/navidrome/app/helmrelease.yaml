@@ -60,6 +60,7 @@ spec:
         ports:
           http:
             port: *port
+        ipFamilyPolicy: PreferDualStack
     ingress:
       app:
         enabled: true

@@ -74,6 +74,7 @@ spec:
         annotations:
           coredns.io/hostname: satisfactory.${PRIVATE_DOMAIN}
           lbipam.cilium.io/ips: ${SATISFACTORY_LB_IP}
+        ipFamilyPolicy: PreferDualStack
         ports:
           game-udp:
             primary: true

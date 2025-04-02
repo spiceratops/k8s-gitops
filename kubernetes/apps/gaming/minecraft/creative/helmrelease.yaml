@@ -74,6 +74,7 @@ spec:
         enabled: true
         serviceType: LoadBalancer
       serviceType: LoadBalancer
+      ipFamilyPolicy: PreferDualStack
       extraPorts:
         - name: map
           containerPort: 8123
