@@ -80,16 +80,4 @@ spec:
               app.kubernetes.io/instance: ${APP}
               app.kubernetes.io/component: controller
     defaultBackend:
-      enabled: true
-      image:
-        repository: ghcr.io/tarampampam/error-pages
-        tag: 3.3.2
-      extraEnvs:
-        - { name: TEMPLATE_NAME, value: orient }
-        - { name: SHOW_DETAILS, value: "false" }
-      resources:
-        requests:
-          memory: 250Mi
-          cpu: 25m
-        limits:
-          memory: 350Mi
+      enabled: false
