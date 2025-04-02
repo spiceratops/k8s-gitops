@@ -49,18 +49,13 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+              storageClassName: ${CLUSTER_STORAGE_BLOCK}
               resources:
                 requests:
                   storage: 1Gi
     grafana:
       enabled: false
       forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          multicluster:
-            etcd:
-              enabled: true
     kubeStateMetrics:
       enabled: true
     kube-state-metrics:
@@ -89,9 +84,9 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints: &cp
-        - 192.168.10.201
-        - 192.168.10.202
-        - 192.168.10.203
+        - 192.168.1.201
+        - 192.168.1.202
+        - 192.168.1.203
     kubeEtcd:
       enabled: true
       endpoints: *cp
@@ -136,7 +131,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+              storageClassName: ${CLUSTER_STORAGE_BLOCK}
               resources:
                 requests:
                   storage: 25Gi
@@ -146,3 +141,45 @@ spec:
             memory: 1024M
           limits:
             memory: 6144M
+    prometheus-node-exporter:
+      fullnameOverride: node-exporter
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
+    additionalPrometheusRulesMap:
+      dockerhub-rules:
+        groups:
+          - name: dockerhub
+            rules:
+              - alert: DockerhubRateLimitRisk
+                annotations:
+                  summary: Kubernetes cluster Dockerhub rate limit risk
+                expr: count(time() - container_last_seen{image=~"(docker.io).*",container!=""} < 30) > 25
+                labels:
+                  severity: critical
+      oom-rules:
+        groups:
+          - name: oom
+            rules:
+              - alert: OomKilled
+                annotations:
+                  summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
+                expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
+                labels:
+                  severity: critical
+      zfs-rules:
+        groups:
+          - name: zfs
+            rules:
+              - alert: ZfsUnexpectedPoolState
+                annotations:
+                  summary: ZFS pool {{$labels.zpool}} on {{$labels.instance}} is in a unexpected state {{$labels.state}}
+                expr: node_zfs_zpool_state{state!="online"} > 0
+                labels:
+                  severity: critical
