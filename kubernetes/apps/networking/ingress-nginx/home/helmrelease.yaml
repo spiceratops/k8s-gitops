@@ -66,7 +66,7 @@ spec:
           memory: 512M
       service:
         annotations:
-          lbipam.cilium.io/ips: ${INGRESS_HOME_LB_IP}
+          lbipam.cilium.io/ips: ${INGRESS_HOME_LB_IP},,${INGRESS_HOME_LB_IP_V6}
           external-dns.alpha.kubernetes.io/hostname: internal.${PRIVATE_DOMAIN_HOME}
         labels:
           io.cilium/lb-ipam-layer2: "true"
