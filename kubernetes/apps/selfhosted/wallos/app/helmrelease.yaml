@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: bellamy/wallos
-              tag: 2.46.1
+              tag: 2.48.1
             env:
               TZ: ${TIMEZONE}
             resources:
