@@ -8,3 +8,4 @@ resources:
   - ./smartctl-exporter/ks.yaml
   - ./sonarr-exporter/ks.yaml
   - ./speedtest-exporter/ks.yaml
+  - ./omada-exporter/ks.yaml
