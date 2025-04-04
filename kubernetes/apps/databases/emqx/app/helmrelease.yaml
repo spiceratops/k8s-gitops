@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: emqx
+  name: &app emqx
   namespace: databases
 spec:
   interval: 30m
@@ -34,6 +34,31 @@ spec:
       externalTrafficPolicy: Local
       annotations:
         coredns.io/hostname: mqtt.${PRIVATE_DOMAIN}
+    serviceMonitor:
+      app:
+        serviceName: *app
+        endpoints:
+          - port: metrics
+            interval: 5s
+            path: /metrics
+            relabelings:
+              - action: replace
+                # user-defined cluster name, requires unique
+                replacement: emqx5
+                targetLabel: cluster
+              - action: replace
+                # fix value, don't modify
+                replacement: exporter
+                targetLabel: from
+              - action: replace
+                # fix value, don't modify
+                sourceLabels: ["pod"]
+                regex: "(.*)-.*-.*"
+                replacement: $1
+                targetLabel: "instance"
+              - action: labeldrop
+                # fix value, don't modify
+                regex: "pod"
     ingress:
       dashboard:
         enabled: true
