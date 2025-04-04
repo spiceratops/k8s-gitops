@@ -134,6 +134,7 @@ spec:
         apiVersion: 1
         deleteDatasources:
           - { name: Alertmanager, orgId: 1 }
+          - { name: Loki, orgId: 1 }
           - { name: Prometheus, orgId: 1 }
         datasources:
           - name: Prometheus
@@ -142,6 +143,13 @@ spec:
             access: proxy
             url: http://prometheus-operated.monitoring.svc.cluster.local:9090
             isDefault: true
+          - name: Loki
+            type: loki
+            uid: loki
+            access: proxy
+            url: http://loki-headless.monitoring.svc.cluster.local:3100
+            jsonData:
+              maxLines: 250
           - name: Alertmanager
             type: alertmanager
             uid: alertmanager
@@ -163,7 +171,7 @@ spec:
           datasource: Prometheus
         external-dns:
           # renovate: depName="External-dns"
-          gnetId: 35038
+          gnetId: 15038
           revision: 3
           datasource: Prometheus
         blackbox-exporter:
@@ -178,6 +186,18 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
+        volsync:
+          # renovate: depName="VolSync Dashboard"
+          gnetId: 21356
+          revision: 3
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
+        zfs:
+          # renovate: depName="ZFS"
+          gnetId: 7845
+          revision: 4
+          datasource: Prometheus
         speedtest-exporter:
           # renovate: depName="Speedtest-Exporter Dashboard"
           gnetId: 13665
@@ -189,7 +209,9 @@ spec:
           url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
           datasource: Prometheus
         cert-manager:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
+          # renovate: depName="Cert-manager-Kubernetes"
+          gnetId: 20842
+          revision: 3
           datasource: Prometheus
         external-secrets:
           url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
@@ -287,9 +309,6 @@ spec:
       media:
         qbittorrent-exporter:
           url: https://raw.githubusercontent.com/esanchezm/prometheus-qbittorrent-exporter/master/grafana/dashboard.json
-          datasource: Prometheus
-        overseerr-exporter:
-          url: https://raw.githubusercontent.com/WillFantom/overseerr-exporter/main/grafana/dashboard.json
           datasource: Prometheus
         exportarr:
           url: https://raw.githubusercontent.com/onedr0p/exportarr/master/examples/grafana/dashboard2.json
