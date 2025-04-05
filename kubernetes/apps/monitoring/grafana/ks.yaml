@@ -25,3 +25,25 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: grafana.${PRIVATE_DOMAIN}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname grafana-dashboards
+  namespace: flux-system
+spec:
+  targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: grafana
+  path: ./kubernetes/apps/monitoring/grafana/dashboards
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m

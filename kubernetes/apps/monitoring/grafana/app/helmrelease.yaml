@@ -237,6 +237,15 @@ spec:
             gnetId: 22867
             revision: 2
             datasource: Prometheus
+        dragonfly:
+          url: https://raw.githubusercontent.com/dragonflydb/dragonfly/main/tools/local/monitoring/grafana/provisioning/dashboards/dragonfly.json
+          datasource: Prometheus
+        minio:
+          # renovate: depName="MinIO Dashboard"
+          gnetId: 13502
+          revision: 26
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
       ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
@@ -426,3 +435,16 @@ spec:
         labelSelector:
           matchLabels:
             app.kubernetes.io/name: ${APP}
+    service:
+      ipFamilyPolicy: PreferDualStack
+    imageRenderer:
+      enabled: true
+      image:
+        repository: grafana/grafana-image-renderer
+        tag: 3.12.4
+        pullPolicy: IfNotPresent
+      replicas: 1
+      networkPolicy:
+        limitIngress: false
+      serviceMonitor:
+        enabled: true
