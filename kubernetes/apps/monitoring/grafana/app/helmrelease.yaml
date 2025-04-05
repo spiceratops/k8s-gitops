@@ -61,11 +61,10 @@ spec:
       #   org_id: 1
       #   role_attribute_path: |
       #     contains(groups[*], 'admins') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
-      auth.anonymous:
+      auth.basic:
         enabled: true
-        org_id: 1
-        org_name: Main Org.
-        org_role: Viewer
+      auth.anonymous:
+        enabled: false
       news:
         news_feed_enabled: false
     admin:
