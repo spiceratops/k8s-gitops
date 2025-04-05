@@ -45,6 +45,12 @@ nodes:
             routes:
               - network: 192.168.10.0/24
                 gateway: 192.168.10.1
+          - vlanId: 20
+            addresses:
+              - "192.168.20.201/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
           - vlanId: 30
             addresses:
               - "192.168.30.201/24"
@@ -89,6 +95,12 @@ nodes:
             routes:
               - network: 192.168.10.0/24
                 gateway: 192.168.10.1
+          - vlanId: 20
+            addresses:
+              - "192.168.20.202/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
           - vlanId: 30
             addresses:
               - "192.168.30.202/24"
@@ -126,6 +138,12 @@ nodes:
             routes:
               - network: 192.168.10.0/24
                 gateway: 192.168.10.1
+          - vlanId: 20
+            addresses:
+              - "192.168.20.203/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
           - vlanId: 30
             addresses:
               - "192.168.30.203/24"
@@ -166,6 +184,12 @@ nodes:
             routes:
               - network: 192.168.10.0/24
                 gateway: 192.168.10.1
+          - vlanId: 20
+            addresses:
+              - "192.168.20.211/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
           - vlanId: 30
             addresses:
               - "192.168.30.211/24"
@@ -211,6 +235,12 @@ nodes:
             routes:
               - network: 192.168.10.0/24
                 gateway: 192.168.10.1
+          - vlanId: 20
+            addresses:
+              - "192.168.20.212/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
           - vlanId: 30
             addresses:
               - "192.168.30.212/24"
@@ -247,6 +277,12 @@ nodes:
             routes:
               - network: 192.168.10.0/24
                 gateway: 192.168.10.1
+          - vlanId: 20
+            addresses:
+              - "192.168.20.213/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
           - vlanId: 30
             addresses:
               - "192.168.30.213/24"
@@ -298,6 +334,12 @@ nodes:
             routes:
               - network: 192.168.10.0/24
                 gateway: 192.168.10.1
+          - vlanId: 20
+            addresses:
+              - "192.168.20.214/24"
+            routes:
+              - network: 192.168.20.0/24
+                gateway: 192.168.20.1
           - vlanId: 30
             addresses:
               - "192.168.30.214/24"
