@@ -37,7 +37,7 @@ spec:
       GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
       GF_SERVER_ROOT_URL: https://${HOSTNAME}
     envFromSecrets:
-      - name: *secret
+      - name: &secret grafana-secret
     grafana.ini:
       analytics:
         check_for_updates: false
