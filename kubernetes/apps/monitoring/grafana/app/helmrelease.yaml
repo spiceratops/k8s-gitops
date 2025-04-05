@@ -17,14 +17,14 @@ spec:
         namespace: flux-system
 
   values:
-    extraInitContainers:
-      - name: init-db
-        image: ghcr.io/home-operations/postgres-init:17.4.0
-        imagePullPolicy: IfNotPresent
-        envFrom:
-          - secretRef:
-              name: &secret grafana-secret
-    replicas: 3
+    # extraInitContainers:
+    #   - name: init-db
+    #     image: ghcr.io/home-operations/postgres-init:17.4.0
+    #     imagePullPolicy: IfNotPresent
+    #     envFrom:
+    #       - secretRef:
+    #           name: &secret grafana-secret
+    # replicas: 3
     env:
       # GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
       # GF_AUTH_GENERIC_OAUTH_API_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
