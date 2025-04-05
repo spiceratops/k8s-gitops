@@ -129,9 +129,9 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/media
-          - name: media
+          - name: emqx
             orgId: 1
-            folder: Media
+            folder: EMQX
             type: file
             disableDeletion: false
             editable: true
