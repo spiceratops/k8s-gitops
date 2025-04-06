@@ -167,19 +167,19 @@ spec:
         ports:
           http:
             port: 8080
-        ipFamilyPolicy: PreferDualStack
+        # ipFamilyPolicy: PreferDualStack
       frontend:
         controller: frontend
         ports:
           http:
             port: 8080
-        ipFamilyPolicy: PreferDualStack
+        # ipFamilyPolicy: PreferDualStack
       ytproxy:
         controller: ytproxy
         ports:
           http:
             port: 8080
-        ipFamilyPolicy: PreferDualStack
+        # ipFamilyPolicy: PreferDualStack
 
     ingress:
       backend:

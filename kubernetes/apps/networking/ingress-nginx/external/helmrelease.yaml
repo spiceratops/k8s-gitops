@@ -71,7 +71,7 @@ spec:
         externalTrafficPolicy: Local
         labels:
           io.cilium/lb-ipam-layer2: "true"
-        ipFamilyPolicy: PreferDualStack
+        # ipFamilyPolicy: PreferDualStack
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
