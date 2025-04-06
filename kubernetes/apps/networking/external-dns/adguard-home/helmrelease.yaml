@@ -67,6 +67,7 @@ spec:
         securityContext:
           readOnlyRootFilesystem: true
     interval: 1h
+    managedRecordTypes: ["A", "CNAME"]
     triggerLoopOnEvent: true
     policy: sync
     registry: noop
