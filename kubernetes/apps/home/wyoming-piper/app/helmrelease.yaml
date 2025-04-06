@@ -56,6 +56,7 @@ spec:
         ports:
           http:
             port: &port 10200
+        ipFamilyPolicy: PreferDualStack
     ingress:
       app:
         enabled: true

@@ -62,6 +62,7 @@ spec:
             port: 8554
           webrtc:
             port: 8555
+        ipFamilyPolicy: PreferDualStack
 
     persistence:
       config:

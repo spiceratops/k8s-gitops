@@ -60,6 +60,7 @@ spec:
             primary: true
             port: 10300
             protocol: TCP
+        ipFamilyPolicy: PreferDualStack
     persistence:
       data:
         existingClaim: "${VOLSYNC_CLAIM}"

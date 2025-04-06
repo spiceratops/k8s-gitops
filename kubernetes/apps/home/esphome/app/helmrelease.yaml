@@ -93,6 +93,7 @@ spec:
             port: 6052
           code-server:
             port: 12321
+        ipFamilyPolicy: PreferDualStack
     ingress:
       app:
         className: "internal"
