@@ -67,7 +67,7 @@ spec:
             port: 37861
           rebroadcast2:
             port: 37862
-        # ipFamilyPolicy: PreferDualStack
+        ipFamilyPolicy: PreferDualStack
 
     ingress:
       app:

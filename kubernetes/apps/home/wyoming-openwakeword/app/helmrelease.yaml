@@ -59,7 +59,7 @@ spec:
         ports:
           http:
             port: 10400
-        # ipFamilyPolicy: PreferDualStack
+        ipFamilyPolicy: PreferDualStack
     persistence:
       custom:
         existingClaim: "${VOLSYNC_CLAIM}"
