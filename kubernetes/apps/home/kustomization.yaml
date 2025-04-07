@@ -11,4 +11,4 @@ resources:
   - ./wyoming-glados/ks.yaml
   - ./scrypted/ks.yaml
   - ./go2rtc/ks.yaml
-  # - ./esphome/ks.yaml
+  - ./esphome/ks.yaml

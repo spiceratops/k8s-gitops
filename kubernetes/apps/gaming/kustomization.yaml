@@ -6,5 +6,5 @@ resources:
   - ./_pvc/ks.yaml
   # - ./romm/ks.yaml
   - ./satisfactory/ks.yaml
-  # - ./minecraft/ks.yaml
+  - ./minecraft/ks.yaml
   - ./nsxlibrarymanager/ks.yaml
