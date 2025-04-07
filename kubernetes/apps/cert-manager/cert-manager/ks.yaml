@@ -57,7 +57,7 @@ spec:
   dependsOn:
     - name: cert-manager
     - name: external-secrets-stores
-    - name: external-secrets-issuers
+    - name: cert-manager-issuers
   path: ./kubernetes/apps/cert-manager/cert-manager/push
   prune: true
   sourceRef:
