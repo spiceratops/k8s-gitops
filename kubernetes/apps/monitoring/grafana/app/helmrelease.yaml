@@ -221,21 +221,14 @@ spec:
           gnetId: 20842
           revision: 3
           datasource: Prometheus
+        omada:
+          # renovate: depName="Omada Overview"
+          gnetId: 16343
+          revision: 2
+          datasource: Prometheus
         external-secrets:
           url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
           datasource: Prometheus
-        omada:
-          omada:
-            # renovate: depName="Omada Overview"
-            gnetId: 16343
-            revision: 2
-            datasource: Prometheus
-        ollama:
-          open-webui:
-            # renovate: depName="Open WebUI Dashboard"
-            gnetId: 22867
-            revision: 2
-            datasource: Prometheus
         dragonfly:
           url: https://raw.githubusercontent.com/dragonflydb/dragonfly/main/tools/local/monitoring/grafana/provisioning/dashboards/dragonfly.json
           datasource: Prometheus
@@ -245,6 +238,12 @@ spec:
           revision: 26
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
+      ollama:
+        open-webui:
+          # renovate: depName="Open WebUI Dashboard"
+          gnetId: 22867
+          revision: 2
+          datasource: Prometheus
       ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
@@ -434,8 +433,6 @@ spec:
         labelSelector:
           matchLabels:
             app.kubernetes.io/name: *app
-    service:
-      ipFamilyPolicy: PreferDualStack
     imageRenderer:
       enabled: true
       image:
