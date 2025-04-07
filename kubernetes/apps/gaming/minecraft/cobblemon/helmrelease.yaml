@@ -16,6 +16,7 @@ spec:
         namespace: flux-system
   interval: 30m
   values:
+    fullnameOverride: minecraft-cobblemon
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret minecraft-secret
     image:
