@@ -137,6 +137,14 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/emqx
+          - name: ollama
+            orgId: 1
+            folder: Ollama
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/ollama
     datasources:
       datasources.yaml:
         apiVersion: 1
