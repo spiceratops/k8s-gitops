@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" align="center" width="144px" height="144px"/>
-
 ### Yet another over-the-top homelab k8s cluster ☸
 
 _... automated via [Flux](https://fluxcd.io), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions)_ 🤖
@@ -62,36 +60,14 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 Below is a a high level look at the layout of how my directory structure with Flux works. In this brief example you are able to see that `authelia` will not be able to run until `lldap` and `cloudnative-pg` are running. It also shows that the `Cluster` custom resource depends on the `cloudnative-pg` Helm chart. This is needed because `cloudnative-pg` installs the `Cluster` custom resource definition in the Helm chart.
 
-```python
-# Key: <kind> :: <metadata.name>
-GitRepository :: k8s-gitops
-    Kustomization :: cluster
-        Kustomization :: cluster-apps
-            Kustomization :: cluster-apps-cloudnative-pg
-                HelmRelease :: cloudnative-pg
-            Kustomization :: cluster-apps-cloudnative-pg-cluster
-                DependsOn:
-                    Kustomization :: cluster-apps-cloudnative-pg
-                Cluster :: postgres
-            Kustomization :: cluster-apps-lldap
-                HelmRelease :: lldap
-                DependsOn:
-                    Kustomization :: cluster-apps-cloudnative-pg-cluster
-            Kustomization :: cluster-apps-authelia
-                DependsOn:
-                    Kustomization :: cluster-apps-lldap
-                    Kustomization :: cluster-apps-cloudnative-pg-cluster
-                HelmRelease :: authelia
-```
-
 ### Networking
 
 | Name                         | CIDR              |
 |------------------------------|-------------------|
-| Kubernetes nodes             | `10.0.0.0/24`     |
+| Kubernetes nodes             | `192.168.1.0/24`     |
 | Kubernetes pods              | `10.244.0.0/16`   |
 | Kubernetes services          | `10.245.0.0/16`   |
-| Kubernetes external services | `192.168.11.0/24` |
+| Kubernetes external services | `192.168.15.0/24` |
 
 - [cilium](https://github.com/cilium/cilium) is configured with the `io.cilium/lb-ipam-ips` annotation to expose Kubernetes services with their own IP over L3 (BGP), which is configured on my router. L2 (ARP) can also be announced in addition to L3 via the `io.cilium/lb-ipam-layer2` label.
 - [cloudflared](https://github.com/cloudflare/cloudflared) provides a [secure tunnel](https://www.cloudflare.com/products/tunnel) for [Cloudflare](https://www.cloudflare.com) to ingress into [ingress-nginx](https://github.com/kubernetes/ingress-nginx), my ingress controller.
@@ -104,13 +80,13 @@ GitRepository :: k8s-gitops
 
 ### Internal DNS
 
-Opnsense resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky), which provides first-hop DNS resolution for my network. `Blocky` forwards requests targeted towards my public domain via [k8s-gateway](https://github.com/ori-edge/k8s_gateway). Last-hop DNS resolution resolves via [1.1.1.1](https://1.1.1.1/dns/), which is configured as my primary DNS upstream provider. If for any reason `blocky` becomes unavailable, Opnsense is configured to fallback to `1.1.1.1` until blocky becomes available again.
-
-🔸 _[Click here](./kubernetes/apps/networking/blocky/app/configs/config.yml) to see my `blocky` configuration or [here](./kubernetes/apps/networking/k8s-gateway/app/configs/Corefile) to see my `k8s-gateway` configuration._
+Opnsense resolves DNS queries via [Adguardhome](https://github.com/0xERR0R/blocky) that then goes to upstream Unifi DNS on my UDM.
 
 ### External DNS
 
 [external-dns](https://github.com/kubernetes-sigs/external-dns) is deployed in my cluster and configured to sync DNS records to [Cloudflare](https://www.cloudflare.com/) using ingresses `external-dns.alpha.kubernetes.io/target` annotation.
+
+External-DNS is also used to sync internal records to Adguardhome and Unifi DNS
 
 ---
 
@@ -126,9 +102,9 @@ Opnsense resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky), w
 
 ## 🤝 Gratitude and Thanks
 
-Thanks to @buroa for the initial repo structure idea.
+Thanks to the usual @home-operation champions such as @buroa for the initial repo structure idea, @onedr0p for various yoinks, @bjw-s for the amazing cluster-template.
 
-Thanks to all the people who donate their time to the [Kubernetes @Home](https://discord.gg/k8s-at-home) Discord community. A lot of inspiration for my cluster comes from the people that have shared their clusters using the [k8s-at-home](https://github.com/topics/k8s-at-home) GitHub topic. Be sure to check out the [Kubernetes @Home search](https://nanne.dev/k8s-at-home-search) for ideas on how to deploy applications or get ideas on what you can deploy.
+Thanks to all the people who donate their time to the [Home Operations](https://discord.gg/home-operations) Discord community. A lot of inspiration for my cluster comes from the people that have shared their clusters using the [k8s-at-home](https://github.com/topics/k8s-at-home) GitHub topic. Be sure to check out the [Kubernetes @Home search](https://nanne.dev/k8s-at-home-search) for ideas on how to deploy applications or get ideas on what you can deploy.
 
 ---
 
