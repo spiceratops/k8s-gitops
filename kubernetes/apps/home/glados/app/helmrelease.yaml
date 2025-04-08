@@ -49,6 +49,16 @@ spec:
           http:
             port: 5050
         ipFamilyPolicy: PreferDualStack
+    ingress:
+      app:
+        className: "internal"
+        hosts:
+          - host: glados.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
     persistence:
       config:
         type: configMap
