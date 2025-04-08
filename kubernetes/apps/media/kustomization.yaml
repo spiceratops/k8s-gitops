@@ -24,3 +24,4 @@ resources:
   - ./qbittorrent/ks.yaml
   - ./cross-seed/ks.yaml
   - ./piped/ks.yaml
+  - ./music-assistant/ks.yaml
