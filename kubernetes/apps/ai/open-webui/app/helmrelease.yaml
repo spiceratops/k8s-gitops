@@ -44,7 +44,7 @@ spec:
               ENABLE_OLLAMA_API: true
               OLLAMA_BASE_URL: http://ollama.ai.svc.cluster.local:11434
               AUDIO_TTS_ENGINE: openai
-              AUDIO_OPENAI_API_BASE_URL: http://wyoming-glados.home.svc.cluster.local
+              AUDIO_OPENAI_API_BASE_URL: http://glados.home.svc.cluster.local:5050
               AUDIO_OPENAI_API_KEY: sk-111111111111 # fake key needed to make ui happy
               AUDIO_STT_ENGINE: openai
               AUDIO_STT_OPENAI_API_BASE_URL: http://wyoming-whisper.home.svc.cluster.local
