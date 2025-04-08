@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/k8s.mariadb.com/user_v1alpha1.json
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: mariadb
+spec:
+  mariaDbRef:
+    name: mariadb
+  passwordSecretKeyRef:
+    name: mariadb-secret
+    key: password
+  maxUserConnections: 20

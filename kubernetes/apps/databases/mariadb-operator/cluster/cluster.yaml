@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/k8s.mariadb.com/mariadb_v1alpha1.json
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: MariaDB
 metadata:
@@ -7,16 +8,12 @@ spec:
   rootPasswordSecretKeyRef:
     name: mariadb-secret
     key: rootPassword
-  username: mariadb
-  database: mariadb
-  passwordSecretKeyRef:
-    name: mariadb-secret
-    key: password
+    generate: false
 
   image: "mariadb:11.7.2"
 
   storage:
-    size: 5Gi
+    size: 10Gi
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
     resizeInUseVolumes: true
     waitForVolumeResize: true
