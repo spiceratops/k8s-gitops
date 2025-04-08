@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: rommapp/romm
-              tag: 3.8.2
+              tag: 3.8.3
             resources:
               requests:
                 cpu: 10m
