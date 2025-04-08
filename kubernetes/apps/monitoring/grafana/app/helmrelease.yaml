@@ -221,11 +221,6 @@ spec:
           gnetId: 20842
           revision: 3
           datasource: Prometheus
-        omada:
-          # renovate: depName="Omada Overview"
-          gnetId: 16343
-          revision: 2
-          datasource: Prometheus
         external-secrets:
           url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
           datasource: Prometheus
