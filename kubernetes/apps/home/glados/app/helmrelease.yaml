@@ -49,3 +49,13 @@ spec:
           http:
             port: 5050
         ipFamilyPolicy: PreferDualStack
+    persistence:
+      config:
+        type: configMap
+        name: glados-config
+        advancedMounts:
+          glados:
+            config:
+              - path: /configs/glados_config.yaml
+                subPath: glados_config.yaml
+                readOnly: true

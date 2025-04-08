@@ -4,3 +4,11 @@ kind: Kustomization
 namespace: home
 resources:
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: glados-config
+    files:
+      - resources/glados_config.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
