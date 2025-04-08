@@ -1,0 +1,51 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app glados
+  namespace: home
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+
+  values:
+    controllers:
+      glados:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/spiceratops/glados
+              tag: 0.1.1@sha256:a847c61daf69b474da466aaa54dd36a3bc1ad06f97db683b1cca744f2b684536
+            env:
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128M
+                nvidia.com/gpu: 1
+              limits:
+                memory: 1Gi
+                nvidia.com/gpu: 1
+    service:
+      app:
+        controller: glados
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: ${WYOMING_GLADOS_LB_IP}
+        ports:
+          http:
+            port: 5050
+        ipFamilyPolicy: PreferDualStack

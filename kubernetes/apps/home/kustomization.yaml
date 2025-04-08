@@ -8,7 +8,7 @@ resources:
   - ./wyoming-whisper/ks.yaml
   - ./wyoming-openwakeword/ks.yaml
   - ./guacamole/ks.yaml
-  - ./wyoming-glados/ks.yaml
+  - ./glados/ks.yaml
   - ./scrypted/ks.yaml
   - ./go2rtc/ks.yaml
   - ./esphome/ks.yaml
