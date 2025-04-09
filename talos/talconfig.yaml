@@ -446,10 +446,8 @@ controlPlane:
       machine:
         network:
           nameservers:
-            - 192.168.15.53
-            - 192.168.1.53
-            - ${DNS01_IPV6}
-            - ${DNS02_IPV6}
+            - 192.168.1.1
+            - ${PUBLIC_IPV6_PREFIX}::1
 
     # Configure NFS mount options
     - &nfsPatch |-
