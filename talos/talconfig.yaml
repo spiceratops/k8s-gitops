@@ -41,9 +41,9 @@ nodes:
         vlans:
           - vlanId: 10
             addresses:
-              - "192.168.10.201/24"
+              - "192.168.10.201/23"
             routes:
-              - network: 192.168.10.0/24
+              - network: 192.168.10.0/23
                 gateway: 192.168.10.1
           - vlanId: 20
             addresses:
@@ -91,9 +91,9 @@ nodes:
         vlans:
           - vlanId: 10
             addresses:
-              - "192.168.10.202/24"
+              - "192.168.10.202/23"
             routes:
-              - network: 192.168.10.0/24
+              - network: 192.168.10.0/23
                 gateway: 192.168.10.1
           - vlanId: 20
             addresses:
@@ -134,9 +134,9 @@ nodes:
         vlans:
           - vlanId: 10
             addresses:
-              - "192.168.10.203/24"
+              - "192.168.10.203/23"
             routes:
-              - network: 192.168.10.0/24
+              - network: 192.168.10.0/23
                 gateway: 192.168.10.1
           - vlanId: 20
             addresses:
@@ -180,9 +180,9 @@ nodes:
         vlans:
           - vlanId: 10
             addresses:
-              - "192.168.10.211/24"
+              - "192.168.10.211/23"
             routes:
-              - network: 192.168.10.0/24
+              - network: 192.168.10.0/23
                 gateway: 192.168.10.1
           - vlanId: 20
             addresses:
@@ -231,9 +231,9 @@ nodes:
         vlans:
           - vlanId: 10
             addresses:
-              - "192.168.10.212/24"
+              - "192.168.10.212/23"
             routes:
-              - network: 192.168.10.0/24
+              - network: 192.168.10.0/23
                 gateway: 192.168.10.1
           - vlanId: 20
             addresses:
@@ -273,9 +273,9 @@ nodes:
         vlans:
           - vlanId: 10
             addresses:
-              - "192.168.10.213/24"
+              - "192.168.10.213/23"
             routes:
-              - network: 192.168.10.0/24
+              - network: 192.168.10.0/23
                 gateway: 192.168.10.1
           - vlanId: 20
             addresses:
@@ -330,9 +330,9 @@ nodes:
         vlans:
           - vlanId: 10
             addresses:
-              - "192.168.10.214/24"
+              - "192.168.10.214/23"
             routes:
-              - network: 192.168.10.0/24
+              - network: 192.168.10.0/23
                 gateway: 192.168.10.1
           - vlanId: 20
             addresses:
@@ -489,7 +489,7 @@ controlPlane:
               aliases:
                 - nas.${PRIVATE_DOMAIN}
                 - s3.${PRIVATE_DOMAIN}
-            - ip: 192.168.15.4
+            - ip: 192.168.11.4
               aliases:
                 - vector.${PRIVATE_DOMAIN}
 
