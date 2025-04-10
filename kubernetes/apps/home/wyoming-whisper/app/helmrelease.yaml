@@ -50,7 +50,7 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${WYOMING_WHISPER_LB_IP}
-          external-dns.alpha.kubernetes.io/hostname: whisper.${PRIVATE_DOMAIN}
+          # external-dns.alpha.kubernetes.io/hostname: whisper.${PRIVATE_DOMAIN}
         ports:
           http:
             enabled: true
