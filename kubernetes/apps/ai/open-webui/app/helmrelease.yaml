@@ -55,7 +55,7 @@ spec:
               # AUDIO_STT_ENGINE: openai
               # AUDIO_STT_OPENAI_API_BASE_URL: http://wyoming-whisper.home.svc.cluster.local:10300
               # AUDIO_STT_OPENAI_API_KEY: sk-111111111111 # fake key needed to make ui happy
-              WHISPER_MODEL: base
+              WHISPER_MODEL: medium
               RAG_EMBEDDING_ENGINE: ollama
               COMFYUI_BASE_URL: http://comfyui.ai.svc.cluster.local:8188
               # OPENID_PROVIDER_URL: https://auth.${PRIVATE_DOMAIN}/.well-known/openid-configuration
