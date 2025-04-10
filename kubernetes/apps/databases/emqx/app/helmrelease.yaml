@@ -12,7 +12,7 @@ spec:
       version: 2.2.28
       sourceRef:
         kind: HelmRepository
-        name: emqx
+        name: emqx-charts
         namespace: flux-system
   install:
     crds: CreateReplace
