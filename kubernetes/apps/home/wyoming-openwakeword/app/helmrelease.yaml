@@ -58,8 +58,22 @@ spec:
           lbipam.cilium.io/ips: ${WYOMING_OPENWAKEWORD_LB_IP}
         ports:
           http:
-            port: 10400
+            port: &port 10400
         ipFamilyPolicy: PreferDualStack
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        hosts:
+          - host: &host openwakeword.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: *port
+        tls:
+          - hosts:
+              - *host
     persistence:
       custom:
         existingClaim: "${VOLSYNC_CLAIM}"

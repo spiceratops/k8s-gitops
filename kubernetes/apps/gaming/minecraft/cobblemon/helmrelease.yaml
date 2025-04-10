@@ -44,7 +44,7 @@ spec:
     serviceAnnotations:
       lbipam.cilium.io/sharing-key: *app
       lbipam.cilium.io/ips: ${MINECRAFT_COBBLEMON_LB_IP}
-      coredns.io/hostname: minecraft-cobblemon.${PRIVATE_DOMAIN}
+      external-dns.alpha.kubernetes.io/hostname: minecraft-cobblemon.${PRIVATE_DOMAIN_HOME}
     servicePort: 25565
     minecraftServer:
       eula: true
@@ -87,7 +87,7 @@ spec:
             ingressClassName: internal
             enabled: true
             hosts:
-              - name: &host minecraft-cobblemon-map.${PRIVATE_DOMAIN}
+              - name: &host minecraft-cobblemon-map.${PRIVATE_DOMAIN_HOME}
                 path: /
             tls: [hosts: [*host]]
   valuesFrom:

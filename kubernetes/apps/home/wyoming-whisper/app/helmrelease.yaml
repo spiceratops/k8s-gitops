@@ -58,8 +58,22 @@ spec:
           whisper:
             enabled: true
             primary: true
-            port: 10300
+            port: &port 10300
             protocol: TCP
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        hosts:
+          - host: &host whisper.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: *port
+        tls:
+          - hosts:
+              - *host
     persistence:
       data:
         existingClaim: "${VOLSYNC_CLAIM}"

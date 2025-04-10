@@ -52,7 +52,7 @@ spec:
         loadBalancerIP: ${OLLAMA_LB_IP}
         externalTrafficPolicy: Local
         annotations:
-          coredns.io/hostname: ollama.${PRIVATE_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: ollama.${PRIVATE_DOMAIN}
         ports:
           http:
             port: 11434
