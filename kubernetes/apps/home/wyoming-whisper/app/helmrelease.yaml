@@ -53,28 +53,28 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: whisper.${PRIVATE_DOMAIN}
         ports:
           http:
-            enabled: false
+            enabled: true
             primary: false
             port: 8000
           whisper:
             enabled: true
             primary: true
-            port: &port 10300
+            port: 10300
             protocol: TCP
-    # ingress:
-    #   app:
-    #     enabled: true
-    #     className: internal
-    #     hosts:
-    #       - host: &host whisper.${PRIVATE_DOMAIN}
-    #         paths:
-    #           - path: /
-    #             service:
-    #               identifier: app
-    #               port: *port
-    #     tls:
-    #       - hosts:
-    #           - *host
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        hosts:
+          - host: &host whisper.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
     persistence:
       data:
         existingClaim: "${VOLSYNC_CLAIM}"
