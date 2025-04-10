@@ -47,7 +47,7 @@ spec:
           lbipam.cilium.io/ips: ${WYOMING_GLADOS_LB_IP}
         ports:
           http:
-            port: 80
+            port: 5050
         ipFamilyPolicy: PreferDualStack
     ingress:
       app:
