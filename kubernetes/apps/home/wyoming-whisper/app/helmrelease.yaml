@@ -50,6 +50,7 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${WYOMING_WHISPER_LB_IP}
+          external-dns.alpha.kubernetes.io/hostname: whisper.${PRIVATE_DOMAIN}
         ports:
           http:
             enabled: false
@@ -60,20 +61,20 @@ spec:
             primary: true
             port: &port 10300
             protocol: TCP
-    ingress:
-      app:
-        enabled: true
-        className: internal
-        hosts:
-          - host: &host whisper.${PRIVATE_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: *port
-        tls:
-          - hosts:
-              - *host
+    # ingress:
+    #   app:
+    #     enabled: true
+    #     className: internal
+    #     hosts:
+    #       - host: &host whisper.${PRIVATE_DOMAIN}
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: app
+    #               port: *port
+    #     tls:
+    #       - hosts:
+    #           - *host
     persistence:
       data:
         existingClaim: "${VOLSYNC_CLAIM}"

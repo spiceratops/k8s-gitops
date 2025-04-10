@@ -56,24 +56,25 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${WYOMING_OPENWAKEWORD_LB_IP}
+          external-dns.alpha.kubernetes.io/hostname: openwakeword.${PRIVATE_DOMAIN}
         ports:
           http:
             port: &port 10400
         ipFamilyPolicy: PreferDualStack
-    ingress:
-      app:
-        enabled: true
-        className: internal
-        hosts:
-          - host: &host openwakeword.${PRIVATE_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: *port
-        tls:
-          - hosts:
-              - *host
+    # ingress:
+    #   app:
+    #     enabled: true
+    #     className: internal
+    #     hosts:
+    #       - host: &host openwakeword.${PRIVATE_DOMAIN}
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: app
+    #               port: *port
+    #     tls:
+    #       - hosts:
+    #           - *host
     persistence:
       custom:
         existingClaim: "${VOLSYNC_CLAIM}"

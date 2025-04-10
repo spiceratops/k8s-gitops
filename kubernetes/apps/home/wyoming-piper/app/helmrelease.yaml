@@ -53,23 +53,24 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${WYOMING_PIPER_LB_IP}
+          external-dns.alpha.kubernetes.io/hostname: piper.${PRIVATE_DOMAIN}
         ports:
           http:
             port: &port 10200
-    ingress:
-      app:
-        enabled: true
-        className: internal
-        hosts:
-          - host: &host piper.${PRIVATE_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: *port
-        tls:
-          - hosts:
-              - *host
+    # ingress:
+    #   app:
+    #     enabled: true
+    #     className: internal
+    #     hosts:
+    #       - host: &host piper.${PRIVATE_DOMAIN}
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: app
+    #               port: *port
+    #     tls:
+    #       - hosts:
+    #           - *host
     persistence:
       data:
         existingClaim: "${VOLSYNC_CLAIM}"
