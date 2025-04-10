@@ -107,7 +107,7 @@ spec:
         hosts:
           - host: esphome.${PRIVATE_DOMAIN}
             paths:
-              - path: /(.*)
+              - path: /
                 service:
                   identifier: app
                   port: http
