@@ -78,6 +78,13 @@ spec:
         existingClaim: swarmui
         globalMounts:
           - path: /SwarmUI/Data
+            subPath: data
+          - path: /SwarmUI/dlbackend
+            subPath: dlbackend
+          - path: /SwarmUI/src/BuiltinExtensions/ComfyUIBackend/DLNodes
+            subPath: dlnodes
+          - path: /SwarmUI/src/BuiltinExtensions/ComfyUIBackend/CustomWorkflows
+            subPath: workflows
       output:
         enabled: true
         existingClaim: nfs-ai-output
