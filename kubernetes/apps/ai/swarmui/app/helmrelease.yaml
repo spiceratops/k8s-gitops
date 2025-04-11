@@ -1,0 +1,90 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: swarmui
+  namespace: ai
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+
+  values:
+    controllers:
+      swarmui:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+          nodeSelector:
+            nvidia.feature.node.kubernetes.io/gpu: "true"
+          runtimeClassName: nvidia
+        containers:
+          app:
+            image:
+              repository: ghcr.io/spiceratops/swarmui
+              tag: 0.9.5@sha256:b8514ec9a7df5542b36284284c5455031cb300873dc50deb3a47d389fe518070
+            env:
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                nvidia.com/gpu: 1
+                cpu: 500m
+                memory: 4Gi
+              limits:
+                memory: 6Gi
+                nvidia.com/gpu: 1
+    service:
+      app:
+        controller: swarmui
+        ports:
+          http:
+            port: 7801
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: AI
+          gethomepage.dev/name: swarmui
+          gethomepage.dev/icon: mdi-draw
+        hosts:
+          - host: ${HOSTNAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - ${HOSTNAME}
+    persistence:
+      data:
+        enabled: true
+        existingClaim: swarmui
+        globalMounts:
+          - path: /SwarmUI/Data
+      output:
+        enabled: true
+        existingClaim: nfs-ai-output
+        globalMounts:
+          - path: /SwarmUI/Output
+      models:
+        enabled: true
+        existingClaim: nfs-ai-models
+        globalMounts:
+          - path: /SwarmUI/Models
