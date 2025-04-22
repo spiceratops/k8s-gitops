@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: rook-ceph
-      version: v1.17.0
+      version: v1.16.6
       sourceRef:
         kind: HelmRepository
         name: rook-ceph-charts
@@ -21,7 +21,7 @@ spec:
       enabled: true
     image:
       repository: ghcr.io/rook/ceph
-      tag: v1.17.0
+      tag: v1.16.6
     csi:
       cephFSKernelMountOptions: ms_mode=prefer-crc
       # enableCephfsDriver: true

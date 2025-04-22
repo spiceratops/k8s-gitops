@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: rook-ceph-cluster
-      version: v1.17.0
+      version: v1.16.6
       sourceRef:
         kind: HelmRepository
         name: rook-ceph-charts
@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/rook/ceph
-      tag: v1.17.0
+      tag: v1.16.6
     monitoring:
       enabled: true
       createPrometheusRules: true
