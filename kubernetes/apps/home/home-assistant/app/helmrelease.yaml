@@ -116,6 +116,10 @@ spec:
                 service:
                   identifier: app
                   port: code-server
+        tls:
+          - hosts:
+              - home.${PRIVATE_DOMAIN_HOME}
+            secretName: wildcard-np-tls
     persistence:
       config:
         existingClaim: home-assistant
