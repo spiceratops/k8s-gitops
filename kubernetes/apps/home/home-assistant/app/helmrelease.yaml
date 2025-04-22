@@ -106,7 +106,7 @@ spec:
           gethomepage.dev/icon: home-assistant.png
           gethomepage.dev/name: home-assistant
         hosts:
-          - host: home-assistant.${PRIVATE_DOMAIN}
+          - host: home.${PRIVATE_DOMAIN_HOME}
             paths:
               - path: /
                 service:
