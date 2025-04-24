@@ -106,7 +106,7 @@ spec:
           gethomepage.dev/icon: home-assistant.png
           gethomepage.dev/name: home-assistant
         hosts:
-          - host: home.${PRIVATE_DOMAIN_HOME}
+          - host: home2.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:
@@ -116,10 +116,6 @@ spec:
                 service:
                   identifier: app
                   port: code-server
-        tls:
-          - hosts:
-              - home.${PRIVATE_DOMAIN_HOME}
-            secretName: wildcard-np-tls
     persistence:
       config:
         existingClaim: home-assistant
