@@ -52,5 +52,5 @@ spec:
     spec:
       type: LoadBalancer
       loadBalancerIP: ${EMQX_LB_IP}
-      externalIP: ${EMQX_LB_IP}
+      externalIPs: ${EMQX_LB_IP}
       externalTrafficPolicy: Local
