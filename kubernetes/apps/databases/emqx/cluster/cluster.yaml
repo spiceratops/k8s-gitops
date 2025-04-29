@@ -51,8 +51,6 @@ spec:
         external-dns.alpha.kubernetes.io/hostname: mqtt.${PRIVATE_DOMAIN}
     spec:
       type: LoadBalancer
-      loadBalancerIPs: ["${EMQX_LB_IP}", "${EMQX_LB_IP_V6}"]
-      externalIPs: ["${EMQX_LB_IP}", "${EMQX_LB_IP_V6}"]
+      loadBalancerIP: ${EMQX_LB_IP}
+      externalIP: ${EMQX_LB_IP}
       externalTrafficPolicy: Local
-      ipFamilies: [IPv4, IPv6]
-      ipFamilyPolicy: PreferDualStack
