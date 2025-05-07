@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ivaano/nsxlibrarymanager
-              tag: v0.4.6@sha256:ed85b0eb0a5aad5d85a18333ab3c0ff554c7de760f166cfeaffe5ea247be0f94
+              tag: v0.4.7@sha256:859670edc1624dad152dcd6f1d22c28d4a8dc90451fd81e8459d31c6839ee698
             resources:
               requests:
                 cpu: 10m
