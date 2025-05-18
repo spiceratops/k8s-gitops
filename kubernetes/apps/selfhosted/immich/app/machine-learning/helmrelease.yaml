@@ -75,6 +75,6 @@ spec:
       library:
         type: nfs
         server: nas.${PRIVATE_DOMAIN2}
-        path: /mnt/data/photos
+        path: /mnt/tank/photos
         globalMounts:
           - path: /usr/src/app/upload
