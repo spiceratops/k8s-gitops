@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-documents
+  namespace: selfhosted
+spec:
+  storageClassName: ""
+  volumeName: nfs-documents
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi

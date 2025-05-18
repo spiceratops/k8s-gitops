@@ -96,8 +96,7 @@ spec:
               - "${HOSTNAME}"
     persistence:
       config:
-        type: nfs
-        server: nas.${PRIVATE_DOMAIN2}
-        path: /mnt/tank/documents/paperless
+        existingClaim: nfs-documents
         globalMounts:
           - path: /data/local
+            subPath: paperless

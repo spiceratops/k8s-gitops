@@ -111,21 +111,17 @@ spec:
               - "${HOSTNAME}"
     persistence:
       storage-users:
-        type: nfs
-        server: nas.${PRIVATE_DOMAIN2}
-        path: /mnt/tank/documents/ocis
+        existingClaim: nfs-documents
         globalMounts:
           - path: /data
-            subPath: storage-users
+            subPath: ocis/storage-users
       data:
-        type: nfs
-        server: nas.${PRIVATE_DOMAIN2}
-        path: /mnt/tank/documents/ocis
+        existingClaim: nfs-documents
         globalMounts:
           - path: /etc/ocis
-            subPath: config
+            subPath: ocis/config
           - path: /var/lib/ocis
-            subPath: data
+            subPath: ocis/data
       config-proxy:
         type: configMap
         name: ocis-configmap
