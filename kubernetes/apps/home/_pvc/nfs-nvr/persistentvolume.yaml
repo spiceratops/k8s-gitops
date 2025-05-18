@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: mnas.${PUBLIC_DOMAIN}
-    path: /nvr/scrypted
+    server: nas.${PRIVATE_DOMAIN2}
+    path: /mnt/tank/nvr/scrypted
   mountOptions:
     - nfsvers=4.2
