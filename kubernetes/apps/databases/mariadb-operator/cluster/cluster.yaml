@@ -57,7 +57,7 @@ spec:
   bootstrapFrom:
     s3:
       bucket: mariadb
-      endpoint: s3.${PRIVATE_DOMAIN}:9000
+      endpoint: nas.${PRIVATE_DOMAIN2}:9000
       region: home
       accessKeyIdSecretKeyRef:
         name: mariadb-secret

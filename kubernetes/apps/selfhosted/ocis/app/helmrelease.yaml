@@ -112,15 +112,15 @@ spec:
     persistence:
       storage-users:
         type: nfs
-        server: nas.${PRIVATE_DOMAIN}
-        path: /mnt/data/media-data/media/ocis
+        server: nas.${PRIVATE_DOMAIN2}
+        path: /mnt/tank/documents/ocis
         globalMounts:
           - path: /data
             subPath: storage-users
       data:
         type: nfs
-        server: nas.${PRIVATE_DOMAIN}
-        path: /mnt/data/media-data/media/ocis
+        server: nas.${PRIVATE_DOMAIN2}
+        path: /mnt/tank/documents/ocis
         globalMounts:
           - path: /etc/ocis
             subPath: config

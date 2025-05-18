@@ -97,7 +97,7 @@ spec:
     persistence:
       config:
         type: nfs
-        server: nas.${PRIVATE_DOMAIN}
-        path: /mnt/data/media-data/documents/paperless
+        server: nas.${PRIVATE_DOMAIN2}
+        path: /mnt/tank/documents/paperless
         globalMounts:
           - path: /data/local

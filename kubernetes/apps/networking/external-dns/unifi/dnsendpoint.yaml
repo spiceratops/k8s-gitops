@@ -5,81 +5,41 @@ metadata:
   name: k8s
 spec:
   endpoints:
-    - dnsName: k8s.${PRIVATE_DOMAIN}
+    - dnsName: k8s.${PRIVATE_DOMAIN2}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.250
-    - dnsName: cp01.${PRIVATE_DOMAIN}
+    - dnsName: cp01.${PRIVATE_DOMAIN2}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.201
-    - dnsName: cp01.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: AAAA
-      targets:
-        - ${PUBLIC_IPV6_PREFIX}:0:8c94:cff:fe67:cc84
-    - dnsName: cp02.${PRIVATE_DOMAIN}
+    # - dnsName: cp01.${PRIVATE_DOMAIN2}
+    #   recordTTL: 180
+    #   recordType: AAAA
+    #   targets:
+    #     - ${PUBLIC_IPV6_PREFIX}:0:8c94:cff:fe67:cc84
+    - dnsName: cp02.${PRIVATE_DOMAIN2}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.202
-    - dnsName: cp02.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: AAAA
-      targets:
-        - ${PUBLIC_IPV6_PREFIX}:0:d01b:40ff:fe68:2ebe
-    - dnsName: cp03.${PRIVATE_DOMAIN}
+    # - dnsName: cp02.${PRIVATE_DOMAIN2}
+    #   recordTTL: 180
+    #   recordType: AAAA
+    #   targets:
+    #     - ${PUBLIC_IPV6_PREFIX}:0:d01b:40ff:fe68:2ebe
+    - dnsName: cp03.${PRIVATE_DOMAIN2}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.203
-    - dnsName: cp03.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: AAAA
-      targets:
-        - ${PUBLIC_IPV6_PREFIX}:0:c09:bbff:feeb:c979
-    - dnsName: wk01.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.1.211
-    - dnsName: wk01.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: AAAA
-      targets:
-        - ${PUBLIC_IPV6_PREFIX}:0:2cd1:86ff:fe5c:913f
-    - dnsName: wk02.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.1.212
-    - dnsName: wk02.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: AAAA
-      targets:
-        - ${PUBLIC_IPV6_PREFIX}:0:f406:c0ff:fe08:d73e
-    - dnsName: wk03.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.1.213
-    - dnsName: wk03.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: AAAA
-      targets:
-        - ${PUBLIC_IPV6_PREFIX}:0:1495:a8ff:fe98:579c
-    - dnsName: wk04.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.1.214
-    - dnsName: wk04.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: AAAA
-      targets:
-        - ${PUBLIC_IPV6_PREFIX}:0:be24:11ff:fe7d:f8
+    # - dnsName: cp03.${PRIVATE_DOMAIN}
+    #   recordTTL: 180
+    #   recordType: AAAA
+    #   targets:
+    #     - ${PUBLIC_IPV6_PREFIX}:0:c09:bbff:feeb:c979
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -87,16 +47,11 @@ metadata:
   name: nas
 spec:
   endpoints:
-    - dnsName: nas.${PRIVATE_DOMAIN}
+    - dnsName: nas.${PRIVATE_DOMAIN2}
       recordTTL: 180
       recordType: A
       targets:
-        - 192.168.10.10
-    - dnsName: s3.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.10.10
+        - 192.168.1.100
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -150,23 +105,6 @@ spec:
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: mnas
-spec:
-  endpoints:
-    - dnsName: mnas.${PUBLIC_DOMAIN}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.10.11
-    - dnsName: mnas.${PUBLIC_DOMAIN}
-      recordTTL: 180
-      recordType: AAAA
-      targets:
-        - ${PUBLIC_IPV6_PREFIX}:1:c48b:dde9:3b2d:9608
----
-apiVersion: externaldns.k8s.io/v1alpha1
-kind: DNSEndpoint
-metadata:
   name: doorbell
 spec:
   endpoints:
@@ -192,20 +130,3 @@ spec:
       recordType: AAAA
       targets:
         - ${PUBLIC_IPV6_PREFIX}:0:d849:cb7b:c54e:cd46
----
-apiVersion: externaldns.k8s.io/v1alpha1
-kind: DNSEndpoint
-metadata:
-  name: dns02
-spec:
-  endpoints:
-    - dnsName: dns02.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.1.53
-    - dnsName: dns02.${PRIVATE_DOMAIN}
-      recordTTL: 180
-      recordType: AAAA
-      targets:
-        - ${PUBLIC_IPV6_PREFIX}:1:be24:11ff:feff:1cdb

@@ -9,15 +9,15 @@ clusterSvcNets:
   - "fdad:cafe:245::/112"
 
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.9.6
+talosVersion: v1.10.1
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.33.1
 
-endpoint: https://k8s.${PRIVATE_DOMAIN}:6443
+endpoint: https://k8s.${PRIVATE_DOMAIN2}:6443
 
 additionalApiServerCertSans: &san
   - ${CLUSTER_ENDPOINT_IP}
-  - k8s.${PRIVATE_DOMAIN}
+  - k8s.${PRIVATE_DOMAIN2}
   - 127.0.0.1
 
 additionalMachineCertSans: *san
@@ -26,37 +26,36 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: cp01.${PRIVATE_DOMAIN}
+  - hostname: cp01.${PRIVATE_DOMAIN2}
     ipAddress: 192.168.1.201
-    installDisk: /dev/vda
+    installDisk: /dev/nvme2n1
     controlPlane: true
     disableSearchDomain: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "8e:94:0c:67:cc:84"
-          driver: virtio_net
+          hardwareAddr: "00:1b:21:bc:69:1e"
         dhcp: true
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
-        vlans:
-          - vlanId: 10
-            addresses:
-              - "192.168.10.201/23"
-            routes:
-              - network: 192.168.10.0/23
-                gateway: 192.168.10.1
-          - vlanId: 20
-            addresses:
-              - "192.168.20.201/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            addresses:
-              - "192.168.30.201/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
+        # vlans:
+        #   - vlanId: 10
+        #     addresses:
+        #       - "192.168.10.201/23"
+        #     routes:
+        #       - network: 192.168.10.0/23
+        #         gateway: 192.168.10.1
+        #   - vlanId: 20
+        #     addresses:
+        #       - "192.168.20.201/24"
+        #     routes:
+        #       - network: 192.168.20.0/24
+        #         gateway: 192.168.20.1
+        #   - vlanId: 30
+        #     addresses:
+        #       - "192.168.30.201/24"
+        #     routes:
+        #       - network: 192.168.30.0/24
+        #         gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
@@ -66,146 +65,6 @@ nodes:
           officialExtensions:
             - siderolabs/intel-ucode
             - siderolabs/i915
-            - siderolabs/qemu-guest-agent
-        extraKernelArgs: &intelcpKernalArgs
-          - cpufreq.default_governor=performance
-          - intel_iommu=on
-          - intel_pstate=disable
-          - iommu=pt
-          - iommu.passthrough=1
-          - mitigations=off
-          - net.ifnames=0
-
-  - hostname: cp02.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.1.202
-    installDisk: /dev/vda
-    controlPlane: true
-    disableSearchDomain: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "d2:1b:40:68:2e:be"
-          driver: virtio_net
-        dhcp: true
-        vip:
-          ip: ${CLUSTER_ENDPOINT_IP}
-        vlans:
-          - vlanId: 10
-            addresses:
-              - "192.168.10.202/23"
-            routes:
-              - network: 192.168.10.0/23
-                gateway: 192.168.10.1
-          - vlanId: 20
-            addresses:
-              - "192.168.20.202/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            addresses:
-              - "192.168.30.202/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
-    nodeLabels:
-      topology.kubernetes.io/region: k8s
-      topology.kubernetes.io/zone: cp
-    schematic:
-      customization:
-        systemExtensions:
-          officialExtensions:
-            - siderolabs/intel-ucode
-            - siderolabs/i915
-            - siderolabs/qemu-guest-agent
-        extraKernelArgs: *intelcpKernalArgs
-
-  - hostname: cp03.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.1.203
-    installDisk: /dev/vda
-    controlPlane: true
-    disableSearchDomain: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "0e:09:bb:eb:c9:79"
-          driver: virtio_net
-        dhcp: true
-        vip:
-          ip: ${CLUSTER_ENDPOINT_IP}
-        vlans:
-          - vlanId: 10
-            addresses:
-              - "192.168.10.203/23"
-            routes:
-              - network: 192.168.10.0/23
-                gateway: 192.168.10.1
-          - vlanId: 20
-            addresses:
-              - "192.168.20.203/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            addresses:
-              - "192.168.30.203/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
-    nodeLabels:
-      topology.kubernetes.io/region: k8s
-      topology.kubernetes.io/zone: cp
-    schematic:
-      customization:
-        systemExtensions:
-          officialExtensions:
-            - siderolabs/amd-ucode
-            - siderolabs/qemu-guest-agent
-        extraKernelArgs: &amdKernalArgs
-          - cpufreq.default_governor=performance
-          - amd_pstate=active
-          - iommu=pt
-          - iommu.passthrough=1
-          - mitigations=off
-          - net.ifnames=0
-
-  - hostname: wk01.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.1.211
-    installDisk: /dev/vda
-    controlPlane: false
-    disableSearchDomain: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "2e:d1:86:5c:91:3f"
-          driver: virtio_net
-        dhcp: true
-        vlans:
-          - vlanId: 10
-            addresses:
-              - "192.168.10.211/23"
-            routes:
-              - network: 192.168.10.0/23
-                gateway: 192.168.10.1
-          - vlanId: 20
-            addresses:
-              - "192.168.20.211/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            addresses:
-              - "192.168.30.211/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
-    nodeLabels:
-      topology.kubernetes.io/region: k8s
-      topology.kubernetes.io/zone: wk
-    schematic:
-      customization:
-        systemExtensions:
-          officialExtensions:
-            - siderolabs/intel-ucode
-            - siderolabs/i915
-            - siderolabs/qemu-guest-agent
             - siderolabs/intel-ice-firmware
         extraKernelArgs: &intelKernalArgs
           - cpufreq.default_governor=performance
@@ -217,90 +76,96 @@ nodes:
           - mitigations=off
           - net.ifnames=0
           - sysctl.kernel.kexec_load_disabled=1
+          - -selinux
 
-  - hostname: wk02.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.1.212
-    installDisk: /dev/vda
-    controlPlane: false
+  - hostname: cp02.${PRIVATE_DOMAIN2}
+    ipAddress: 192.168.1.202
+    installDisk: /dev/nvme2n1
+    controlPlane: true
     disableSearchDomain: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "f6:06:c0:08:d7:3e"
-          driver: virtio_net
+          hardwareAddr: "00:1b:21:bc:6f:83"
         dhcp: true
-        vlans:
-          - vlanId: 10
-            addresses:
-              - "192.168.10.212/23"
-            routes:
-              - network: 192.168.10.0/23
-                gateway: 192.168.10.1
-          - vlanId: 20
-            addresses:
-              - "192.168.20.212/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            addresses:
-              - "192.168.30.212/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
+        vip:
+          ip: ${CLUSTER_ENDPOINT_IP}
+        # vlans:
+        #   - vlanId: 10
+        #     addresses:
+        #       - "192.168.10.202/23"
+        #     routes:
+        #       - network: 192.168.10.0/23
+        #         gateway: 192.168.10.1
+        #   - vlanId: 20
+        #     addresses:
+        #       - "192.168.20.202/24"
+        #     routes:
+        #       - network: 192.168.20.0/24
+        #         gateway: 192.168.20.1
+        #   - vlanId: 30
+        #     addresses:
+        #       - "192.168.30.202/24"
+        #     routes:
+        #       - network: 192.168.30.0/24
+        #         gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
-      topology.kubernetes.io/zone: wk
+      topology.kubernetes.io/zone: cp
     schematic:
       customization:
         systemExtensions:
           officialExtensions:
             - siderolabs/intel-ucode
             - siderolabs/i915
-            - siderolabs/qemu-guest-agent
-            - siderolabs/intel-ice-firmware
         extraKernelArgs: *intelKernalArgs
 
-  - hostname: wk03.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.1.213
-    installDisk: /dev/vda
-    controlPlane: false
+  - hostname: cp03.${PRIVATE_DOMAIN2}
+    ipAddress: 192.168.1.203
+    installDisk: /dev/nvme2n1
+    controlPlane: true
     disableSearchDomain: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "16:95:a8:98:57:9c"
-          driver: virtio_net
+          hardwareAddr: "00:1b:21:bc:6a:a5"
         dhcp: true
-        vlans:
-          - vlanId: 10
-            addresses:
-              - "192.168.10.213/23"
-            routes:
-              - network: 192.168.10.0/23
-                gateway: 192.168.10.1
-          - vlanId: 20
-            addresses:
-              - "192.168.20.213/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            addresses:
-              - "192.168.30.213/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
+        vip:
+          ip: ${CLUSTER_ENDPOINT_IP}
+        # vlans:
+        #   - vlanId: 10
+        #     addresses:
+        #       - "192.168.10.203/23"
+        #     routes:
+        #       - network: 192.168.10.0/23
+        #         gateway: 192.168.10.1
+        #   - vlanId: 20
+        #     addresses:
+        #       - "192.168.20.203/24"
+        #     routes:
+        #       - network: 192.168.20.0/24
+        #         gateway: 192.168.20.1
+        #   - vlanId: 30
+        #     addresses:
+        #       - "192.168.30.203/24"
+        #     routes:
+        #       - network: 192.168.30.0/24
+        #         gateway: 192.168.30.1
     nodeLabels:
       topology.kubernetes.io/region: k8s
-      topology.kubernetes.io/zone: wk
+      topology.kubernetes.io/zone: cp
     schematic:
       customization:
         systemExtensions:
           officialExtensions:
             - siderolabs/amd-ucode
-            - siderolabs/qemu-guest-agent
             - siderolabs/nonfree-kmod-nvidia-production
             - siderolabs/nvidia-container-toolkit-production
-        extraKernelArgs: *amdKernalArgs
+        extraKernelArgs:
+          - cpufreq.default_governor=performance
+          - amd_pstate=active
+          - iommu=pt
+          - iommu.passthrough=1
+          - mitigations=off
+          - -selinux
     patches:
       - |-
         - op: add
@@ -317,46 +182,47 @@ nodes:
           value:
             net.core.bpf_jit_harden: 1
 
-  - hostname: wk04.${PRIVATE_DOMAIN}
-    ipAddress: 192.168.1.214
-    installDisk: /dev/vda
-    controlPlane: false
-    disableSearchDomain: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:7d:00:f8"
-          driver: virtio_net
-        dhcp: true
-        vlans:
-          - vlanId: 10
-            addresses:
-              - "192.168.10.214/23"
-            routes:
-              - network: 192.168.10.0/23
-                gateway: 192.168.10.1
-          - vlanId: 20
-            addresses:
-              - "192.168.20.214/24"
-            routes:
-              - network: 192.168.20.0/24
-                gateway: 192.168.20.1
-          - vlanId: 30
-            addresses:
-              - "192.168.30.214/24"
-            routes:
-              - network: 192.168.30.0/24
-                gateway: 192.168.30.1
-    nodeLabels:
-      topology.kubernetes.io/region: k8s
-      topology.kubernetes.io/zone: wk
-    schematic:
-      customization:
-        systemExtensions:
-          officialExtensions:
-            - siderolabs/intel-ucode
-            - siderolabs/i915
-            - siderolabs/qemu-guest-agent
-        extraKernelArgs: *intelKernalArgs
+  # - hostname: wk01.${PRIVATE_DOMAIN}
+  #   ipAddress: 192.168.1.211
+  #   installDisk: /dev/vda
+  #   controlPlane: false
+  #   disableSearchDomain: true
+  #   networkInterfaces:
+  #     - deviceSelector:
+  #         hardwareAddr: "2e:d1:86:5c:91:3f"
+  #         driver: virtio_net
+  #       dhcp: true
+  #       vlans:
+  #         - vlanId: 10
+  #           addresses:
+  #             - "192.168.10.211/23"
+  #           routes:
+  #             - network: 192.168.10.0/23
+  #               gateway: 192.168.10.1
+  #         - vlanId: 20
+  #           addresses:
+  #             - "192.168.20.211/24"
+  #           routes:
+  #             - network: 192.168.20.0/24
+  #               gateway: 192.168.20.1
+  #         - vlanId: 30
+  #           addresses:
+  #             - "192.168.30.211/24"
+  #           routes:
+  #             - network: 192.168.30.0/24
+  #               gateway: 192.168.30.1
+  #   nodeLabels:
+  #     topology.kubernetes.io/region: k8s
+  #     topology.kubernetes.io/zone: wk
+  #   schematic:
+  #     customization:
+  #       systemExtensions:
+  #         officialExtensions:
+  #           - siderolabs/intel-ucode
+  #           - siderolabs/i915
+  #           - siderolabs/qemu-guest-agent
+  #           - siderolabs/intel-ice-firmware
+  #       extraKernelArgs: *intelKernalArgs
 
 controlPlane:
   nodeLabels:
@@ -481,17 +347,17 @@ controlPlane:
           extraHostEntries:
             - ip: ${CLUSTER_ENDPOINT_IP}
               aliases:
-                - k8s.${PRIVATE_DOMAIN}
+                - k8s.${PRIVATE_DOMAIN2}
             - ip: 192.168.1.1
               aliases:
-                - unifi.${PRIVATE_DOMAIN}
-            - ip: 192.168.10.10
+                - unifi.${PRIVATE_DOMAIN2}
+            - ip: 192.168.1.100
               aliases:
-                - nas.${PRIVATE_DOMAIN}
-                - s3.${PRIVATE_DOMAIN}
+                - nas.${PRIVATE_DOMAIN2}
+                - s3.${PRIVATE_DOMAIN2}
             - ip: 192.168.11.4
               aliases:
-                - vector.${PRIVATE_DOMAIN}
+                - vector.${PRIVATE_DOMAIN2}
 
     # Custom sysctl settings
     - &sysctlPatch |-
@@ -617,25 +483,25 @@ controlPlane:
           modules:
             - name: nbd
 
-worker:
-  nodeLabels:
-    topology.kubernetes.io/region: *cluster
-    topology.kubernetes.io/zone: wk
-  patches:
-    - *containerdPatch
-    - *disableSearchDomainPatch
-    - *discoveryPatch
-    - *kubeletPatch
-    - *kubePrismPatch
-    # - *loggingPatch
-    - *nameserverPatch
-    - *nfsPatch
-    - *ntpPatch
-    - *staticHostEntriesPatch
-    - *sysctlPatch
-    - *talosPatch
-    # - *tailscalePatch
-    - *noschedulerPatch
-    - *openebsPatch
-    - *hostDnsPatch
-    - *nbdModule
+# worker:
+#   nodeLabels:
+#     topology.kubernetes.io/region: *cluster
+#     topology.kubernetes.io/zone: wk
+#   patches:
+#     - *containerdPatch
+#     - *disableSearchDomainPatch
+#     - *discoveryPatch
+#     - *kubeletPatch
+#     - *kubePrismPatch
+#     # - *loggingPatch
+#     - *nameserverPatch
+#     - *nfsPatch
+#     - *ntpPatch
+#     - *staticHostEntriesPatch
+#     - *sysctlPatch
+#     - *talosPatch
+#     # - *tailscalePatch
+#     - *noschedulerPatch
+#     - *openebsPatch
+#     - *hostDnsPatch
+#     - *nbdModule

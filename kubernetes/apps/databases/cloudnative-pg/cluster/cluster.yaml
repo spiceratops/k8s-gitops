@@ -38,7 +38,7 @@ spec:
       - { regex: cluster, action: labeldrop }
   bootstrap:
     recovery:
-      source: postgres-v20
+      source: postgres-v21
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
@@ -46,8 +46,8 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: s3://postgresql/
-      endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
-      serverName: postgres-v21
+      endpointURL: https://nas.${PRIVATE_DOMAIN2}:9000
+      serverName: postgres-v22
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -56,13 +56,13 @@ spec:
           name: cloudnative-pg-secret
           key: AWS_SECRET_ACCESS_KEY
   externalClusters:
-    - name: postgres-v20
+    - name: postgres-v21
       barmanObjectStore:
         wal:
           compression: bzip2
           maxParallel: 8
         destinationPath: s3://postgresql/
-        endpointURL: https://s3.${PRIVATE_DOMAIN}:9000
+        endpointURL: https://nas.${PRIVATE_DOMAIN2}:9000
         s3Credentials:
           accessKeyId:
             name: cloudnative-pg-secret
