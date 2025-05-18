@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/advplyr/audiobookshelf
-              tag: 2.21.0
+              tag: 2.23.0
             envFrom:
               - secretRef:
                   name: *secret
