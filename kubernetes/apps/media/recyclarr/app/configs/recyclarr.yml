@@ -87,7 +87,7 @@ sonarr:
           - name: WEB-2160p
 
 radarr:
-  sqp-2:
+  sqp-1:
     base_url: http://radarr.media.svc.cluster.local:7878
     api_key: !env_var RADARR_API_KEY
 
