@@ -113,14 +113,14 @@ spec:
       storage-users:
         type: nfs
         server: nas.${PRIVATE_DOMAIN2}
-        path: /tank/documents/ocis
+        path: /mnt/tank/documents/ocis
         globalMounts:
           - path: /data
             subPath: storage-users
       data:
         type: nfs
         server: nas.${PRIVATE_DOMAIN2}
-        path: /tank/documents/ocis
+        path: /mnt/tank/documents/ocis
         globalMounts:
           - path: /etc/ocis
             subPath: config

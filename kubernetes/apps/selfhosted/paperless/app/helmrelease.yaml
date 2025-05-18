@@ -98,6 +98,6 @@ spec:
       config:
         type: nfs
         server: nas.${PRIVATE_DOMAIN2}
-        path: /tank/documents/paperless
+        path: /mnt/tank/documents/paperless
         globalMounts:
           - path: /data/local

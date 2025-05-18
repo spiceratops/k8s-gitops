@@ -22,7 +22,7 @@ tasks:
       - task: bootstrap-etcd
       - task: fetch-kubeconfig
       - task: bootstrap-apps
-      - task: bootstrap-labels
+      # - task: bootstrap-labels
 
   bootstrap-etcd:
     desc: Bootstrap Etcd

@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: mnas.${PUBLIC_DOMAIN}
-    path: /games
+    server: nas.${PRIVATE_DOMAIN2}
+    path: /mnt/tank/games
   mountOptions:
     - nfsvers=4.2

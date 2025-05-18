@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: mnas.${PUBLIC_DOMAIN}
-    path: /ai/models
+    path: /mnt/tank/ai/models
   mountOptions:
     - nfsvers=4.2
 ---
@@ -27,6 +27,6 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: mnas.${PUBLIC_DOMAIN}
-    path: /ai/output
+    path: /mnt/tank/ai/output
   mountOptions:
     - nfsvers=4.2
