@@ -115,3 +115,9 @@ radarr:
           - f537cf427b64c38c8e36298f657e4828 # Scene
         assign_scores_to:
           - name: SQP-1 (2160p)
+      # Manually prioritise DV HDR10 vs standalone DV for compatibility
+      - trash_ids:
+          - e23edd2482476e595fb990b12e7c609c # DV HDR10
+        assign_scores_to:
+          - name: SQP-1 (2160p)
+            score: 1600
