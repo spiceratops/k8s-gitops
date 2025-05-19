@@ -75,7 +75,7 @@ spec:
                         values: ["qbittorrent"]
                   topologyKey: kubernetes.io/hostname
           securityContext:
-            runAsUser: 1000
+            runAsUser: 568
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
