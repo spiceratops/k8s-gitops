@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/spiceratops/glados
-              tag: 0.1.1@sha256:a847c61daf69b474da466aaa54dd36a3bc1ad06f97db683b1cca744f2b684536
+              tag: 0.1.1@sha256:d89788b79c1dca0ba44967e17db6bdcdbd9cb22c6e36514d2f09cdabbbf0a5d1
             env:
               TZ: ${TIMEZONE}
             resources:
