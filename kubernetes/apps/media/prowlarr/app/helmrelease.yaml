@@ -68,7 +68,7 @@ spec:
                 memory: 512M
         pod:
           securityContext:
-            runAsUser: 568
+            runAsUser: 1000
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch

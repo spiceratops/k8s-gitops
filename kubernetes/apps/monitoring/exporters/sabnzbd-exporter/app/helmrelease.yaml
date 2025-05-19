@@ -51,7 +51,7 @@ spec:
                   - ALL
         pod:
           securityContext:
-            runAsUser: 568
+            runAsUser: 1000
             runAsGroup: 568
             runAsNonRoot: true
     service:

@@ -90,7 +90,7 @@ spec:
               limits:
                 memory: 8192Mi
             securityContext:
-              runAsUser: 568
+              runAsUser: 1000
               runAsGroup: 568
               runAsNonRoot: true
               allowPrivilegeEscalation: false

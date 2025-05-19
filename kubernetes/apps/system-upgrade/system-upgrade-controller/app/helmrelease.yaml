@@ -64,7 +64,7 @@ spec:
                     operator: Exists
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
+        runAsUser: 1000
         runAsGroup: 568
       tolerations:
         - key: CriticalAddonsOnly
