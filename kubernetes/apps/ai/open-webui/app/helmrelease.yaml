@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: 0.6.9-cuda@sha256:85eb2976fb66ff918e125b3e3cce732c689285b84c34209f02496d9d145c5db6
+              tag: v0.6.10-cuda@sha256:de634ed9bd0c84f34c9186de98387bc0c9463be2496bb0342f94a4342790c1d5
             env:
               WEBUI_NAME: Ollama
               WEBUI_URL: https://${HOSTNAME}
