@@ -25,6 +25,7 @@ spec:
           01-init-perms:
             image:
               repository: docker.io/busybox
+              image: latest
             command:
               - "/bin/sh"
               - "-c"
