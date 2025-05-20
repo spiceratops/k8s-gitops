@@ -4,9 +4,9 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./_pvc/ks.yaml
-  - ./ollama/ks.yaml
-  - ./open-webui/ks.yaml
+  # - ./ollama/ks.yaml
+  # - ./open-webui/ks.yaml
   # - ./comfyui/ks.yaml
-  - ./k8sgpt/ks.yaml
-  - ./perplexica/ks.yaml
-  - ./swarmui/ks.yaml
+  # - ./k8sgpt/ks.yaml
+  # - ./perplexica/ks.yaml
+  # - ./swarmui/ks.yaml
