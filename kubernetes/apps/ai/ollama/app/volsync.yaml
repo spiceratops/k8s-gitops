@@ -34,7 +34,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
@@ -47,8 +47,8 @@ spec:
     repository: ollama-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteMany"]
-    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
@@ -71,8 +71,8 @@ spec:
     repository: ollama-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteMany"]
-    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
@@ -119,7 +119,7 @@ spec:
   resources:
     requests:
       storage: 100Gi
-  storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
@@ -132,8 +132,8 @@ spec:
     repository: ollama-models-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteMany"]
-    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
@@ -156,8 +156,8 @@ spec:
     repository: ollama-models-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteMany"]
-    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
