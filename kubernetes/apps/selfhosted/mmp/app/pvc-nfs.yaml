@@ -10,8 +10,8 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: mnas.${PUBLIC_DOMAIN}
-    path: /maker/library
+    server: nas.${PRIVATE_DOMAIN2}
+    path: /mnt/tank/maker/library
   mountOptions:
     - nfsvers=4.2
 ---
