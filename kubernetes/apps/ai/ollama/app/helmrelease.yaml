@@ -73,4 +73,4 @@ spec:
         enabled: true
         existingClaim: ollama
         globalMounts:
-          - path: /root/.ollama
+          - path: /.ollama
