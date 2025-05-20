@@ -21,16 +21,6 @@ spec:
   values:
     controllers:
       swarmui:
-        initContainers:
-          01-init-perms:
-            image:
-              repository: docker.io/busybox
-              tag: latest
-            command:
-              - "/bin/sh"
-              - "-c"
-            args:
-              - /SwarmUI/launchtools/launch-standard-docker.sh fixch
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
