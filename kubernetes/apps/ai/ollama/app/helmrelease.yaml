@@ -59,7 +59,7 @@ spec:
     persistence:
       models:
         enabled: true
-        existingClaim: ollama-models
+        existingClaim: nfs-ai-models
         advancedMounts:
           ollama:
             app:

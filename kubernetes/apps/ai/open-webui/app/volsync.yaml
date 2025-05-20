@@ -26,7 +26,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: open-webui
 spec:
-  accessModes: ["ReadWriteMany"]
+  accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
@@ -46,7 +46,7 @@ spec:
   restic:
     repository: open-webui-restic-secret
     copyMethod: Snapshot
-    accessModes: ["ReadWriteMany"]
+    accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
@@ -70,7 +70,7 @@ spec:
     pruneIntervalDays: 10
     repository: open-webui-restic-secret
     copyMethod: Snapshot
-    accessModes: ["ReadWriteMany"]
+    accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]

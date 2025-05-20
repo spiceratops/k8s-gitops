@@ -26,7 +26,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: ollama
 spec:
-  accessModes: ["ReadWriteMany"]
+  accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
@@ -46,7 +46,7 @@ spec:
   restic:
     repository: ollama-restic-secret
     copyMethod: Snapshot
-    accessModes: ["ReadWriteMany"]
+    accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
@@ -70,7 +70,7 @@ spec:
     pruneIntervalDays: 10
     repository: ollama-restic-secret
     copyMethod: Snapshot
-    accessModes: ["ReadWriteMany"]
+    accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     cacheAccessModes: ["ReadWriteOnce"]
@@ -83,88 +83,88 @@ spec:
     retain:
       daily: 10
       within: 3d
----
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
-  name: ollama-models-restic
-spec:
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: onepassword-connect
-  target:
-    name: ollama-models-restic-secret
-    creationPolicy: Owner
-    template:
-      engineVersion: v2
-      data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/ollama-models"
-        RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
-        AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
-        AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
-  dataFrom:
-    - extract:
-        key: volsync-restic-template
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: ollama-models
-spec:
-  accessModes: ["ReadWriteMany"]
-  dataSourceRef:
-    kind: ReplicationDestination
-    apiGroup: volsync.backube
-    name: ollama-models-rdst
-  resources:
-    requests:
-      storage: 100Gi
-  storageClassName: ${CLUSTER_STORAGE_BLOCK}
----
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
-metadata:
-  name: ollama-models-rdst
-spec:
-  trigger:
-    manual: restore-once
-  restic:
-    repository: ollama-models-restic-secret
-    copyMethod: Snapshot
-    accessModes: ["ReadWriteMany"]
-    storageClassName: ${CLUSTER_STORAGE_BLOCK}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
-    cacheAccessModes: ["ReadWriteOnce"]
-    cacheCapacity: 8Gi
-    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
-    moverSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-    capacity: 100Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
----
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationSource
-metadata:
-  name: ollama-models-rsrc
-spec:
-  sourcePVC: ollama-models
-  trigger:
-    schedule: "15 */8 * * *"
-  restic:
-    pruneIntervalDays: 10
-    repository: ollama-models-restic-secret
-    copyMethod: Snapshot
-    accessModes: ["ReadWriteMany"]
-    storageClassName: ${CLUSTER_STORAGE_BLOCK}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
-    cacheAccessModes: ["ReadWriteOnce"]
-    cacheCapacity: 8Gi
-    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
-    moverSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-    retain:
-      daily: 10
-      within: 3d
+# ---
+# apiVersion: external-secrets.io/v1beta1
+# kind: ExternalSecret
+# metadata:
+#   name: ollama-models-restic
+# spec:
+#   secretStoreRef:
+#     kind: ClusterSecretStore
+#     name: onepassword-connect
+#   target:
+#     name: ollama-models-restic-secret
+#     creationPolicy: Owner
+#     template:
+#       engineVersion: v2
+#       data:
+#         RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/ollama-models"
+#         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
+#         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
+#         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
+#   dataFrom:
+#     - extract:
+#         key: volsync-restic-template
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: ollama-models
+# spec:
+#   accessModes: ["ReadWriteOnce"]
+#   dataSourceRef:
+#     kind: ReplicationDestination
+#     apiGroup: volsync.backube
+#     name: ollama-models-rdst
+#   resources:
+#     requests:
+#       storage: 100Gi
+#   storageClassName: ${CLUSTER_STORAGE_BLOCK}
+# ---
+# apiVersion: volsync.backube/v1alpha1
+# kind: ReplicationDestination
+# metadata:
+#   name: ollama-models-rdst
+# spec:
+#   trigger:
+#     manual: restore-once
+#   restic:
+#     repository: ollama-models-restic-secret
+#     copyMethod: Snapshot
+#     accessModes: ["ReadWriteOnce"]
+#     storageClassName: ${CLUSTER_STORAGE_BLOCK}
+#     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+#     cacheAccessModes: ["ReadWriteOnce"]
+#     cacheCapacity: 8Gi
+#     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+#     moverSecurityContext:
+#       runAsUser: 1000
+#       runAsGroup: 1000
+#       fsGroup: 1000
+#     capacity: 100Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+# ---
+# apiVersion: volsync.backube/v1alpha1
+# kind: ReplicationSource
+# metadata:
+#   name: ollama-models-rsrc
+# spec:
+#   sourcePVC: ollama-models
+#   trigger:
+#     schedule: "15 */8 * * *"
+#   restic:
+#     pruneIntervalDays: 10
+#     repository: ollama-models-restic-secret
+#     copyMethod: Snapshot
+#     accessModes: ["ReadWriteOnce"]
+#     storageClassName: ${CLUSTER_STORAGE_BLOCK}
+#     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+#     cacheAccessModes: ["ReadWriteOnce"]
+#     cacheCapacity: 8Gi
+#     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+#     moverSecurityContext:
+#       runAsUser: 1000
+#       runAsGroup: 1000
+#       fsGroup: 1000
+#     retain:
+#       daily: 10
+#       within: 3d
