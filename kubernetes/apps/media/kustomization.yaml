@@ -25,3 +25,4 @@ resources:
   - ./cross-seed/ks.yaml
   - ./piped/ks.yaml
   - ./music-assistant/ks.yaml
+  - ./huntarr/ks.yaml
