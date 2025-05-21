@@ -57,7 +57,7 @@ sonarr:
           # - 06d66ab109d4d2eddb2794d21526d140 # Retags
           # - 1b3994c551cbb92a2c781af061f4ab44 # Scene
         assign_scores_to:
-          - name: WEB-2160p
+          - name: "Best Available"
 
       - trash_ids:
           # Uncomment the next six lines to allow x265 HD releases with HDR/DV
@@ -84,7 +84,7 @@ sonarr:
       - trash_ids:
           - 69aa1e159f97d860440b04cd6d590c4f # Language: Not English (English Only)
         assign_scores_to:
-          - name: WEB-2160p
+          - name: "Best Available"
 
 radarr:
   sqp-1:
