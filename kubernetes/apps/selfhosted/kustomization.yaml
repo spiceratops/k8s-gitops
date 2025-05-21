@@ -20,7 +20,7 @@ resources:
   - ./libmedium/ks.yaml
   - ./hajimari/ks.yaml
   - ./wallos/ks.yaml
-  - ./mmp/ks.yaml
+  # - ./mmp/ks.yaml
   - ./hoarder/ks.yaml
   - ./searxng/ks.yaml
   - ./n8n/ks.yaml
