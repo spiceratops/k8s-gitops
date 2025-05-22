@@ -121,3 +121,7 @@ radarr:
         assign_scores_to:
           - name: SQP-1 (2160p)
             score: 1600
+      - trash_ids:
+          - fb392fb0d61a010ae38e49ceaa24a1ef # 2160p
+        assign_scores_to:
+          - name: SQP-1 (2160p)
