@@ -94,16 +94,16 @@ radarr:
     delete_old_custom_formats: true
     replace_existing_custom_formats: true
     quality_profiles:
-      - name: SQP-1 (2160p)
+      - name: SQP-2
     include:
-      - template: radarr-quality-definition-sqp-streaming
-      - template: radarr-quality-profile-sqp-1-2160p-default
-      - template: radarr-custom-formats-sqp-1-2160p
+      - template: radarr-quality-definition-sqp-uhd
+      - template: radarr-quality-profile-sqp-2
+      - template: radarr-custom-formats-sqp-2
     custom_formats:
       - trash_ids:
           - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: SQP-2
             score: 0
       - trash_ids:
           - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
@@ -114,14 +114,23 @@ radarr:
           - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
           - f537cf427b64c38c8e36298f657e4828 # Scene
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: SQP-2
+      - trash_ids:
+          - fb392fb0d61a010ae38e49ceaa24a1ef # 2160p
+        assign_scores_to:
+          - name: SQP-2
       # Manually prioritise DV HDR10 vs standalone DV for compatibility
       - trash_ids:
           - e23edd2482476e595fb990b12e7c609c # DV HDR10
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: SQP-2
             score: 1600
+      # De-prioritise certain audio formats
       - trash_ids:
-          - fb392fb0d61a010ae38e49ceaa24a1ef # 2160p
+          - 496f355514737f7d83bf7aa4d24f8169 # TrueHD Atmos
+          - 2f22d89048b01681dde8afe203bf2e95 # DTS X
+          - 417804f7f2c4308c1f4c5d380d4c4475 # ATMOS (undefined)
+          - 3cafb66171b47f226146a0770576870f # TrueHD
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: SQP-2
+            score: 0
