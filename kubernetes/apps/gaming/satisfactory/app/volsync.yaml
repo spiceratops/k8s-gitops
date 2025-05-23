@@ -1,5 +1,5 @@
 ---
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: satisfactory-data-restic
@@ -84,7 +84,7 @@ spec:
       daily: 10
       within: 3d
 ---
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: satisfactory-game-restic

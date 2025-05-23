@@ -2,18 +2,18 @@
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: tdarr-config-restic
+  name: cleanuperr-restic
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: tdarr-config-restic-secret
+    name: cleanuperr-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/tdarr-config"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/cleanuperr"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -24,27 +24,27 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tdarr-config
+  name: cleanuperr
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: tdarr-config-rdst
+    name: cleanuperr-rdst
   resources:
     requests:
-      storage: 2Gi
+      storage: 10Gi
   storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: tdarr-config-rdst
+  name: cleanuperr-rdst
 spec:
   trigger:
     manual: restore-once
   restic:
-    repository: tdarr-config-restic-secret
+    repository: cleanuperr-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
@@ -56,19 +56,19 @@ spec:
       runAsUser: 1000
       runAsGroup: 568
       fsGroup: 568
-    capacity: 2Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+    capacity: 5Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: tdarr-config-rsrc
+  name: cleanuperr-rsrc
 spec:
-  sourcePVC: tdarr
+  sourcePVC: cleanuperr
   trigger:
     schedule: "15 */8 * * *"
   restic:
     pruneIntervalDays: 10
-    repository: tdarr-config-restic-secret
+    repository: cleanuperr-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
@@ -87,18 +87,18 @@ spec:
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: tdarr-server-restic
+  name: cleanuperr-concerts-restic
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: tdarr-server-restic-secret
+    name: cleanuperr-concerts-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/tdarr-server"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/cleanuperr-concerts"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -109,27 +109,27 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tdarr-server
+  name: cleanuperr-concerts
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: tdarr-server-rdst
+    name: cleanuperr-concerts-rdst
   resources:
     requests:
-      storage: 20Gi
+      storage: 10Gi
   storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: tdarr-server-rdst
+  name: cleanuperr-concerts-rdst
 spec:
   trigger:
     manual: restore-once
   restic:
-    repository: tdarr-server-restic-secret
+    repository: cleanuperr-concerts-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
@@ -141,19 +141,19 @@ spec:
       runAsUser: 1000
       runAsGroup: 568
       fsGroup: 568
-    capacity: 20Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+    capacity: 5Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: tdarr-server-rsrc
+  name: cleanuperr-concerts-rsrc
 spec:
-  sourcePVC: tdarr-server
+  sourcePVC: cleanuperr-concerts
   trigger:
     schedule: "15 */8 * * *"
   restic:
     pruneIntervalDays: 10
-    repository: tdarr-server-restic-secret
+    repository: cleanuperr-concerts-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}

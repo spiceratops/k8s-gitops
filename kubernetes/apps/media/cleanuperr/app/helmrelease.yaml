@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cleanuperr
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      cleanuperr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/flmorg/cleanuperr
+              tag: 1.6.8@sha256:550881bda5dc23755183767e6067434d267c4b87e59aa2698549617c2e4b3f70
+            env:
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+    service:
+      app:
+        controller: cleanuperr
+        ports:
+          http:
+            port: 9705
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Cleaning Downloads
+          gethomepage.dev/group: Downloads
+          gethomepage.dev/icon: mdi-broom
+          gethomepage.dev/name: cleanuperr
+        hosts:
+          - host: "${HOSTNAME}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - "${HOSTNAME}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: cleanuperr
+        advancedMounts:
+          cleanuperr:
+            app:
+              - path: /config
