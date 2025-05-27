@@ -68,6 +68,7 @@ spec:
                 add:
                   - NET_ADMIN
               allowPrivilegeEscalation: false
+            restartPolicy: Always
         containers:
           app:
             nameOverride: qbittorrent
