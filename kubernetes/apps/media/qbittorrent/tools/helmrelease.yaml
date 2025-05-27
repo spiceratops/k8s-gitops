@@ -37,12 +37,15 @@ spec:
           successfulJobsHistory: 0
           failedJobsHistory: 1
         pod:
-          restartPolicy: OnFailure
+          restartPolicy: Never
         initContainers:
           tagging: &container
             image:
               repository: ghcr.io/buroa/qbtools
               tag: v0.21.0
+            env:
+              QBITTORRENT_HOST: qbittorrent.media.svc.cluster.local
+              QBITTORRENT_PORT: 8080
             args:
               - tagging
               - --added-on
@@ -50,12 +53,7 @@ spec:
               - --last-activity
               - --sites
               - --unregistered
-              - --server
-              - &qbittorrent_host qbittorrent.media.svc.cluster.local
-              - --port
-              - &qbittorrent_port "8080"
-              - --config
-              - /config/config.yaml
+              - --not-linked
             resources:
               requests:
                 memory: 128Mi
@@ -77,12 +75,10 @@ spec:
               - manual
               - --exclude-category
               - cross-seed
+              - --exclude-tag
+              - added:24h
               - --include-tag
               - expired
-              - --server
-              - *qbittorrent_host
-              - --port
-              - *qbittorrent_port
           unregistered:
             <<: *container
             args:
@@ -95,10 +91,6 @@ spec:
               - added:24h
               - --include-tag
               - unregistered
-              - --server
-              - *qbittorrent_host
-              - --port
-              - *qbittorrent_port
       orphaned:
         type: cronjob
         cronjob:
@@ -115,20 +107,13 @@ spec:
               - "*/manual/*"
               - --exclude-pattern
               - "*/cross-seed/*"
-              - --server
-              - *qbittorrent_host
-              - --port
-              - *qbittorrent_port
       reannounce:
         containers:
           app:
             <<: *container
             args:
               - reannounce
-              - --server
-              - *qbittorrent_host
-              - --port
-              - *qbittorrent_port
+              - --process-seeding
     persistence:
       config-file:
         type: secret

@@ -21,8 +21,8 @@ resources:
   - ./lidarr/ks.yaml
   - ./audiobookshelf/ks.yaml
   # - ./tdarr/ks.yaml
-  - ./qbittorrent/ks.yaml
-  - ./cross-seed/ks.yaml
+  # - ./qbittorrent/ks.yaml
+  # - ./cross-seed/ks.yaml
   - ./piped/ks.yaml
   - ./music-assistant/ks.yaml
   - ./huntarr/ks.yaml

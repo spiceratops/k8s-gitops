@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/cross-seed/cross-seed
-              tag: 6.0.0-34
+              tag: 6.12.5
             args:
               - daemon
               - -v
@@ -68,7 +68,7 @@ spec:
             port: 2468
     persistence:
       config:
-        type: emptyDir
+        existingClaim: cross-seed
       config-file:
         type: secret
         name: cross-seed-secret
@@ -76,10 +76,6 @@ spec:
           - path: /config/config.js
             subPath: config.js
             readOnly: true
-      qbittorrent:
-        existingClaim: qbittorrent
-        globalMounts:
-          - path: /qbittorrent
       media:
         existingClaim: nfs-media
         globalMounts:
