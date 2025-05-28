@@ -67,6 +67,8 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${Z2M_LB_IP}
+        labels:
+          io.cilium/lb-ipam-layer2: "true"
         ipFamilyPolicy: PreferDualStack
         ports:
           http:
