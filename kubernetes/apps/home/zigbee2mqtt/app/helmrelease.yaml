@@ -64,13 +64,14 @@ spec:
     service:
       app:
         controller: zigbee2mqtt
-        ports:
-          http:
-            port: *port
-        ipFamilyPolicy: PreferDualStack
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${Z2M_LB_IP}
+        ipFamilyPolicy: PreferDualStack
+        ports:
+          http:
+            port: *port
+
     ingress:
       app:
         className: internal
