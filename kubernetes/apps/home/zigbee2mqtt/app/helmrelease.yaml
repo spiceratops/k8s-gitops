@@ -68,6 +68,9 @@ spec:
           http:
             port: *port
         ipFamilyPolicy: PreferDualStack
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: ${Z2M_LB_IP}
     ingress:
       app:
         className: internal
