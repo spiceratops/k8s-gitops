@@ -1,0 +1,81 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tidarr
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+
+  values:
+    controllers:
+      tidarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/cstaelen/tidarr
+              tag: 0.1.21@sha256:e40a0681a39321c3596e8157c95c87dc947855ecc51fede606bd3e77648e0357
+            env:
+              TZ: "${TIMEZONE}"
+              REACT_APP_TIDAL_COUNTRY_CODE: AU
+              ENABLE_BEETS: "true"
+              PUID: 1000
+              PGID: 568
+            envFrom:
+              - secretRef:
+                  name: tidarr-secret
+            resources:
+              requests:
+                cpu: 50m
+                memory: 250Mi
+              limits:
+                memory: 2000Mi
+    service:
+      app:
+        controller: tidarr
+        ports:
+          http:
+            port: 8484
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        hosts:
+          - host: "${HOSTNAME}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - "${HOSTNAME}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: "${VOLSYNC_CLAIM}"
+        globalMounts:
+          - path: /home/app/standalone/shared
+      tiddl:
+        type: secret
+        name: tidarr-secret
+        globalMounts:
+          - path: /home/app/standalone/shared/tiddl.json
+            subPath: tiddl.json
+      media:
+        existingClaim: nfs-media
+        globalMounts:
+          - path: /media
