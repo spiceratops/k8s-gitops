@@ -76,6 +76,15 @@ spec:
           - path: /home/app/standalone/shared/tiddl.json
             subPath: tiddl.json
       media:
-        existingClaim: nfs-media
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN2}
+        path: /mnt/tank/media/music
         globalMounts:
-          - path: /media
+          - path: /home/app/standalone/download/albums
+            subPath: albums
+          - path: /home/app/standalone/download/tracks
+            subPath: tracks
+          - path: /home/app/standalone/download/playlists
+            subPath: playlists
+          - path: /home/app/standalone/download/videos
+            subPath: videos
