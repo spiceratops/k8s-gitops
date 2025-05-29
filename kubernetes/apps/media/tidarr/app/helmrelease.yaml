@@ -69,12 +69,12 @@ spec:
         existingClaim: "${VOLSYNC_CLAIM}"
         globalMounts:
           - path: /home/app/standalone/shared
-      # tiddl:
-      #   type: secret
-      #   name: tidarr-secret
-      #   globalMounts:
-      #     - path: /home/app/standalone/shared/tiddl.json
-      #       subPath: tiddl.json
+      tiddl:
+        type: secret
+        name: tidarr-secret
+        globalMounts:
+          - path: /home/app/standalone/shared/tiddl.json
+            subPath: tiddl.json
       media:
         existingClaim: nfs-media
         globalMounts:
