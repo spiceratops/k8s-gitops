@@ -89,3 +89,10 @@ spec:
             subPath: playlists
           - path: /home/app/standalone/download/videos
             subPath: videos
+      download:
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN2}
+        path: /mnt/tank/media/downloads/tidarr
+        globalMounts:
+          - path: /home/app/standalone/download/incomplete
+            subPath: albums
