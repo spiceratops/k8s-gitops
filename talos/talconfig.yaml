@@ -66,6 +66,7 @@ nodes:
             - siderolabs/intel-ucode
             - siderolabs/i915
             - siderolabs/intel-ice-firmware
+            - siderolabs/uinput
         extraKernelArgs: &intelKernalArgs
           - cpufreq.default_governor=performance
           - intel_iommu=on
@@ -159,6 +160,7 @@ nodes:
             - siderolabs/amd-ucode
             - siderolabs/nonfree-kmod-nvidia-production
             - siderolabs/nvidia-container-toolkit-production
+            - siderolabs/uinput
         extraKernelArgs:
           - cpufreq.default_governor=performance
           - amd_pstate=active
