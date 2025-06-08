@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: huntarr/huntarr
-              tag: 7.6.1@sha256:d986f7d8927c8675f7cfddd4a3309aa01f6356abaf541fd1cec9c135c8d17cd6
+              tag: 7.6.2@sha256:a3bd22a49d3a31369cdb061feb8e9fea66c94d9b5527572d18ecc39af04cd0b2
             env:
               TZ: ${TIMEZONE}
             resources:
