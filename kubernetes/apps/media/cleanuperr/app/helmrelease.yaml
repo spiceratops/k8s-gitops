@@ -36,6 +36,10 @@ spec:
               tag: 1.6.8@sha256:550881bda5dc23755183767e6067434d267c4b87e59aa2698549617c2e4b3f70
             env:
               TZ: ${TIMEZONE}
+              SONARR__ENABLED: true
+              SONARR__INSTANCES__0__URL: http://sonarr:8989
+              RADARR__ENABLED: true
+              RADARR__INSTANCES__0__URL: http://radarr-movies:7878
             resources:
               requests:
                 cpu: 10m

@@ -1,0 +1,102 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: satisfactory2
+  namespace: gaming
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    controllers:
+      satisfactory2:
+        type: statefulset
+        replicas: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/wolveix/satisfactory-server
+              tag: v1.9.9@sha256:464d11e36e10a2399bd2faaf1057a0825ac62a71ebdb6ee7e8a449584116945c
+            resources:
+              requests:
+                cpu: 100m
+                memory: 4Gi
+              limits:
+                memory: 12Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            env:
+              TZ: ${TIMEZONE}
+              ROOTLESS: "true"
+              AUTOPAUSE: "true"
+              AUTOSAVEINTERVAL: "60"
+              AUTOSAVENUM: "60"
+              AUTOSAVEONDISCONNECT: "true"
+              CRASHREPORT: "false"
+              MAXPLAYERS: "4"
+              MAXTICKRATE: "120" # default is a low 30
+              NETWORKQUALITY: "3" # 0-3, 3 is Ultra (default)
+              TIMEOUT: "300"
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
+    service:
+      app:
+        controller: satisfactory2
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: satisfactory2.${PRIVATE_DOMAIN_HOME}
+          lbipam.cilium.io/ips: ${SATISFACTORY2_LB_IP},${SATISFACTORY2_LB_IP_V6}
+        ipFamilyPolicy: PreferDualStack
+        ports:
+          game-udp:
+            primary: true
+            port: 7777
+            protocol: UDP
+          game-tcp:
+            port: 7777
+            protocol: TCP
+          messaging-tcp:
+            port: 8888
+            protocol: TCP
+    persistence:
+      data:
+        existingClaim: satisfactory2-data
+        globalMounts:
+          - path: /config
+      game:
+        existingClaim: satisfactory2-game
+        globalMounts:
+          - subPath: game
+            path: /config/gamefiles
+      backup:
+        existingClaim: nfs-games
+        globalMounts:
+          - path: /backup
