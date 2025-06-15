@@ -87,16 +87,15 @@ spec:
             port: 8888
             protocol: TCP
     persistence:
-      data:
-        existingClaim: satisfactory2-data
-        globalMounts:
-          - path: /config
       game:
         existingClaim: satisfactory2-game
         globalMounts:
           - subPath: game
             path: /config/gamefiles
-      backup:
+      data:
         existingClaim: nfs-games
         globalMounts:
-          - path: /backup
+          - subPath: gameservers/satisfactory2/backup
+            path: /backup
+          - subPath: gameservers/satisfactory2/config
+            path: /config
