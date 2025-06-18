@@ -40,6 +40,9 @@ spec:
               SONARR__INSTANCES__0__URL: http://sonarr:8989
               RADARR__ENABLED: true
               RADARR__INSTANCES__0__URL: http://radarr-movies:7878
+            envFrom:
+              - secretRef:
+                  name: cleanuperr-secret
             resources:
               requests:
                 cpu: 10m
