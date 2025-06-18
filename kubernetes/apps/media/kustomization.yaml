@@ -28,3 +28,4 @@ resources:
   - ./huntarr/ks.yaml
   - ./jellystat/ks.yaml
   - ./tidarr/ks.yaml
+  - ./cleanupperr/ks.yaml
