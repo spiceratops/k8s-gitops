@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: radarr
+    - name: radarr-movies
     - name: sonarr
   path: ./kubernetes/apps/media/cleanuperr/app
   prune: true
