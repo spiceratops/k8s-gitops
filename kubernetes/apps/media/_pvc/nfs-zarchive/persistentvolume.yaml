@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-zarchive
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: nas.${PRIVATE_DOMAIN2}
+    path: /mnt/tank/zarchive
+  mountOptions:
+    - nfsvers=4.2

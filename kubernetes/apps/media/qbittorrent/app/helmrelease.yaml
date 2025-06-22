@@ -197,6 +197,13 @@ spec:
           qbittorrent:
             app:
               - path: /media
+      zarchive:
+        enabled: true
+        existingClaim: nfs-zarchive
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /zarchive
       gluetun-auth:
         type: secret
         name: qbittorrent-secret
