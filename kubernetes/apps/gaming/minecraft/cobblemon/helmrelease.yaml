@@ -35,6 +35,7 @@ spec:
     extraEnv:
       TZ: ${TZ}
       ENABLE_ROLLING_LOGS: true
+      MODRINTH_MODPACK: Jkb29YJU
     persistence:
       dataDir:
         enabled: true
@@ -66,7 +67,6 @@ spec:
       modrinth:
         projects:
           - datapack:terralith
-          - modpack:cobbleverse
         allowedVersionType: release
         downloadDependencies: required
       rcon:
