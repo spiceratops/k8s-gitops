@@ -69,7 +69,6 @@ spec:
       modrinth:
         projects:
           - datapack:terralith
-          - datapack:axiom
           - datapack:cobblemon
         allowedVersionType: release
         downloadDependencies: optional
