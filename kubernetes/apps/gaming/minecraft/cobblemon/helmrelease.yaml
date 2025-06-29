@@ -56,26 +56,26 @@ spec:
               VERSION: "1.21.1"
               MODRINTH_ALLOWED_VERSION_TYPE: "release"
               MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
-              MODRINTH_PROJECTS: |-
-                chunky:t8SbUchF
-                servertick:IOYJbkmQ
-                cobblemon-badgebox:8J7TR166
-                balm:MBAkmtvl
-                cobbledollars:s7N7AsqL
-                cobblemon-mega-showdown:SszvX85I
-                forgiving-void:1vkzEZjE
-                globalpacks:NRLPy2mk
-                handcrafted:pJmCFF0p
-                netherportalfix:nPZr02ET
-                pokeblocks:hnOfcjSq
-                supermartijn642s-config-lib:LN9BxssP
-                structurify:yz7AM2zx
-                waystones:LOpKHB2A
+              # MODRINTH_PROJECTS: |-
+              #   chunky:t8SbUchF
+              #   servertick:IOYJbkmQ
+              #   cobblemon-badgebox:8J7TR166
+              #   balm:MBAkmtvl
+              #   cobbledollars:s7N7AsqL
+              #   cobblemon-mega-showdown:SszvX85I
+              #   forgiving-void:1vkzEZjE
+              #   globalpacks:NRLPy2mk
+              #   handcrafted:pJmCFF0p
+              #   netherportalfix:nPZr02ET
+              #   pokeblocks:hnOfcjSq
+              #   supermartijn642s-config-lib:LN9BxssP
+              #   structurify:yz7AM2zx
+              #   waystones:LOpKHB2A
               ENABLE_ROLLING_LOGS: true
               LEVEL_TYPE: "DEFAULT"
               LEVEL: "Cobbled Farms v3"
               MODE: "survival"
-              DIFFICULTY: "easy"
+              DIFFICULTY: "peaceful"
               SERVER_NAME: "Cobbleverse"
               MAX_PLAYERS: "8"
               GENERATE_STRUCTURES: "true"
@@ -105,10 +105,15 @@ spec:
             port: 25565
             protocol: TCP
     persistence:
+      # data:
+      #   existingClaim: minecraft-cobblemon
+      #   globalMounts:
+      #     - path: /data
       data:
-        existingClaim: minecraft-cobblemon
+        existingClaim: nfs-games
         globalMounts:
           - path: /data
+            subPath: gameservers/minecraft-cobblemon
       tmp:
         enabled: true
         type: emptyDir
