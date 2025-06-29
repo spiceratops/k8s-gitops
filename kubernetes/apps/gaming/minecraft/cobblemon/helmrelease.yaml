@@ -35,9 +35,7 @@ spec:
     extraEnv:
       TZ: ${TZ}
       ENABLE_ROLLING_LOGS: true
-      ALLOW_NETHER: "true"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "true"
-      MOD_PLATFORM: "MODRINTH"
       MODRINTH_ALLOWED_VERSION_TYPE: "release"
       MODRINTH_DOWNLOAD_DEPENDENCIES: "optional"
       MODRINTH_MODPACK: Jkb29YJU
