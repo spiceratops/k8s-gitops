@@ -54,12 +54,12 @@ spec:
       version: 1.21.1
       type: FABRIC
       difficulty: normal
-      gameMode: creative
+      gameMode: survival
       # whitelist: ""
       ops: "spiceratops"
       pvp: false
       motd: "Cobblemon World"
-      worldSaveName: cobbleverse
+      worldSaveName: Johto
       viewDistance: 12
       memory: "8G"
       jvmXXOpts: "-XX:MaxRAMPercentage=70"
@@ -92,16 +92,6 @@ spec:
               - name: &host minecraft-cobblemon-map.${PRIVATE_DOMAIN_HOME}
                 path: /
             tls: [hosts: [*host]]
-      # extraVolumes:
-      #   - volumeMounts:
-      #       - name: nfs
-      #         mountPath: /mnt/content
-      #       - name: nfs
-      #         nfs:
-      #           server: nas.${PRIVATE_DOMAIN2}
-      #           path: /mnt/tank/games/gameservers/minecraft-cobblemon
-      #           mountOptions:
-      #             - vers=4.2
   valuesFrom:
     - kind: Secret
       name: *secret
