@@ -61,6 +61,16 @@ spec:
                 servertick:IOYJbkmQ
                 cobblemon-badgebox:8J7TR166
                 balm:MBAkmtvl
+                cobbledollars:s7N7AsqL
+                cobblemon-mega-showdown:SszvX85I
+                forgiving-void:1vkzEZjE
+                globalpacks:NRLPy2mk
+                handcrafted:pJmCFF0p
+                netherportalfix:nPZr02ET
+                pokeblocks:hnOfcjSq
+                supermartijn642s-config-lib:LN9BxssP
+                structurify:yz7AM2zx
+                waystones:LOpKHB2A
               ENABLE_ROLLING_LOGS: true
               LEVEL_TYPE: "DEFAULT"
               LEVEL: "Cobbled Farms v3"
