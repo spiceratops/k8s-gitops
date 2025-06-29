@@ -36,6 +36,7 @@ spec:
       TZ: ${TZ}
       ENABLE_ROLLING_LOGS: true
       MODRINTH_MODPACK: Jkb29YJU
+      RESOURCE_PACK: https://jond.tv/wp-content/uploads/2025/05/Cobblemon-Johto-1.2-Resource-Pack.zip
     persistence:
       dataDir:
         enabled: true
@@ -90,6 +91,16 @@ spec:
               - name: &host minecraft-cobblemon-map.${PRIVATE_DOMAIN_HOME}
                 path: /
             tls: [hosts: [*host]]
+      extraVolumes:
+        - volumeMounts:
+            - name: nfs
+              mountPath: /mnt/content
+            - name: nfs
+              nfs:
+                server: nas.${PRIVATE_DOMAIN2}
+                path: /mnt/tank/games/gameservers/minecraft-cobblemon
+                mountOptions:
+                  - vers=4.2
   valuesFrom:
     - kind: Secret
       name: *secret
