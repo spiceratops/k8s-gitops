@@ -67,9 +67,8 @@ spec:
       spigetResources:
         - 36618
       modrinth:
-        projects:
-          - datapack:terralith
-          - datapack:cobblemon
+        # projects:
+        #   - datapack:terralith
         allowedVersionType: release
         downloadDependencies: optional
       downloadWorldUrl: https://www.curseforge.com/minecraft/worlds/cobbled-farms/download/6023787
