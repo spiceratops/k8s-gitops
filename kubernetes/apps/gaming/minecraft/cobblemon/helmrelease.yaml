@@ -57,8 +57,12 @@ spec:
               MOD_PLATFORM: "MODRINTH"
               MODRINTH_ALLOWED_VERSION_TYPE: "release"
               MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
+              MODRINTH_PROJECTS: |-
+                chunky:t8SbUchF
+                servertick:IOYJbkmQ
+                cobblemon-badgebox:8J7TR166
+                balm:MBAkmtvl
               ENABLE_ROLLING_LOGS: true
-              MODRINTH_MODPACK: "https://modrinth.com/modpack/cobblemon-fabric/version/1.6.1.2"
               LEVEL_TYPE: "DEFAULT"
               LEVEL: "Cobbled Farms v3"
               MODE: "survival"
