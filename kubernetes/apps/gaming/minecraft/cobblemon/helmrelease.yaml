@@ -72,7 +72,7 @@ spec:
           - datapack:cobblemon
         allowedVersionType: release
         downloadDependencies: optional
-      downloadWorldUrl: https://www.curseforge.com/api/v1/mods/924311/files/6023787/download
+      downloadWorldUrl: https://www.curseforge.com/minecraft/worlds/cobbled-farms/download/6023787
       rcon:
         enabled: true
         serviceType: LoadBalancer
