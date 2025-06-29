@@ -35,10 +35,13 @@ spec:
     extraEnv:
       TZ: ${TZ}
       ENABLE_ROLLING_LOGS: true
-      # MODRINTH_MODPACK: Jkb29YJU
-      # MODRINTH_LOADER: fabric
-      # MODRINTH_DEFAULT_VERSION_TYPE: release
-      # MODRINTH_DOWNLOAD_DEPENDENCIES: optional
+      ALLOW_NETHER: "true"
+      ANNOUNCE_PLAYER_ACHIEVEMENTS: "true"
+      MOD_PLATFORM: "MODRINTH"
+      MODRINTH_FORCE_SYNCHRONIZE: "true"
+      MODRINTH_ALLOWED_VERSION_TYPE: "release"
+      MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
+      MODRINTH_MODPACK: "https://modrinth.com/modpack/cobbleverse/version/1.5"
       # RESOURCE_PACK: https://jond.tv/wp-content/uploads/2025/05/Cobblemon-Johto-1.2-Resource-Pack.zip
     persistence:
       dataDir:
@@ -69,12 +72,11 @@ spec:
       enableCommandBlock: true
       spigetResources:
         - 36618
-      modrinth:
-        projects:
-          # - datapack:terralith
-          - modpack:Jkb29YJU
-        allowedVersionType: release
-        downloadDependencies: optional
+      # modrinth:
+      #   projects:
+      #     - datapack:terralith
+      #   allowedVersionType: release
+      #   downloadDependencies: optional
       rcon:
         enabled: true
         serviceType: LoadBalancer
