@@ -72,13 +72,12 @@ spec:
               #   structurify:yz7AM2zx
               #   waystones:LOpKHB2A
               ENABLE_ROLLING_LOGS: true
-              LEVEL_TYPE: "DEFAULT"
               LEVEL: "Cobbled Farms v3"
               MODE: "survival"
               DIFFICULTY: "peaceful"
               SERVER_NAME: "Cobbleverse"
               MAX_PLAYERS: "8"
-              GENERATE_STRUCTURES: "true"
+              GENERATE_STRUCTURES: "false"
               OVERRIDE_SERVER_PROPERTIES: "true"
               ENABLE_RCON: "true"
               SYNC_CHUNK_WRITES: "true"
