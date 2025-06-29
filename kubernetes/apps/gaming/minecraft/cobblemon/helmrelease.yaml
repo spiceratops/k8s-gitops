@@ -35,10 +35,10 @@ spec:
     extraEnv:
       TZ: ${TZ}
       ENABLE_ROLLING_LOGS: true
-    # persistence:
-    #   dataDir:
-    #     enabled: true
-    #     existingClaim: *app
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: *app
     rconServiceAnnotations:
       lbipam.cilium.io/sharing-key: *app
     serviceAnnotations:
@@ -48,27 +48,27 @@ spec:
     servicePort: 25565
     minecraftServer:
       eula: true
-      version: 1.20.1
+      version: 1.21.1
       type: FABRIC
       difficulty: normal
       gameMode: creative
       # whitelist: ""
-      # ops: ""
+      ops: "spiceratops"
       pvp: false
       motd: "Cobblemon World"
-      worldSaveName: cobblemonworld
+      worldSaveName: cobbleverse
       viewDistance: 12
       memory: "8G"
       jvmXXOpts: "-XX:MaxRAMPercentage=70"
       enableCommandBlock: true
-      downloadModpackUrl: https://mediafilez.forgecdn.net/files/5375/408/Cobblemon-fabric-1.5.2%2B1.20.1.jar
       spigetResources:
         - 36618
       modrinth:
         projects:
           - datapack:terralith
-          # - cobblemon
+          - modpack:cobbleverse
         allowedVersionType: release
+        downloadDependencies: required
       rcon:
         enabled: true
         serviceType: LoadBalancer
