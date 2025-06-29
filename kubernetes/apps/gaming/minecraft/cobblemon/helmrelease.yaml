@@ -37,7 +37,7 @@ spec:
       ENABLE_ROLLING_LOGS: true
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "true"
       MODRINTH_ALLOWED_VERSION_TYPE: "release"
-      MODRINTH_DOWNLOAD_DEPENDENCIES: "optional"
+      MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
       MODRINTH_MODPACK: Jkb29YJU
       # RESOURCE_PACK: https://jond.tv/wp-content/uploads/2025/05/Cobblemon-Johto-1.2-Resource-Pack.zip
     persistence:
