@@ -43,8 +43,8 @@ spec:
     persistence:
       dataDir:
         enabled: true
-        existingClaim: nfs-games
-        subPath: gameservers/minecraft-cobblemon
+        existingClaim: minecraft-cobblemon
+        # subPath: gameservers/minecraft-cobblemon
     rconServiceAnnotations:
       lbipam.cilium.io/sharing-key: *app
     serviceAnnotations:
