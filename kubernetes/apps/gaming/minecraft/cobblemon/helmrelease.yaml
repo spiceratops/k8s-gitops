@@ -1,100 +1,106 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/fenrys/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app minecraft-cobblemon
+  name: minecraft-cobblemon
   namespace: gaming
 spec:
+  interval: 30m
+  timeout: 15m
   chart:
     spec:
-      chart: minecraft
-      version: 4.26.3
+      chart: app-template
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
-        name: itzg-charts
+        name: bjw-s-charts
         namespace: flux-system
-  interval: 30m
+
   values:
-    fullnameOverride: minecraft-cobblemon
-    deploymentAnnotations:
-      secret.reloader.stakater.com/reload: &secret minecraft-secret
-    image:
-      repository: itzg/minecraft-server
-      tag: 2025.6.2-java21
-    resources:
-      requests:
-        cpu: 600m
-        memory: 8192Mi
-    livenessProbe:
-      initialDelaySeconds: 0
-    readinessProbe:
-      initialDelaySeconds: 0
-    startupProbe:
-      enabled: true
-    extraEnv:
-      TZ: ${TZ}
-      ENABLE_ROLLING_LOGS: true
-      MODRINTH_MODPACK: Jkb29YJU
-      # RESOURCE_PACK: https://jond.tv/wp-content/uploads/2025/05/Cobblemon-Johto-1.2-Resource-Pack.zip
+    controllers:
+      minecraft-cobblemon:
+        type: deployment
+        replicas: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: itzg/minecraft-server
+              tag: 2025.6.2-java21
+            resources:
+              requests:
+                cpu: 100m
+                memory: 4Gi
+              limits:
+                memory: 8Gi
+            securityContext:
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: true
+              capabilities:
+                drop: ["ALL"]
+                add: ["NET_RAW"]
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            env:
+              TZ: ${TIMEZONE}
+              MEMORY: "4096M"
+              EULA: "TRUE"
+              TYPE: "FABRIC"
+              VERSION: "1.21.1"
+              FABRIC_LOADER_VERSION: "0.16.14"
+              MOD_PLATFORM: "MODRINTH"
+              MODRINTH_ALLOWED_VERSION_TYPE: "release"
+              MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
+              ENABLE_ROLLING_LOGS: true
+              MODRINTH_MODPACK: "https://modrinth.com/modpack/cobbleverse/version/1.5"
+              LEVEL_TYPE: "DEFAULT"
+              LEVEL: "world"
+              MODE: "survival"
+              DIFFICULTY: "easy"
+              SERVER_NAME: "Cobbleverse"
+              MAX_PLAYERS: "20"
+              GENERATE_STRUCTURES: "true"
+              OVERRIDE_SERVER_PROPERTIES: "true"
+              ENABLE_RCON: "true"
+              SYNC_CHUNK_WRITES: "true"
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
+    service:
+      app:
+        controller: minecraft-cobblemon
+        type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: minecraft-cobblemon.${PRIVATE_DOMAIN2}
+          lbipam.cilium.io/ips: ${MINECRAFT_COBBLEMON_LB_IP}
+        ipFamilyPolicy: PreferDualStack
+        ports:
+          minecraft:
+            enabled: true
+            primary: true
+            port: 25565
+            protocol: TCP
     persistence:
-      dataDir:
-        enabled: true
+      data:
         existingClaim: minecraft-cobblemon
-        # subPath: gameservers/minecraft-cobblemon
-    rconServiceAnnotations:
-      lbipam.cilium.io/sharing-key: *app
-    serviceAnnotations:
-      lbipam.cilium.io/sharing-key: *app
-      lbipam.cilium.io/ips: ${MINECRAFT_COBBLEMON_LB_IP}
-      external-dns.alpha.kubernetes.io/hostname: minecraft-cobblemon.${PRIVATE_DOMAIN_HOME}
-    servicePort: 25565
-    minecraftServer:
-      eula: true
-      version: 1.21.1
-      type: FABRIC
-      difficulty: normal
-      gameMode: survival
-      # whitelist: ""
-      ops: "spiceratops"
-      pvp: false
-      motd: "Cobblemon World"
-      worldSaveName: "Cobbled Farms v3"
-      viewDistance: 12
-      memory: "8G"
-      jvmXXOpts: "-XX:MaxRAMPercentage=70"
-      enableCommandBlock: true
-      spigetResources:
-        - 36618
-      modrinth:
-        # projects:
-        #   - datapack:terralith
-        allowedVersionType: release
-        downloadDependencies: optional
-      downloadWorldUrl: https://www.curseforge.com/minecraft/worlds/cobbled-farms/download/6023787
-      rcon:
+        globalMounts:
+          - path: /data
+      tmp:
         enabled: true
-        serviceType: LoadBalancer
-      serviceType: LoadBalancer
-      ipFamilyPolicy: PreferDualStack
-      extraPorts:
-        - name: map
-          containerPort: 8123
-          protocol: TCP
-          service:
-            enabled: true
-            embedded: false
-            type: ClusterIP
-            port: 8123
-          ingress:
-            ingressClassName: internal
-            enabled: true
-            hosts:
-              - name: &host minecraft-cobblemon-map.${PRIVATE_DOMAIN_HOME}
-                path: /
-            tls: [hosts: [*host]]
-  valuesFrom:
-    - kind: Secret
-      name: *secret
-      valuesKey: RCON_PASSWORD
-      targetPath: minecraftServer.rcon.password
+        type: emptyDir
+        medium: Memory
+        globalMounts:
+          - path: /tmp
+            readOnly: false
