@@ -59,7 +59,7 @@ spec:
       ops: "spiceratops"
       pvp: false
       motd: "Cobblemon World"
-      worldSaveName: cobbleverse
+      worldSaveName: "Cobbled Farms v3"
       viewDistance: 12
       memory: "8G"
       jvmXXOpts: "-XX:MaxRAMPercentage=70"
@@ -71,6 +71,7 @@ spec:
           - datapack:terralith
         allowedVersionType: release
         downloadDependencies: optional
+      downloadWorldUrl: https://www.curseforge.com/api/v1/mods/924311/files/6023787/download
       rcon:
         enabled: true
         serviceType: LoadBalancer
