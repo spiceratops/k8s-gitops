@@ -62,7 +62,7 @@ spec:
       ops: "spiceratops"
       pvp: false
       motd: "Cobblemon World"
-      # worldSaveName: Johto
+      worldSaveName: cobbleverse
       viewDistance: 12
       memory: "8G"
       jvmXXOpts: "-XX:MaxRAMPercentage=70"
