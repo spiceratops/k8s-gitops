@@ -69,10 +69,8 @@ spec:
       modrinth:
         projects:
           - datapack:terralith
-          - datapack:fabric
           - datapack:axiom
           - datapack:cobblemon
-          - datapack:fabric-convention-tags-v2
         allowedVersionType: release
         downloadDependencies: optional
       downloadWorldUrl: https://www.curseforge.com/api/v1/mods/924311/files/6023787/download
