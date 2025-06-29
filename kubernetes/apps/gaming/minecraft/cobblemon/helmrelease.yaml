@@ -72,7 +72,7 @@ spec:
       modrinth:
         projects:
           # - datapack:terralith
-          - Jkb29YJU
+          - modpack:Jkb29YJU
         allowedVersionType: release
         downloadDependencies: optional
       rcon:
