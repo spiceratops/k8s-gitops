@@ -60,7 +60,7 @@ spec:
               ENABLE_ROLLING_LOGS: true
               MODRINTH_MODPACK: "https://modrinth.com/modpack/cobblemon-fabric/version/1.6.1.2"
               LEVEL_TYPE: "DEFAULT"
-              LEVEL: "world"
+              LEVEL: "Cobbled Farms v3"
               MODE: "survival"
               DIFFICULTY: "easy"
               SERVER_NAME: "Cobbleverse"
