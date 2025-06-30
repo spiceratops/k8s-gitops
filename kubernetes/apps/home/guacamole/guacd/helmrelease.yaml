@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: docker.io/guacamole/guacd
-              tag: 1.5.5
+              tag: 1.6.0
             env:
               TZ: ${TIMEZONE}
             resources:
