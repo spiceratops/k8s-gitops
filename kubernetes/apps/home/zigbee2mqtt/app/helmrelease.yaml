@@ -76,7 +76,6 @@ spec:
         ports:
           http:
             port: *port
-
     ingress:
       app:
         className: internal
@@ -87,3 +86,8 @@ spec:
                 service:
                   identifier: app
                   port: http
+    persistence:
+      data:
+        existingClaim: zigbee2mqtt
+        globalMounts:
+          - path: /data
