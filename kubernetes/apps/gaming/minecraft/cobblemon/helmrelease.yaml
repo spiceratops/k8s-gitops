@@ -81,6 +81,8 @@ spec:
               OVERRIDE_SERVER_PROPERTIES: "true"
               ENABLE_RCON: "true"
               SYNC_CHUNK_WRITES: "true"
+              OPS: |
+                Spiceratops
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
