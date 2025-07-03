@@ -10,7 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: mariadb-operator
     - name: volsync
     - name: rook-ceph-cluster
     - name: external-secrets-stores
