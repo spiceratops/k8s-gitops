@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: gaming
 resources:
   - ./externalsecret.yaml
-  - ./mariadb.yaml
+  # - ./mariadb.yaml
   - ./volsync.yaml
   - ./helmrelease.yaml
 configMapGenerator:

@@ -24,6 +24,15 @@ spec:
       romm:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17.5.0
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: romm-secret
         containers:
           app:
             image:
@@ -37,7 +46,6 @@ spec:
                 memory: 1024Mi
             env:
               TZ: ${TIMEZONE}
-              DB_HOST: mariadb.databases.svc.cluster.local
               # REDIS_HOST: dragonfly.databases.svc.cluster.local
               # REDIS_PORT: 6379
             envFrom:
