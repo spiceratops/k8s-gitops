@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./_pvc/ks.yaml
-  # - ./romm/ks.yaml
+  - ./romm/ks.yaml
   - ./satisfactory/ks.yaml
   - ./satisfactory2/ks.yaml
   - ./minecraft/ks.yaml
