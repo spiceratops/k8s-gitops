@@ -10,5 +10,3 @@ resources:
   - ./smtp-relay/ks.yaml
   # - ./multus/ks.yaml
   - ./tailscale-operator/ks.yaml
-  # - ./adguard-home/ks.yaml
-  - ./omada-controller/ks.yaml
