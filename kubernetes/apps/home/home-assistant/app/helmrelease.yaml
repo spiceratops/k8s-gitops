@@ -101,12 +101,12 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/rewrite-target: /$1
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Home- Automation
+          gethomepage.dev/description: Home Automation
           gethomepage.dev/group: Home
           gethomepage.dev/icon: home-assistant.png
           gethomepage.dev/name: home-assistant
         hosts:
-          - host: home.${PRIVATE_DOMAIN_HOME}
+          - host: newhome.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:
@@ -118,8 +118,7 @@ spec:
                   port: code-server
         tls:
           - hosts:
-              - home.${PRIVATE_DOMAIN_HOME}
-            secretName: wildcard-np-tls
+              - newhome.${PRIVATE_DOMAIN}
     persistence:
       config:
         existingClaim: home-assistant
