@@ -40,3 +40,4 @@ spec:
         selector:
           dnsZones:
             - ${PRIVATE_DOMAIN_HOME}
+            - ${PRIVATE_DOMAIN2}
