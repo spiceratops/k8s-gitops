@@ -58,7 +58,7 @@ spec:
     s3:
       bucket: mariadb
       endpoint: nas.${PRIVATE_DOMAIN2}:9000
-      region: home
+      region: ""
       accessKeyIdSecretKeyRef:
         name: mariadb-secret
         key: access-key-id
