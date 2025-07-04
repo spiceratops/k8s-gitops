@@ -46,6 +46,7 @@ spec:
                 memory: 1024Mi
             env:
               TZ: ${TIMEZONE}
+              ROMM_DB_DRIVER: postgresql
               # REDIS_HOST: dragonfly.databases.svc.cluster.local
               # REDIS_PORT: 6379
             envFrom:
