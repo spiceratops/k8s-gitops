@@ -39,23 +39,11 @@ nodes:
           ip: ${CLUSTER_ENDPOINT_IP}
         # vlans:
         #   - vlanId: 10
-        #     addresses:
-        #       - "192.168.10.201/23"
-        #     routes:
-        #       - network: 192.168.10.0/23
-        #         gateway: 192.168.10.1
+        #     dhcp: true
         #   - vlanId: 20
-        #     addresses:
-        #       - "192.168.20.201/24"
-        #     routes:
-        #       - network: 192.168.20.0/24
-        #         gateway: 192.168.20.1
-        #   - vlanId: 30
-        #     addresses:
-        #       - "192.168.30.201/24"
-        #     routes:
-        #       - network: 192.168.30.0/24
-        #         gateway: 192.168.30.1
+        #     dhcp: true
+        # - vlanId: 30
+        #   dhcp: true
     nodeLabels:
       topology.kubernetes.io/region: k8s
       topology.kubernetes.io/zone: cp
