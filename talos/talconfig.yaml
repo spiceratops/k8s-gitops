@@ -9,7 +9,7 @@ clusterSvcNets:
   - "fdad:cafe:245::/112"
 
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.10.5
+talosVersion: v1.10.4
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.33.2
 
@@ -33,7 +33,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:1b:21:bc:69:1e"
+          hardwareAddr: "6c:92:bf:64:b5:a0"
         dhcp: true
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
@@ -86,7 +86,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:1b:21:bc:6f:83"
+          hardwareAddr: "6c:92:bf:61:58:ee"
         dhcp: true
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
@@ -127,7 +127,7 @@ nodes:
     disableSearchDomain: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:1b:21:bc:6a:a5"
+          hardwareAddr: "6c:92:bf:60:16:d4"
         dhcp: true
         vip:
           ip: ${CLUSTER_ENDPOINT_IP}
