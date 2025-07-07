@@ -110,9 +110,9 @@ spec:
         tls:
           - hosts:
               - *host
-    # persistence:
-    #   config:
-    #     enabled: true
-    #     existingClaim: open-webui
-    #     globalMounts:
-    #       - path: /app/backend/data
+    persistence:
+      config:
+        enabled: true
+        existingClaim: open-webui
+        globalMounts:
+          - path: /app/backend/data
