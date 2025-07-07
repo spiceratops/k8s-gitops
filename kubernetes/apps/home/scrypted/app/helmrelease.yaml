@@ -59,6 +59,11 @@ spec:
     service:
       app:
         controller: scrypted
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: ${SCRYPTED_LB_IP}
+        labels:
+          io.cilium/lb-ipam-layer2: "true"
         ports:
           http:
             port: 11080

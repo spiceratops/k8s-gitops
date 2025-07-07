@@ -55,6 +55,11 @@ spec:
     service:
       app:
         controller: go2rtc
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: ${GO2RTC_LB_IP}
+        labels:
+          io.cilium/lb-ipam-layer2: "true"
         ports:
           api:
             port: 1984
