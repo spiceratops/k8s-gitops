@@ -58,6 +58,7 @@ spec:
               WHISPER_MODEL: medium
               RAG_EMBEDDING_ENGINE: ollama
               COMFYUI_BASE_URL: http://comfyui.ai.svc.cluster.local:8188
+              VECTOR_DB: pgvector
               # OPENID_PROVIDER_URL: https://auth.${PRIVATE_DOMAIN}/.well-known/openid-configuration
               # OAUTH_PROVIDER_NAME: Authelia
               # ENABLE_OAUTH_SIGNUP: true
