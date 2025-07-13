@@ -39,6 +39,7 @@ spec:
         keep-alive: 2m
         proxy-body-size: 0
         proxy-buffer-size: 16k
+        proxy-busy-buffers-size: 16k
         proxy-read-timeout: 7d
         proxy-send-timeout: 7d
         ssl-protocols: TLSv1.3 TLSv1.2
