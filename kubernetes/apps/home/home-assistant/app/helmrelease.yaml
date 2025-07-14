@@ -32,7 +32,7 @@ spec:
                 "name":"multus-iot",
                 "namespace": "networking",
                 "ips": ["192.168.30.207/24"]
-              },
+              }
               ]
           securityContext:
             runAsUser: 1000
