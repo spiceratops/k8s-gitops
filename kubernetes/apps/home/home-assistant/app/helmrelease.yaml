@@ -33,11 +33,6 @@ spec:
                 "namespace": "networking",
                 "ips": ["192.168.30.207/24"]
               },
-              {
-                "name":"multus-clients",
-                "namespace": "networking",
-                "ips": ["192.168.20.207/24"]
-              },
               ]
           securityContext:
             runAsUser: 1000
