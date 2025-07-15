@@ -103,7 +103,7 @@ spec:
       app:
         className: internal
         annotations:
-          nginx.ingress.kubernetes.io/rewrite-target: /$1
+          # nginx.ingress.kubernetes.io/rewrite-target: /$1
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Home Automation
           gethomepage.dev/group: Home
