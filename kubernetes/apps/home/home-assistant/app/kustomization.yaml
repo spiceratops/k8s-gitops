@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: home
 resources:
   - ./externalsecret.yaml
+  # - ./pvc.yaml
   - ./volsync.yaml
   - ./helmrelease.yaml
