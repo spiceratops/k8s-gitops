@@ -87,10 +87,15 @@ spec:
                 memory: 1Gi
     service:
       app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: ${HASS_LB_IP}
         controller: home-assistant
         ports:
           http:
             port: 8123
+            primary: true
+            appProtocol: kubernetes.io/wss
           code-server:
             port: 12321
         ipFamilyPolicy: PreferDualStack
@@ -136,10 +141,9 @@ spec:
         advancedMounts:
           home-assistant:
             app:
+              - path: /config/logs
+                subPath: logs
+              - path: /config/tts
+                subPath: tts
               - path: /tmp
-                subPath: hass-tmp
-            code-server:
-              - path: /tmp
-                subPath: code-server-tmp
-              - path: /nonexistent
-                subPath: nonexistent
+                subPath: tmp
