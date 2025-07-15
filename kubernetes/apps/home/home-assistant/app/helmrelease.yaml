@@ -143,3 +143,9 @@ spec:
                 subPath: tts
               - path: /tmp
                 subPath: tmp
+      recs:
+        existingClaim: nfs-backup
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /mnt/nfs-backup
