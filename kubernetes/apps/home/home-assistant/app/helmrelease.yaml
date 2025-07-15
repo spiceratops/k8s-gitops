@@ -45,9 +45,13 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2025.7.2
+              tag: 2025.7.2@sha256:1ccea0e903924bb3198f130b4018ff27315b03fbbe343c3f4aee289b5050660e
             env:
-              VENV_FOLDER: /venv
+              TZ: ${TIMEZONE}
+              HASS_HTTP_TRUSTED_PROXY_1: 10.244.0.0/16
+              HASS_HTTP_TRUSTED_PROXY_2: 10.245.0.0/16
+              HASS_HTTP_TRUSTED_PROXY_3: fdad:cafe:244::/112
+              HASS_HTTP_TRUSTED_PROXY_4: fdad:cafe:245::/112
             resources:
               requests:
                 cpu: 50m
@@ -123,13 +127,10 @@ spec:
               - path: /config
             code-server:
               - path: /config
-      hass-cache:
+      config-cache:
         existingClaim: home-assistant-cache
-        advancedMounts:
-          home-assistant:
-            app:
-              - path: /venv
-                subPath: hass-venv
+        globalMounts:
+          - path: /config/.venv
       tmpfs:
         type: emptyDir
         advancedMounts:
