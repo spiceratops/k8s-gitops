@@ -126,12 +126,8 @@ spec:
     persistence:
       config:
         existingClaim: home-assistant
-        advancedMounts:
-          home-assistant:
-            app:
-              - path: /config
-            code-server:
-              - path: /config
+        globalMounts:
+          - path: /config
       config-cache:
         existingClaim: home-assistant-cache
         globalMounts:
