@@ -118,7 +118,7 @@ spec:
     name: home-assistant-cache-rdst
   resources:
     requests:
-      storage: 2Gi
+      storage: 5Gi
   storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
@@ -141,7 +141,7 @@ spec:
       runAsUser: 1000
       runAsGroup: 1000
       fsGroup: 1000
-    capacity: 2Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+    capacity: 5Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
