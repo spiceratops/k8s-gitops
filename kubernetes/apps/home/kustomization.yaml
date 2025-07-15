@@ -12,5 +12,5 @@ resources:
   - ./scrypted/ks.yaml
   - ./go2rtc/ks.yaml
   - ./esphome/ks.yaml
-  - ./home-assistant/ks.yaml
+  # - ./home-assistant/ks.yaml
   - ./zigbee2mqtt/ks.yaml
