@@ -124,9 +124,9 @@ spec:
       recordTTL: 180
       recordType: A
       targets:
-        - 192.168.1.107
+        - 192.168.30.107
     - dnsName: home.${PRIVATE_DOMAIN}
       recordTTL: 180
       recordType: AAAA
       targets:
-        - ${PUBLIC_IPV6_PREFIX}:0:d849:cb7b:c54e:cd46
+        - ${PUBLIC_IPV6_PREFIX}:1:58a4:8b05:f5ca:e10a
