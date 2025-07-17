@@ -5,7 +5,7 @@ namespace: databases
 resources:
   - ./pvc.yaml
   - ./helmrelease.yaml
-# configMapGenerator:
-#   - name: mosquitto-configmap
-#     files:
-#       - ./config/mosquitto.conf
+configMapGenerator:
+  - name: mosquitto-configmap
+    files:
+      - ./config/mosquitto.conf
