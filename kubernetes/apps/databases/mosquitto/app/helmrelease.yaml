@@ -51,7 +51,7 @@ spec:
               - sh
               - -c
             args:
-              - exec mosquitto -c "/config/$(hostname).conf"
+              - exec mosquitto -c "/config/mosquitto.conf"
             probes:
               liveness:
                 enabled: true
