@@ -81,3 +81,8 @@ spec:
     persistence:
       data:
         existingClaim: mosquitto-cache
+      config:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /config
