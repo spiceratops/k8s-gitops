@@ -31,12 +31,6 @@ spec:
     metadata:
       annotations:
         reloader.stakater.com/auto: "true"
-        k8s.v1.cni.cncf.io/networks: |
-          [{
-            "name":"multus-iot",
-            "namespace": "networking"
-          }
-          ]
     spec:
       replicas: 2
       envFrom:

@@ -1,0 +1,77 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mosquitto
+  namespace: databases
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+
+  values:
+    controllers:
+      mosquitto:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: public.ecr.aws/docker/library/eclipse-mosquitto
+              tag: 2.0.22@sha256:d219d3a72847f3aed6a1d66975972d3b17f86e39e8f6f6b86b4088b879c1a2d6
+            env:
+              TZ: ${TIMEZONE}
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 100Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "mqtt.${PRIVATE_DOMAIN}"
+          lbipam.cilium.io/ips: ${MOSQUITTO_LB_IP}
+        ports:
+          http:
+            port: 1883
+    persistence:
+      data:
+        existingClaim: mosquitto-cache
+      config-file:
+        type: configMap
+        name: mosquitto-configmap
+        globalMounts:
+          - path: /mosquitto/config/mosquitto.conf
+            subPath: mosquitto.conf

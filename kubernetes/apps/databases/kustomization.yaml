@@ -7,4 +7,5 @@ resources:
   - ./pgadmin/ks.yaml
   # - ./mariadb-operator/ks.yaml
   - ./dragonfly/ks.yaml
-  - ./emqx/ks.yaml
+  # - ./emqx/ks.yaml
+  - ./mosquitto/ks.yaml
