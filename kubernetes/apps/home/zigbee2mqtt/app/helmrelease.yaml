@@ -24,6 +24,15 @@ spec:
       zigbee2mqtt:
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "networking",
+                "ips": ["192.168.30.230/24"]
+              }
+              ]
         containers:
           app:
             image:
@@ -34,7 +43,7 @@ spec:
               ZIGBEE2MQTT_DATA: /data
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://192.168.1.169:6638
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://192.168.30.169:6638
               ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: zigbee2mqtt
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: zstack
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
