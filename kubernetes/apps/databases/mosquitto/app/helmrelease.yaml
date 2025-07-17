@@ -34,7 +34,7 @@ spec:
             log_type error
             log_type warning
             connection mosquitto-bridge
-            address mosquitto-0.mosquitto.databases.svc.cluster.local:1883
+            address mosquitto-0:1883
             clientid mosquitto-bridge
             topic # both 0
     controllers:
