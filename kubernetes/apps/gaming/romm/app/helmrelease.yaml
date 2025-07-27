@@ -98,10 +98,11 @@ spec:
               - path: /romm/assets
                 subPath: assets
       library:
-        existingClaim: nfs-games
+        type: nfs
+        server: nas.${PRIVATE_DOMAIN2}
+        path: /mnt/tank/games/roms
         globalMounts:
           - path: /romm/library
-            subPath: roms
       config-file:
         type: configMap
         name: romm-configmap
