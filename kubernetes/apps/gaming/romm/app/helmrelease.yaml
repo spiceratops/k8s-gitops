@@ -48,6 +48,7 @@ spec:
               TZ: ${TIMEZONE}
               ROMM_DB_DRIVER: postgresql
               HASHEOUS_API_ENABLED: true
+              DB_PORT: 5432
               # REDIS_HOST: dragonfly.databases.svc.cluster.local
               # REDIS_PORT: 6379
             envFrom:
