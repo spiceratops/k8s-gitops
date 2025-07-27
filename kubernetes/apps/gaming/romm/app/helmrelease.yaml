@@ -101,6 +101,7 @@ spec:
         existingClaim: nfs-games
         globalMounts:
           - path: /romm/library
+            subPath: roms
       config-file:
         type: configMap
         name: romm-configmap
