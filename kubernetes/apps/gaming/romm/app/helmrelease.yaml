@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: rommapp/romm
-              tag: 3.10.3
+              tag: 4.0.1
             resources:
               requests:
                 cpu: 10m
@@ -47,6 +47,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               ROMM_DB_DRIVER: postgresql
+              HASHEOUS_API_ENABLED: true
               # REDIS_HOST: dragonfly.databases.svc.cluster.local
               # REDIS_PORT: 6379
             envFrom:
