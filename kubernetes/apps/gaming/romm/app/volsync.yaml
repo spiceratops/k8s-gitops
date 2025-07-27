@@ -33,7 +33,7 @@ spec:
     name: romm-rdst
   resources:
     requests:
-      storage: 10Gi
+      storage: 20Gi
   storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
@@ -56,7 +56,7 @@ spec:
       runAsUser: 1000
       runAsGroup: 568
       fsGroup: 568
-    capacity: 10Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+    capacity: 20Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
