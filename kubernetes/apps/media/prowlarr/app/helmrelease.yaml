@@ -44,6 +44,7 @@ spec:
               PROWLARR__PORT: &port 9696
               PROWLARR__LOG_LEVEL: info
               PROWLARR__THEME: dark
+              PROWLARR__UPDATE__BRANCH: develop
             envFrom: *envFrom
             probes:
               liveness: &probes
