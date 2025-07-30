@@ -93,7 +93,7 @@ spec:
     ingress:
       app:
         enabled: true
-        className: home
+        className: internal
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Meal Recipes
