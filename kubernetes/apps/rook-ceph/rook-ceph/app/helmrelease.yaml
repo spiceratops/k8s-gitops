@@ -21,7 +21,7 @@ spec:
       enabled: true
     image:
       repository: ghcr.io/rook/ceph
-      tag: v1.17.6
+      tag: v1.17.7
     csi:
       cephFSKernelMountOptions: ms_mode=prefer-crc
       enableCephfsDriver: true
