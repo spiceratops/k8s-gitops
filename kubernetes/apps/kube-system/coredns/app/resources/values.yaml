@@ -6,11 +6,11 @@ serviceAccount:
   create: true
 service:
   name: kube-dns
-  clusterIP: 10.245.0.10
-  # clusterIPs:
-  #   - 10.245.0.10
-  #   - fdad:cafe:245::a
-  # ipFamilyPolicy: PreferDualStack
+  # clusterIP: 10.245.0.10
+  clusterIPs:
+    - 10.245.0.10
+    - fdad:cafe:245::a
+  ipFamilyPolicy: PreferDualStack
 servers:
   - zones:
       - zone: .
