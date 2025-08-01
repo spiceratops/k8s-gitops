@@ -98,7 +98,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: minecraft-cobblemon.${PRIVATE_DOMAIN2}
           lbipam.cilium.io/ips: ${MINECRAFT_COBBLEMON_LB_IP}
-        ipFamilyPolicy: PreferDualStack
+        # ipFamilyPolicy: PreferDualStack
         ports:
           minecraft:
             enabled: true
