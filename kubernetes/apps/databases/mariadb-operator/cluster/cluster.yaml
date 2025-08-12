@@ -10,7 +10,7 @@ spec:
     key: rootPassword
     generate: false
 
-  image: "mariadb:11.8.2"
+  image: "mariadb:11.8.3"
 
   storage:
     size: 10Gi
