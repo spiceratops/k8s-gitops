@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jmbannon/ytdl-sub
-              tag: 2025.08.15
+              tag: 2025.08.20
             env:
               TZ: ${TIMEZONE}
             command:
