@@ -57,7 +57,6 @@ spec:
               MODRINTH_ALLOWED_VERSION_TYPE: "release"
               MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
               ENABLE_ROLLING_LOGS: true
-              LEVEL: "Cobbled Farms v3"
               MODE: "creative"
               DIFFICULTY: "peaceful"
               SERVER_NAME: "Creative Land"
