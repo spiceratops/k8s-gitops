@@ -18,25 +18,77 @@ spec:
         namespace: flux-system
 
   values:
-    fullnameOverride: minecraft-creative
-    deploymentAnnotations:
-      secret.reloader.stakater.com/reload: &secret minecraft-secret
-    image:
-      repository: itzg/minecraft-server
-      tag: 2025.8.1-java21
-    resources:
-      requests:
-        cpu: 600m
-        memory: 8192Mi
-    livenessProbe:
-      initialDelaySeconds: 0
-    readinessProbe:
-      initialDelaySeconds: 0
-    startupProbe:
-      enabled: true
-    extraEnv:
-      TZ: ${TZ}
-      ENABLE_ROLLING_LOGS: true
+    controllers:
+      minecraft-creative:
+        type: deployment
+        replicas: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: itzg/minecraft-server
+              tag: 2025.8.1-java21
+            resources:
+              requests:
+                cpu: 100m
+                memory: 4Gi
+              limits:
+                memory: 8Gi
+            securityContext:
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: true
+              capabilities:
+                drop: ["ALL"]
+                add: ["NET_RAW"]
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            env:
+              TZ: ${TIMEZONE}
+              MEMORY: "4096M"
+              EULA: "TRUE"
+              TYPE: "FABRIC"
+              VERSION: "1.21.1"
+              MODRINTH_ALLOWED_VERSION_TYPE: "release"
+              MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
+              ENABLE_ROLLING_LOGS: true
+              LEVEL: "Cobbled Farms v3"
+              MODE: "creative"
+              DIFFICULTY: "peaceful"
+              SERVER_NAME: "Creative Land"
+              MAX_PLAYERS: "8"
+              GENERATE_STRUCTURES: "false"
+              OVERRIDE_SERVER_PROPERTIES: "true"
+              ENABLE_RCON: "true"
+              SYNC_CHUNK_WRITES: "true"
+              OPS: |
+                Spiceratops
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
+    service:
+      app:
+        controller: minecraft-creative
+        type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: minecraft-creative.${PRIVATE_DOMAIN2}
+          lbipam.cilium.io/ips: ${MINECRAFT_COBBLEMON_LB_IP}
+        ports:
+          minecraft:
+            enabled: true
+            primary: true
+            port: 25565
+            protocol: TCP
     persistence:
       data:
         existingClaim: nfs-games
