@@ -81,7 +81,7 @@ spec:
         externalTrafficPolicy: Cluster
         annotations:
           external-dns.alpha.kubernetes.io/hostname: minecraft-creative.${PRIVATE_DOMAIN2}
-          lbipam.cilium.io/ips: ${MINECRAFT_COBBLEMON_LB_IP}
+          lbipam.cilium.io/ips: ${MINECRAFT_CREATIVE_LB_IP}
         ports:
           minecraft:
             enabled: true
