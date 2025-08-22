@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/tailscale/tailscale
-              tag: v1.86.2
+              tag: v1.86.5
             env:
               TZ: ${TIMEZONE}
               PORT: &port ${TAILNET_PUBLIC_PORT}
