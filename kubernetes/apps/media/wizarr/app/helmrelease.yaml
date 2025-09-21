@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/wizarrrr/wizarr
-              tag: v2025.9.4@sha256:643f4aa551e70379b5399bf73d1c93805b5f8f45d00f1ec305d1f33b79f0b8a3
+              tag: v2025.9.5@sha256:acbefe4060064266a3d7f55bfe078441edb8fcdc3f21ccde3c7004e7cae97cf8
             env:
               TZ: ${TIMEZONE}
             probes:
