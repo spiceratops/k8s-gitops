@@ -76,6 +76,28 @@ spec:
           osdsPerDevice: "1"
         nodes:
         devicePathFilter: /dev/disk/by-id/nvme-Micron_7450_MTFDKBG1T9TFR_.*
+      resources:
+        mgr:
+          limits:
+            cpu: 500m
+            memory: 640Mi
+          requests:
+            cpu: 50m
+            memory: 320Mi
+        mon:
+          limits:
+            cpu: 500m
+            memory: 640Mi
+          requests:
+            cpu: 100m
+            memory: 320Mi
+        osd:
+          limits:
+            cpu: 500m
+            memory: 1600Mi
+          requests:
+            cpu: 150m
+            memory: 800Mi
     cephBlockPools:
       - name: ceph-blockpool
         spec:
