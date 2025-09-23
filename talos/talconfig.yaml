@@ -66,6 +66,11 @@ nodes:
           - net.ifnames=0
           - sysctl.kernel.kexec_load_disabled=1
           - -selinux
+          - init_on_alloc=0
+          - init_on_free=0
+          - module_blacklist=e1000e
+          - -lockdown # Disable talos default
+          - lockdown=integrity # Cilium BPF
 
   - hostname: cp02.${PRIVATE_DOMAIN2}
     ipAddress: 192.168.1.202
@@ -156,6 +161,11 @@ nodes:
           - iommu.passthrough=1
           - mitigations=off
           - -selinux
+          - init_on_alloc=0
+          - init_on_free=0
+          - module_blacklist=e1000e
+          - -lockdown # Disable talos default
+          - lockdown=integrity # Cilium BPF
     patches:
       - |-
         - op: add
@@ -264,7 +274,7 @@ controlPlane:
       cluster:
         apiServer:
           extraArgs:
-            runtime-config: admissionregistration.k8s.io/v1alpha1=true
+            runtime-config: admissionregistration.k8s.io/v1beta1=true
             feature-gates: MutatingAdmissionPolicy=true
 
     # Configure kubelet
@@ -453,6 +463,8 @@ controlPlane:
             allowedRoles:
               - os:admin
             allowedKubernetesNamespaces:
+              - kube-system
+              - actions-runner-system
               - system-upgrade
           apidCheckExtKeyUsage: true
           diskQuotaSupport: true
