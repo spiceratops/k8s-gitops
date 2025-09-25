@@ -22,8 +22,9 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        supplementalGroups:
-          - 100 # Users
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
     controllers:
       netalertx:
         containers:
