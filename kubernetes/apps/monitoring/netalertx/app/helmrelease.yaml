@@ -20,6 +20,10 @@ spec:
     mode: enabled
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
     controllers:
       netalertx:
         containers:
@@ -29,6 +33,8 @@ spec:
               tag: 25.1.19
             env:
               TZ: ${TIMEZONE}
+              PUID: "1000"
+              PGID: "1000"
             probes:
               liveness:
                 enabled: true
