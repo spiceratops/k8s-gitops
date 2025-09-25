@@ -1,0 +1,75 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: dnd-tools
+  namespace: gaming
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+
+  values:
+    defaultPodOptions:
+      hostname: *app
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+    controllers:
+      dnd-tools:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/5etools-mirror-3/5etools-src
+              tag: 2.9.1
+            resources:
+              requests:
+                cpu: 50m
+              limits:
+                memory: 500Mi
+            env:
+              TZ: ${TIMEZONE}
+    service:
+      app:
+        controller: dnd-tools
+        ports:
+          http:
+            port: 80
+    ingress:
+      app:
+        enabled: true
+        className: external
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/icon: mdi-dice
+          gethomepage.dev/name: dnd-tools
+          gethomepage.dev/group: Gaming
+          gethomepage.dev/description: DnD 5e Tools
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:dice
+          hajimari.io/appName: dnd-tools
+        hosts:
+          - host: "${HOSTNAME}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - "${HOSTNAME}"
