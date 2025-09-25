@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: dnd-tools
+  name: &appname dnd-tools
   namespace: gaming
 spec:
   interval: 30m
@@ -21,7 +21,7 @@ spec:
 
   values:
     defaultPodOptions:
-      hostname: *app
+      hostname: *appname
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
