@@ -1,0 +1,170 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: netalertx-restic
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: netalertx-restic-secret
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/netalertx"
+        RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
+        AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
+        AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
+  dataFrom:
+    - extract:
+        key: volsync-restic-template
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: netalertx
+spec:
+  accessModes: ["ReadWriteOnce"]
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: netalertx-rdst
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: netalertx-rdst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: netalertx-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    capacity: 1Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: netalertx-rsrc
+spec:
+  sourcePVC: netalertx
+  trigger:
+    schedule: "15 */8 * * *"
+  restic:
+    pruneIntervalDays: 10
+    repository: netalertx-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    retain:
+      daily: 10
+      within: 3d
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: netalertx-db-restic
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: netalertx-db-restic-secret
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/netalertx-db"
+        RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
+        AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
+        AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
+  dataFrom:
+    - extract:
+        key: volsync-restic-template
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: netalertx-db
+spec:
+  accessModes: ["ReadWriteOnce"]
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: netalertx-db-rdst
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: netalertx-db-rdst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: netalertx-db-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    capacity: 10Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: netalertx-db-rsrc
+spec:
+  sourcePVC: netalertx-db
+  trigger:
+    schedule: "15 */8 * * *"
+  restic:
+    pruneIntervalDays: 10
+    repository: netalertx-db-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    retain:
+      daily: 10
+      within: 3d
