@@ -26,6 +26,20 @@ spec:
           - 100 # Users
     controllers:
       netalertx:
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "networking",
+                "ips": ["192.168.30.224/24"]
+              },
+              {
+                "name":"standard",
+                "namespace": "networking",
+                "ips": ["192.168.1.224/24"]
+              }
+              ]
         containers:
           app:
             image:
