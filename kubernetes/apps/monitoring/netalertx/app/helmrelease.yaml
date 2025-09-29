@@ -22,8 +22,6 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
         supplementalGroups:
           - 100 # Users
     controllers:
