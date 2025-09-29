@@ -35,8 +35,8 @@ spec:
               tag: 25.8.6
             env:
               TZ: ${TIMEZONE}
-              PUID: "1000"
-              PGID: "1000"
+              PUID: 1000
+              PGID: 1000
             probes:
               liveness:
                 enabled: true
