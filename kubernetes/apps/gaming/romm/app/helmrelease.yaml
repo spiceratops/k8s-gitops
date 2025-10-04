@@ -109,4 +109,4 @@ spec:
         globalMounts:
           - path: /romm/config/config.yml
             subPath: config.yml
-            readOnly: true
+            readOnly: false
