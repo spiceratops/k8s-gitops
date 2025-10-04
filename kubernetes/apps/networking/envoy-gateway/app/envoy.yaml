@@ -55,7 +55,8 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
-      lbipam.cilium.io/ips: 192.168.11.90
+      lbipam.cilium.io/ips: ${ENVOY_EXT_LB_IP},${ENVOY_EXT_LB_IP_V6}
+      ipFamilyPolicy: PreferDualStack
   listeners:
     - name: http
       protocol: HTTP
@@ -86,7 +87,8 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
-      lbipam.cilium.io/ips: 192.168.11.88
+      lbipam.cilium.io/ips: ${ENVOY_INT_LB_IP},${ENVOY_INT_LB_IP_V6}
+      ipFamilyPolicy: PreferDualStack
   listeners:
     - name: http
       protocol: HTTP
