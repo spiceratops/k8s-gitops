@@ -64,7 +64,7 @@ spec:
           hajimari.io/icon: mdi:dice
           hajimari.io/appName: dnd-tools
         hosts:
-          - host: &hostname dnd-tools.${PRIVATE_DOMAIN2}
+          - host: &hostname dnd-tools.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:
@@ -73,4 +73,3 @@ spec:
         tls:
           - hosts:
               - *hostname
-            secretName: networking/wildcard-sp-tls
