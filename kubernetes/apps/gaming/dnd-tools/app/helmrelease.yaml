@@ -73,4 +73,4 @@ spec:
         tls:
           - hosts:
               - *hostname
-            secretName: wildcard-sp-tls
+            secretName: networking/wildcard-sp-tls
