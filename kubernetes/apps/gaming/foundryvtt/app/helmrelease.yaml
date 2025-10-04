@@ -22,6 +22,9 @@ spec:
   values:
     defaultPodOptions:
       hostname: *appname
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile: { type: RuntimeDefault }
     controllers:
       foundryvtt:
         annotations:
