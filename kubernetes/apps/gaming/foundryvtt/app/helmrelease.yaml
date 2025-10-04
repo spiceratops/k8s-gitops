@@ -83,6 +83,7 @@ spec:
         tls:
           - hosts:
               - *hostname
+            secretName: wildcard-sp-tls
     persistence:
       data:
         enabled: true
