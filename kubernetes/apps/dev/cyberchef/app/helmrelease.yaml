@@ -35,40 +35,40 @@ spec:
         ports:
           http:
             port: 8000
-    # ingress:
-    #   app:
-    #     enabled: true
-    #     className: "external"
-    #     annotations:
-    #       gethomepage.dev/enabled: "true"
-    #       gethomepage.dev/icon: mdi-hammer-wrench
-    #       gethomepage.dev/name: Cyberchef
-    #       gethomepage.dev/group: Tools
-    #       gethomepage.dev/description: Dev & Web Tools
-    #       # nginx.ingress.kubernetes.io/auth-method: GET
-    #       # nginx.ingress.kubernetes.io/auth-url: http://authelia.security.svc.cluster.local:9091/api/authz/auth-request
-    #       # nginx.ingress.kubernetes.io/auth-signin: https://auth.${PRIVATE_DOMAIN}?rm=$request_method
-    #       # nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-    #       # nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
-    #       external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
-    #       hajimari.io/enable: "true"
-    #       hajimari.io/icon: mdi:tools
-    #       hajimari.io/appName: Cyberchef
-    #     hosts:
-    #       - host: "${HOSTNAME}"
-    #         paths:
-    #           - path: /
-    #             service:
-    #               identifier: app
-    #               port: http
-    #     tls:
-    #       - hosts:
-    #           - "${HOSTNAME}"
-    route:
+    ingress:
       app:
-        hostnames:
-          - cyberchef.${PRIVATE_DOMAIN2}
-        parentRefs:
-          - name: envoy-external
-            namespace: networking
-            sectionName: https
+        enabled: true
+        className: "external"
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/icon: mdi-hammer-wrench
+          gethomepage.dev/name: Cyberchef
+          gethomepage.dev/group: Tools
+          gethomepage.dev/description: Dev & Web Tools
+          # nginx.ingress.kubernetes.io/auth-method: GET
+          # nginx.ingress.kubernetes.io/auth-url: http://authelia.security.svc.cluster.local:9091/api/authz/auth-request
+          # nginx.ingress.kubernetes.io/auth-signin: https://auth.${PRIVATE_DOMAIN}?rm=$request_method
+          # nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+          # nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
+          external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:tools
+          hajimari.io/appName: Cyberchef
+        hosts:
+          - host: "${HOSTNAME}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - "${HOSTNAME}"
+    # route:
+    #   app:
+    #     hostnames:
+    #       - cyberchef.${PRIVATE_DOMAIN2}
+    #     parentRefs:
+    #       - name: envoy-external
+    #         namespace: networking
+    #         sectionName: https

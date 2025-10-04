@@ -50,34 +50,34 @@ spec:
         ports:
           http:
             port: 80
-    # ingress:
-    #   app:
-    #     enabled: true
-    #     className: external
-    #     annotations:
-    #       gethomepage.dev/enabled: "true"
-    #       gethomepage.dev/icon: mdi-dice
-    #       gethomepage.dev/name: dnd-tools
-    #       gethomepage.dev/group: Gaming
-    #       gethomepage.dev/description: DnD 5e Tools
-    #       hajimari.io/enable: "true"
-    #       hajimari.io/icon: mdi:dice
-    #       hajimari.io/appName: dnd-tools
-    #     hosts:
-    #       - host: &hostname dnd-tools.${PRIVATE_DOMAIN}
-    #         paths:
-    #           - path: /
-    #             service:
-    #               identifier: app
-    #               port: http
-    #     tls:
-    #       - hosts:
-    #           - *hostname
-    route:
+    ingress:
       app:
-        hostnames:
-          - dnd-tools.${PRIVATE_DOMAIN2}
-        parentRefs:
-          - name: envoy-internal
-            namespace: networking
-            sectionName: https
+        enabled: true
+        className: external
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/icon: mdi-dice
+          gethomepage.dev/name: dnd-tools
+          gethomepage.dev/group: Gaming
+          gethomepage.dev/description: DnD 5e Tools
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:dice
+          hajimari.io/appName: dnd-tools
+        hosts:
+          - host: &hostname dnd-tools.${PRIVATE_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *hostname
+    # route:
+    #   app:
+    #     hostnames:
+    #       - dnd-tools.${PRIVATE_DOMAIN2}
+    #     parentRefs:
+    #       - name: envoy-internal
+    #         namespace: networking
+    #         sectionName: https
