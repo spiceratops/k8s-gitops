@@ -30,6 +30,8 @@ endpointRoutes:
   enabled: true
 enableIPv4BIGTCP: true
 enableIPv6BIGTCP: true
+envoy:
+  enabled: false
 hubble:
   enabled: false
 ipam:
@@ -57,6 +59,8 @@ operator:
       enabled: true
   dashboards:
     enabled: true
+pmtuDiscovery:
+  enabled: true
 prometheus:
   enabled: true
   serviceMonitor:
