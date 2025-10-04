@@ -53,7 +53,7 @@ spec:
               CONTAINER_PATCHES: /data/container_patches
               CONTAINER_URL_FETCH_RETRY: "50"
               CONTAINER_VERBOSE: "true"
-              FOUNDRY_HOSTNAME: &hostname dnd.${PRIVATE_DOMAIN}
+              FOUNDRY_HOSTNAME: &hostname vtt.${PRIVATE_DOMAIN}
               FOUNDRY_LOCAL_HOSTNAME: *hostname
               FOUNDRY_MINIFY_STATIC_FILES: "true"
               FOUNDRY_PROTOCOL: "4"
