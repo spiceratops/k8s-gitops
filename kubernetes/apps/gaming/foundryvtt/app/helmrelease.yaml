@@ -24,9 +24,14 @@ spec:
       hostname: *appname
       automountServiceAccountToken: false
       securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
         seccompProfile: { type: RuntimeDefault }
     controllers:
       foundryvtt:
+        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -56,7 +61,8 @@ spec:
               FOUNDRY_PROXY_SSL: "true"
               FOUNDRY_COMPRESS_WEBSOCKET: "true"
               FOUNDRY_TELEMETRY: "false"
-              CONTAINER_PATCH_URLS: https://gist.githubusercontent.com/felddy/a02d66c3817f8223652d96febe580153/raw/foundryvtt-module-check.sh
+              FOUNDRY_CSS_THEME: foundry
+              # CONTAINER_PATCH_URLS: https://gist.githubusercontent.com/felddy/a02d66c3817f8223652d96febe580153/raw/foundryvtt-module-check.sh
     service:
       app:
         controller: foundryvtt
