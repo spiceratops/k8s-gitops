@@ -1,0 +1,98 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &appname foundryvtt
+  namespace: gaming
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  driftDetection:
+    mode: enabled
+
+  values:
+    defaultPodOptions:
+      hostname: *appname
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      foundryvtt:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/felddy/foundryvtt
+              tag: 13.350.0
+            resources:
+              requests:
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+            envFrom:
+              - secretRef:
+                  name: foundryvtt-secret
+            env:
+              TIMEZONE: ${TZ}
+              CONTAINER_CACHE: /data/container_cache
+              CONTAINER_PATCHES: /data/container_patches
+              CONTAINER_URL_FETCH_RETRY: "50"
+              CONTAINER_VERBOSE: "true"
+              FOUNDRY_HOSTNAME: &hostname dnd.${PRIVATE_DOMAIN2}
+              FOUNDRY_LOCAL_HOSTNAME: *hostname
+              FOUNDRY_MINIFY_STATIC_FILES: "true"
+              FOUNDRY_PROTOCOL: "4"
+              FOUNDRY_PROXY_PORT: "443"
+              FOUNDRY_PROXY_SSL: "true"
+              FOUNDRY_COMPRESS_WEBSOCKET: "true"
+              FOUNDRY_TELEMETRY: "false"
+              CONTAINER_PATCH_URLS: https://gist.githubusercontent.com/felddy/a02d66c3817f8223652d96febe580153/raw/foundryvtt-module-check.sh
+    service:
+      app:
+        controller: foundryvtt
+        ports:
+          http:
+            port: 30000
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/icon: foundry-vtt.png
+          gethomepage.dev/name: Foundry VTT
+          gethomepage.dev/group: Gaming
+          gethomepage.dev/description: DnD VTT
+          hajimari.io/enable: "true"
+          hajimari.io/icon: foundry-vtt
+          hajimari.io/appName: DnD (Foundry VTT)
+        hosts:
+          - host: *hostname
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *hostname
+    persistence:
+      data:
+        enabled: true
+        existingClaim: *appname
+        advancedMounts:
+          foundryvtt:
+            app:
+              - path: /data
