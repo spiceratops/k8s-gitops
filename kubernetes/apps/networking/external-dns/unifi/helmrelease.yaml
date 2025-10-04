@@ -56,7 +56,7 @@ spec:
     managedRecordTypes: ["A", "CNAME", "SRV"]
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["crd", "ingress", "service"]
+    sources: ["crd", "ingress", "service", "gateway-httproute"]
     txtOwnerId: k8s
     txtPrefix: k8s.
     domainFilters:
