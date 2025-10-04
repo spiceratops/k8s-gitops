@@ -7,6 +7,7 @@ bpf:
   masquerade: true
   datapathMode: netkit
   preallocateMaps: true
+  tproxy: true
 bpfClockProbe: true
 bgpControlPlane:
   enabled: true
