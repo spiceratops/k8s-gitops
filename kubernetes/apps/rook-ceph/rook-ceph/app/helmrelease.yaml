@@ -21,7 +21,7 @@ spec:
       enabled: true
     image:
       repository: ghcr.io/rook/ceph
-      tag: v1.18.3
+      tag: v1.18.4
     cephCommandsTimeoutSeconds: "20"
     csi:
       cephFSKernelMountOptions: ms_mode=prefer-crc
