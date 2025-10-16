@@ -29,6 +29,7 @@ spec:
               tag: 2.3.3@sha256:d20efe405d4144e87736c25123cd22992fa4a76c9d80d7467ca5313b92107e4a
             env:
               TZ: ${TZ}
+              PORT: &port 9705
               DOWNLOAD_CLIENT: disabled
               QUEUECLEANER__ENABLED: true
               QUEUECLEANER__IMPORT_FAILED_MAX_STRIKES: 3
@@ -44,7 +45,7 @@ spec:
         controller: cleanuparr
         ports:
           http:
-            port: 9705
+            port: *port
     ingress:
       app:
         enabled: true
