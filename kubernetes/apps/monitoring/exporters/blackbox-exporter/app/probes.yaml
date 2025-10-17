@@ -2,7 +2,7 @@
 kind: Probe
 apiVersion: monitoring.coreos.com/v1
 metadata:
-  name: homelab
+  name: devices
   namespace: monitoring
 spec:
   module: icmp
@@ -11,5 +11,5 @@ spec:
   targets:
     staticConfig:
       static:
-        - opnsense.${PRIVATE_DOMAIN}
+        - home.${PRIVATE_DOMAIN}
         - nas.${PRIVATE_DOMAIN2}
