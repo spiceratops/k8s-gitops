@@ -48,16 +48,18 @@ spec:
               TZ: ${TIMEZONE}
               ROMM_DB_DRIVER: postgresql
               HASHEOUS_API_ENABLED: true
+              PLAYMATCH_API_ENABLED: true
               DB_PORT: 5432
-              # REDIS_HOST: dragonfly.databases.svc.cluster.local
-              # REDIS_PORT: 6379
+              REDIS_HOST: dragonfly.databases.svc.cluster.local
+              REDIS_PORT: 6379
+              REDIS_DB: 5
             envFrom:
               - secretRef:
                   name: romm-secret
     redis:
-      enabled: true
-      redisPort: 6379
-      architecture: standalone
+      enabled: false
+      # redisPort: 6379
+      # architecture: standalone
     service:
       app:
         controller: romm
@@ -75,7 +77,7 @@ spec:
           gethomepage.dev/group: Gaming
           gethomepage.dev/description: Retro Game Library
           hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:controller-classic
+          hajimari.io/icon: sh-romm.png
           hajimari.io/appName: Romm
         hosts:
           - host: "${HOSTNAME}"
@@ -93,10 +95,16 @@ spec:
         advancedMounts:
           romm:
             app:
+              - path: /romm/config
+                subPath: config
               - path: /romm/resources
                 subPath: resources
               - path: /romm/assets
                 subPath: assets
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
       library:
         type: nfs
         server: nas.${PRIVATE_DOMAIN2}
@@ -109,4 +117,4 @@ spec:
         globalMounts:
           - path: /romm/config/config.yml
             subPath: config.yml
-            readOnly: false
+            readOnly: true
