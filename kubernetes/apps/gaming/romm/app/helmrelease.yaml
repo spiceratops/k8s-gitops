@@ -111,10 +111,10 @@ spec:
         path: /mnt/tank/games/roms
         globalMounts:
           - path: /romm/library
-      config-file:
-        type: configMap
-        name: romm-configmap
-        globalMounts:
-          - path: /romm/config/config.yml
-            subPath: config.yml
-            readOnly: true
+      # config-file:
+      #   type: configMap
+      #   name: romm-configmap
+      #   globalMounts:
+      #     - path: /romm/config/config.yml
+      #       subPath: config.yml
+      #       readOnly: true
