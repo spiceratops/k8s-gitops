@@ -7,17 +7,30 @@ metadata:
 spec:
   image: ghcr.io/dragonflydb/dragonfly:v1.34.2
   replicas: 3
+  labels:
+    dragonflydb.io/cluster: dragonfly
   env:
     - name: MAX_MEMORY
       valueFrom:
         resourceFieldRef:
           resource: limits.memory
           divisor: 1Mi
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          key: AWS_ACCESS_KEY_ID
+          name: dragonfly-secret
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          key: AWS_SECRET_ACCESS_KEY
+          name: dragonfly-secret
   args:
     - --maxmemory=$(MAX_MEMORY)Mi
     - --proactor_threads=2
     - --cluster_mode=emulated
     - --lock_on_hashtags
+    - --s3_endpoint=nas.${PRIVATE_DOMAIN2}
   topologySpreadConstraints:
     - maxSkew: 1
       topologyKey: kubernetes.io/hostname
@@ -25,6 +38,8 @@ spec:
       labelSelector:
         matchLabels:
           app.kubernetes.io/part-of: dragonfly
+  snapshot:
+    dir: "s3://dragonfly"
   resources:
     requests:
       cpu: 100m
