@@ -10,7 +10,7 @@ resources:
   - ./exporters
   - ./apprise/ks.yaml
   - ./unpoller/ks.yaml
-  - ./loki/ks.yaml
   - ./promtail/ks.yaml
   - ./kromgo/ks.yaml
   - ./netalertx/ks.yaml
+  - ./victoria-logs/ks.yaml
