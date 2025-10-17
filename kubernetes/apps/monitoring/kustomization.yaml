@@ -14,3 +14,4 @@ resources:
   - ./kromgo/ks.yaml
   - ./netalertx/ks.yaml
   - ./victoria-logs/ks.yaml
+  - ./fluent-bit/ks.yaml
