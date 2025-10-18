@@ -129,14 +129,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/media
-          - name: emqx
-            orgId: 1
-            folder: EMQX
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/emqx
           - name: ollama
             orgId: 1
             folder: Ollama
@@ -150,7 +142,7 @@ spec:
         apiVersion: 1
         deleteDatasources:
           - { name: Alertmanager, orgId: 1 }
-          - { name: Loki, orgId: 1 }
+          - { name: VictoriaLogs, orgId: 1 }
           - { name: Prometheus, orgId: 1 }
         datasources:
           - name: Prometheus
@@ -159,13 +151,10 @@ spec:
             access: proxy
             url: http://prometheus-operated.monitoring.svc.cluster.local:9090
             isDefault: true
-          - name: Loki
-            type: loki
-            uid: loki
+          - name: VictoriaLogs
+            type: victoriametrics-logs-datasource
             access: proxy
-            url: http://loki-headless.monitoring.svc.cluster.local:3100
-            jsonData:
-              maxLines: 250
+            url: http://victoria-logs-server.monitoring.svc.cluster.local:9428
           - name: Alertmanager
             type: alertmanager
             uid: alertmanager
@@ -241,6 +230,12 @@ spec:
           revision: 26
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
+        envoy-gateway:
+          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-addons-helm/dashboards/envoy-gateway-global.json
+          datasource: Prometheus
+        envoy-proxy:
+          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-addons-helm/dashboards/envoy-proxy-global.json
+          datasource: Prometheus
       ollama:
         open-webui:
           # renovate: depName="Open WebUI Dashboard"
@@ -363,28 +358,6 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-      emqx:
-        emqx-authentication:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/main/grafana-dashboard/template/emqx-5/authentication.json
-          datasource: Prometheus
-        emqx-authorization:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/main/grafana-dashboard/template/emqx-5/authorization.json
-          datasource: Prometheus
-        emqx-client-events:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/main/grafana-dashboard/template/emqx-5/client-events.json
-          datasource: Prometheus
-        emqx-messages:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/main/grafana-dashboard/template/emqx-5/messages.json
-          datasource: Prometheus
-        emqx-overview:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/main/grafana-dashboard/template/emqx-5/overview.json
-          datasource: Prometheus
-        emqx-rule-engine-count:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/main/grafana-dashboard/template/emqx-5/rule-engine-count.json
-          datasource: Prometheus
-        emqx-rule-engine-rate:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/main/grafana-dashboard/template/emqx-5/rule-engine-rate.json
-          datasource: Prometheus
     sidecar:
       dashboards:
         enabled: true
@@ -407,6 +380,7 @@ spec:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
       - vonage-status-panel
+      - victoriametrics-logs-datasource
     serviceMonitor:
       enabled: true
     ingress:
