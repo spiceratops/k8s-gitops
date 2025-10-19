@@ -48,12 +48,12 @@ spec:
               - secretRef:
                   name: foundryvtt-secret
             env:
-              TIMEZONE: ${TZ}
+              TIMEZONE: ${TIMEZONE}
               CONTAINER_CACHE: /data/container_cache
               CONTAINER_PATCHES: /data/container_patches
               CONTAINER_URL_FETCH_RETRY: "50"
               CONTAINER_VERBOSE: "true"
-              FOUNDRY_HOSTNAME: &hostname vtt.${PRIVATE_DOMAIN}
+              FOUNDRY_HOSTNAME: &hostname dnd.${PRIVATE_DOMAIN2}
               FOUNDRY_LOCAL_HOSTNAME: *hostname
               FOUNDRY_MINIFY_STATIC_FILES: "true"
               FOUNDRY_PROTOCOL: "4"
@@ -69,29 +69,37 @@ spec:
         ports:
           http:
             port: 30000
-    ingress:
+    # ingress:
+    #   app:
+    #     enabled: true
+    #     className: internal
+    #     annotations:
+    #       gethomepage.dev/enabled: "true"
+    #       gethomepage.dev/icon: foundry-vtt.png
+    #       gethomepage.dev/name: Foundry VTT
+    #       gethomepage.dev/group: Gaming
+    #       gethomepage.dev/description: DnD VTT
+    #       hajimari.io/enable: "true"
+    #       hajimari.io/icon: foundry-vtt
+    #       hajimari.io/appName: DnD (Foundry VTT)
+    #     hosts:
+    #       - host: *hostname
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: app
+    #               port: http
+    #     tls:
+    #       - hosts:
+    #           - *hostname
+    route:
       app:
-        enabled: true
-        className: internal
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/icon: foundry-vtt.png
-          gethomepage.dev/name: Foundry VTT
-          gethomepage.dev/group: Gaming
-          gethomepage.dev/description: DnD VTT
-          hajimari.io/enable: "true"
-          hajimari.io/icon: foundry-vtt
-          hajimari.io/appName: DnD (Foundry VTT)
-        hosts:
-          - host: *hostname
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *hostname
+        hostnames:
+          - dnd.${PRIVATE_DOMAIN2}
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
     persistence:
       data:
         enabled: true
