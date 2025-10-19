@@ -100,6 +100,10 @@ spec:
           - name: envoy-internal
             namespace: networking
             sectionName: https
+        rules:
+          - backendRefs:
+              - name: foundryvtt
+                port: 30000
     persistence:
       data:
         enabled: true
