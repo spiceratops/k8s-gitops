@@ -20,7 +20,7 @@ spec:
     image:
       repository: ghcr.io/mariadb-operator/mariadb-operator
       pullPolicy: IfNotPresent
-      tag: 25.8.4
+      tag: 25.10.1
     ha:
       enabled: true
       replicas: 3
