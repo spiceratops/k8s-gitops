@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: docker.io/cstaelen/tidarr
-              tag: 0.3.8@sha256:975c826b32d9ea3b8129f80d585fb82fc37b67f38eafd5a90888a2aa8bf4c92e
+              tag: 1.0.6@sha256:c2ff8d3b74f33c5bf49ad98fadb4f5a19b72608f8b7a90e24fb797e39af1f4dc
             env:
               TZ: "${TIMEZONE}"
               REACT_APP_TIDAL_COUNTRY_CODE: AU
