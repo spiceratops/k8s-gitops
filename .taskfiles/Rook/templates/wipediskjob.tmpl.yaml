@@ -13,7 +13,7 @@ spec:
       nodeName: ${node}
       containers:
         - name: main
-          image: docker.io/library/alpine:3.22
+          image: docker.io/library/alpine:3.23
           command: ["/bin/sh", "-c"]
           args:
             - apk add --no-cache sgdisk util-linux util-linux-misc parted device-mapper;
