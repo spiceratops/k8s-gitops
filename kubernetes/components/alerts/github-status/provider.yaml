@@ -8,4 +8,4 @@ spec:
   type: github
   address: https://github.com/spiceratops/k8s-gitops
   secretRef:
-    name: github-status-token
+    name: github-status-token-secret
