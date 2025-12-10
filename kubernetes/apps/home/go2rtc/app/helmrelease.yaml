@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: docker.io/alexxit/go2rtc
-              tag: 1.9.10
+              tag: 1.9.12
             resources:
               requests:
                 cpu: 10m
