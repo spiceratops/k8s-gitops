@@ -10,7 +10,7 @@ spec:
     provider: sops
   deletionPolicy: WaitForTermination
   interval: 1h
-  path: ./kubernetes/apps/main
+  path: ./kubernetes/apps
   postBuild:
     substituteFrom:
       - kind: ConfigMap

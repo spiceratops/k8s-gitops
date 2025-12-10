@@ -57,7 +57,7 @@ spec:
                 value:
                   provider: sops
                   secretRef:
-                    name: sops-age
+                    name: sops-age-secret
             target:
               group: kustomize.toolkit.fluxcd.io
               kind: Kustomization
