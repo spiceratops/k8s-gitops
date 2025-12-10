@@ -6,6 +6,5 @@ resources:
   - ./flux-webhooks/ks.yaml
   - ./headlamp/ks.yaml
 components:
-  - ../../components/namespace
   - ../../components/repos
   - ../../components/substitutions
