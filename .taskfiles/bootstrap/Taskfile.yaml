@@ -31,6 +31,7 @@ tasks:
     cmds:
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op.exe inject --in-file ~/repos/k8s-gitops/bootstrap/templates/secrets.yaml.tpl | op.exe inject | kubectl apply --server-side --filename -
+      - kubectl --namespace flux-system apply --server-side --filename ~/repos/k8s-gitops/kubernetes/components/substitutions/cluster-settings.yaml
       - helmfile --file ~/repos/k8s-gitops/bootstrap/helmfile.d/00-crds.yaml template  | kubectl apply --server-side --filename -
       - helmfile --file ~/repos/k8s-gitops/bootstrap/helmfile.d/01-apps.yaml sync --hide-notes
     vars:
