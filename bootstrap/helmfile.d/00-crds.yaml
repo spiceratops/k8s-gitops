@@ -9,11 +9,20 @@ helmDefaults:
     - yq ea -e 'select(.kind == "CustomResourceDefinition")'
 
 releases:
-  - name: cert-manager
-    namespace: cert-manager
-    chart: oci://quay.io/jetstack/charts/cert-manager
-    version: v1.19.2
-    values: [crds: { enabled: true }]
+  - name: cloudflare-dns
+    namespace: network
+    chart: oci://ghcr.io/home-operations/charts-mirror/external-dns
+    version: 1.19.0
+
+  - name: envoy-gateway
+    namespace: network
+    chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
+    version: v1.6.1
+
+  - name: grafana-operator
+    namespace: observability
+    chart: oci://ghcr.io/grafana/helm-charts/grafana-operator
+    version: v5.20.0
 
   - name: external-secrets
     namespace: external-secrets

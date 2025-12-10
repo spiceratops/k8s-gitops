@@ -38,20 +38,21 @@ releases:
     values: ["../templates/values.yaml.gotmpl"]
     needs: ["kube-system/coredns"]
 
-  # - name: cert-manager
-  #   namespace: cert-manager
-  #   atomic: true
-  #   chart: oci://quay.io/jetstack/charts/cert-manager
-  #   version: v1.19.2
-  #   values: ["../templates/values.yaml.gotmpl"]
-  #   needs: ["kube-system/spegel"]
+  - name: cert-manager
+    namespace: cert-manager
+    atomic: true
+    chart: oci://quay.io/jetstack/charts/cert-manager
+    version: v1.19.2
+    values: ["../templates/values.yaml.gotmpl"]
+    needs: ["kube-system/spegel"]
+
   - name: flux-operator
     namespace: flux-system
     atomic: true
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.32.0
     values: ["../templates/values.yaml.gotmpl"]
-    # needs: ["cert-manager/cert-manager"]
+    needs: ["cert-manager/cert-manager"]
 
   - name: flux-instance
     namespace: flux-system
