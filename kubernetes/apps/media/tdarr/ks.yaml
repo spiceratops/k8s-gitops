@@ -24,7 +24,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: tdarr.${PRIVATE_DOMAIN}
+      HOSTNAME: tdarr.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1

@@ -21,4 +21,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: cricket.${PRIVATE_DOMAIN}
+      HOSTNAME: cricket.${SECRET_DOMAIN_INTERNAL}

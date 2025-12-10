@@ -1,5 +1,5 @@
 [info]
-relay_url = "wss://nostr-relay.${PRIVATE_DOMAIN}/"
+relay_url = "wss://nostr-relay.${SECRET_DOMAIN_INTERNAL}/"
 name = "spiceratops's nostr relay"
 description = "Hosted with ❤️ by spiceratops"
 pubkey = "{{ .PUBLIC_KEY }}"

@@ -21,5 +21,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: draw.${PRIVATE_DOMAIN}
+      HOSTNAME: draw.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

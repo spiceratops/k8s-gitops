@@ -23,4 +23,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: homepage.${PRIVATE_DOMAIN}
+      HOSTNAME: homepage.${SECRET_DOMAIN_INTERNAL}

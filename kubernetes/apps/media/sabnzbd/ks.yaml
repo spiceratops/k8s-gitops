@@ -25,5 +25,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: sabnzbd.${PRIVATE_DOMAIN}
+      HOSTNAME: sabnzbd.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

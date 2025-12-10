@@ -25,5 +25,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: tidarr.${PRIVATE_DOMAIN}
+      HOSTNAME: tidarr.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

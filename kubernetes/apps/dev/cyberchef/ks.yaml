@@ -21,7 +21,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: cyberchef.${PRIVATE_DOMAIN}
+      HOSTNAME: cyberchef.${SECRET_DOMAIN_INTERNAL}
       APP_UID: "568"
       APP_GID: "568"
       VOLSYNC_CLAIM: *appname

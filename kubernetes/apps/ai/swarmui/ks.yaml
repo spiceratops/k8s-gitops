@@ -21,5 +21,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: swarmui.${PRIVATE_DOMAIN}
+      HOSTNAME: swarmui.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

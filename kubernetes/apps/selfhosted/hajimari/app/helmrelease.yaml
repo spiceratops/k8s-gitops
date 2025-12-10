@@ -42,15 +42,15 @@ spec:
         - name: Whoogle
           token: "y"
           icon: simple-icons:google
-          searchUrl: https://whoogle.${PRIVATE_DOMAIN}/search?q={query}
-          url: https://whoogle.${PRIVATE_DOMAIN}
+          searchUrl: https://whoogle.${SECRET_DOMAIN_INTERNAL}/search?q={query}
+          url: https://whoogle.${SECRET_DOMAIN_INTERNAL}
     ingress:
       main:
         enabled: true
         ingressClassName: external
         annotations:
           gethomepage.dev/enable: "false"
-          external-dns.alpha.kubernetes.io/target: external.${PRIVATE_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN_INTERNAL}
         hosts:
           - host: "${HOSTNAME}"
             paths:

@@ -23,5 +23,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: paperless.${PRIVATE_DOMAIN}
+      HOSTNAME: paperless.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

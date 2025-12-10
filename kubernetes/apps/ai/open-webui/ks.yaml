@@ -21,4 +21,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: chat.${PRIVATE_DOMAIN}
+      HOSTNAME: chat.${SECRET_DOMAIN_INTERNAL}

@@ -4,7 +4,7 @@ apiVersion: v1
 metadata:
   name: ext-npm
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: npm.${PRIVATE_DOMAIN}, pve-hass.${PRIVATE_DOMAIN}, omada-web.${PRIVATE_DOMAIN}, docker.${PRIVATE_DOMAIN}, dnd.${PRIVATE_DOMAIN}, pedalboard.${PRIVATE_DOMAIN}, kasm.${PRIVATE_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: npm.${SECRET_DOMAIN_INTERNAL}, pve-hass.${SECRET_DOMAIN_INTERNAL}, omada-web.${SECRET_DOMAIN_INTERNAL}, docker.${SECRET_DOMAIN_INTERNAL}, dnd.${SECRET_DOMAIN_INTERNAL}, pedalboard.${SECRET_DOMAIN_INTERNAL}, kasm.${SECRET_DOMAIN_INTERNAL}
 spec:
   type: ExternalName
   externalName: 192.168.1.220

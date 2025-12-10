@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: nas.${PRIVATE_DOMAIN2}
+    server: nas.${SECRET_DOMAIN}
     path: /mnt/tank/backup
   mountOptions:
     - nfsvers=4.2

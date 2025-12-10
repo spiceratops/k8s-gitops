@@ -68,7 +68,7 @@ spec:
       service:
         annotations:
           lbipam.cilium.io/ips: ${INGRESS_HOME_LB_IP}
-          external-dns.alpha.kubernetes.io/hostname: internal.${PRIVATE_DOMAIN_HOME}
+          external-dns.alpha.kubernetes.io/hostname: internal.${SECRET_DOMAIN_INTERNAL}
         labels:
           io.cilium/lb-ipam-layer2: "true"
       topologySpreadConstraints:

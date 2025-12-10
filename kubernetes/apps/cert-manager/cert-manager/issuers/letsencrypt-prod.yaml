@@ -18,7 +18,7 @@ spec:
               key: API_TOKEN
         selector:
           dnsZones:
-            - ${PRIVATE_DOMAIN}
+            - ${SECRET_DOMAIN_INTERNAL}
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -39,5 +39,5 @@ spec:
               key: API_TOKEN_SP
         selector:
           dnsZones:
-            - ${PRIVATE_DOMAIN_HOME}
-            - ${PRIVATE_DOMAIN2}
+            - ${SECRET_DOMAIN_INTERNAL}
+            - ${SECRET_DOMAIN}

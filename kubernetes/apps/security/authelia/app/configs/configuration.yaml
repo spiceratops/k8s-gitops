@@ -6,9 +6,9 @@ session:
   remember_me: 1M
   cookies:
     - name: k_session
-      domain: ${PRIVATE_DOMAIN}
-      authelia_url: https://auth.${PRIVATE_DOMAIN}
-      default_redirection_url: https://homepage.${PRIVATE_DOMAIN}
+      domain: ${SECRET_DOMAIN_INTERNAL}
+      authelia_url: https://auth.${SECRET_DOMAIN_INTERNAL}
+      default_redirection_url: https://homepage.${SECRET_DOMAIN_INTERNAL}
   redis:
     host: dragonfly.databases.svc.cluster.local.
     port: 6379
@@ -21,19 +21,19 @@ access_control:
       networks: ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
   rules:
     - domain:
-        - auth.${PRIVATE_DOMAIN}
+        - auth.${SECRET_DOMAIN_INTERNAL}
       policy: bypass
-    - domain: ["invite.${PRIVATE_DOMAIN}"]
+    - domain: ["invite.${SECRET_DOMAIN_INTERNAL}"]
       resources:
         - "^/join(/.*)?$"
         - "^/j(/.*)?$"
         - "^/setup(/.*)?$"
         - "^/static(/.*)?$"
       policy: bypass
-    - domain: ["navidrome.${PRIVATE_DOMAIN}"]
+    - domain: ["navidrome.${SECRET_DOMAIN_INTERNAL}"]
       resources: ["^/ping.*$", "^/rest.*$"]
       policy: bypass
-    - domain: ["navidrome.${PRIVATE_DOMAIN}"]
+    - domain: ["navidrome.${SECRET_DOMAIN_INTERNAL}"]
       resources: ["^/metrics.*$"]
       policy: deny
 
@@ -91,7 +91,7 @@ identity_providers:
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris:
-          - "https://grafana.${PRIVATE_DOMAIN}/login/generic_oauth"
+          - "https://grafana.${SECRET_DOMAIN_INTERNAL}/login/generic_oauth"
 
       - client_id: windmill
         client_name: Windmill
@@ -101,7 +101,7 @@ identity_providers:
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "email"]
         redirect_uris:
-          - "https://windmill.${PRIVATE_DOMAIN}/user/login_callback/authelia"
+          - "https://windmill.${SECRET_DOMAIN_INTERNAL}/user/login_callback/authelia"
 
       - client_id: immich
         client_name: Immich
@@ -111,7 +111,10 @@ identity_providers:
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "email"]
         redirect_uris:
-          ["https://photos.${PRIVATE_DOMAIN}/auth/login", "app.immich:/"]
+          [
+            "https://photos.${SECRET_DOMAIN_INTERNAL}/auth/login",
+            "app.immich:/",
+          ]
 
       - client_id: weave-gitops
         client_name: Weave GitOps
@@ -120,7 +123,8 @@ identity_providers:
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
-        redirect_uris: ["https://gitops.${PRIVATE_DOMAIN}/oauth2/callback"]
+        redirect_uris:
+          ["https://gitops.${SECRET_DOMAIN_INTERNAL}/oauth2/callback"]
 
       - client_id: ocis
         client_name: OwnCloud Infinite Scale
@@ -130,9 +134,9 @@ identity_providers:
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris:
           [
-            "https://files.${PRIVATE_DOMAIN}/",
-            "https://files.${PRIVATE_DOMAIN}/oidc-callback.html",
-            "https://files.${PRIVATE_DOMAIN}/oidc-silent-redirect.html",
+            "https://files.${SECRET_DOMAIN_INTERNAL}/",
+            "https://files.${SECRET_DOMAIN_INTERNAL}/oidc-callback.html",
+            "https://files.${SECRET_DOMAIN_INTERNAL}/oidc-silent-redirect.html",
           ]
 
       - client_id: mealie
@@ -141,7 +145,7 @@ identity_providers:
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
-        redirect_uris: ["https://meals.${PRIVATE_DOMAIN}/login"]
+        redirect_uris: ["https://meals.${SECRET_DOMAIN_INTERNAL}/login"]
         token_endpoint_auth_method: none
 
       - client_id: audiobookshelf
@@ -153,15 +157,16 @@ identity_providers:
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris:
           [
-            "https://audiobooks.${PRIVATE_DOMAIN}/auth/openid/callback",
-            "https://audiobooks.${PRIVATE_DOMAIN}/auth/openid/mobile-redirect",
+            "https://audiobooks.${SECRET_DOMAIN_INTERNAL}/auth/openid/callback",
+            "https://audiobooks.${SECRET_DOMAIN_INTERNAL}/auth/openid/mobile-redirect",
           ]
 
       - client_id: openwebui
         client_name: Open Webui
         client_secret: '{{ secret "/config/secret/OPEN_WEBUI_OAUTH_CLIENT_DIGEST" }}'
         public: false
-        redirect_uris: ["https://chat.${PRIVATE_DOMAIN}/oauth/oidc/callback"]
+        redirect_uris:
+          ["https://chat.${SECRET_DOMAIN_INTERNAL}/oauth/oidc/callback"]
         scopes: ["openid", "profile", "email"]
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -171,7 +176,7 @@ identity_providers:
         client_secret: '{{ secret "/config/secret/HOARDER_OAUTH_CLIENT_DIGEST" }}'
         public: false
         redirect_uris:
-          ["https://hoarder.${PRIVATE_DOMAIN}/api/auth/callback/custom"]
+          ["https://hoarder.${SECRET_DOMAIN_INTERNAL}/api/auth/callback/custom"]
         scopes: ["openid", "profile", "email"]
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -180,7 +185,7 @@ notifier:
   disable_startup_check: true
   smtp:
     address: smtp://smtp-relay.networking.svc.cluster.local:2525
-    sender: Authelia <authelia@${PRIVATE_DOMAIN}>
+    sender: Authelia <authelia@${SECRET_DOMAIN_INTERNAL}>
     disable_require_tls: true
 
 totp:

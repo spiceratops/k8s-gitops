@@ -25,5 +25,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: satisfactory2.${PRIVATE_DOMAIN}
+      HOSTNAME: satisfactory2.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

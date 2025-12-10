@@ -25,5 +25,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: jellystat.${PRIVATE_DOMAIN}
+      HOSTNAME: jellystat.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

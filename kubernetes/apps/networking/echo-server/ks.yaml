@@ -21,4 +21,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: echo-server.${PRIVATE_DOMAIN}
+      HOSTNAME: echo-server.${SECRET_DOMAIN_INTERNAL}

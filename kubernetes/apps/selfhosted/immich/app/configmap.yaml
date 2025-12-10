@@ -12,4 +12,4 @@ data:
   REDIS_PORT: "6379"
   IMMICH_SERVER_URL: http://immich-server.selfhosted.svc.cluster.local:3001
   IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.selfhosted.svc.cluster.local:3003
-  PUBLIC_IMMICH_SERVER_URL: https://photos.${PRIVATE_DOMAIN}
+  PUBLIC_IMMICH_SERVER_URL: https://photos.${SECRET_DOMAIN_INTERNAL}

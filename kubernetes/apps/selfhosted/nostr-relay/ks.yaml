@@ -24,4 +24,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: nostr-relay.${PRIVATE_DOMAIN}
+      HOSTNAME: nostr-relay.${SECRET_DOMAIN_INTERNAL}
