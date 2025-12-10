@@ -15,6 +15,7 @@ vars:
 
 dotenv:
   - "{{.ROOT_DIR}}/onepassword.env"
+  - "{{.ROOT_DIR}}/paths.env"
   - "{{.SHARED_APPS}}/kube-tools/system-upgrade/versions.env"
 
 env:

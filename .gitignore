@@ -37,6 +37,7 @@ talosconfig
 **/clusterconfig*
 # 1Pass
 onepassword.env
+paths.env
 # Brew
 /.private/
 /.task/
