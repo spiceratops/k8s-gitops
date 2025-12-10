@@ -44,10 +44,10 @@ spec:
       sync:
         kind: GitRepository
         name: flux-system
-        url: https://github.com/spiceratops/k8s-gitops
+        url: https://github.com/spiceratops/k8s-gitops.git
         ref: refs/heads/main
         path: kubernetes/clusters/main
-        interval: 15m
+        interval: 30m
       kustomize:
         patches:
           - # Add Sops decryption to 'flux-system' Kustomization
