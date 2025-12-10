@@ -10,3 +10,8 @@ resources:
   - ./minecraft/ks.yaml
   - ./dnd-tools/ks.yaml
   - ./foundryvtt/ks.yaml
+components:
+  - ../../components/alerts
+  - ../../components/namespace
+  - ../../components/repos
+  - ../../components/substitutions

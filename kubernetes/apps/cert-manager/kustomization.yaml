@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./cert-manager/ks.yaml
 components:
+  - ../../components/alerts
   - ../../components/namespace
   - ../../components/repos
   - ../../components/substitutions

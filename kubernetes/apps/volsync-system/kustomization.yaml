@@ -5,3 +5,8 @@ resources:
   - ./namespace.yaml
   - ./snapshot-controller/ks.yaml
   - ./volsync/ks.yaml
+components:
+  - ../../components/alerts
+  - ../../components/namespace
+  - ../../components/repos
+  - ../../components/substitutions

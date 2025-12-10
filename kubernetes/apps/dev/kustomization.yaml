@@ -6,3 +6,8 @@ resources:
   - ./atuin/ks.yaml
   - ./cyberchef/ks.yaml
   - ./it-tools/ks.yaml
+components:
+  - ../../components/alerts
+  - ../../components/namespace
+  - ../../components/repos
+  - ../../components/substitutions

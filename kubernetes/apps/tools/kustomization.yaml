@@ -4,3 +4,8 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./clickops/ks.yaml
+components:
+  - ../../components/alerts
+  - ../../components/namespace
+  - ../../components/repos
+  - ../../components/substitutions

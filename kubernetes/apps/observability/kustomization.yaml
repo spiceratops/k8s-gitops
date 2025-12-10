@@ -15,3 +15,8 @@ resources:
   - ./netalertx/ks.yaml
   - ./victoria-logs/ks.yaml
   - ./fluent-bit/ks.yaml
+components:
+  - ../../components/alerts
+  - ../../components/namespace
+  - ../../components/repos
+  - ../../components/substitutions

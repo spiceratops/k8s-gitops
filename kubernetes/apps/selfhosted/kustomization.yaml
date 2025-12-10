@@ -24,3 +24,8 @@ resources:
   - ./hoarder/ks.yaml
   - ./searxng/ks.yaml
   - ./n8n/ks.yaml
+components:
+  - ../../components/alerts
+  - ../../components/namespace
+  - ../../components/repos
+  - ../../components/substitutions
