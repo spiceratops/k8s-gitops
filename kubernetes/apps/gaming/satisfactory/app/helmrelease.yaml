@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+# yaml-language-server: $schema=https://kube-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -9,13 +9,12 @@ spec:
   interval: 30m
   timeout: 15m
   chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s-charts
-        namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  dependsOn: []
+  interval: 15m
 
   values:
     controllers:
@@ -72,7 +71,7 @@ spec:
         controller: satisfactory
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: satisfactory.${PRIVATE_DOMAIN_HOME}
+          external-dns.alpha.kubernetes.io/hostname: satisfactory.${SECRET_DOMAIN_INTERNAL}
           lbipam.cilium.io/ips: ${SATISFACTORY_LB_IP},${SATISFACTORY_LB_IP_V6}
         ipFamilyPolicy: PreferDualStack
         ports:

@@ -26,5 +26,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: radarr.${PRIVATE_DOMAIN}
+      HOSTNAME: radarr.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

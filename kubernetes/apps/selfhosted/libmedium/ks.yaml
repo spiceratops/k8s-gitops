@@ -21,6 +21,6 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: medium.${PRIVATE_DOMAIN}
+      HOSTNAME: medium.${SECRET_DOMAIN_INTERNAL}
       APP_UID: "568"
       APP_GID: "568"

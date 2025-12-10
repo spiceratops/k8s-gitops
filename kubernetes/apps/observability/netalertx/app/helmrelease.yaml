@@ -1,0 +1,81 @@
+---
+# yaml-language-server: $schema=https://kube-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: netalertx
+  namespace: observability
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  dependsOn: []
+  interval: 15m
+
+  values:
+    defaultPodOptions:
+      securityContext:
+        supplementalGroups:
+          - 100 # Users
+    controllers:
+      netalertx:
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "networking",
+                "ips": ["192.168.30.225/24"]
+              }
+              ]
+        containers:
+          app:
+            image:
+              repository: jokobsk/netalertx
+              tag: 25.10.1
+            env:
+              TZ: ${TIMEZONE}
+              PUID: 1000
+              PGID: 1000
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 384M
+              limits:
+                memory: 1300M
+    service:
+      app:
+        controller: netalertx
+        ports:
+          http:
+            port: 20211
+    ingress:
+      app:
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Network observability
+          gethomepage.dev/group: Tools
+          gethomepage.dev/icon: sh-netalertx
+          gethomepage.dev/name: NetAlertX
+        hosts:
+          - host: netalertx.${SECRET_DOMAIN_INTERNAL}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      config:
+        existingClaim: netalertx
+        globalMounts:
+          - path: /config
+      data:
+        existingClaim: netalertx-db
+        globalMounts:
+          - path: /app/db

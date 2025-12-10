@@ -27,5 +27,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: recyclarr.${PRIVATE_DOMAIN}
+      HOSTNAME: recyclarr.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

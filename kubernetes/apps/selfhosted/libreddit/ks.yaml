@@ -21,4 +21,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: reddit.${PRIVATE_DOMAIN}
+      HOSTNAME: reddit.${SECRET_DOMAIN_INTERNAL}

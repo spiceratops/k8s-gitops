@@ -25,5 +25,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: music.${PRIVATE_DOMAIN}
+      HOSTNAME: music.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

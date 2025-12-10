@@ -3,14 +3,14 @@ originRequest:
   http2Origin: true
 
 ingress:
-  - hostname: ${PRIVATE_DOMAIN}
+  - hostname: ${SECRET_DOMAIN_INTERNAL}
     service: https://ingress-nginx-external-controller.networking.svc.cluster.local:443
     originRequest:
-      originServerName: external.${PRIVATE_DOMAIN}
+      originServerName: external.${SECRET_DOMAIN_INTERNAL}
 
-  - hostname: "*.${PRIVATE_DOMAIN}"
+  - hostname: "*.${SECRET_DOMAIN_INTERNAL}"
     service: https://ingress-nginx-external-controller.networking.svc.cluster.local:443
     originRequest:
-      originServerName: external.${PRIVATE_DOMAIN}
+      originServerName: external.${SECRET_DOMAIN_INTERNAL}
 
   - service: http_status:404

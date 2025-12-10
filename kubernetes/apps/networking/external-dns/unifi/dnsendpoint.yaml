@@ -5,37 +5,37 @@ metadata:
   name: k8s
 spec:
   endpoints:
-    - dnsName: k8s.${PRIVATE_DOMAIN2}
+    - dnsName: k8s.${SECRET_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.250
-    - dnsName: cp01.${PRIVATE_DOMAIN2}
+    - dnsName: cp01.${SECRET_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.201
-    # - dnsName: cp01.${PRIVATE_DOMAIN2}
+    # - dnsName: cp01.${SECRET_DOMAIN}
     #   recordTTL: 180
     #   recordType: AAAA
     #   targets:
     #     - ${PUBLIC_IPV6_PREFIX}:0:8c94:cff:fe67:cc84
-    - dnsName: cp02.${PRIVATE_DOMAIN2}
+    - dnsName: cp02.${SECRET_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.202
-    # - dnsName: cp02.${PRIVATE_DOMAIN2}
+    # - dnsName: cp02.${SECRET_DOMAIN}
     #   recordTTL: 180
     #   recordType: AAAA
     #   targets:
     #     - ${PUBLIC_IPV6_PREFIX}:0:d01b:40ff:fe68:2ebe
-    - dnsName: cp03.${PRIVATE_DOMAIN2}
+    - dnsName: cp03.${SECRET_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.203
-    # - dnsName: cp03.${PRIVATE_DOMAIN}
+    # - dnsName: cp03.${SECRET_DOMAIN_INTERNAL}
     #   recordTTL: 180
     #   recordType: AAAA
     #   targets:
@@ -47,7 +47,7 @@ metadata:
   name: nas
 spec:
   endpoints:
-    - dnsName: nas.${PRIVATE_DOMAIN2}
+    - dnsName: nas.${SECRET_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
@@ -59,27 +59,27 @@ metadata:
   name: pve
 spec:
   endpoints:
-    - dnsName: pve.${PRIVATE_DOMAIN}
+    - dnsName: pve.${SECRET_DOMAIN_INTERNAL}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.10.252
-    - dnsName: pve1.${PRIVATE_DOMAIN}
+    - dnsName: pve1.${SECRET_DOMAIN_INTERNAL}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.11
-    - dnsName: pve2.${PRIVATE_DOMAIN}
+    - dnsName: pve2.${SECRET_DOMAIN_INTERNAL}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.12
-    - dnsName: pve3.${PRIVATE_DOMAIN}
+    - dnsName: pve3.${SECRET_DOMAIN_INTERNAL}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.13
-    - dnsName: pve4.${PRIVATE_DOMAIN}
+    - dnsName: pve4.${SECRET_DOMAIN_INTERNAL}
       recordTTL: 180
       recordType: A
       targets:
@@ -91,12 +91,12 @@ metadata:
   name: unifi
 spec:
   endpoints:
-    - dnsName: unifi.${PRIVATE_DOMAIN}
+    - dnsName: unifi.${SECRET_DOMAIN_INTERNAL}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.1
-    - dnsName: unifi.${PRIVATE_DOMAIN}
+    - dnsName: unifi.${SECRET_DOMAIN_INTERNAL}
       recordTTL: 180
       recordType: AAAA
       targets:
@@ -108,7 +108,7 @@ metadata:
   name: doorbell
 spec:
   endpoints:
-    - dnsName: doorbell.${PRIVATE_DOMAIN}
+    - dnsName: doorbell.${SECRET_DOMAIN_INTERNAL}
       recordTTL: 180
       recordType: A
       targets:
@@ -120,12 +120,12 @@ metadata:
   name: home
 spec:
   endpoints:
-    - dnsName: home.${PRIVATE_DOMAIN}
+    - dnsName: home.${SECRET_DOMAIN_INTERNAL}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.30.107
-    - dnsName: home.${PRIVATE_DOMAIN}
+    - dnsName: home.${SECRET_DOMAIN_INTERNAL}
       recordTTL: 180
       recordType: AAAA
       targets:

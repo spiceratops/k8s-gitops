@@ -25,4 +25,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: lldap.${PRIVATE_DOMAIN}
+      HOSTNAME: lldap.${SECRET_DOMAIN_INTERNAL}

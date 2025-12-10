@@ -25,5 +25,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: audiobooks.${PRIVATE_DOMAIN}
+      HOSTNAME: audiobooks.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

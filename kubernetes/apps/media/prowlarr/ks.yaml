@@ -26,5 +26,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: prowlarr.${PRIVATE_DOMAIN}
+      HOSTNAME: prowlarr.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

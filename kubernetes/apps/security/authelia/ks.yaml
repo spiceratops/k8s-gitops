@@ -26,4 +26,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: auth.${PRIVATE_DOMAIN}
+      HOSTNAME: auth.${SECRET_DOMAIN_INTERNAL}

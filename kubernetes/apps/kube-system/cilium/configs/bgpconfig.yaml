@@ -1,4 +1,4 @@
-apiVersion: cilium.io/v2alpha1
+apiVersion: cilium.io/v2
 kind: CiliumBGPClusterConfig
 metadata:
   name: cilium-bgp
@@ -21,7 +21,7 @@ spec:
           peerConfigRef:
             name: cilium-peer-v6
 ---
-apiVersion: cilium.io/v2alpha1
+apiVersion: cilium.io/v2
 kind: CiliumBGPPeerConfig
 metadata:
   name: cilium-peer
@@ -40,7 +40,7 @@ spec:
     holdTimeSeconds: 9
     keepAliveTimeSeconds: 3
 ---
-apiVersion: cilium.io/v2alpha1
+apiVersion: cilium.io/v2
 kind: CiliumBGPPeerConfig
 metadata:
   name: cilium-peer-v6
@@ -59,7 +59,7 @@ spec:
     holdTimeSeconds: 9
     keepAliveTimeSeconds: 3
 ---
-apiVersion: cilium.io/v2alpha1
+apiVersion: cilium.io/v2
 kind: CiliumBGPAdvertisement
 metadata:
   name: cilium-advert

@@ -45,4 +45,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: rook.${PRIVATE_DOMAIN}
+      HOSTNAME: rook.${SECRET_DOMAIN_INTERNAL}

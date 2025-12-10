@@ -21,4 +21,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: piped.${PRIVATE_DOMAIN}
+      HOSTNAME: piped.${SECRET_DOMAIN_INTERNAL}

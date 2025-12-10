@@ -7,8 +7,11 @@ Thumbs.db
 .archive/
 # ansible
 xanmanning.k3s*
-# terraform
+# Terraform
 .terraform
+.terraform.tfstate*
+.terraform.lock.hcl
+terraform.tfstate*
 *.tfvars
 # sops
 .decrypted~*
@@ -28,3 +31,16 @@ config.xml
 buildercluster.sh
 # nix folder for now
 .nix/
+#Talos
+talosconfig
+**/clusterconfig
+**/clusterconfig*
+# 1Pass
+onepassword.env
+# Brew
+/.private/
+/.task/
+/.venv/
+Brewfile.lock.json
+# Other
+*.psql

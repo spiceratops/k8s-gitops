@@ -21,7 +21,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: it-tools.${PRIVATE_DOMAIN}
+      HOSTNAME: it-tools.${SECRET_DOMAIN_INTERNAL}
       APP_UID: "568"
       APP_GID: "568"
       VOLSYNC_CLAIM: *appname

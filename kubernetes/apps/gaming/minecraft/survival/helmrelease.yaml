@@ -44,7 +44,7 @@ spec:
     serviceAnnotations:
       lbipam.cilium.io/sharing-key: *app
       lbipam.cilium.io/ips: ${MINECRAFT_SURVIVAL_LB_IP}
-      external-dns.alpha.kubernetes.io/hostname: minecraft-survival.${PRIVATE_DOMAIN_HOME}
+      external-dns.alpha.kubernetes.io/hostname: minecraft-survival.${SECRET_DOMAIN_INTERNAL}
     servicePort: 25565
     minecraftServer:
       eula: true
@@ -87,7 +87,7 @@ spec:
             ingressClassName: internal
             enabled: true
             hosts:
-              - name: &host minecraft-survival-map.${PRIVATE_DOMAIN_HOME}
+              - name: &host minecraft-survival-map.${SECRET_DOMAIN_INTERNAL}
                 path: /
             tls: [hosts: [*host]]
   valuesFrom:

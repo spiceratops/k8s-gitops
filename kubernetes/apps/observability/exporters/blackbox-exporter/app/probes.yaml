@@ -1,0 +1,15 @@
+---
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: devices
+  namespace: observability
+spec:
+  module: icmp
+  prober:
+    url: blackbox-exporter.observability.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - home.${SECRET_DOMAIN_INTERNAL}
+        - nas.${SECRET_DOMAIN}

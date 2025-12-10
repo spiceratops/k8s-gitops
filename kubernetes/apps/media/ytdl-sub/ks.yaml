@@ -25,5 +25,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: ytdl-sub.${PRIVATE_DOMAIN}
+      HOSTNAME: ytdl-sub.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

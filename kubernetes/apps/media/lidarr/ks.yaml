@@ -26,5 +26,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: lidarr.${PRIVATE_DOMAIN}
+      HOSTNAME: lidarr.${SECRET_DOMAIN_INTERNAL}
       VOLSYNC_CLAIM: *appname

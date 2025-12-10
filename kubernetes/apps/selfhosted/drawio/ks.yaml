@@ -23,4 +23,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: diagrams.${PRIVATE_DOMAIN}
+      HOSTNAME: diagrams.${SECRET_DOMAIN_INTERNAL}

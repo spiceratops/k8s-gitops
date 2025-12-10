@@ -9,10 +9,10 @@ spec:
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: ${PRIVATE_DOMAIN}
+  commonName: ${SECRET_DOMAIN_INTERNAL}
   dnsNames:
-    - ${PRIVATE_DOMAIN}
-    - "*.${PRIVATE_DOMAIN}"
+    - ${SECRET_DOMAIN_INTERNAL}
+    - "*.${SECRET_DOMAIN_INTERNAL}"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -24,10 +24,10 @@ spec:
   issuerRef:
     name: letsencrypt-prod-sp
     kind: ClusterIssuer
-  commonName: ${PRIVATE_DOMAIN_HOME}
+  commonName: ${SECRET_DOMAIN_INTERNAL}
   dnsNames:
-    - ${PRIVATE_DOMAIN_HOME}
-    - "*.${PRIVATE_DOMAIN_HOME}"
+    - ${SECRET_DOMAIN_INTERNAL}
+    - "*.${SECRET_DOMAIN_INTERNAL}"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -39,7 +39,7 @@ spec:
   issuerRef:
     name: letsencrypt-prod-sp
     kind: ClusterIssuer
-  commonName: ${PRIVATE_DOMAIN2}
+  commonName: ${SECRET_DOMAIN}
   dnsNames:
-    - ${PRIVATE_DOMAIN2}
-    - "*.${PRIVATE_DOMAIN2}"
+    - ${SECRET_DOMAIN}
+    - "*.${SECRET_DOMAIN}"
