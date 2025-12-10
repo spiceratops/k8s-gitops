@@ -8,7 +8,6 @@ resources:
   - ./perplexica/ks.yaml
   - ./swarmui/ks.yaml
 components:
-  - ../../components/alerts
   - ../../components/namespace
   - ../../components/repos
   - ../../components/substitutions

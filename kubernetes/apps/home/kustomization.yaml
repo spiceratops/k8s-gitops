@@ -15,7 +15,6 @@ resources:
   - ./mosquitto/ks.yaml
   - ./zigbee2mqtt/ks.yaml
 components:
-  - ../../components/alerts
   - ../../components/namespace
   - ../../components/repos
   - ../../components/substitutions
