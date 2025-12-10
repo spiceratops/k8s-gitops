@@ -120,3 +120,19 @@ tasks:
       - cp {{.ROOT_DIR}}/talos/utility/talosconfig ~/.talos/config
       - talosctl config merge {{.ROOT_DIR}}/talos/test/talosconfig --talosconfig ~/.talos/config
       - talosctl config merge {{.ROOT_DIR}}/talos/main/talosconfig --talosconfig ~/.talos/config
+
+  ks-sync:
+    desc: Sync all Flux Kustomizations
+    cmds:
+      - |
+        kubectl get kustomization --all-namespaces --no-headers | awk '{print $1, $2}' \
+          | xargs -P 4 -L 1 bash -c \
+            'kubectl -n $0 annotate kustomization/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --field-manager=flux-client-side-apply --overwrite'
+
+  hr-sync:
+    desc: Sync all Flux HelmReleases
+    cmds:
+      - |
+        kubectl get helmreleases --all-namespaces --no-headers | awk '{print $1, $2}' \
+          | xargs -P 4 -L 1 bash -c \
+            'kubectl -n $0 annotate helmrelease/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --overwrite'
