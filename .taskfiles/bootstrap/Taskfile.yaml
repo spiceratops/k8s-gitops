@@ -16,14 +16,14 @@ tasks:
   kubernetes:
     desc: Bootstrap Talos
     cmds:
-      - until talosctl --talosconfig {{.TALOS_DIR}}/talosconfig --nodes {{.RANDOM_CONTROLLER}} bootstrap; do sleep 5; done
-      - talosctl --talosconfig {{.TALOS_DIR}}/talosconfig kubeconfig --nodes {{.RANDOM_CONTROLLER}}
+      - until talosctl --talosconfig ~/repos/k8s-gitops/talos/main/talosconfig --nodes {{.RANDOM_CONTROLLER}} bootstrap; do sleep 5; done
+      - talosctl --talosconfig ~/repos/k8s-gitops/talos/main/talosconfig kubeconfig --nodes {{.RANDOM_CONTROLLER}}
     vars:
       RANDOM_CONTROLLER:
-        sh: talosctl --talosconfig {{.TALOS_DIR}}/talosconfig config info --output yaml | yq --exit-status '.endpoints[0]'
+        sh: talosctl --talosconfig ~/repos/k8s-gitops/talos/main/talosconfig config info --output yaml | yq --exit-status '.endpoints[0]'
     preconditions:
-      - talosctl --talosconfig {{.TALOS_DIR}}/talosconfig config info
-      - talosctl --talosconfig {{.TALOS_DIR}}/talosconfig --nodes {{.RANDOM_CONTROLLER}} get machineconfig
+      - talosctl --talosconfig ~/repos/k8s-gitops/talos/main/talosconfig config info
+      - talosctl --talosconfig ~/repos/k8s-gitops/talos/main/talosconfig --nodes {{.RANDOM_CONTROLLER}} get machineconfig
       - which yq talosctl
 
   apps:
@@ -36,7 +36,7 @@ tasks:
       - helmfile --file ~/repos/k8s-gitops/bootstrap/helmfile.d/01-apps.yaml sync --hide-notes
     vars:
       RANDOM_CONTROLLER:
-        sh: talosctl --talosconfig {{.TALOS_DIR}}/talosconfig config info --output yaml | yq --exit-status '.endpoints[0]'
+        sh: talosctl --talosconfig ~/repos/k8s-gitops/talos/main/talosconfig config info --output yaml | yq --exit-status '.endpoints[0]'
     env:
       BOOSTRAP_DIR: "{{.BOOSTRAP_DIR}}"
       CLUSTER: "{{.CLUSTER}}"
@@ -46,8 +46,8 @@ tasks:
       SHARED_DIR: "{{.SHARED_DIR}}"
     preconditions:
       - op.exe whoami
-      - talosctl --talosconfig {{.TALOS_DIR}}/talosconfig config info
-      - talosctl --talosconfig {{.TALOS_DIR}}/talosconfig --nodes {{.RANDOM_CONTROLLER}} get machineconfig
+      - talosctl --talosconfig ~/repos/k8s-gitops/talos/main/talosconfig config info
+      - talosctl --talosconfig ~/repos/k8s-gitops/talos/main/talosconfig --nodes {{.RANDOM_CONTROLLER}} get machineconfig
       # - test -d ~/repos/k8s-gitops/bootstrap/helmfile.d
       # - test -d ~/repos/k8s-gitops/bootstrap/templates
       - which helmfile jq kubectl op.exe talosctl

@@ -43,7 +43,7 @@ spec:
         - notification-controller
       sync:
         kind: GitRepository
-        name: flux-system
+        name: k8s-gitops
         url: https://github.com/spiceratops/k8s-gitops.git
         ref: refs/heads/main
         path: kubernetes/clusters/main
