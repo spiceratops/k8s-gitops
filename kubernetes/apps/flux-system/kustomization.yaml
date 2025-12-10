@@ -5,5 +5,3 @@ resources:
   - ./flux-operator/ks.yaml
   - ./flux-webhooks/ks.yaml
   - ./headlamp/ks.yaml
-components:
-  - ../../components/substitutions
