@@ -138,7 +138,7 @@ cluster:
     key: op://sc-secrets/talos-main/CLUSTER_AGGREGATORCA_KEY
   allowSchedulingOnControlPlanes: true
   apiServer:
-    image: registry.k8s.io/kube-apiserver:v1.34.1
+    image: registry.k8s.io/kube-apiserver:v1.34.3
     extraArgs:
       enable-aggregator-routing: true
       feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true,ResourceHealthStatus=true
