@@ -1,4 +1,18 @@
 ---
+# yaml-language-server: $schema=https://kube-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: cilium
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 1.18.4
+  url: oci://ghcr.io/home-operations/charts-mirror/cilium
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -9,33 +23,30 @@ spec:
     kind: OCIRepository
     name: cilium
 
-  # valuesFrom:
-  #   - kind: ConfigMap
-  #     name: cilium-helm-values
   values:
     hubble:
-      enabled: false
-      # metrics:
-      #   enabled:
-      #     - dns:query
-      #     - drop
-      #     - tcp
-      #     - flow
-      #     - port-distribution
-      #     - icmp
-      #     - http
-      #   serviceMonitor:
-      #     enabled: true
-      #   dashboards:
-      #     enabled: true
-      #     annotations:
-      #       grafana_folder: Cilium
-      # relay:
-      #   enabled: true
-      #   rollOutPods: true
-      #   prometheus:
-      #     serviceMonitor:
-      #       enabled: true
+      enabled: true
+      metrics:
+        enabled:
+          - dns:query
+          - drop
+          - tcp
+          - flow
+          - port-distribution
+          - icmp
+          - http
+        serviceMonitor:
+          enabled: true
+        dashboards:
+          enabled: true
+          annotations:
+            grafana_folder: Cilium
+      relay:
+        enabled: true
+        rollOutPods: true
+        prometheus:
+          serviceMonitor:
+            enabled: true
       # ui:
       #   enabled: true
       #   rollOutPods: true
@@ -48,6 +59,8 @@ spec:
       #       - hosts:
       #           - "${HOSTNAME}"
     operator:
+      replicas: 2
+      rollOutPods: true
       prometheus:
         enabled: true
         serviceMonitor:
@@ -65,101 +78,77 @@ spec:
       enabled: true
       annotations:
         grafana_folder: Cilium
-      autoDirectNodeRoutes: true
-      bandwidthManager:
-        enabled: true
-        bbr: true
-      bpf:
-        masquerade: true
-        datapathMode: netkit
-        preallocateMaps: true
-        tproxy: true
-      bpfClockProbe: true
-      bgpControlPlane:
-        enabled: true
-      cgroup:
-        automount:
-          enabled: false
-        hostRoot: /sys/fs/cgroup
-      cluster:
-        id: 1
-        name: k8s
-      cni:
-        exclusive: false
-      dashboards:
-        enabled: true
-      devices:
-        - eth+
-        - enp+
-      enableIPv6Masquerade: true
-      enableRuntimeDeviceDetection: true
-      endpointRoutes:
-        enabled: true
-      enableIPv4BIGTCP: true
-      enableIPv6BIGTCP: true
-      envoy:
+    autoDirectNodeRoutes: true
+    bandwidthManager:
+      enabled: true
+      bbr: true
+    bpf:
+      masquerade: true
+      datapathMode: netkit
+      preallocateMaps: true
+      tproxy: true
+    bpfClockProbe: true
+    bgpControlPlane:
+      enabled: true
+    cgroup:
+      automount:
         enabled: false
-      hubble:
-        enabled: false
-      ipam:
-        mode: kubernetes
-      ipv4NativeRoutingCIDR: 10.244.0.0/16
-      ipv6NativeRoutingCIDR: "fdad:cafe:244::/112"
-      ipv6:
-        enabled: true
-      k8sServiceHost: 127.0.0.1
-      k8sServicePort: 7445
-      kubeProxyReplacement: true
-      kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-      l2announcements:
-        enabled: false
-      loadBalancer:
-        algorithm: maglev
-        mode: dsr
-      localRedirectPolicy: true
-      operator:
-        replicas: 2
-        rollOutPods: true
-        prometheus:
-          enabled: true
-          serviceMonitor:
-            enabled: true
-        dashboards:
-          enabled: true
-      pmtuDiscovery:
-        enabled: true
-      prometheus:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-          trustCRDsExist: true
-      rollOutCiliumPods: true
-      routingMode: native
-      securityContext:
-        capabilities:
-          ciliumAgent:
-            - CHOWN
-            - KILL
-            - NET_ADMIN
-            - NET_RAW
-            - IPC_LOCK
-            - SYS_ADMIN
-            - SYS_RESOURCE
-            - PERFMON
-            - BPF
-            - DAC_OVERRIDE
-            - FOWNER
-            - SETGID
-            - SETUID
-          mountCgroup:
-            - SYS_ADMIN
-            - SYS_CHROOT
-            - SYS_PTRACE
-          applySysctlOverwrites:
-            - SYS_ADMIN
-            - SYS_CHROOT
-            - SYS_PTRACE
-          cleanCiliumState:
-            - NET_ADMIN
-            - SYS_ADMIN
-            - SYS_RESOURCE
+      hostRoot: /sys/fs/cgroup
+    cluster:
+      id: 1
+      name: k8s
+    cni:
+      exclusive: false
+    devices:
+      - bond0
+    enableIPv6Masquerade: true
+    enableRuntimeDeviceDetection: true
+    endpointRoutes:
+      enabled: true
+    enableIPv4BIGTCP: true
+    enableIPv6BIGTCP: true
+    envoy:
+      enabled: false
+    ipam:
+      mode: kubernetes
+    ipv4NativeRoutingCIDR: 10.244.0.0/16
+    ipv6NativeRoutingCIDR: "fdad:cafe:244::/112"
+    ipv6:
+      enabled: true
+    k8sServiceHost: 127.0.0.1
+    k8sServicePort: 7445
+    kubeProxyReplacement: true
+    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+    l2announcements:
+      enabled: false
+    loadBalancer:
+      algorithm: maglev
+      mode: dsr
+    localRedirectPolicy: true
+    pmtuDiscovery:
+      enabled: true
+    rollOutCiliumPods: true
+    routingMode: native
+    securityContext:
+      capabilities:
+        ciliumAgent:
+          - CHOWN
+          - KILL
+          - NET_ADMIN
+          - NET_RAW
+          - IPC_LOCK
+          - SYS_ADMIN
+          - SYS_RESOURCE
+          - PERFMON
+          - BPF
+          - DAC_OVERRIDE
+          - FOWNER
+          - SETGID
+          - SETUID
+        cleanCiliumState:
+          - NET_ADMIN
+          - SYS_ADMIN
+          - SYS_RESOURCE
+    socketLB:
+      enabled: true
+      hostNamespaceOnly: true

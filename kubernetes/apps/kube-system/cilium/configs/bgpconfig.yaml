@@ -1,3 +1,4 @@
+---
 apiVersion: cilium.io/v2
 kind: CiliumBGPClusterConfig
 metadata:
@@ -12,14 +13,14 @@ spec:
       peers:
         - name: peer-64513
           peerASN: 64513
-          peerAddress: ${CILIUM_BGP_PEER}
+          peerAddress: 192.168.1.1
           peerConfigRef:
             name: cilium-peer
-        - name: peer-64513-v6
-          peerASN: 64513
-          peerAddress: ${CILIUM_BGP_PEER_V6}
-          peerConfigRef:
-            name: cilium-peer-v6
+        # - name: peer-64513-v6
+        #   peerASN: 64513
+        #   peerAddress: ${CILIUM_BGP_PEER_V6}
+        #   peerConfigRef:
+        #     name: cilium-peer-v6
 ---
 apiVersion: cilium.io/v2
 kind: CiliumBGPPeerConfig
@@ -39,25 +40,25 @@ spec:
     connectRetryTimeSeconds: 12
     holdTimeSeconds: 9
     keepAliveTimeSeconds: 3
----
-apiVersion: cilium.io/v2
-kind: CiliumBGPPeerConfig
-metadata:
-  name: cilium-peer-v6
-spec:
-  families:
-    - afi: ipv6
-      safi: unicast
-      advertisements:
-        matchLabels:
-          advertise: "bgp"
-  gracefulRestart:
-    enabled: true
-    restartTimeSeconds: 30
-  timers:
-    connectRetryTimeSeconds: 12
-    holdTimeSeconds: 9
-    keepAliveTimeSeconds: 3
+# ---
+# apiVersion: cilium.io/v2
+# kind: CiliumBGPPeerConfig
+# metadata:
+#   name: cilium-peer-v6
+# spec:
+#   families:
+#     - afi: ipv6
+#       safi: unicast
+#       advertisements:
+#         matchLabels:
+#           advertise: "bgp"
+#   gracefulRestart:
+#     enabled: true
+#     restartTimeSeconds: 30
+#   timers:
+#     connectRetryTimeSeconds: 12
+#     holdTimeSeconds: 9
+#     keepAliveTimeSeconds: 3
 ---
 apiVersion: cilium.io/v2
 kind: CiliumBGPAdvertisement
