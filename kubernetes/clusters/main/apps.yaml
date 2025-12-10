@@ -22,7 +22,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: k8s-gitops
   wait: true
   patches:
     - # Update Cert-manager replicas

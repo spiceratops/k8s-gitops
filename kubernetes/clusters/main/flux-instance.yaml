@@ -13,7 +13,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: k8s-gitops
     namespace: flux-system
   targetNamespace: flux-system
   timeout: 5m
