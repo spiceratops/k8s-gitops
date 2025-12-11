@@ -8,7 +8,6 @@ resources:
   - ./libreddit/ks.yaml
   - ./nostr-relay/ks.yaml
   - ./mealie/ks.yaml
-  - ./windmill/ks.yaml
   - ./actual/ks.yaml
   - ./immich/ks.yaml
   - ./linkding/ks.yaml

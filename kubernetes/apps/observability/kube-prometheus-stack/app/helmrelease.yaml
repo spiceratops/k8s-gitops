@@ -1,32 +1,28 @@
 ---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: kube-prometheus-stack
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 80.2.0
+  url: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kube-prometheus-stack
   namespace: observability
 spec:
-  interval: 30m
+  interval: 1h
   timeout: 15m
-  chart:
-    spec:
-      chart: kube-prometheus-stack
-      version: 78.5.0
-      sourceRef:
-        kind: HelmRepository
-        name: prometheus-community-charts
-        namespace: flux-system
-  maxHistory: 2
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  chartRef:
+    kind: OCIRepository
+    name: kube-prometheus-stack
   values:
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
