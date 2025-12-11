@@ -25,6 +25,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
+    namespace: flux-system
   wait: false
   patches:
     - # Update Cert-manager replicas
