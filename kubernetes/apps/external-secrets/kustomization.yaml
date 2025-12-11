@@ -7,4 +7,3 @@ resources:
 components:
   - ../../components/repos
   - ../../components/substitutions
-  - ../../components/replacements
