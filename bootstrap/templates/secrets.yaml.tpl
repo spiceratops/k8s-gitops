@@ -34,3 +34,8 @@ metadata:
 stringData:
   SECRET_DOMAIN: op://sc-secrets/domains/DOMAIN
   SECRET_DOMAIN_INTERNAL: op://sc-secrets/domains/DOMAIN_INTERNAL
+  PRIVATE_DOMAIN: op://sc-secrets/domains/DOMAIN_INTERNAL
+  PRIVATE_DOMAIN_HOME: op://sc-secrets/domains/DOMAIN_INTERNAL
+  PRIVATE_EMAIL: sop://sc-secrets/domains/PRIVATE_EMAIL
+  PUBLIC_DOMAIN: op://sc-secrets/domains/DOMAIN
+  PUBLIC_IPV6_PREFIX: op://sc-secrets/public-prefix/PUBLIC_PREFIX
