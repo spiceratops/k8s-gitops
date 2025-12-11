@@ -8,7 +8,7 @@ metadata:
     gatus.home-operations.com/endpoint: |-
       conditions: ["[STATUS] == 404"]
 spec:
-  hostnames: ["${SECRET_DOMAIN}"]
+  hostnames: ["github-webhook.${SECRET_DOMAIN}"]
   parentRefs:
     - name: envoy-external
       namespace: networking
