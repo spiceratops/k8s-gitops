@@ -34,7 +34,7 @@ spec:
     - name: volsync
       namespace: volsync-system
     - name: rook-ceph
-      namespace: rook-ceph-cluster
+      namespace: rook-ceph
     - name: external-secrets-stores
       namespace: external-secrets
   path: ./kubernetes/apps/gaming/minecraft/cobblemon
@@ -62,7 +62,7 @@ spec:
 #     - name: volsync
       namespace: volsync-system
 #     - name: rook-ceph
-      namespace: rook-ceph-cluster
+      namespace: rook-ceph
 #     - name: external-secrets-stores
       namespace: external-secrets
 #   path: ./kubernetes/apps/gaming/minecraft/survival

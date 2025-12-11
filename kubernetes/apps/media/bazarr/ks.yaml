@@ -13,7 +13,7 @@ spec:
     - name: volsync
       namespace: volsync-system
     - name: rook-ceph
-      namespace: rook-ceph-cluster
+      namespace: rook-ceph
   path: ./kubernetes/apps/media/bazarr/app
   prune: true
   sourceRef:
