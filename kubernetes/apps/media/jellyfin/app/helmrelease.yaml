@@ -15,8 +15,9 @@ spec:
   values:
     defaultPodOptions:
       enableServiceLinks: false
-      nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: jellyfin-gpu
       securityContext:
         runAsUser: 1000
         runAsGroup: 568
@@ -60,6 +61,8 @@ spec:
               startup:
                 enabled: false
             resources:
+              claims:
+                - name: gpu
               requests:
                 gpu.intel.com/i915: 1
                 cpu: 100m

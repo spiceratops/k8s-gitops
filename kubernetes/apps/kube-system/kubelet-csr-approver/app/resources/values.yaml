@@ -1,4 +1,0 @@
----
-providerRegex: |
-  ^(cp|wk)\d\d?$
-bypassDnsResolution: true
