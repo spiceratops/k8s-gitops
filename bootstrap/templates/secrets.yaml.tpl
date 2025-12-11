@@ -16,11 +16,6 @@ stringData:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: cert-manager
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: flux-system
 ---
 apiVersion: v1
