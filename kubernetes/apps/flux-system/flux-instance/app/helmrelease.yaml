@@ -46,7 +46,7 @@ spec:
         name: k8s-gitops
         url: https://github.com/spiceratops/k8s-gitops.git
         ref: refs/heads/main
-        path: kubernetes/cluster
+        path: kubernetes/cluster/main
         interval: 30m
       kustomize:
         patches:
