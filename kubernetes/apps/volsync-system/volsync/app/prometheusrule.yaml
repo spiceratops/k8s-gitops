@@ -2,12 +2,12 @@
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/prometheusrule_v1.json
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
+namespace: volsync-system
 metadata:
   name: volsync
 spec:
   groups:
     - name: volsync
-      namespace: volsync-system.rules
       rules:
         - alert: VolSyncComponentAbsent
           annotations:
