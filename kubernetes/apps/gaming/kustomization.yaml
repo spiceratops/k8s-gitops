@@ -14,3 +14,4 @@ components:
   - ../../components/namespace
   - ../../components/repos
   - ../../components/substitutions
+  - ../../components/replacements
