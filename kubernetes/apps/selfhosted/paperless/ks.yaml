@@ -10,7 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: rook-ceph-cluster
+    - name: rook-ceph
+      namespace: rook-ceph-cluster
   path: ./kubernetes/apps/selfhosted/paperless/app
   prune: true
   sourceRef:

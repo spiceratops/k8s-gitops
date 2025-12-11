@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: external-secrets-stores
+      namespace: external-secrets
     - name: cert-manager
   path: ./kubernetes/apps/networking/smtp-relay/app
   prune: true

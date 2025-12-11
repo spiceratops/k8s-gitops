@@ -13,7 +13,9 @@ spec:
     - name: dragonfly
     - name: lldap
     - name: cloudnative-pg-cluster
+      namespace: databases
     - name: external-secrets-stores
+      namespace: external-secrets
   path: ./kubernetes/apps/security/authelia/app
   prune: true
   sourceRef:

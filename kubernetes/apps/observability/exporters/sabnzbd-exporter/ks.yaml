@@ -12,6 +12,7 @@ spec:
   dependsOn:
     - name: sabnzbd
     - name: external-secrets-stores
+      namespace: external-secrets
   path: ./kubernetes/apps/observability/exporters/sabnzbd-exporter/app
   prune: true
   sourceRef:

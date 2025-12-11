@@ -11,7 +11,9 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: cloudnative-pg-cluster
+      namespace: databases
     - name: external-secrets-stores
+      namespace: external-secrets
   path: ./kubernetes/apps/dev/atuin/app
   prune: true
   sourceRef:

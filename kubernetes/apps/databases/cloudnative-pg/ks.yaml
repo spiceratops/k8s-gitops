@@ -32,7 +32,9 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: cloudnative-pg
+      namespace: databases
     - name: external-secrets-stores
+      namespace: external-secrets
     - name: external-dns
     # - name: openebs
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
@@ -59,9 +61,11 @@ spec:
   dependsOn:
     - name: cloudnative-pg
     - name: external-secrets-stores
+      namespace: external-secrets
     - name: external-dns
     # - name: openebs
     - name: cloudnative-pg-cluster
+      namespace: databases
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster-vecto
   prune: true
   sourceRef:

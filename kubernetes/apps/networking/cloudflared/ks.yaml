@@ -12,6 +12,7 @@ spec:
   dependsOn:
     - name: ingress-nginx-external
     - name: external-secrets-stores
+      namespace: external-secrets
   path: ./kubernetes/apps/networking/cloudflared/app
   prune: true
   sourceRef:

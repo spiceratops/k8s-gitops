@@ -12,7 +12,9 @@ spec:
   dependsOn:
     - name: smtp-relay
     - name: cloudnative-pg-cluster
+      namespace: databases
     - name: external-secrets-stores
+      namespace: external-secrets
   path: ./kubernetes/apps/security/lldap/app
   prune: true
   sourceRef:

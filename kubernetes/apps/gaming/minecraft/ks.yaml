@@ -32,8 +32,11 @@ spec:
       app.kubernetes.io/name: *appname2
   dependsOn:
     - name: volsync
-    - name: rook-ceph-cluster
+      namespace: volsync-system
+    - name: rook-ceph
+      namespace: rook-ceph-cluster
     - name: external-secrets-stores
+      namespace: external-secrets
   path: ./kubernetes/apps/gaming/minecraft/cobblemon
   prune: true
   sourceRef:
@@ -57,8 +60,11 @@ spec:
 #       app.kubernetes.io/name: *appname3
 #   dependsOn:
 #     - name: volsync
-#     - name: rook-ceph-cluster
+      namespace: volsync-system
+#     - name: rook-ceph
+      namespace: rook-ceph-cluster
 #     - name: external-secrets-stores
+      namespace: external-secrets
 #   path: ./kubernetes/apps/gaming/minecraft/survival
 #   prune: true
 #   sourceRef:
