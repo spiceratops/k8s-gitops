@@ -31,4 +31,4 @@ spec:
       dynamicPath: /var/cdi/dynamic
     kubeletPlugin:
       nodeSelector:
-        - intel.feature.node.kubernetes.io/gpu: "true"
+        intel.feature.node.kubernetes.io/gpu: "true"
