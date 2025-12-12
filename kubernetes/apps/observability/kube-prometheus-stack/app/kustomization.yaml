@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: observability
 resources:
   - ./externalsecret.yaml
-  - ./alertmanagerconfig.yaml
   - ./helmrelease.yaml
