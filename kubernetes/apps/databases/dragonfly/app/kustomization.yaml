@@ -5,4 +5,3 @@ namespace: databases
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./rbac.yaml
