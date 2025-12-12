@@ -50,7 +50,5 @@ spec:
         hostPath: /opt/cni/bin
         globalMounts:
           - path: /host/opt/cni/bin
-
     serviceAccount:
-      create: true
-      name: multus
+      multus: {}

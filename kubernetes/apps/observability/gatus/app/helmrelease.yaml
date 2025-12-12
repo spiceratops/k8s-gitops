@@ -117,5 +117,4 @@ spec:
           http:
             port: *port
     serviceAccount:
-      create: true
-      name: gatus
+      gatus: {}

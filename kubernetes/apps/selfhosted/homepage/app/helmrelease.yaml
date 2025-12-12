@@ -30,8 +30,6 @@ spec:
             envFrom:
               - secretRef:
                   name: homepage-secret
-    serviceAccount:
-      create: true
     service:
       app:
         controller: homepage
