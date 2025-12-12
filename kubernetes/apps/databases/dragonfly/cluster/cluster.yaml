@@ -30,7 +30,7 @@ spec:
     - --proactor_threads=2
     - --cluster_mode=emulated
     - --lock_on_hashtags
-    - --s3_endpoint=nas.${SECRET_DOMAIN}
+    - --s3_endpoint=nas.${SECRET_DOMAIN}:9000
   topologySpreadConstraints:
     - maxSkew: 1
       topologyKey: kubernetes.io/hostname
