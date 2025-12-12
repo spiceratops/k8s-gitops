@@ -52,5 +52,3 @@ spec:
               resources:
                 - name: nvidia.com/gpu
                   replicas: 6
-      # Default config name within the ConfigMap
-      default: "default"
