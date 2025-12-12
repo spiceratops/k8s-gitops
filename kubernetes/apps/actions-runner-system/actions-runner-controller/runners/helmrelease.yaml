@@ -22,7 +22,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: gha-runner-scale-set
-
+  dependsOn: []
+  interval: 15m
   values:
     runnerScaleSetName: arc-runner-set-k8s-gitops
     githubConfigUrl: https://github.com/spiceratops/k8s-gitops

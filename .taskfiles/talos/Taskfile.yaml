@@ -52,7 +52,7 @@ tasks:
     env:
       TALOS_SCHEMATIC:
         sh: |-
-          minijinja-cli {{.TALOS_DIR}}/schematic-intel.yaml.j2 \
+          minijinja-cli ~/repos/k8s-gitops/talos/main/schematic-intel.yaml.j2 \
             | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
             | jq --raw-output '.id'
     requires:
@@ -60,8 +60,8 @@ tasks:
     preconditions:
       - op.exe user get --me
       - talosctl config info
-      # - test -f {{.TALOS_DIR}}/{{.IP}}.yaml.j2
-      # - test -f {{.TALOS_DIR}}/schematic-intel.yaml.j2
+      # - test -f ~/repos/k8s-gitops/talos/main/{{.IP}}.yaml.j2
+      # - test -f ~/repos/k8s-gitops/talos/main/schematic-intel.yaml.j2
       - which minijinja-cli op talosctl
 
   apply-node-amd:

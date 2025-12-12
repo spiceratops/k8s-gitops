@@ -6,10 +6,6 @@ metadata:
   name: satisfactory2
   namespace: gaming
 spec:
-  interval: 30m
-  timeout: 15m
-  chart:
-spec:
   chartRef:
     kind: OCIRepository
     name: app-template
