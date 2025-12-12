@@ -29,6 +29,6 @@ spec:
     cdi:
       staticPath: /var/cdi/static
       dynamicPath: /var/cdi/dynamic
-    defaultPodOptions:
+    kubeletPlugin:
       nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
+        - intel.feature.node.kubernetes.io/gpu: "true"
