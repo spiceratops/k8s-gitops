@@ -9,7 +9,7 @@ resources:
   - ./wyoming-openwakeword/ks.yaml
   # - ./guacamole/ks.yaml
   - ./glados/ks.yaml
-  # - ./scrypted/ks.yaml
+  - ./scrypted/ks.yaml
   - ./go2rtc/ks.yaml
   - ./esphome/ks.yaml
   - ./home-assistant/ks.yaml
