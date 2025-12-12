@@ -23,6 +23,9 @@ spec:
           - 44
           - 109
         fsGroupChangePolicy: OnRootMismatch
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: jellyfin-gpu
     controllers:
       jellyfin:
         type: statefulset

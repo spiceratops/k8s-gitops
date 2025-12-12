@@ -16,6 +16,9 @@ spec:
     defaultPodOptions:
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: scrypted-gpu
     controllers:
       scrypted:
         annotations:
