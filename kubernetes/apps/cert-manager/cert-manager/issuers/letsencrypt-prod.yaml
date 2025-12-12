@@ -39,5 +39,4 @@ spec:
               key: API_TOKEN_SP
         selector:
           dnsZones:
-            - ${SECRET_DOMAIN_INTERNAL}
             - ${SECRET_DOMAIN}
