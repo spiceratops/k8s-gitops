@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: dragonfly
+      namespace: databases
     - name: lldap
     - name: cloudnative-pg-cluster
       namespace: databases

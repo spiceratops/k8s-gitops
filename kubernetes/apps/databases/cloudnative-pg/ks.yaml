@@ -36,6 +36,7 @@ spec:
     - name: external-secrets-stores
       namespace: external-secrets
     - name: external-dns
+      namespace: networking
     # - name: openebs
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
   prune: true

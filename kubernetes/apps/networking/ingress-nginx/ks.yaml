@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: cert-manager-issuers
+      namespace: cert-manager
   path: ./kubernetes/apps/networking/ingress-nginx/certificates
   prune: true
   sourceRef:
@@ -37,6 +38,7 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: cert-manager-issuers
+      namespace: cert-manager
   path: ./kubernetes/apps/networking/ingress-nginx/internal
   prune: true
   sourceRef:
@@ -63,6 +65,7 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: cert-manager-issuers
+      namespace: cert-manager
   path: ./kubernetes/apps/networking/ingress-nginx/external
   prune: true
   sourceRef:
@@ -89,6 +92,7 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: cert-manager-issuers
+      namespace: cert-manager
   path: ./kubernetes/apps/networking/ingress-nginx/home
   prune: true
   sourceRef:

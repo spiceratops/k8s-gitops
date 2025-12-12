@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: smtp-relay
+      namespace: networking
     - name: cloudnative-pg-cluster
       namespace: databases
     - name: external-secrets-stores
