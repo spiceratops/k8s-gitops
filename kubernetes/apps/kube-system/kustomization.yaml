@@ -11,7 +11,7 @@ resources:
   - ./node-feature-discovery/ks.yaml
   - ./reloader/ks.yaml
   - ./spegel/ks.yaml
-  - ./nvidia-device-plugin/ks.yaml
+  # - ./nvidia-device-plugin/ks.yaml
   - ./generic-device-plugin/ks.yaml
 components:
   - ../../components/repos
