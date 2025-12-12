@@ -6,7 +6,6 @@ resources:
   - ./_pvc/ks.yaml
   - ./ollama/ks.yaml
   - ./open-webui/ks.yaml
-  - ./perplexica/ks.yaml
   - ./swarmui/ks.yaml
 components:
   - ../../components/namespace
