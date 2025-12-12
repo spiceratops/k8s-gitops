@@ -94,4 +94,3 @@ spec:
         type: emptyDir
     serviceAccount:
       name: system-upgrade
-      create: true
