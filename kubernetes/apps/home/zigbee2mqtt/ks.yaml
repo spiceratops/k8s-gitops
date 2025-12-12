@@ -10,7 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: external-secrets
+    - name: external-secrets-stores
+      namespace: external-secrets
   path: ./kubernetes/apps/home/zigbee2mqtt/app
   prune: true
   sourceRef:
