@@ -17,21 +17,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: wildcard-np
-  namespace: networking
-spec:
-  secretName: wildcard-np-tls
-  issuerRef:
-    name: letsencrypt-prod-sp
-    kind: ClusterIssuer
-  commonName: ${SECRET_DOMAIN_INTERNAL}
-  dnsNames:
-    - ${SECRET_DOMAIN_INTERNAL}
-    - "*.${SECRET_DOMAIN_INTERNAL}"
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: wildcard-sp
   namespace: networking
 spec:
