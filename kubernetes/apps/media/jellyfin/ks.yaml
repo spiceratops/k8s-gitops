@@ -16,6 +16,8 @@ spec:
       namespace: rook-ceph
     - name: external-secrets-stores
       namespace: external-secrets
+  components:
+    - ../../../../components/gpu
   path: ./kubernetes/apps/media/jellyfin/app
   prune: true
   sourceRef:

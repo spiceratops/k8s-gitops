@@ -45,6 +45,8 @@ spec:
       namespace: volsync-system
     - name: rook-ceph
       namespace: rook-ceph
+  components:
+    - ../../../../components/gpu
   path: ./kubernetes/apps/media/tdarr/node
   prune: true
   sourceRef:
