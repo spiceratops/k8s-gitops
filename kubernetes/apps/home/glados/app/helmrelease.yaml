@@ -28,10 +28,8 @@ spec:
               requests:
                 cpu: 100m
                 memory: 128M
-                nvidia.com/gpu: 1
               limits:
                 memory: 1Gi
-                nvidia.com/gpu: 1
     service:
       app:
         controller: glados
