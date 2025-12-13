@@ -5,6 +5,7 @@ namespace: media
 resources:
   - ./volsync.yaml
   - ./helmrelease.yaml
+  - ./httproute.yaml
 configMapGenerator:
   - name: jellyfin-scripts
     files:
