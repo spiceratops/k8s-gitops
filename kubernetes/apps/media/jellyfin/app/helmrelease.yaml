@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: jellyfin
+  name: &app jellyfin
   namespace: media
 spec:
   chartRef:
@@ -78,32 +78,13 @@ spec:
           http:
             port: 8096
         ipFamilyPolicy: PreferDualStack
-    ingress:
+    route:
       app:
-        enabled: true
-        className: "external"
-        annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN_INTERNAL}
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Media Library
-          gethomepage.dev/group: Media
-          gethomepage.dev/icon: jellyfin.png
-          gethomepage.dev/name: Jellyfin
-          gethomepage.dev/widget.type: jellyfin
-          gethomepage.dev/widget.url: http://jellyfin.media.svc.cluster.local:8096
-          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}` }}"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: simple-icons:jellyfin
-        hosts:
-          - host: "${HOSTNAME}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - "${HOSTNAME}"
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
     persistence:
       config:
         enabled: true
