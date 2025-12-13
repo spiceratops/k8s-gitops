@@ -4,9 +4,9 @@ kind: Kustomization
 namespace: ai
 resources:
   - ./_pvc/ks.yaml
-  - ./ollama/ks.yaml
-  - ./open-webui/ks.yaml
-  - ./swarmui/ks.yaml
+  # - ./ollama/ks.yaml
+  # - ./open-webui/ks.yaml
+  # - ./swarmui/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
