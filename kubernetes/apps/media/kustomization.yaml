@@ -29,6 +29,7 @@ resources:
   - ./jellystat/ks.yaml
   - ./tidarr/ks.yaml
   - ./cleanuparr/ks.yaml
+  - ./recommendarr/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
