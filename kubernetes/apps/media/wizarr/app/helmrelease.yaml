@@ -24,6 +24,8 @@ spec:
               tag: v2025.10.8@sha256:dffb269f9e200254f3ba171a6e8e4cb65785936026c413cb1a43d0561dc79f86
             env:
               TZ: ${TIMEZONE}
+              PUID: 1000
+              PGID: 1000
             probes:
               liveness: &probes
                 enabled: true
@@ -72,6 +74,12 @@ spec:
         existingClaim: "${VOLSYNC_CLAIM}"
         globalMounts:
           - path: /data/database
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          wizarr:
+            app:
+              - path: /.cache
     service:
       app:
         controller: wizarr
