@@ -14,7 +14,7 @@ resources:
   - ./flaresolverr/ks.yaml
   - ./jellyseer/ks.yaml
   - ./navidrome/ks.yaml
-  - ./wizarr/ks.yaml
+  # - ./wizarr/ks.yaml
   - ./feishin/ks.yaml
   - ./readarr/ks.yaml
   - ./ytdl-sub/ks.yaml
@@ -24,7 +24,7 @@ resources:
   # - ./qbittorrent/ks.yaml
   # - ./cross-seed/ks.yaml
   - ./piped/ks.yaml
-  - ./music-assistant/ks.yaml
+  # - ./music-assistant/ks.yaml
   - ./huntarr/ks.yaml
   - ./jellystat/ks.yaml
   - ./tidarr/ks.yaml
