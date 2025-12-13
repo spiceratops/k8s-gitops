@@ -77,14 +77,19 @@ spec:
         ports:
           http:
             port: 8096
-        ipFamilyPolicy: PreferDualStack
-    # route:
-    #   app:
-    #     hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"]
-    #     parentRefs:
-    #       - name: envoy-internal
-    #         namespace: networking
-    #         sectionName: https
+        # ipFamilyPolicy: PreferDualStack
+    route:
+      app:
+        hostnames:
+          - jellyfin.${SECRET_DOMAIN_INTERNAL}
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: jellyfin
+                port: 8096
     persistence:
       config:
         enabled: true
