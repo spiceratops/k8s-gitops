@@ -12,8 +12,6 @@ spec:
   dependsOn: []
   interval: 15m
 
-  dependsOn:
-    - name: immich-server
   values:
     controllers:
       immich-machine-learning:
