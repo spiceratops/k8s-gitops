@@ -13,5 +13,5 @@ spec:
   rules:
     - backendRefs:
         - name: jellyfin
-          namespace: flux-system
+          namespace: media
           port: 8096
