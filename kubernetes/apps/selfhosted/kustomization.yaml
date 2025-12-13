@@ -6,11 +6,9 @@ resources:
   - ./_pvc/ks.yaml
   - ./excalidraw/ks.yaml
   - ./libreddit/ks.yaml
-  - ./nostr-relay/ks.yaml
   - ./mealie/ks.yaml
   - ./actual/ks.yaml
   - ./immich/ks.yaml
-  - ./linkding/ks.yaml
   - ./homebox/ks.yaml
   - ./homepage/ks.yaml
   - ./drawio/ks.yaml
@@ -19,7 +17,6 @@ resources:
   - ./libmedium/ks.yaml
   - ./hajimari/ks.yaml
   - ./wallos/ks.yaml
-  # - ./mmp/ks.yaml
   - ./hoarder/ks.yaml
   - ./searxng/ks.yaml
   - ./n8n/ks.yaml
