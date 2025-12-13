@@ -119,5 +119,5 @@ tasks:
     requires:
       vars: [APP]
     preconditions:
-      - test -f {{.VOLSYNC_RESOURCES_DIR}}/unlock.yaml.j2
+      # - test -f {{.VOLSYNC_RESOURCES_DIR}}/unlock.yaml.j2
       - which kubectl minijinja-cli stern

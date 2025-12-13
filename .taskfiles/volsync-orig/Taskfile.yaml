@@ -1,0 +1,63 @@
+---
+version: "3"
+
+x-env: &env
+  app: "{{.app}}"
+  controller: "{{.controller}}"
+  claim: "{{.claim}}"
+  ks: "{{.app}}"
+  puid: "{{.puid}}"
+  pgid: "{{.pgid}}"
+  ns: "{{.ns}}"
+  previous: "{{.previous}}"
+  ts: "{{.ts}}"
+
+vars:
+  volsyncScriptsDir: "{{.ROOT_DIR}}/.taskfiles/volsync-orig/scripts"
+  volsyncTemplatesDir: "{{.ROOT_DIR}}/.taskfiles/volsync-orig/templates"
+  ts: '{{now | date "150405"}}'
+
+tasks:
+  list:
+    desc: List snapshots for an application
+    summary: |
+      Args:
+        ns: Namespace the PVC is in (default: default)
+        app: Application to list snapshots for (required)
+    cmds:
+      - envsubst < <(cat {{.volsyncTemplatesDir}}/list.tmpl.yaml) | kubectl apply -f -
+      - bash {{.volsyncScriptsDir}}/wait.sh list-{{.app}}-{{.ts}} {{.ns}}
+      - kubectl -n {{.ns}} wait job/list-{{.app}}-{{.ts}} --for condition=complete --timeout=1m
+      - kubectl -n {{.ns}} logs job/list-{{.app}}-{{.ts}} --container list
+      - kubectl -n {{.ns}} delete job list-{{.app}}-{{.ts}}
+    env: *env
+    requires:
+      vars: ["app"]
+    vars:
+      ns: '{{.ns | default "default"}}'
+    preconditions:
+      - test -f {{.volsyncScriptsDir}}/wait.sh
+      - test -f {{.volsyncTemplatesDir}}/list.tmpl.yaml
+    silent: true
+
+  unlock:
+    desc: Unlock a Restic repository for an application
+    summary: |
+      Args:
+        ns: Namespace the PVC is in (default: default)
+        app: Application to unlock (required)
+    cmds:
+      - envsubst < <(cat {{.volsyncTemplatesDir}}/unlock.tmpl.yaml) | kubectl apply -f -
+      - bash {{.volsyncScriptsDir}}/wait.sh unlock-{{.app}}-{{.ts}} {{.ns}}
+      - kubectl -n {{.ns}} wait job/unlock-{{.app}}-{{.ts}} --for condition=complete --timeout=1m
+      - kubectl -n {{.ns}} logs job/unlock-{{.app}}-{{.ts}} --container unlock
+      - kubectl -n {{.ns}} delete job unlock-{{.app}}-{{.ts}}
+    env: *env
+    requires:
+      vars: ["app"]
+    vars:
+      ns: '{{.ns | default "default"}}'
+    preconditions:
+      - test -f {{.volsyncScriptsDir}}/wait.sh
+      - test -f {{.volsyncTemplatesDir}}/unlock.tmpl.yaml
+    silent: true

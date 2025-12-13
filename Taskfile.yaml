@@ -31,6 +31,7 @@ includes:
   sops: .taskfiles/sops
   talos: .taskfiles/talos
   volsync: .taskfiles/volsync
+  volsync-orig: .taskfiles/volsync-orig
   workstation: .taskfiles/workstation
 
 tasks:
