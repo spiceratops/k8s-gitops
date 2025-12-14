@@ -4,3 +4,10 @@ kind: Kustomization
 namespace: home
 resources:
   - ./helmrelease.yaml
+  - ./volsync.yaml
+configMapGenerator:
+  - name: mosquitto-configmap
+    files:
+      - ./resources/mosquitto.conf
+generatorOptions:
+  disableNameSuffixHash: true
