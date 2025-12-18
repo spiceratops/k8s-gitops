@@ -12,7 +12,7 @@ resources:
   - ./unpoller/ks.yaml
   - ./promtail/ks.yaml
   - ./kromgo/ks.yaml
-  # - ./netalertx/ks.yaml
+  - ./netalertx/ks.yaml
   - ./victoria-logs/ks.yaml
   - ./fluent-bit/ks.yaml
 components:
