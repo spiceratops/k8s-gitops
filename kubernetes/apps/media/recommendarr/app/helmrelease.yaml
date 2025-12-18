@@ -43,7 +43,7 @@ spec:
       app:
         ports:
           http:
-            port: 3000
+            port: &port 3000
     route:
       app:
         hostnames:
@@ -55,7 +55,7 @@ spec:
         rules:
           - backendRefs:
               - name: *app
-                port: http
+                port: *port
     persistence:
       data:
         existingClaim: *app

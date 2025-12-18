@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: jellyseer
+  name: &app jellyseer
   namespace: media
 spec:
   chartRef:
@@ -39,20 +39,28 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: "${VOLSYNC_CLAIM}"
+        existingClaim: *app
         globalMounts:
           - path: /app/config
             subPath: jellyseerr
     service:
       app:
-        controller: jellyseer
+        controller: *app
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
-        enabled: true
-        className: external
+        hostnames:
+          - requests.${SECRET_DOMAIN_INTERNAL}
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Media Requests
@@ -66,13 +74,3 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:jellyfish-outline
           hajimari.io/appName: Requests
-        hosts:
-          - host: "${HOSTNAME}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - "${HOSTNAME}"
