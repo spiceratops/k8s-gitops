@@ -56,11 +56,11 @@ spec:
           - subPath: widgets.yaml
             path: /app/config/widgets.yaml
     route:
-      app:
+      internal:
         hostnames:
           - homepage.${SECRET_DOMAIN_INTERNAL}
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: networking
             sectionName: https
         rules:

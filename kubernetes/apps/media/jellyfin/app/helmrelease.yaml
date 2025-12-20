@@ -79,7 +79,7 @@ spec:
             port: &port 8096
         # ipFamilyPolicy: PreferDualStack
     route:
-      app:
+      internal:
         hostnames:
           - jellyfin.${SECRET_DOMAIN_INTERNAL}
         parentRefs:
