@@ -2,36 +2,44 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
-      "description": "Auto merge container digests",
-      "matchDatasources": [
-        "docker"
-      ],
-      "automerge": true,
-      "ignoreTests": true,
-      "automergeType": "branch",
-      "matchUpdateTypes": [
-        "digest"
-      ],
-      "matchPackagePatterns": [
-        "ghcr.io/bjw-s",
-        "ghcr.io/onedr0p"
-      ]
+      description: "Auto-merge trusted container digests",
+      matchDatasources: ["docker"],
+      automerge: true,
+      automergeType: "pr",
+      matchUpdateTypes: ["digest"],
+      matchPackageNames: ["/home-operations/"],
+      ignoreTests: false,
     },
     {
-      "description": "Auto merge GitHub Actions",
-      "matchManagers": [
-        "github-actions"
+      description: "Auto-merge OCI Charts",
+      matchDatasources: ["docker"],
+      automerge: true,
+      automergeType: "pr",
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: ["/kube-prometheus-stack/", "/grafana/"],
+      ignoreTests: false,
+    },
+    {
+      description: "Auto-merge GitHub Actions",
+      matchManagers: ["github-actions"],
+      automerge: true,
+      automergeType: "branch",
+      matchUpdateTypes: ["minor", "patch", "digest"],
+      minimumReleaseAge: "3 days",
+      ignoreTests: true,
+    },
+    {
+      description: "Auto-merge trusted GitHub Actions",
+      matchManagers: ["github-actions"],
+      matchPackageNames: [
+        "/^actions\//",
+        "/^renovatebot\//",
       ],
-      "matchDatasources": [
-        "github-tags"
-      ],
-      "automerge": true,
-      "ignoreTests": true,
-      "automergeType": "branch",
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ]
-    }
+      automerge: true,
+      automergeType: "branch",
+      matchUpdateTypes: ["minor", "patch", "digest"],
+      minimumReleaseAge: "1 minute",
+      ignoreTests: true,
+    },
   ]
 }
