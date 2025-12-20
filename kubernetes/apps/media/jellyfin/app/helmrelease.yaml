@@ -76,20 +76,20 @@ spec:
         externalTrafficPolicy: Local
         ports:
           http:
-            port: 8096
+            port: &port 8096
         # ipFamilyPolicy: PreferDualStack
     route:
       app:
         hostnames:
-          - jellyfin.${SECRET_DOMAIN_INTERNAL}
+          - {{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: networking
             sectionName: https
         rules:
           - backendRefs:
-              - name: jellyfin
-                port: 8096
+              - name: *app
+                port: *port
     persistence:
       config:
         enabled: true

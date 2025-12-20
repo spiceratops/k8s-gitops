@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &appname dnd-tools
+  name: &app dnd-tools
   namespace: gaming
 spec:
   chartRef:
@@ -53,5 +53,5 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *appname
+              - name: *app
                 port: *port
