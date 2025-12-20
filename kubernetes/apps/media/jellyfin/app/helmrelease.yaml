@@ -83,6 +83,17 @@ spec:
         hostnames:
           - jellyfin.${SECRET_DOMAIN_INTERNAL}
         parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+      external:
+        hostnames:
+          - jellyfin.${SECRET_DOMAIN}
+        parentRefs:
           - name: envoy-external
             namespace: networking
             sectionName: https
