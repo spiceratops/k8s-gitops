@@ -46,7 +46,7 @@ spec:
     route:
       app:
         hostnames:
-          - {{ .Release.Name }}.${SECRET_DOMAIN}
+          - dnd-tools.${SECRET_DOMAIN}
         parentRefs:
           - name: envoy-external
             namespace: networking

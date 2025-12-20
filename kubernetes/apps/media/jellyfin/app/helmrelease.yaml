@@ -81,7 +81,7 @@ spec:
     route:
       app:
         hostnames:
-          - {{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}
+          - jellyfin.${SECRET_DOMAIN_INTERNAL}
         parentRefs:
           - name: envoy-external
             namespace: networking
