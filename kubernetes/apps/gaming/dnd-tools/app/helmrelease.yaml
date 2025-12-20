@@ -42,35 +42,16 @@ spec:
         controller: dnd-tools
         ports:
           http:
-            port: 80
-    ingress:
+            port: &port 80
+    route:
       app:
-        enabled: true
-        className: external
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/icon: mdi-dice
-          gethomepage.dev/name: dnd-tools
-          gethomepage.dev/group: Gaming
-          gethomepage.dev/description: DnD 5e Tools
-          hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:dice
-          hajimari.io/appName: dnd-tools
-        hosts:
-          - host: &hostname dnd-tools.${SECRET_DOMAIN_INTERNAL}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *hostname
-    # route:
-    #   app:
-    #     hostnames:
-    #       - dnd-tools.${SECRET_DOMAIN}
-    #     parentRefs:
-    #       - name: envoy-internal
-    #         namespace: networking
-    #         sectionName: https
+        hostnames:
+          - {{ .Release.Name }}.${SECRET_DOMAIN}
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *appname
+                port: *port
