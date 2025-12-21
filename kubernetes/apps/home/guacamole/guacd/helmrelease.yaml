@@ -36,4 +36,4 @@ spec:
         ports:
           http:
             port: 4822
-        ipFamilyPolicy: PreferDualStack
+        # ipFamilyPolicy: PreferDualStack

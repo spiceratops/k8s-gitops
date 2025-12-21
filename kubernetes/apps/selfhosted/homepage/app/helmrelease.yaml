@@ -33,7 +33,7 @@ spec:
     service:
       app:
         controller: homepage
-        ipFamilyPolicy: PreferDualStack
+        # ipFamilyPolicy: PreferDualStack
         ports:
           http:
             port: &port 3000

@@ -91,7 +91,7 @@ spec:
             appProtocol: kubernetes.io/wss
           code-server:
             port: 12321
-        ipFamilyPolicy: PreferDualStack
+        # ipFamilyPolicy: PreferDualStack
     ingress:
       app:
         className: internal

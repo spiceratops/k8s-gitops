@@ -62,7 +62,7 @@ spec:
         ports:
           http:
             port: 5580
-        ipFamilyPolicy: PreferDualStack
+        # ipFamilyPolicy: PreferDualStack
     persistence:
       config:
         existingClaim: matter-server

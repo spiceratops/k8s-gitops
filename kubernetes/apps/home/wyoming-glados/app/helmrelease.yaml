@@ -41,7 +41,7 @@ spec:
         ports:
           http:
             port: 10201
-        ipFamilyPolicy: PreferDualStack
+        # ipFamilyPolicy: PreferDualStack
     persistence:
       data:
         existingClaim: "${VOLSYNC_CLAIM}"

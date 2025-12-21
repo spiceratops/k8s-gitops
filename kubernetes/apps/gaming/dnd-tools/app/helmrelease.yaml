@@ -40,7 +40,6 @@ spec:
     service:
       app:
         controller: dnd-tools
-        ipFamilyPolicy: PreferDualStack
         ports:
           http:
             port: &port 80

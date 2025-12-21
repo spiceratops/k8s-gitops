@@ -69,7 +69,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: satisfactory2.${SECRET_DOMAIN_INTERNAL}
           lbipam.cilium.io/ips: ${SATISFACTORY2_LB_IP},${SATISFACTORY2_LB_IP_V6}
-        ipFamilyPolicy: PreferDualStack
+        # ipFamilyPolicy: PreferDualStack
         ports:
           game-udp:
             primary: true

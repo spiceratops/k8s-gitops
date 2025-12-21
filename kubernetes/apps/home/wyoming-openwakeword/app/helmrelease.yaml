@@ -53,7 +53,7 @@ spec:
         ports:
           http:
             port: &port 10400
-        ipFamilyPolicy: PreferDualStack
+        # ipFamilyPolicy: PreferDualStack
     # ingress:
     #   app:
     #     enabled: true

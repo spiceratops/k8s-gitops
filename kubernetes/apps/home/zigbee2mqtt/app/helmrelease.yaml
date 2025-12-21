@@ -76,7 +76,7 @@ spec:
           lbipam.cilium.io/ips: ${Z2M_LB_IP}
         labels:
           io.cilium/lb-ipam-layer2: "true"
-        # ipFamilyPolicy: PreferDualStack
+        # # ipFamilyPolicy: PreferDualStack
         ports:
           http:
             port: *port
