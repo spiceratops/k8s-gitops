@@ -24,12 +24,7 @@ spec:
           },
           {
             "name": "mulltus-ra",
-            "type": "tuning",
-            "sysctl": {
-                    "net.ipv6.conf.net1.forwarding": "1",
-                    "net.ipv6.conf.net1.accept_ra": "2",
-                    "net.ipv6.conf.net1.accept_ra_rt_info_max_plen": "64"
-            }
+            "namespace": "networking"
           }]
       securityContext:
         runAsNonRoot: true
