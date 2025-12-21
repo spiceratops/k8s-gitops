@@ -7,4 +7,3 @@ spec:
   allowFirstLastIPs: "No"
   blocks:
     - cidr: "192.168.11.0/24"
-    - cidr: "fdad:cafe:11::/112"

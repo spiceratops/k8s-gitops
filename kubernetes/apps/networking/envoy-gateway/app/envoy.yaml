@@ -56,7 +56,7 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
-      lbipam.cilium.io/ips: ${ENVOY_EXT_LB_IP},${ENVOY_EXT_LB_IP_V6}
+      lbipam.cilium.io/ips: ${ENVOY_EXT_LB_IP}
   listeners:
     - name: http
       protocol: HTTP
@@ -87,7 +87,7 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
-      lbipam.cilium.io/ips: ${ENVOY_INT_LB_IP},${ENVOY_INT_LB_IP_V6}
+      lbipam.cilium.io/ips: ${ENVOY_INT_LB_IP}
   listeners:
     - name: http
       protocol: HTTP
