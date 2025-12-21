@@ -15,7 +15,6 @@ spec:
           "mode": "bridge",
           "ipam": {
             "type": "dhcp"
-            ]
           }
         },
         {
