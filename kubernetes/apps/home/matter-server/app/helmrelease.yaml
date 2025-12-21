@@ -62,9 +62,6 @@ spec:
         ports:
           http:
             port: 5580
-        type: LoadBalancer
-        loadBalancerIP: ${MATTER_LB_IP_V6}
-        externalTrafficPolicy: Local
         ipFamilyPolicy: PreferDualStack
     persistence:
       config:
