@@ -18,7 +18,8 @@ spec:
         k8s.v1.cni.cncf.io/networks: |
           [{
             "name":"multus-iot-ipv6",
-            "namespace": "networking"
+            "namespace": "networking",
+            "mac": "2e:37:2e:6d:ab:44"
           }]
       securityContext:
         runAsNonRoot: true
