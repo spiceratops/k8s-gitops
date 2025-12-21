@@ -17,14 +17,10 @@ spec:
       annotations:
         k8s.v1.cni.cncf.io/networks: |
           [{
-            "name":"multus-iot",
+            "name":"multus-iot-ipv6",
             "namespace": "networking",
             "ips": ["192.168.30.209/24"],
             "mac": "2e:37:2e:6d:ab:44"
-          },
-          {
-            "name": "mulltus-ra",
-            "namespace": "networking"
           }]
       securityContext:
         runAsNonRoot: true
