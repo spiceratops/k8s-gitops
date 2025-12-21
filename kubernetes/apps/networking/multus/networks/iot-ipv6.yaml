@@ -14,8 +14,10 @@ spec:
           "master": "bond0.30",
           "mode": "bridge",
           "ipam": {
-            "type": "dhcp",
-            "daemonSocketPath": "/host/opt/cni/dhcp.sock"
+            "type": "static",
+            "routes": [
+              { "dst": "0.0.0.0/0", "gw": "192.168.30.1" }
+            ]
           }
         },
         {
