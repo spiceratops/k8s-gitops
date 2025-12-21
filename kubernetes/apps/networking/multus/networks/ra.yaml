@@ -1,0 +1,21 @@
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: multus-ra
+spec:
+  config: |-
+    {
+      "cniVersion": "1.1.0",
+      "name": "multus-ra",
+      "plugins": [
+        {
+        "type": "tuning",
+        "sysctl": {
+                "net.ipv6.conf.net1.forwarding": "1",
+                "net.ipv6.conf.net1.accept_ra": "2",
+                "net.ipv6.conf.net1.accept_ra_rt_info_max_plen": "64"
+          }
+        }
+      ]
+    }

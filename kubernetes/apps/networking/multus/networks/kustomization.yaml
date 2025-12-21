@@ -5,3 +5,4 @@ namespace: networking
 resources:
   - ./iot.yaml
   - ./cameras.yaml
+  - ./ra.yaml
