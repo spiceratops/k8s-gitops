@@ -36,7 +36,7 @@ spec:
           app:
             env:
               TZ: ${TIMEZONE}
-              GOVEE_MQTT_HOST: mqtt://mosquitto
+              GOVEE_MQTT_HOST: mosquitto
               GOVEE_MQTT_PORT: 1883
               GOVEE_TEMPERATURE_SCALE: "C"
             envFrom:
