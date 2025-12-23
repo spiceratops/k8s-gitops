@@ -16,6 +16,7 @@ resources:
   - ./mosquitto/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./matter-server/ks.yaml
+  - ./govee2mqtt/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
