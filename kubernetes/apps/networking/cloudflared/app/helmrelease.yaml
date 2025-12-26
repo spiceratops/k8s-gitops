@@ -88,16 +88,10 @@ spec:
               - hostname: "*.${PRIVATE_DOMAIN}"
                 originRequest:
                   http2Origin: true
-                  originServerName: external.turbo.ac
+                  originServerName: external.${PRIVATE_DOMAIN}
                 service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
               - service: http_status:404
     persistence:
-      config-file:
-        type: configMap
-        identifier: config
-        globalMounts:
-          - path: /etc/cloudflared/config.yaml
-            subPath: config.yaml
       creds:
         type: secret
         name: ${APP}-secret
