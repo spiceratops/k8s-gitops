@@ -75,8 +75,7 @@ spec:
           gethomepage.dev/name: Navidrome
     persistence:
       config:
-        enabled: true
-        existingClaim: "{{ .Release.Name }}"
+        existingClaim: *app
       media:
         existingClaim: nfs-media
         globalMounts:
