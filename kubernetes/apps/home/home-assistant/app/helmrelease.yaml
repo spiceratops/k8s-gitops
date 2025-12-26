@@ -111,11 +111,11 @@ spec:
           gethomepage.dev/name: home-assistant
     persistence:
       config:
-        existingClaim: "{{ Release.Name}}"
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
       config-cache:
-        existingClaim: "{{ Release.Name}}-cache"
+        existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
           - path: /config/.venv
       tmpfs:
