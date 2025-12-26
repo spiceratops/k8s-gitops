@@ -10,7 +10,7 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
   driftDetection:
     mode: enabled
 
@@ -51,9 +51,9 @@ spec:
                   - ALL
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
             runAsNonRoot: true
     persistence:
@@ -74,8 +74,6 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${TAILSCALE_LB_IP}
-        labels:
-          io.cilium/lb-ipam-layer2: "true"
         ports:
           tailnet-udp:
             enabled: true

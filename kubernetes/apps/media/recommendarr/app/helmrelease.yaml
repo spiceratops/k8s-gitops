@@ -58,6 +58,6 @@ spec:
                 port: *port
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/server/data

@@ -10,7 +10,7 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     defaultPodOptions:
@@ -46,7 +46,7 @@ spec:
     route:
       app:
         hostnames:
-          - dnd-tools.${SECRET_DOMAIN}
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking

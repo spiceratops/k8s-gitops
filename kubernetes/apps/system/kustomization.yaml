@@ -6,6 +6,7 @@ resources:
   - ./tuppr/ks.yaml
   - ./keda/ks.yaml
   - ./fstrim/ks.yaml
+  - ./csi-driver-nfs/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos

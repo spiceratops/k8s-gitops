@@ -10,15 +10,15 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     defaultPodOptions:
       automountServiceAccountToken: false
       securityContext:
         runAsUser: 1000
-        runAsGroup: 568
-        fsGroup: 568
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
 
     controllers:
@@ -159,63 +159,66 @@ spec:
         controller: backend
         ports:
           http:
-            port: 8080
-        # ipFamilyPolicy: PreferDualStack
+            port: &port 8080
       frontend:
         controller: frontend
         ports:
           http:
-            port: 8080
-        # ipFamilyPolicy: PreferDualStack
+            port: *port
       ytproxy:
         controller: ytproxy
         ports:
           http:
-            port: 8080
-        # ipFamilyPolicy: PreferDualStack
+            port: *port
 
-    ingress:
+    route:
       backend:
-        annotations:
-          nginx.ingress.kubernetes.io/enable-cors: "true"
-          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN_INTERNAL}, https://piped-api.${SECRET_DOMAIN_INTERNAL}, https://piped-proxy.${SECRET_DOMAIN_INTERNAL}"
-        className: internal
-        hosts:
-          - host: piped-api.${SECRET_DOMAIN_INTERNAL}
-            paths:
-              - path: /
-                service:
-                  identifier: backend
-                  port: http
+        hostnames:
+          - piped-api.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: backend
+                port: *port
+        # annotations:
+        #   nginx.ingress.kubernetes.io/enable-cors: "true"
+        #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN_INTERNAL}, https://piped-api.${SECRET_DOMAIN_INTERNAL}, https://piped-proxy.${SECRET_DOMAIN_INTERNAL}"
       frontend:
+        hostnames:
+          - piped.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: frontend
+                port: *port
         annotations:
-          nginx.ingress.kubernetes.io/enable-cors: "true"
-          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN_INTERNAL}, https://piped-api.${SECRET_DOMAIN_INTERNAL}, https://piped-proxy.${SECRET_DOMAIN_INTERNAL}"
+          # nginx.ingress.kubernetes.io/enable-cors: "true"
+          # nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN_INTERNAL}, https://piped-api.${SECRET_DOMAIN_INTERNAL}, https://piped-proxy.${SECRET_DOMAIN_INTERNAL}"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: YT Proxy
           gethomepage.dev/group: Media
           gethomepage.dev/icon: youtube.png
           gethomepage.dev/name: Piped
-        className: internal
-        hosts:
-          - host: piped.${SECRET_DOMAIN_INTERNAL}
-            paths:
-              - path: /
-                service:
-                  identifier: frontend
-                  port: http
       ytproxy:
-        annotations:
-          nginx.ingress.kubernetes.io/enable-cors: "true"
-          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN_INTERNAL}, https://piped-api.${SECRET_DOMAIN_INTERNAL}, https://piped-proxy.${SECRET_DOMAIN_INTERNAL}"
-        className: internal
-        hosts:
-          - host: piped-proxy.${SECRET_DOMAIN_INTERNAL}
-            paths:
-              - path: /
-                service:
-                  identifier: ytproxy
-                  port: http
+        hostnames:
+          - piped-proxy.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: ytproxy
+                port: *port
+        # annotations:
+        #   nginx.ingress.kubernetes.io/enable-cors: "true"
+        #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN_INTERNAL}, https://piped-api.${SECRET_DOMAIN_INTERNAL}, https://piped-proxy.${SECRET_DOMAIN_INTERNAL}"
 
     persistence:
       config:

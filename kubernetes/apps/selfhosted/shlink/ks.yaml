@@ -27,5 +27,3 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: ln.${SECRET_DOMAIN_INTERNAL}
-      VOLSYNC_CLAIM: *appname

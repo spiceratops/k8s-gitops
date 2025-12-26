@@ -10,7 +10,7 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     defaultPodOptions:
@@ -62,10 +62,9 @@ spec:
         ports:
           http:
             port: 5580
-        # ipFamilyPolicy: PreferDualStack
     persistence:
       config:
-        existingClaim: matter-server
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data
       tmp:

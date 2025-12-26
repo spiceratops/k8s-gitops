@@ -3,14 +3,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: prowlarr
+  name: &app prowlarr
   namespace: media
 spec:
   chartRef:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
   driftDetection:
     mode: enabled
 
@@ -65,37 +65,34 @@ spec:
                 memory: 512M
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
-    ingress:
-      app:
-        enabled: true
-        className: internal
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Dowmloaders Config
-          gethomepage.dev/group: Downloaders
-          gethomepage.dev/icon: prowlarr.png
-          gethomepage.dev/name: Prowlarr
-        hosts:
-          - host: "${HOSTNAME}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - "${HOSTNAME}"
-    persistence:
-      config:
-        enabled: true
-        existingClaim: "${VOLSYNC_CLAIM}"
     service:
       app:
         controller: prowlarr
         ports:
           http:
             port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Dowmloaders Config
+          gethomepage.dev/group: Downloaders
+          gethomepage.dev/icon: prowlarr.png
+          gethomepage.dev/name: Prowlarr
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"

@@ -10,7 +10,7 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     controllers:
@@ -53,30 +53,27 @@ spec:
         ports:
           http:
             port: &port 8095
-        # ipFamilyPolicy: PreferDualStack
-    ingress:
+    route:
       app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Music Assistant Server
           gethomepage.dev/group: Media
           gethomepage.dev/icon: music-assistant.png
           gethomepage.dev/name: Music Assistant
-        className: internal
-        hosts:
-          - host: &host music-assistant.${SECRET_DOMAIN_INTERNAL}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
     persistence:
       config:
-        enabled: true
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data
       media:

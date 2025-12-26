@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: swarmui
+  name: &app swarmui
   namespace: ai
 spec:
   chartRef:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     controllers:
@@ -45,30 +45,28 @@ spec:
         controller: swarmui
         ports:
           http:
-            port: 7801
-    ingress:
+            port: &port 7801
+    route:
       app:
-        enabled: true
-        className: internal
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: AI
           gethomepage.dev/name: swarmui
           gethomepage.dev/icon: mdi-draw
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - ${HOSTNAME}
+
     persistence:
       data:
-        enabled: true
-        existingClaim: swarmui
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /SwarmUI/Data
             subPath: data

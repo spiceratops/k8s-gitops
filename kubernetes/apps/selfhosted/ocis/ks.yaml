@@ -27,4 +27,3 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: files.${SECRET_DOMAIN_INTERNAL}

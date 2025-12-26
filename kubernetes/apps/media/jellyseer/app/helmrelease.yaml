@@ -10,14 +10,14 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     defaultPodOptions:
       securityContext:
         runAsUser: 1000
-        runAsGroup: 568
-        fsGroup: 568
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       jellyseer:
@@ -52,9 +52,9 @@ spec:
     route:
       app:
         hostnames:
-          - requests.${SECRET_DOMAIN_INTERNAL}
+          - requests.${SECRET_DOMAIN}
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: networking
             sectionName: https
         rules:
@@ -70,7 +70,6 @@ spec:
           gethomepage.dev/widget.type: jellyseerr
           gethomepage.dev/widget.url: http://jellyseer.media.svc.cluster.local:8080
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_JELLYSEER_API_KEY}}` }}"
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN_INTERNAL}
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:jellyfish-outline
           hajimari.io/appName: Requests

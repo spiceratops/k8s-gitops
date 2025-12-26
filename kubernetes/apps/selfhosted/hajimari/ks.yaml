@@ -22,4 +22,3 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: garagefire.${SECRET_DOMAIN_INTERNAL}

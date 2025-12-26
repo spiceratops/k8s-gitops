@@ -27,8 +27,6 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: tdarr.${SECRET_DOMAIN_INTERNAL}
-      VOLSYNC_CLAIM: *appname
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

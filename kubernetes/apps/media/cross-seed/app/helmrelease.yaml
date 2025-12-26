@@ -10,14 +10,14 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     defaultPodOptions:
       securityContext:
         runAsUser: 1000
-        runAsGroup: 568
-        fsGroup: 568
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     controllers:
       cross-seed:
@@ -61,7 +61,7 @@ spec:
             port: 2468
     persistence:
       config:
-        existingClaim: cross-seed
+        existingClaim: "{{ .Release.Name }}"
       config-file:
         type: secret
         name: cross-seed-secret

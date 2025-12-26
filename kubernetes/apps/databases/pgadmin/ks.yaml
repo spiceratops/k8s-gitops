@@ -31,7 +31,3 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: pgadmin.${SECRET_DOMAIN_INTERNAL}
-      APP_UID: "568"
-      APP_GID: "568"
-      VOLSYNC_CLAIM: *appname

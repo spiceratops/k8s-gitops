@@ -10,18 +10,19 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     defaultPodOptions:
       enableServiceLinks: false
       securityContext:
         runAsUser: 1000
-        runAsGroup: 568
-        fsGroup: 568
+        runAsGroup: 1000
+        fsGroup: 1000
         supplementalGroups:
           - 44
           - 109
+          - 568
         fsGroupChangePolicy: OnRootMismatch
       resourceClaims:
         - name: gpu
@@ -77,7 +78,6 @@ spec:
         ports:
           http:
             port: &port 8096
-        # # ipFamilyPolicy: PreferDualStack
     route:
       internal:
         hostnames:
@@ -104,7 +104,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: "${VOLSYNC_CLAIM}"
+        existingClaim: "{{ .Release.Name }}"
       media:
         existingClaim: nfs-media
         globalMounts:

@@ -10,7 +10,7 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     controllers:
@@ -46,8 +46,8 @@ spec:
                   - ALL
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: 1000
+            runAsGroup: 1000
             runAsNonRoot: true
     service:
       app:

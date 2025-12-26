@@ -3,14 +3,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: romm
+  name: &app romm
   namespace: gaming
 spec:
   chartRef:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     controllers:
@@ -39,6 +39,8 @@ spec:
                 memory: 1024Mi
             env:
               TZ: ${TIMEZONE}
+              ENABLE_SCHEDULED_RESCAN: true
+              SCHEDULED_RESCAN_CRON: "0 3 * * *"
               ROMM_DB_DRIVER: postgresql
               HASHEOUS_API_ENABLED: true
               PLAYMATCH_API_ENABLED: true
@@ -58,11 +60,19 @@ spec:
         controller: romm
         ports:
           http:
-            port: 8080
-    ingress:
+            port: &port 8080
+    route:
       app:
-        enabled: true
-        className: external
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/icon: mdi-controller-classic
@@ -72,42 +82,37 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: sh-romm.png
           hajimari.io/appName: Romm
-        hosts:
-          - host: "${HOSTNAME}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - "${HOSTNAME}"
     persistence:
+      config:
+        type: configMap
+        name: romm-configmap
+        globalMounts:
+          - path: /romm/config/config.yml
+            subPath: config.yml
+            readOnly: true
       data:
-        existingClaim: "${VOLSYNC_CLAIM}"
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           romm:
             app:
-              - path: /romm/config
-                subPath: config
               - path: /romm/resources
                 subPath: resources
               - path: /romm/assets
                 subPath: assets
-      tmp:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          romm:
+            app:
+              - path: /redis-data
+                subPath: redis-data
+              - path: /romm/config
+                subPath: config
+              - path: /tmp
+                subPath: tmp
       library:
         type: nfs
         server: nas.${SECRET_DOMAIN}
         path: /mnt/tank/games/roms
         globalMounts:
           - path: /romm/library
-      # config-file:
-      #   type: configMap
-      #   name: romm-configmap
-      #   globalMounts:
-      #     - path: /romm/config/config.yml
-      #       subPath: config.yml
-      #       readOnly: true

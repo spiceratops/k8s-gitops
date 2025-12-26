@@ -9,9 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  dependsOn:
-    - name: radarr
-    - name: sonarr
   path: ./kubernetes/apps/media/huntarr/app
   prune: true
   sourceRef:
@@ -25,5 +22,3 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: huntarr.${SECRET_DOMAIN_INTERNAL}
-      VOLSYNC_CLAIM: *appname

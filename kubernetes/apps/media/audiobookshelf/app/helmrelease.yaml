@@ -3,26 +3,27 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: audiobookshelf
+  name: &app audiobookshelf
   namespace: media
 spec:
   chartRef:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       audiobookshelf:
         annotations:
           secret.reloader.stakater.com/reload: &secret audiobookshelf-secret
-        pod:
-          securityContext:
-            runAsUser: &uid 568
-            runAsGroup: &gid 568
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
         containers:
           app:
             image:
@@ -34,12 +35,12 @@ spec:
             env:
               TZ: ${TIMEZONE}
               PORT: &port 8080
-              AUDIOBOOKSHELF_UID: *uid
-              AUDIOBOOKSHELF_GID: *gid
+              AUDIOBOOKSHELF_UID: 1000
+              AUDIOBOOKSHELF_GID: 1000
               CONFIG_PATH: /config
               METADATA_PATH: /config/metadata
-              AUDIOBOOKSHELF_OIDC_DISCOVERY_URL: https://auth.${SECRET_DOMAIN_INTERNAL}/.well-known/openid-configuration
-              AUDIOBOOKSHELF_OIDC_CLIENT_ID: audiobookshelf
+              # AUDIOBOOKSHELF_OIDC_DISCOVERY_URL: https://auth.${SECRET_DOMAIN_INTERNAL}/.well-known/openid-configuration
+              # AUDIOBOOKSHELF_OIDC_CLIENT_ID: audiobookshelf
             probes:
               liveness: &probes
                 enabled: true
@@ -61,9 +62,18 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
-      main:
-        className: internal
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Media
@@ -73,17 +83,9 @@ spec:
           gethomepage.dev/widget.type: audiobookshelf
           gethomepage.dev/widget.url: http://audiobookshelf.media:8080
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_AUDIOBOOKSHELF_TOKEN}}` }}"
-        hosts:
-          - host: &host ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls: [hosts: [*host]]
     persistence:
       config:
-        existingClaim: ${VOLSYNC_CLAIM}
+        existingClaim: "{{ .Release.Name }}"
       media:
         existingClaim: nfs-media
         globalMounts:

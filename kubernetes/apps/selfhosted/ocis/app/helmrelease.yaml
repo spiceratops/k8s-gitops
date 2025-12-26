@@ -3,14 +3,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ocis
+  name: &app ocis
   namespace: selfhosted
 spec:
   chartRef:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     controllers:
@@ -27,7 +27,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               OCIS_INSECURE: true
-              OCIS_URL: https://files.${SECRET_DOMAIN_INTERNAL}
+              OCIS_URL: https://ocis.${SECRET_DOMAIN_INTERNAL}
               PROXY_TLS: false
               DEMO_USERS: false
               PROXY_HTTP_ADDR: 0.0.0.0:9200
@@ -66,15 +66,15 @@ spec:
                 enabled: true
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: 1000
+            runAsGroup: 1000
             runAsNonRoot: true
     service:
       app:
         controller: ocis
         ports:
           http:
-            port: 9200
+            port: &port 9200
             primary: true
           metrics:
             port: 9205
@@ -83,25 +83,24 @@ spec:
         serviceName: ocis
         endpoints:
           - port: metrics
-    ingress:
+    route:
       app:
-        className: internal
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: File Sharing
           gethomepage.dev/group: Home
           gethomepage.dev/icon: owncloud.png
           gethomepage.dev/name: OCIS
-        hosts:
-          - host: "${HOSTNAME}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - "${HOSTNAME}"
     persistence:
       storage-users:
         existingClaim: nfs-documents

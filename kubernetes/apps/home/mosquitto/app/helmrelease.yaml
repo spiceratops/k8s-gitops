@@ -10,7 +10,7 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     controllers:
@@ -60,7 +60,7 @@ spec:
             port: 1883
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data
       settings:

@@ -10,7 +10,7 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     controllers:
@@ -45,10 +45,10 @@ spec:
                   - ALL
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: 1000
+            runAsGroup: 1000
             runAsNonRoot: true
-            fsGroup: 568
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
           topologySpreadConstraints:
             - maxSkew: 1
@@ -77,8 +77,6 @@ spec:
         annotations:
           lbipam.cilium.io/ips: ${SMTP_LB_IP}
           external-dns.alpha.kubernetes.io/hostname: smtp.${SECRET_DOMAIN_INTERNAL}
-        labels:
-          io.cilium/lb-ipam-layer2: "true"
         ports:
           http:
             port: *httpPort

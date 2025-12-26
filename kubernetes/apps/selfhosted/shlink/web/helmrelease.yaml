@@ -3,14 +3,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: shlink-web
+  name: &app shlink-web
   namespace: selfhosted
 spec:
   chartRef:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     controllers:
@@ -43,25 +43,22 @@ spec:
         controller: shlink-web
         ports:
           http:
-            port: 8080
-    ingress:
+            port: &port 8080
+    route:
       app:
-        enabled: true
-        className: external
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN_INTERNAL}
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Link Sharing Web
           gethomepage.dev/group: Tools
           gethomepage.dev/icon: shlink.png
           gethomepage.dev/name: Shlink Web
-        hosts:
-          - host: "${HOSTNAME}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - "${HOSTNAME}"

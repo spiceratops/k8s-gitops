@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: ai
 resources:
   - ./externalsecret.yaml
-  - ./volsync.yaml
   - ./helmrelease.yaml

@@ -10,7 +10,7 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     controllers:
@@ -41,7 +41,6 @@ spec:
         ports:
           http:
             port: 10201
-        # ipFamilyPolicy: PreferDualStack
     persistence:
       data:
-        existingClaim: "${VOLSYNC_CLAIM}"
+        existingClaim: "{{ .Release.Name }}"

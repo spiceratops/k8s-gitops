@@ -10,7 +10,7 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     controllers:
@@ -33,7 +33,6 @@ spec:
     service:
       app:
         controller: homepage
-        # ipFamilyPolicy: PreferDualStack
         ports:
           http:
             port: &port 3000
@@ -58,7 +57,7 @@ spec:
     route:
       internal:
         hostnames:
-          - homepage.${SECRET_DOMAIN_INTERNAL}
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

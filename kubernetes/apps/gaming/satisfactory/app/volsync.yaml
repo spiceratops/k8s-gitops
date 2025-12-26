@@ -2,18 +2,18 @@
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: satisfactory-data-restic
+  name: satisfactory2-data-restic
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: satisfactory-data-restic-secret
+    name: satisfactory2-data-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/satisfactory-data"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/satisfactory2-data"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -24,13 +24,13 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: satisfactory-data
+  name: satisfactory2-data
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: satisfactory-data-rdst
+    name: satisfactory2-data-rdst
   resources:
     requests:
       storage: 5Gi
@@ -39,12 +39,12 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: satisfactory-data-rdst
+  name: satisfactory2-data-rdst
 spec:
   trigger:
     manual: restore-once
   restic:
-    repository: satisfactory-data-restic-secret
+    repository: satisfactory2-data-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
@@ -61,14 +61,14 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: satisfactory-data-rsrc
+  name: satisfactory2-data-rsrc
 spec:
-  sourcePVC: satisfactory-data
+  sourcePVC: satisfactory2-data
   trigger:
     schedule: "15 */8 * * *"
   restic:
     pruneIntervalDays: 10
-    repository: satisfactory-data-restic-secret
+    repository: satisfactory2-data-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
@@ -87,18 +87,18 @@ spec:
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: satisfactory-game-restic
+  name: satisfactory2-game-restic
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: satisfactory-game-restic-secret
+    name: satisfactory2-game-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/satisfactory-game"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/satisfactory2-game"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -109,13 +109,13 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: satisfactory-game
+  name: satisfactory2-game
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: satisfactory-game-rdst
+    name: satisfactory2-game-rdst
   resources:
     requests:
       storage: 50Gi
@@ -124,12 +124,12 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: satisfactory-game-rdst
+  name: satisfactory2-game-rdst
 spec:
   trigger:
     manual: restore-once
   restic:
-    repository: satisfactory-game-restic-secret
+    repository: satisfactory2-game-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
@@ -146,14 +146,14 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: satisfactory-game-rsrc
+  name: satisfactory2-game-rsrc
 spec:
-  sourcePVC: satisfactory-game
+  sourcePVC: satisfactory2-game
   trigger:
     schedule: "15 */8 * * *"
   restic:
     pruneIntervalDays: 10
-    repository: satisfactory-game-restic-secret
+    repository: satisfactory2-game-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}

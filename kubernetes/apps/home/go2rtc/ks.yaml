@@ -9,11 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  dependsOn:
-    - name: volsync
-      namespace: volsync-system
-    - name: rook-ceph
-      namespace: rook-ceph
   path: ./kubernetes/apps/home/go2rtc/app
   prune: true
   sourceRef:

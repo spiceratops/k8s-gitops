@@ -10,7 +10,7 @@ spec:
     kind: OCIRepository
     name: app-template
   dependsOn: []
-  interval: 15m
+  interval: 1h
 
   values:
     controllers:
@@ -70,8 +70,8 @@ spec:
                   - ALL
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: 1000
+            runAsGroup: 1000
             runAsNonRoot: true
           topologySpreadConstraints:
             - maxSkew: 1
@@ -80,15 +80,24 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: ${APP}
-    persistence:
+    configMaps:
       config:
-        enabled: true
+        data:
+          config.yaml: |-
+            ingress:
+              - hostname: "*.${PRIVATE_DOMAIN}"
+                originRequest:
+                  http2Origin: true
+                  originServerName: external.turbo.ac
+                service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
+              - service: http_status:404
+    persistence:
+      config-file:
         type: configMap
-        name: ${APP}-configmap
+        identifier: config
         globalMounts:
-          - path: /etc/cloudflared/config/config.yaml
+          - path: /etc/cloudflared/config.yaml
             subPath: config.yaml
-            readOnly: true
       creds:
         type: secret
         name: ${APP}-secret

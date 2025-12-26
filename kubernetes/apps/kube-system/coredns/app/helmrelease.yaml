@@ -41,7 +41,6 @@ spec:
       clusterIPs:
         - 10.245.0.10
         - fdad:cafe:245::a
-      # ipFamilyPolicy: PreferDualStack
     servers:
       - zones:
           - zone: .
