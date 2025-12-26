@@ -5,7 +5,7 @@ kind: OCIRepository
 metadata:
   name: gha-runner-scale-set
 spec:
-  interval: 5m
+  interval: 15m
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
@@ -23,7 +23,7 @@ spec:
     kind: OCIRepository
     name: gha-runner-scale-set
   dependsOn: []
-  interval: 15m
+  interval: 1h
   values:
     runnerScaleSetName: arc-runner-set-k8s-gitops
     githubConfigUrl: https://github.com/spiceratops/k8s-gitops
