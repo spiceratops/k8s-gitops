@@ -10,17 +10,22 @@ spec:
   trigger:
     manual: restore-once
   kopia:
-    accessModes: ["${VOLSYNC_ACCESSMODES:=ReadWriteOnce}"]
-    capacity: "${VOLSYNC_CAPACITY:=2Gi}"
+    accessModes:
+      - "${VOLSYNC_ACCESSMODES:=ReadWriteOnce}"
+    cacheAccessModes:
+      - "${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}"
+    cacheCapacity: "${VOLSYNC_CAPACITY:=5Gi}"
+    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:=openebs-hostpath}"
+    capacity: "${VOLSYNC_CAPACITY:=5Gi}"
     cleanupCachePVC: true
     cleanupTempPVC: true
     copyMethod: Snapshot
     enableFileDeletion: true
     moverSecurityContext:
-      runAsUser: ${VOLSYNC_PUID:=1000}
-      runAsGroup: ${VOLSYNC_PGID:=1000}
-      fsGroup: ${VOLSYNC_PGID:=1000}
-    repository: ${APP}-volsync
+      runAsUser: ${APP_UID:=1000}
+      runAsGroup: ${APP_GID:=1000}
+      fsGroup: ${APP_GID:=1000}
+    repository: ${APP}-volsync-secret
     sourceIdentity:
       sourceName: ${APP}
     storageClassName: "${VOLSYNC_STORAGECLASS:=ceph-block}"
