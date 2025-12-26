@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: actions-runner-system
 resources:
   - ./externalsecret.yaml
-  # - ./helmrelease.yaml
+  - ./helmrelease.yaml
