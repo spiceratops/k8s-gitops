@@ -30,4 +30,3 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: graves.${SECRET_DOMAIN_INTERNAL}

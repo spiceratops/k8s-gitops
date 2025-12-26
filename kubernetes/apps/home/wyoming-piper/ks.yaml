@@ -27,4 +27,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      VOLSYNC_CLAIM: *appname
+      VOLSYNC_CAPACITY: 2Gi

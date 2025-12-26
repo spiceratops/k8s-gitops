@@ -54,7 +54,7 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
-        runAsGroup: 568
+        runAsGroup: 1000
     persistence:
       config:
         type: configMap

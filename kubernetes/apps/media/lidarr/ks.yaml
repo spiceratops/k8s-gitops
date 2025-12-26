@@ -31,3 +31,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
+      VOLSYNC_CAPACITY: 10Gi
