@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: observability
 resources:
   - ./volsync.yaml
-    - ./helmrelease.yaml
+  - ./helmrelease.yaml
