@@ -38,7 +38,7 @@ spec:
       - { regex: cluster, action: labeldrop }
   bootstrap:
     recovery:
-      source: postgres-v26
+      source: postgres-v27
       recoveryTarget:
         targetTLI: "69"
   backup:
@@ -49,7 +49,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://postgresql/
       endpointURL: https://nas.${SECRET_DOMAIN}:9000
-      serverName: postgres-v27
+      serverName: postgres-v28
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -58,7 +58,7 @@ spec:
           name: cloudnative-pg-secret
           key: AWS_SECRET_ACCESS_KEY
   externalClusters:
-    - name: postgres-v26
+    - name: postgres-v27
       barmanObjectStore:
         wal:
           compression: bzip2
