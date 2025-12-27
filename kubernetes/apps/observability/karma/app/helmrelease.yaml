@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: karma
+  name: &app karma
   namespace: observability
 spec:
   chartRef:
@@ -41,24 +41,22 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: ${APP}
-    ingress:
-      app:
-        enabled: true
-        className: internal
-        annotations:
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - ${HOSTNAME}
     service:
       app:
         controller: karma
         ports:
           http:
-            port: 8080
+            port: &port 8080
+
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port

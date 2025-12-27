@@ -10,8 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: cloudnative-pg-cluster
-      namespace: databases
     - name: external-secrets-stores
       namespace: external-secrets
   path: ./kubernetes/apps/observability/grafana/app
@@ -27,12 +25,11 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: grafana.${SECRET_DOMAIN_INTERNAL}
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname grafana-dashboards
+  name: &appname grafana-instance
   namespace: flux-system
 spec:
   targetNamespace: observability
@@ -41,7 +38,7 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: grafana
-  path: ./kubernetes/apps/observability/grafana/dashboards
+  path: ./kubernetes/apps/observability/grafana/instance
   prune: true
   sourceRef:
     kind: GitRepository
@@ -51,3 +48,6 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *appname
