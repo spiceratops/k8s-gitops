@@ -27,5 +27,3 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME_AM: am.${SECRET_DOMAIN_INTERNAL}
-      HOSTNAME_PROM: prometheus.${SECRET_DOMAIN_INTERNAL}

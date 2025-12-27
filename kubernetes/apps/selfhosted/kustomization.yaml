@@ -7,7 +7,7 @@ resources:
   - ./excalidraw/ks.yaml
   - ./libreddit/ks.yaml
   - ./mealie/ks.yaml
-  - ./actual/ks.yaml
+  # - ./actual/ks.yaml
   - ./immich/ks.yaml
   - ./homebox/ks.yaml
   - ./homepage/ks.yaml
@@ -15,11 +15,11 @@ resources:
   - ./paperless/ks.yaml
   - ./ocis/ks.yaml
   - ./libmedium/ks.yaml
-  - ./hajimari/ks.yaml
+  # - ./hajimari/ks.yaml
   - ./wallos/ks.yaml
   - ./karakeep/ks.yaml
   - ./searxng/ks.yaml
-  - ./n8n/ks.yaml
+  # - ./n8n/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos

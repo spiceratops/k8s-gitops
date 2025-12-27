@@ -82,7 +82,7 @@ spec:
             protocol: TCP
     persistence:
       gamefiles:
-        existingClaim: "{{ .Release.Name }}"
+        existingClaim: satisfactory2-data
         globalMounts:
           path: /config/gamefiles
       data:
