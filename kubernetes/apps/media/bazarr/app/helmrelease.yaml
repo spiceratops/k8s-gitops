@@ -82,6 +82,10 @@ spec:
       config:
         existingClaim: "{{ .Release.Name }}"
       media:
-        existingClaim: nfs-media
+        type: nfs
+        server: nas.${SECRET_DOMAIN}
+        path: /mnt/tank/media
         globalMounts:
           - path: /media
+      tmp:
+        type: emptyDir
