@@ -66,8 +66,7 @@ spec:
             port: *port
     route:
       app:
-        hostnames:
-          - kopia.$(PRIVATE_DOMAIN)
+        hostnames: [kopia.$(PRIVATE_DOMAIN)]
         parentRefs:
           - name: envoy-internal
             namespace: networking
