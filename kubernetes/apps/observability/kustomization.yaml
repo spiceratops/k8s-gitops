@@ -10,7 +10,6 @@ resources:
   - ./exporters
   - ./apprise/ks.yaml
   - ./unpoller/ks.yaml
-  - ./promtail/ks.yaml
   - ./kromgo/ks.yaml
   - ./netalertx/ks.yaml
   - ./victoria-logs/ks.yaml
@@ -19,3 +18,4 @@ components:
   - ../../components/namespace
   - ../../components/repos
   - ../../components/substitutions
+  - ../../components/alerts

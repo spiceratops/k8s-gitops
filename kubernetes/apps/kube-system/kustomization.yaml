@@ -16,3 +16,4 @@ resources:
 components:
   - ../../components/repos
   - ../../components/substitutions
+  - ../../components/alerts
