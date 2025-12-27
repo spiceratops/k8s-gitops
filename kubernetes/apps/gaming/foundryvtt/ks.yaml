@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  components:
+    - ../../../../components/volsync/nfs-nas
   path: ./kubernetes/apps/gaming/foundryvtt/app
   prune: true
   sourceRef:

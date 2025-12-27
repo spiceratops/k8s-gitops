@@ -15,6 +15,7 @@ spec:
     - name: rook-ceph
       namespace: rook-ceph
   components:
+    - ../../../../components/volsync/nfs-nas
     - ../../../../components/gpu
   path: ./kubernetes/apps/home/scrypted/app
   prune: true
