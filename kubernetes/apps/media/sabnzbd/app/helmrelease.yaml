@@ -90,15 +90,6 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: NZB Client
-          gethomepage.dev/group: Downloaders
-          gethomepage.dev/icon: sabnzbd.png
-          gethomepage.dev/name: SABnzbd
-          gethomepage.dev/widget.type: sabnzbd
-          gethomepage.dev/widget.url: http://sabnzbd.media.svc.cluster.local:8080
-          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_SABNZBD_API_KEY}}` }}"
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

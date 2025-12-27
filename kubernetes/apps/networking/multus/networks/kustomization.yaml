@@ -5,4 +5,5 @@ namespace: networking
 resources:
   - ./iot.yaml
   - ./cameras.yaml
+  - ./vpn.yaml
   - ./iot-ipv6.yaml
