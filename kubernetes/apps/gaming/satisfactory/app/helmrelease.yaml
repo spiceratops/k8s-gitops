@@ -82,7 +82,7 @@ spec:
             protocol: TCP
     persistence:
       gamefiles:
-        existingClaim: satisfactory2-data
+        existingClaim: satisfactory
         globalMounts:
           path: /config/gamefiles
       data:
