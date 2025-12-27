@@ -67,7 +67,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}".$(PRIVATE_DOMAIN)
+          - kopia.$(PRIVATE_DOMAIN)
         parentRefs:
           - name: envoy-internal
             namespace: networking
