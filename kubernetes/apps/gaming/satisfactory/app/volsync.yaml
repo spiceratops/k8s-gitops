@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: satisfactory2-data
+  name: satisfactory
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:

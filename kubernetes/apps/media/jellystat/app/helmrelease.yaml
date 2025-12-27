@@ -87,8 +87,7 @@ spec:
           gethomepage.dev/name: Jellystat
     persistence:
       backup:
-        enabled: true
-        existingClaim: " {{ .Release.Name }} "
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           jellystat:
             app:
