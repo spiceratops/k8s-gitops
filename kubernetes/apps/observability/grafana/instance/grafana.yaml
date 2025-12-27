@@ -61,7 +61,7 @@ spec:
   httpRoute:
     spec:
       hostnames:
-        - grafana.${PRIVATE_DOMAIN_INTERNAL}
+        - "grafana.${PRIVATE_DOMAIN_INTERNAL}"
       parentRefs:
         - name: envoy-internal
           namespace: networking
