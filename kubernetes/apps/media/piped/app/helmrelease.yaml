@@ -174,7 +174,7 @@ spec:
     route:
       backend:
         hostnames:
-          - piped-api.${SECRET_DOMAIN}"
+          - "piped-api.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking
@@ -188,7 +188,7 @@ spec:
         #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN_INTERNAL}, https://piped-api.${SECRET_DOMAIN_INTERNAL}, https://piped-proxy.${SECRET_DOMAIN_INTERNAL}"
       frontend:
         hostnames:
-          - piped.${SECRET_DOMAIN}"
+          - "piped.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking
@@ -207,7 +207,7 @@ spec:
           gethomepage.dev/name: Piped
       ytproxy:
         hostnames:
-          - piped-proxy.${SECRET_DOMAIN}"
+          - "piped-proxy.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking
