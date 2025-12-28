@@ -121,17 +121,3 @@ spec:
         ports:
           http:
             port: *apiPort
-    route:
-      app:
-        hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
-        parentRefs:
-          - name: envoy-external
-            namespace: networking
-            sectionName: https
-        rules:
-          - backendRefs:
-              - name: *app
-                port: *apiPort
-        annotations:
-          hajimari.io/enable: "false"
