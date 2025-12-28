@@ -7,7 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: fluent-bit
-  interval: 30m
+  interval: 1h
   values:
     config:
       service: |-
