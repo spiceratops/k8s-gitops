@@ -5,3 +5,4 @@ namespace: external-secrets
 resources:
   - ./helmrelease.yaml
   - ./clustersecretstore.yaml
+  - ./externalsecret.yaml
