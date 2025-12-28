@@ -39,8 +39,8 @@ spec:
   bootstrap:
     recovery:
       source: postgres-v27
-      recoveryTarget:
-        targetTLI: "69"
+      # recoveryTarget:
+      #   targetTLI: "69"
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
