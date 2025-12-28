@@ -9,9 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  dependsOn:
-    - name: snapshot-controller
-      namespace: volsync-system
   path: ./kubernetes/apps/rook-ceph/rook-ceph/app
   prune: true
   sourceRef:
@@ -33,9 +30,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  dependsOn:
-    - name: snapshot-controller
-      namespace: volsync-system
   path: ./kubernetes/apps/rook-ceph/rook-ceph/cluster
   prune: true
   sourceRef:
@@ -49,4 +43,3 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: rook.${SECRET_DOMAIN_INTERNAL}

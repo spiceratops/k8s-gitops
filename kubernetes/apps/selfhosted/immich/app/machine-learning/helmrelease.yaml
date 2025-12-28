@@ -37,6 +37,7 @@ spec:
             supplementalGroups:
               - 65541
               - 568
+        containers:
           app:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
