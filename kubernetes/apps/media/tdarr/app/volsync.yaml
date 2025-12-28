@@ -6,7 +6,7 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: onepassword
   target:
     name: tdarr-config-restic-secret
     creationPolicy: Owner
@@ -91,7 +91,7 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: onepassword
   target:
     name: tdarr-server-restic-secret
     creationPolicy: Owner

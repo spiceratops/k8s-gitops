@@ -6,7 +6,7 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: onepassword
   target:
     name: esphome-restic-secret
     creationPolicy: Owner
