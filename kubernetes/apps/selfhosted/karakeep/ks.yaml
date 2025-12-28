@@ -12,7 +12,7 @@ spec:
   components:
     - ../../../../components/volsync/nfs-nas
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword
       namespace: external-secrets
   path: ./kubernetes/apps/selfhosted/karakeep/app
   prune: true

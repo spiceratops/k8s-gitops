@@ -14,7 +14,7 @@ spec:
       namespace: networking
     - name: cloudnative-pg-cluster
       namespace: databases
-    - name: external-secrets-stores
+    - name: onepassword
       namespace: external-secrets
   path: ./kubernetes/apps/security/lldap/app
   prune: true

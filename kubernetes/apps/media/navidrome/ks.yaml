@@ -16,7 +16,7 @@ spec:
       namespace: volsync-system
     - name: rook-ceph
       namespace: rook-ceph
-    - name: external-secrets-stores
+    - name: onepassword
       namespace: external-secrets
   path: ./kubernetes/apps/media/navidrome/app
   prune: true

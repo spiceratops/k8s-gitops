@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: sabnzbd
-    - name: external-secrets-stores
+    - name: onepassword
       namespace: external-secrets
   path: ./kubernetes/apps/observability/exporters/sabnzbd-exporter/app
   prune: true

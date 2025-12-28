@@ -19,7 +19,7 @@ spec:
       namespace: rook-ceph
     - name: cloudnative-pg-cluster
       namespace: databases
-    - name: external-secrets-stores
+    - name: onepassword
       namespace: external-secrets
   path: ./kubernetes/apps/media/lidarr/app
   prune: true
