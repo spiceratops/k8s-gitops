@@ -21,7 +21,7 @@ metadata:
   name: flux-instance
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 1h
   chartRef:
     kind: OCIRepository
     name: flux-instance
@@ -32,8 +32,8 @@ spec:
   values:
     instance:
       distribution:
-        # renovate: datasource=github-releases depName=controlplaneio-fluxcd/distribution
-        version: 2.7.5
+        artifact: oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests:v0.38.1
+        version: 2.x
       cluster:
         networkPolicy: false
       components:
@@ -47,7 +47,7 @@ spec:
         url: https://github.com/spiceratops/k8s-gitops.git
         ref: refs/heads/main
         path: kubernetes/cluster/main
-        interval: 30m
+        interval: 1h
       kustomize:
         patches:
           - # Add Sops decryption to 'flux-system' Kustomization
@@ -163,3 +163,11 @@ spec:
             target:
               kind: Deployment
               name: kustomize-controller
+          - # Cache Secrets and ConfigMaps
+            patch: |-
+              - op: add
+                path: /spec/template/spec/containers/0/args/-
+                value: --feature-gates=CacheSecretsAndConfigMaps=true
+            target:
+              kind: Deployment
+              name: source-controller
