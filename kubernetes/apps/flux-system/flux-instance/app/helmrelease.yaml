@@ -32,7 +32,7 @@ spec:
   values:
     instance:
       distribution:
-        artifact: oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests:v0.38.1
+        artifact: "" # https://github.com/controlplaneio-fluxcd/flux-operator/issues/164#issuecomment-2652950564
         version: 2.x
       cluster:
         networkPolicy: false
