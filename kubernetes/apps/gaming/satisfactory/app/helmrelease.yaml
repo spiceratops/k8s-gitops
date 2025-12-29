@@ -83,8 +83,10 @@ spec:
     persistence:
       gamefiles:
         type: emptyDir
-        globalMounts:
-          path: /config/gamefiles
+        advancedMounts:
+          satisfactory:
+            app:
+              - path: /config/gamefiles
       data:
         existingClaim: nfs-games
         globalMounts:
