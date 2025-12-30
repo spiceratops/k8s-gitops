@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   components:
-    - ../../../../components/volsync/nfs-nas-migration
+    - ../../../../components/volsync/nfs-nas
   path: ./kubernetes/apps/media/huntarr/app
   prune: true
   sourceRef:
