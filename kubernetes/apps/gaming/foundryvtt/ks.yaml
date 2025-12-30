@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   components:
-    - ../../../../components/volsync/nfs-nas
+    - ../../../../components/volsync/nfs-nas-migration
   path: ./kubernetes/apps/gaming/foundryvtt/app
   prune: true
   sourceRef:
