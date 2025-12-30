@@ -89,7 +89,8 @@ spec:
           gethomepage.dev/description: Document Library
     persistence:
       config:
-        existingClaim: nfs-documents
+        type: nfs
+        server: nas.${SECRET_DOMAIN}
+        path: /mnt/tank/documents/paperless
         globalMounts:
           - path: /data/local
-            subPath: paperless

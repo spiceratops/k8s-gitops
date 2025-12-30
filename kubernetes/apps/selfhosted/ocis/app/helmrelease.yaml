@@ -108,7 +108,9 @@ spec:
           - path: /data
             subPath: ocis/storage-users
       data:
-        existingClaim: nfs-documents
+        type: nfs
+        server: nas.${SECRET_DOMAIN}
+        path: /mnt/tank/documents/ocis
         globalMounts:
           - path: /etc/ocis
             subPath: ocis/config
