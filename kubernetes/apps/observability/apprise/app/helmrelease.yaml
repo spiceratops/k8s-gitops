@@ -54,6 +54,6 @@ spec:
           gethomepage.dev/name: Apprise
     persistence:
       config:
-        existingClaim: "{ .Release.Name }"
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config

@@ -34,13 +34,6 @@ spec:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
-          topologySpreadConstraints:
-            - maxSkew: 1
-              topologyKey: kubernetes.io/hostname
-              whenUnsatisfiable: DoNotSchedule
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: ${APP}
     service:
       app:
         controller: karma
