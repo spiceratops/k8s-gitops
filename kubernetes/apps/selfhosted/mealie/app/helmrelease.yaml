@@ -80,7 +80,7 @@ spec:
             port: &port 9000
     persistence:
       data:
-        existingClaim: "{ { .Release.Name } }"
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/data
     route:

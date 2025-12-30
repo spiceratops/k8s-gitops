@@ -102,7 +102,7 @@ spec:
           gethomepage.dev/description: Saved Web Content
     persistence:
       config:
-        existingClaim: "{ .Release.Name }"
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           karakeep:
             app:
