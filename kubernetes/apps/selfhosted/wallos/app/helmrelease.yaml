@@ -55,6 +55,6 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: "{ .Release.Name }"
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /var/www/html/db

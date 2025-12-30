@@ -70,4 +70,4 @@ spec:
               - *host
     persistence:
       data:
-        existingClaim: "{ .Release.Name }"
+        existingClaim: "{{ .Release.Name }}"
