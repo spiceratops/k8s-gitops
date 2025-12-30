@@ -86,6 +86,7 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
           - keep.${SECRET_DOMAIN_INTERNAL}
+          - hoarder.${SECRET_DOMAIN_INTERNAL}
         parentRefs:
           - name: envoy-internal
             namespace: networking
