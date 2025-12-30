@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: node-feature-discovery
   path: ./kubernetes/apps/kube-system/intel-gpu-resource-driver/app
   prune: false
   sourceRef:

@@ -9,6 +9,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
   components:
     - ../../../../components/volsync/nfs-nas
   path: ./kubernetes/apps/media/recommendarr/app

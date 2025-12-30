@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: node-feature-discovery
   path: ./kubernetes/apps/kube-system/generic-device-plugin/app
   prune: false
   sourceRef:

@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: scrypted
   path: ./kubernetes/apps/home/go2rtc/app
   prune: true
   sourceRef:

@@ -9,6 +9,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: openebs
+      namespace: openebs-system
   path: ./kubernetes/apps/databases/cloudnative-pg/app
   prune: true
   sourceRef:

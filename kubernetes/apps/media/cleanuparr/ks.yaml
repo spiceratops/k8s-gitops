@@ -12,6 +12,8 @@ spec:
   components:
     - ../../../../components/volsync/nfs-nas
   dependsOn:
+    - name: volsync
+      namespace: volsync-system
     - name: radarr
     - name: sonarr
   path: ./kubernetes/apps/media/cleanuparr/app

@@ -10,8 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: rook-ceph
-      namespace: rook-ceph
+    - name: onepassword
+      namespace: external-secrets
   path: ./kubernetes/apps/selfhosted/paperless/app
   prune: true
   sourceRef:

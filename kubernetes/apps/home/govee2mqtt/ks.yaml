@@ -14,6 +14,9 @@ spec:
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: multus
+      namespace: networking
+    - name: mosquitto
   path: ./kubernetes/apps/home/govee2mqtt/app
   prune: true
   sourceRef:
