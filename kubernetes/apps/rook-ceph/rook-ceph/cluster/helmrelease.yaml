@@ -33,17 +33,15 @@ spec:
     monitoring:
       enabled: true
       createPrometheusRules: true
-    ingress:
+    route:
       dashboard:
-        ingressClassName: internal
-        annotations:
-          gethomepage.dev/icon: mdi-chess-rook
         host:
-          name: ${HOSTNAME}
+          name: rook.${SECRET_DOMAIN_INTERNAL}
           path: /
-        tls:
-          - hosts:
-              - ${HOSTNAME}
+          pathType: PathPrefix
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
     toolbox:
       enabled: true
     cephClusterSpec:

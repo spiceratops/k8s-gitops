@@ -13,6 +13,7 @@ spec:
     - name: onepassword
       namespace: external-secrets
     - name: cert-manager
+      namespace: cert-manager
   path: ./kubernetes/apps/networking/smtp-relay/app
   prune: true
   sourceRef:

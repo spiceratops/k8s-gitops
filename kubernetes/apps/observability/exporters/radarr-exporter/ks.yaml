@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *appname
   dependsOn:
     - name: radarr
+      namespace: media
     - name: onepassword
       namespace: external-secrets
   path: ./kubernetes/apps/observability/exporters/radarr-exporter/app

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: kopia
+  name: &app kopia
 spec:
   chartRef:
     kind: OCIRepository
@@ -66,10 +66,16 @@ spec:
             port: *port
     route:
       app:
-        hostnames: ["kopia.$(SECRET_DOMAIN_INTERNAL)"]
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     configMaps:
       config:
         data:
