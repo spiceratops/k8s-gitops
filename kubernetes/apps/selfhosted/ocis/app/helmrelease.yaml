@@ -103,19 +103,21 @@ spec:
           gethomepage.dev/name: OCIS
     persistence:
       storage-users:
-        existingClaim: nfs-documents
+        type: nfs
+        server: nas.${SECRET_DOMAIN}
+        path: /mnt/tank/documents/ocis
         globalMounts:
           - path: /data
-            subPath: ocis/storage-users
+            subPath: storage-users
       data:
         type: nfs
         server: nas.${SECRET_DOMAIN}
         path: /mnt/tank/documents/ocis
         globalMounts:
           - path: /etc/ocis
-            subPath: ocis/config
+            subPath: config
           - path: /var/lib/ocis
-            subPath: ocis/data
+            subPath: data
       config-proxy:
         type: configMap
         name: ocis-configmap

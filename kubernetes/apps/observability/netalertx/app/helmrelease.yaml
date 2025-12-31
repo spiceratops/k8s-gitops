@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: netalertx
+  name: &app netalertx
   namespace: observability
 spec:
   chartRef:
@@ -15,6 +15,8 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
         supplementalGroups:
           - 100 # Users
     controllers:
@@ -53,23 +55,19 @@ spec:
         controller: netalertx
         ports:
           http:
-            port: 20211
-    ingress:
+            port: &port 20211
+    route:
       app:
-        className: internal
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Network observability
-          gethomepage.dev/group: Tools
-          gethomepage.dev/icon: sh-netalertx
-          gethomepage.dev/name: NetAlertX
-        hosts:
-          - host: netalertx.${SECRET_DOMAIN_INTERNAL}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
