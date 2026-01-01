@@ -80,8 +80,8 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: envoy-internal
-  annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname internal.${SECRET_DOMAIN_INTERNAL}
+  # annotations:
+  #   external-dns.alpha.kubernetes.io/target: &hostname internal.${SECRET_DOMAIN_INTERNAL}
 spec:
   gatewayClassName: envoy
   infrastructure:
