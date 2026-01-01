@@ -23,7 +23,7 @@ spec:
               [{
                 "name":"multus-iot",
                 "namespace": "networking",
-                "ips": ["192.168.30.230/24","fdad:cafe:830::230"]
+                "ips": ["192.168.30.230/24","fdad:cafe:830::230/112"]
               }
               ]
         containers:
