@@ -50,20 +50,6 @@ spec:
         ports:
           http:
             port: &port 10200
-    # ingress:
-    #   app:
-    #     enabled: true
-    #     className: internal
-    #     hosts:
-    #       - host: &host piper.${SECRET_DOMAIN_INTERNAL}
-    #         paths:
-    #           - path: /
-    #             service:
-    #               identifier: app
-    #               port: *port
-    #     tls:
-    #       - hosts:
-    #           - *host
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"

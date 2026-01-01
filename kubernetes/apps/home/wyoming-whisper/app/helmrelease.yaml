@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: wyoming-whisper
+  name: &app wyoming-whisper
   namespace: home
 spec:
   chartRef:
@@ -48,26 +48,25 @@ spec:
           http:
             enabled: true
             primary: false
-            port: 8000
+            port: &port 8000
           whisper:
             enabled: true
             primary: true
             port: 10300
             protocol: TCP
-    ingress:
+    route:
       app:
-        enabled: true
-        className: internal
-        hosts:
-          - host: &host whisper.${SECRET_DOMAIN_INTERNAL}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          - "whisper.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
