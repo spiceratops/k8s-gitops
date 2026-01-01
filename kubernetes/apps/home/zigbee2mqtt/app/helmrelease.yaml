@@ -23,7 +23,7 @@ spec:
               [{
                 "name":"multus-iot",
                 "namespace": "networking",
-                "ips": ["192.168.30.230/24"]
+                "ips": ["192.168.30.230/24","fdad:cafe:830::230"]
               }
               ]
         containers:
@@ -72,6 +72,7 @@ spec:
       app:
         controller: zigbee2mqtt
         type: LoadBalancer
+        ipFamily: PreferDualStack
         annotations:
           lbipam.cilium.io/ips: ${Z2M_LB_IP}
         ports:
