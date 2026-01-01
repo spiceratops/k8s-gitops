@@ -72,7 +72,6 @@ spec:
       app:
         controller: zigbee2mqtt
         type: LoadBalancer
-        ipFamily: PreferDualStack
         annotations:
           lbipam.cilium.io/ips: ${Z2M_LB_IP}
         ports:
