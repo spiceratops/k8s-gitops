@@ -96,7 +96,7 @@ spec:
         type: configMap
         identifier: config
         globalMounts:
-          - path: /etc/cloudflared/config.yaml
+          - path: /etc/cloudflared/config/config.yaml
             subPath: config.yaml
       creds:
         type: secret
