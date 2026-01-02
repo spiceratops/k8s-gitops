@@ -148,11 +148,5 @@ spec:
       config-cache:
         existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
-          - path: /tmp
-            subPath: hass-tmp
-          - path: /tmp
-            subPath: code-server-tmp
-          - path: /nonexistent
-            subPath: nonexistent
-          - path: /venv
-            subPath: hass-venv
+          - path: /config/.venv
+        type: emptyDir
