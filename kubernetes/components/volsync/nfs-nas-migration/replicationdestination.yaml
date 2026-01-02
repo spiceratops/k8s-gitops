@@ -1,31 +1,22 @@
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
   name: "${APP}-dst"
-  labels:
-    kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
 spec:
   trigger:
     manual: restore-once
   restic:
-    accessModes:
-      - "${VOLSYNC_ACCESSMODES:=ReadWriteOnce}"
-    cacheAccessModes:
-      - "${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}"
-    cacheCapacity: "${VOLSYNC_CAPACITY:=5Gi}"
-    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:=openebs-hostpath}"
-    capacity: "${VOLSYNC_CAPACITY:=5Gi}"
-    cleanupCachePVC: true
-    cleanupTempPVC: true
-    copyMethod: Snapshot
-    enableFileDeletion: true
-    moverSecurityContext:
-      runAsUser: ${APP_UID:=1000}
-      runAsGroup: ${APP_GID:=1000}
-      fsGroup: ${APP_GID:=1000}
     repository: ${APP}-volsync-restic-secret
-    destinationPVC: ${APP}
-    storageClassName: "${VOLSYNC_STORAGECLASS:=ceph-block}"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=csi-rbdplugin-snapclass}"
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    capacity: "${VOLSYNC_CAPACITY:=5Gi}"
