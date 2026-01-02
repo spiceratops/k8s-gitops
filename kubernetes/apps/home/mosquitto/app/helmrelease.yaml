@@ -18,13 +18,13 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"multus-iot",
-                "namespace": "networking",
-                "ips": ["192.168.30.224/24","fdad:cafe:830::224/112"]
-              }]
+          # annotations:
+          #   k8s.v1.cni.cncf.io/networks: |
+          #     [{
+          #       "name":"multus-iot",
+          #       "namespace": "networking",
+          #       "ips": ["192.168.30.224/24","fdad:cafe:830::224/112"]
+          #     }]
         containers:
           app:
             image:
@@ -56,8 +56,11 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "mqtt.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: "${MOSQUITTO_LB_IP},fdad:cafe:811::61"
+        externalTrafficPolicy: Local
+        ipFamilies: [IPv4, IPv6]
         ports:
-          http:
+          mqtt:
+            primary: true
             port: 1883
     persistence:
       data:
