@@ -121,3 +121,45 @@ tasks:
     preconditions:
       # - test -f {{.VOLSYNC_RESOURCES_DIR}}/unlock.yaml.j2
       - which kubectl minijinja-cli stern
+
+  restore-restic:
+    desc: Restore an app [NS=default] [APP=required] [PREVIOUS=required]
+    cmds:
+      # Suspend
+      - flux --namespace {{.NS}} suspend kustomization {{.APP}}
+      - flux --namespace {{.NS}} suspend helmrelease {{.APP}}
+      - kubectl --namespace {{.NS}} scale {{.CONTROLLER}}/{{.APP}} --replicas 0
+      - kubectl --namespace {{.NS}} wait pod --for=delete --selector="app.kubernetes.io/name={{.APP}}" --timeout=5m
+      # Restore
+      - minijinja-cli {{.VOLSYNC_RESOURCES_DIR}}/replicationdestination-restic.yaml.j2 | kubectl apply --server-side --filename -
+      - until kubectl --namespace {{.NS}} get job/volsync-rst-{{.APP}}-manual &>/dev/null; do sleep 5; done
+      - kubectl --namespace {{.NS}} wait job/volsync-rst-{{.APP}}-manual --for=condition=complete --timeout=120m
+      - kubectl --namespace {{.NS}} delete replicationdestination {{.APP}}-manual
+      # Resume
+      - flux --namespace {{.NS}} resume kustomization {{.APP}}
+      - flux --namespace {{.NS}} resume helmrelease {{.APP}}
+      - flux --namespace {{.NS}} reconcile helmrelease {{.APP}} --force
+      - kubectl --namespace {{.NS}} wait pod --for=condition=ready --selector="app.kubernetes.io/name={{.APP}}" --timeout=5m
+    vars:
+      NS: '{{.NS | default "default"}}'
+      CONTROLLER:
+        sh: kubectl --namespace {{.NS}} get deployment {{.APP}} &>/dev/null && echo deployment || echo statefulset
+    env:
+      NS: "{{.NS}}"
+      APP: "{{.APP}}"
+      PREVIOUS: "{{.PREVIOUS}}"
+      CLAIM:
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.sourcePVC}"
+      ACCESS_MODES:
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.accessModes}"
+      STORAGE_CLASS_NAME:
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.storageClassName}"
+      PUID:
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.moverSecurityContext.runAsUser}"
+      PGID:
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
+    requires:
+      vars: [APP, PREVIOUS]
+    preconditions:
+      - test -f {{.VOLSYNC_RESOURCES_DIR}}/replicationdestination-restic.yaml.j2
+      - which flux kubectl minijinja-cli

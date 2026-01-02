@@ -20,43 +20,43 @@ spec:
   dataFrom:
     - extract:
         key: volsync-restic-template
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: karakeep
-spec:
-  accessModes: ["ReadWriteOnce"]
-  dataSourceRef:
-    kind: ReplicationDestination
-    apiGroup: volsync.backube
-    name: karakeep-rdst
-  resources:
-    requests:
-      storage: 20Gi
-  storageClassName: ${CLUSTER_STORAGE_BLOCK}
----
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
-metadata:
-  name: karakeep-rdst
-spec:
-  trigger:
-    manual: restore-once
-  restic:
-    repository: karakeep-restic-secret
-    copyMethod: Snapshot
-    accessModes: ["ReadWriteOnce"]
-    storageClassName: ${CLUSTER_STORAGE_BLOCK}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
-    cacheAccessModes: ["ReadWriteOnce"]
-    cacheCapacity: 8Gi
-    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
-    moverSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-    capacity: 20Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: karakeep
+# spec:
+#   accessModes: ["ReadWriteOnce"]
+#   dataSourceRef:
+#     kind: ReplicationDestination
+#     apiGroup: volsync.backube
+#     name: karakeep-rdst
+#   resources:
+#     requests:
+#       storage: 20Gi
+#   storageClassName: ${CLUSTER_STORAGE_BLOCK}
+# ---
+# apiVersion: volsync.backube/v1alpha1
+# kind: ReplicationDestination
+# metadata:
+#   name: karakeep-rdst
+# spec:
+#   trigger:
+#     manual: restore-once
+#   restic:
+#     repository: karakeep-restic-secret
+#     copyMethod: Snapshot
+#     accessModes: ["ReadWriteOnce"]
+#     storageClassName: ${CLUSTER_STORAGE_BLOCK}
+#     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+#     cacheAccessModes: ["ReadWriteOnce"]
+#     cacheCapacity: 8Gi
+#     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+#     moverSecurityContext:
+#       runAsUser: 1000
+#       runAsGroup: 1000
+#       fsGroup: 1000
+#     capacity: 20Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 # ---
 # apiVersion: volsync.backube/v1alpha1
 # kind: ReplicationSource
