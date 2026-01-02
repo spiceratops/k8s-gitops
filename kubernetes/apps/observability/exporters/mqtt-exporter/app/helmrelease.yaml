@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app mqtt-exporter
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  interval: 1h
+  values:
+    controllers:
+      mqtt-exporter:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/kpetremann/mqtt-exporter
+              tag: 1.9.0
+            env:
+              TZ: "${TIMEZONE}"
+              # LOG_LEVEL: DEBUG
+              # LOG_MQTT_MESSAGE: "True"
+              MAX_METRICS: 0
+              MQTT_ADDRESS: mosquitto.home.svc.cluster.local
+              MQTT_TOPIC: "zigbee2mqtt/#"
+              MQTT_V5_PROTOCOL: "True"
+              PROMETHEUS_PORT: &port 3321
+              # PROMETHEUS_PREFIX: "mqtt_"
+              ZIGBEE2MQTT_AVAILABILITY: "True"
+              EXPOSE_LAST_SEEN: "True"
+            # envFrom:
+            #   - secretRef:
+            #       name: mqtt-exporter
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 200Mi
+    service:
+      app:
+        controller: mqtt-exporter
+        ports:
+          metrics:
+            protocol: HTTP
+            port: *port
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        ipFamilyPolicy: PreferDualStack
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          lbipam.cilium.io/ips: "${MMQTT_EXPORTER_LB_IPV4},${MQTT_EXPORTER_LB_IPV6}"
+    serviceMonitor:
+      app:
+        serviceName: *app
+        endpoints:
+          - port: metrics
+            metricRelabelings:
+              - action: labeldrop
+                regex: (pod)
+              - action: replace
+                sourceLabels:
+                  - "service"
+                targetLabel: instance
