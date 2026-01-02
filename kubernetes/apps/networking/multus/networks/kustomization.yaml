@@ -6,4 +6,4 @@ resources:
   - ./iot.yaml
   - ./cameras.yaml
   - ./vpn.yaml
-  - ./iot-ipv6.yaml
+  - ./clients.yaml
