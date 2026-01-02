@@ -55,7 +55,7 @@ spec:
         ipFamilyPolicy: PreferDualStack
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "mqtt.${SECRET_DOMAIN_INTERNAL}"
-          lbipam.cilium.io/ips: ["${MOSQUITTO_LB_IP}", "fdad:cafe:811::61/112"]
+          lbipam.cilium.io/ips: "${MOSQUITTO_LB_IP},fdad:cafe:811::61/112"
         ports:
           http:
             port: 1883
