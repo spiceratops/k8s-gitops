@@ -25,7 +25,7 @@ spec:
       runAsUser: ${APP_UID:=1000}
       runAsGroup: ${APP_GID:=1000}
       fsGroup: ${APP_GID:=1000}
-    repository: ${APP}-volsync-secret
+    repository: ${APP}-volsync-restic-secret
     sourceIdentity:
       sourceName: ${APP}
     storageClassName: "${VOLSYNC_STORAGECLASS:=ceph-block}"

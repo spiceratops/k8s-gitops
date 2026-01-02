@@ -30,7 +30,7 @@ spec:
 #   dataSourceRef:
 #     kind: ReplicationDestination
 #     apiGroup: volsync.backube
-#     name: scrypted-rdst
+#     name: scrypted-dst
 #   resources:
 #     requests:
 #       storage: 5Gi
