@@ -3,6 +3,7 @@ apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: scrypted-restic
+  namespace: home
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
@@ -40,6 +41,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
   name: scrypted-rdst
+  namespace: home
 spec:
   trigger:
     manual: restore-once

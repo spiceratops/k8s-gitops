@@ -17,7 +17,7 @@ spec:
     - name: multus
       namespace: networking
   components:
-    - ../../../../components/volsync/nfs-nas
+    - ../../../../components/volsync/nfs-nas-migration
     - ../../../../components/gpu
   path: ./kubernetes/apps/home/scrypted/app
   prune: true
