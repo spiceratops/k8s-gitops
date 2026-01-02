@@ -13,11 +13,18 @@ spec:
   interval: 1h
 
   values:
+    defaultPodOptions:
+      hostUsers: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       home-assistant:
         annotations:
           reloader.stakater.com/auto: "true"
-
         pod:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
@@ -37,13 +44,6 @@ spec:
                 "ips": ["192.168.90.207/24"]
               }
               ]
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 568
         containers:
           app:
             image:
