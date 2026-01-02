@@ -26,7 +26,6 @@ spec:
       runAsGroup: ${APP_GID:=1000}
       fsGroup: ${APP_GID:=1000}
     repository: ${APP}-volsync-restic-secret
-    sourceIdentity:
-      sourceName: ${APP}
+    destinationPVC: ${APP}
     storageClassName: "${VOLSYNC_STORAGECLASS:=ceph-block}"
     volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=csi-rbdplugin-snapclass}"
