@@ -119,6 +119,16 @@ spec:
           gethomepage.dev/group: Home
           gethomepage.dev/icon: home-assistant.png
           gethomepage.dev/name: home-assistant
+      code:
+        hostnames:
+          - "hass-code.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: code-server
+                port: 12321
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
