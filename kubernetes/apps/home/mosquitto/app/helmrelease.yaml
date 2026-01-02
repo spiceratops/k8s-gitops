@@ -52,10 +52,12 @@ spec:
       app:
         controller: mosquitto
         type: LoadBalancer
+        ipFamilyPolicy: PreferDualStack
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "mqtt.${SECRET_DOMAIN_INTERNAL}"
-          lbipam.cilium.io/ips: "${MOSQUITTO_LB_IP}"
+          lbipam.cilium.io/ips: "${MOSQUITTO_LB_IP},fdad:cafe:811::61"
         externalTrafficPolicy: Local
+        ipFamilies: [IPv4, IPv6]
         ports:
           mqtt:
             primary: true
