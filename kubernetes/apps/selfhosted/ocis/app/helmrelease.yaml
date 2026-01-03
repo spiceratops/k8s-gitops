@@ -104,14 +104,14 @@ spec:
     persistence:
       storage-users:
         type: nfs
-        server: nas.${SECRET_DOMAIN}
+        server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/documents/ocis
         globalMounts:
           - path: /data
             subPath: storage-users
       data:
         type: nfs
-        server: nas.${SECRET_DOMAIN}
+        server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/documents/ocis
         globalMounts:
           - path: /etc/ocis

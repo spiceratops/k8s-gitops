@@ -66,7 +66,7 @@ spec:
     persistence:
       library:
         type: nfs
-        server: nas.${SECRET_DOMAIN}
+        server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/photos
         globalMounts:
           - path: /usr/src/app/upload

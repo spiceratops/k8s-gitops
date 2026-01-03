@@ -31,7 +31,7 @@ spec:
       create: true
       name: nfs-slow
       parameters:
-        server: nas.${SECRET_DOMAIN}
+        server: nas.${PUBLIC_DOMAIN}
         share: /mnt/tank/backup/k8s
       mountOptions:
         - nfsvers=4.2

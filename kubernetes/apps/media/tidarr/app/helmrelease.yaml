@@ -69,7 +69,7 @@ spec:
             subPath: tiddl.json
       media:
         type: nfs
-        server: nas.${SECRET_DOMAIN}
+        server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/media/music
         globalMounts:
           - path: /home/app/standalone/download/albums
@@ -82,7 +82,7 @@ spec:
             subPath: videos
       download:
         type: nfs
-        server: nas.${SECRET_DOMAIN}
+        server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/media/downloads/tidarr
         globalMounts:
           - path: /home/app/standalone/download/incomplete

@@ -112,7 +112,7 @@ spec:
                 subPath: tmp
       library:
         type: nfs
-        server: nas.${SECRET_DOMAIN}
+        server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/games/roms
         globalMounts:
           - path: /romm/library

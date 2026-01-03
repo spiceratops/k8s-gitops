@@ -101,7 +101,7 @@ spec:
             subPath: repository.config
       repository:
         type: nfs
-        server: nas.${SECRET_DOMAIN}
+        server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/backup/k8s/volsync
         globalMounts:
           - path: /repository
