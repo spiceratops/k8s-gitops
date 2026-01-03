@@ -67,7 +67,7 @@ spec:
         controller: satisfactory
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: satisfactory.${SECRET_DOMAIN_INTERNAL}
+          external-dns.alpha.kubernetes.io/hostname: satisfactory.${SECRET_DOMAIN}
           lbipam.cilium.io/ips: ${SATISFACTORY_LB_IP}
         ports:
           game-udp:

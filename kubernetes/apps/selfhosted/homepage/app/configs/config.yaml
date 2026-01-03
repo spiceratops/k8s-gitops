@@ -20,7 +20,7 @@ data:
     color: slate
     useEqualHeights: true
     headerStyle: clean
-    base: https://homepage.${SECRET_DOMAIN_INTERNAL}
+    base: https://homepage.${SECRET_DOMAIN}
     title: Home
     quicklaunch:
       searchDescriptions: true
@@ -96,15 +96,15 @@ data:
               key: {{HOMEPAGE_VAR_NEXTDNS_API_KEY}}
         - Proxmox (Main Cluster):
             icon: proxmox.png
-            href: https://pve.${SECRET_DOMAIN_INTERNAL}
+            href: https://pve.${SECRET_DOMAIN}
             description: Proxmox Cluster
         - Proxmox (Solo):
             icon: proxmox.png
-            href: https://pve-hass.${SECRET_DOMAIN_INTERNAL}
+            href: https://pve-hass.${SECRET_DOMAIN}
             description: Proxmox Solo
         - Opnsense:
             icon: opnsense.png
-            href: https://opnsense.${SECRET_DOMAIN_INTERNAL}
+            href: https://opnsense.${SECRET_DOMAIN}
             description: Opnsense
             widget:
               type: opnsense
@@ -112,32 +112,32 @@ data:
               password: {{HOMEPAGE_VAR_OPNSENSE_SECRET}}
         - UniFi:
             icon: unifi.png
-            href: https://unifi-web.${SECRET_DOMAIN_INTERNAL}
+            href: https://unifi-web.${SECRET_DOMAIN}
             description: Unifi Console
             widget:
               type: unifi
-              url: unifi.${SECRET_DOMAIN_INTERNAL}
+              url: unifi.${SECRET_DOMAIN}
               username: {{HOMEPAGE_VAR_UNIFI_USER}}
               password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
         - Omada:
             icon: omada.png
-            href: https://omada-web.${SECRET_DOMAIN_INTERNAL}
+            href: https://omada-web.${SECRET_DOMAIN}
             description: Omada Console
     - Home:
         - Home Assistant:
             icon: home-assistant.png
-            href: https://home.${SECRET_DOMAIN_INTERNAL}
+            href: https://home.${SECRET_DOMAIN}
             description: Home Automation
     - Tabletop:
         - Dungeon Master's Vault:
             icon: mdi-dice-d20-outline
-            href: https://dnd.${SECRET_DOMAIN_INTERNAL}
+            href: https://dnd.${SECRET_DOMAIN}
             description: DnD Resources
 
   widgets.yaml: |
     - search:
         provider: custom
-        url: https://whoogle.${SECRET_DOMAIN_INTERNAL}/search?q=%s
+        url: https://whoogle.${SECRET_DOMAIN}/search?q=%s
         target: _blank
     - kubernetes:
         cluster:
@@ -158,5 +158,5 @@ data:
   docker.yaml: |
     ---
     docker:
-      host: docker.${SECRET_DOMAIN_INTERNAL}
+      host: docker.${SECRET_DOMAIN}
       port: 2375

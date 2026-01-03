@@ -106,7 +106,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
@@ -123,7 +123,7 @@ spec:
           gethomepage.dev/name: home-assistant
       code:
         hostnames:
-          - "hass-code.${SECRET_DOMAIN_INTERNAL}"
+          - "hass-code.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

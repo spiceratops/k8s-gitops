@@ -53,7 +53,7 @@ spec:
               TZ: ${TIMEZONE}
               READARR__INSTANCE_NAME: Readarr Audiobooks
               READARR__PORT: &port 8686
-              READARR__APPLICATION_URL: "audiobooks.${SECRET_DOMAIN_INTERNAL}"
+              READARR__APPLICATION_URL: "audiobooks.${SECRET_DOMAIN}"
               READARR__LOG_LEVEL: info
               READARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               READARR__THEME: dark
@@ -90,7 +90,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

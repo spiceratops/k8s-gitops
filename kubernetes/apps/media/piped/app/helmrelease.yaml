@@ -69,7 +69,7 @@ spec:
               repository: ghcr.io/bjw-s-labs/piped-frontend
               tag: 2025.3.17@sha256:8ed05c7df0bc8899e54a3952a99b63d55cdc7669d759beeb9370fbb32330468b
             env:
-              BACKEND_HOSTNAME: piped-api.${SECRET_DOMAIN_INTERNAL}
+              BACKEND_HOSTNAME: piped-api.${SECRET_DOMAIN}
             probes:
               liveness:
                 enabled: true
@@ -185,7 +185,7 @@ spec:
                 port: *port
         # annotations:
         #   nginx.ingress.kubernetes.io/enable-cors: "true"
-        #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN_INTERNAL}, https://piped-api.${SECRET_DOMAIN_INTERNAL}, https://piped-proxy.${SECRET_DOMAIN_INTERNAL}"
+        #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN}, https://piped-api.${SECRET_DOMAIN}, https://piped-proxy.${SECRET_DOMAIN}"
       frontend:
         hostnames:
           - "piped.${SECRET_DOMAIN}"
@@ -199,7 +199,7 @@ spec:
                 port: *port
         annotations:
           # nginx.ingress.kubernetes.io/enable-cors: "true"
-          # nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN_INTERNAL}, https://piped-api.${SECRET_DOMAIN_INTERNAL}, https://piped-proxy.${SECRET_DOMAIN_INTERNAL}"
+          # nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN}, https://piped-api.${SECRET_DOMAIN}, https://piped-proxy.${SECRET_DOMAIN}"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: YT Proxy
           gethomepage.dev/group: Media
@@ -218,7 +218,7 @@ spec:
                 port: *port
         # annotations:
         #   nginx.ingress.kubernetes.io/enable-cors: "true"
-        #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN_INTERNAL}, https://piped-api.${SECRET_DOMAIN_INTERNAL}, https://piped-proxy.${SECRET_DOMAIN_INTERNAL}"
+        #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN}, https://piped-api.${SECRET_DOMAIN}, https://piped-proxy.${SECRET_DOMAIN}"
 
     persistence:
       config:

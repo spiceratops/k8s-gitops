@@ -46,7 +46,7 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${WYOMING_PIPER_LB_IP}
-          external-dns.alpha.kubernetes.io/hostname: piper.${SECRET_DOMAIN_INTERNAL}
+          external-dns.alpha.kubernetes.io/hostname: piper.${SECRET_DOMAIN}
         ports:
           http:
             port: &port 10200

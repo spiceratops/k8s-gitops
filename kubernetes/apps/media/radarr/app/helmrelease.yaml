@@ -134,7 +134,7 @@ spec:
     route:
       movies:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
@@ -154,7 +154,7 @@ spec:
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_RADARR_TOKEN}}` }}"
       concerts:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

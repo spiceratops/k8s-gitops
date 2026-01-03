@@ -27,7 +27,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               OCIS_INSECURE: true
-              OCIS_URL: https://ocis.${SECRET_DOMAIN_INTERNAL}
+              OCIS_URL: https://ocis.${SECRET_DOMAIN}
               PROXY_TLS: false
               DEMO_USERS: false
               PROXY_HTTP_ADDR: 0.0.0.0:9200
@@ -38,11 +38,11 @@ spec:
               STORAGE_USERS_OCIS_ROOT: /data
               NOTIFICATIONS_SMTP_HOST: "${SMTP_RELAY_IP}"
               NOTIFICATIONS_SMTP_PORT: "2525"
-              NOTIFICATIONS_SMTP_SENDER: "ocis@${SECRET_DOMAIN_INTERNAL}"
+              NOTIFICATIONS_SMTP_SENDER: "ocis@${SECRET_DOMAIN}"
               NOTIFICATIONS_SMTP_INSECURE: true
               # Authelia OIDC
-              WEB_OIDC_METADATA_URL: https://auth.${SECRET_DOMAIN_INTERNAL}/.well-known/openid-configuration
-              OCIS_OIDC_ISSUER: https://auth.${SECRET_DOMAIN_INTERNAL}
+              WEB_OIDC_METADATA_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
+              OCIS_OIDC_ISSUER: https://auth.${SECRET_DOMAIN}
               WEB_OIDC_CLIENT_ID: ocis
               # Without this, I got the following errors in the ownCloud log:
               # Authelia: failed to verify access token: token contains an invalid number of segments
@@ -86,7 +86,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

@@ -51,16 +51,16 @@ spec:
               THEME_DARK_WARNING: "#FF6D00"
               THEME_DARK_ERROR: "#EF5350"
               TOKEN_TIME: 720 # 24 hours * 30 days
-              BASE_URL: "https://meals.${SECRET_DOMAIN_INTERNAL}"
+              BASE_URL: "https://meals.${SECRET_DOMAIN}"
               AUTO_BACKUP_ENABLED: true
               ALLOW_SIGNUP: false
-              SMTP_HOST: smtp.${SECRET_DOMAIN_INTERNAL}
+              SMTP_HOST: smtp.${SECRET_DOMAIN}
               SMTP_PORT: 2525
               SMTP_FROM_NAME: Recipes
               SMTP_FROM_EMAIL: "${SMTP_USER}"
               SMTP_AUTH_STRATEGY: "NONE"
               OIDC_AUTH_ENABLED: true
-              OIDC_CONFIGURATION_URL: https://auth.${SECRET_DOMAIN_INTERNAL}/.well-known/openid-configuration
+              OIDC_CONFIGURATION_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
               OIDC_CLIENT_ID: mealie
               OIDC_AUTO_REDIRECT: true
               OIDC_ADMIN_GROUP: mealie_admins
@@ -86,8 +86,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
-          - meals.${SECRET_DOMAIN_INTERNAL}
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - meals.${SECRET_DOMAIN}
         parentRefs:
           - name: envoy-internal
             namespace: networking

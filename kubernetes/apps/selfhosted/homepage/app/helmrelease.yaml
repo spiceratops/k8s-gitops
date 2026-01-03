@@ -26,7 +26,7 @@ spec:
               tag: v1.8.0
             env:
               TZ: ${TIMEZONE}
-              HOMEPAGE_ALLOWED_HOSTS: &host homepage.${SECRET_DOMAIN_INTERNAL}
+              HOMEPAGE_ALLOWED_HOSTS: &host homepage.${SECRET_DOMAIN}
             envFrom:
               - secretRef:
                   name: homepage-secret
@@ -57,7 +57,7 @@ spec:
     route:
       internal:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

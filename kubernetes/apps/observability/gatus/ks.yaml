@@ -27,4 +27,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: status.${SECRET_DOMAIN_INTERNAL}
+      HOSTNAME: status.${SECRET_DOMAIN}

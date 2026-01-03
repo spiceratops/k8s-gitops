@@ -67,7 +67,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
@@ -101,7 +101,7 @@ spec:
             subPath: repository.config
       repository:
         type: nfs
-        server: nas.${PRIVATE_DOMAIN}
+        server: nas.${SECRET_DOMAIN}
         path: /mnt/tank/backup/k8s/volsync
         globalMounts:
           - path: /repository

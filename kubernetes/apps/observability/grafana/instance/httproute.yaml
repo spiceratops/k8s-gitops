@@ -5,7 +5,7 @@ kind: HTTPRoute
 metadata:
   name: grafana
 spec:
-  hostnames: ["grafana.${SECRET_DOMAIN_INTERNAL}"]
+  hostnames: ["grafana.${SECRET_DOMAIN}"]
   parentRefs:
     - name: envoy-internal
       namespace: networking

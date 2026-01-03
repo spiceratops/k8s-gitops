@@ -44,7 +44,7 @@ spec:
               value: Object.spec.template.spec.volumes{
                 name: "repository",
                 nfs: Object.spec.template.spec.volumes.nfs{
-                  server: "nas.${PRIVATE_DOMAIN}",
+                  server: "nas.${SECRET_DOMAIN}",
                   path: "/mnt/tank/backup/k8s/volsync"
                 }
               }

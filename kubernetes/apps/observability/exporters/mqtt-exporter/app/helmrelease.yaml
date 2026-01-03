@@ -54,7 +54,7 @@ spec:
         externalTrafficPolicy: Local
         ipFamilyPolicy: PreferDualStack
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.alpha.kubernetes.io/hostname: "{{ .Release.Name }}.${SECRET_DOMAIN}"
           lbipam.cilium.io/ips: "${MQTT_EXPORTER_LB_IPV4},${MQTT_EXPORTER_LB_IPV6}"
     serviceMonitor:
       app:

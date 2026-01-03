@@ -5,37 +5,37 @@ metadata:
   name: k8s
 spec:
   endpoints:
-    - dnsName: k8s.${SECRET_DOMAIN}
+    - dnsName: k8s.${PUBLIC_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.250
-    - dnsName: cp01.${SECRET_DOMAIN}
+    - dnsName: cp01.${PUBLIC_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.201
-    # - dnsName: cp01.${SECRET_DOMAIN}
+    # - dnsName: cp01.${PUBLIC_DOMAIN}
     #   recordTTL: 180
     #   recordType: AAAA
     #   targets:
     #     - ${PUBLIC_IPV6_PREFIX}:0:8c94:cff:fe67:cc84
-    - dnsName: cp02.${SECRET_DOMAIN}
+    - dnsName: cp02.${PUBLIC_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.202
-    # - dnsName: cp02.${SECRET_DOMAIN}
+    # - dnsName: cp02.${PUBLIC_DOMAIN}
     #   recordTTL: 180
     #   recordType: AAAA
     #   targets:
     #     - ${PUBLIC_IPV6_PREFIX}:0:d01b:40ff:fe68:2ebe
-    - dnsName: cp03.${SECRET_DOMAIN}
+    - dnsName: cp03.${PUBLIC_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.203
-    # - dnsName: cp03.${SECRET_DOMAIN_INTERNAL}
+    # - dnsName: cp03.${PUBLIC_DOMAIN}
     #   recordTTL: 180
     #   recordType: AAAA
     #   targets:
@@ -47,7 +47,7 @@ metadata:
   name: nas
 spec:
   endpoints:
-    - dnsName: nas.${SECRET_DOMAIN}
+    - dnsName: nas.${PUBLIC_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
@@ -56,47 +56,15 @@ spec:
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: pve
-spec:
-  endpoints:
-    - dnsName: pve.${SECRET_DOMAIN_INTERNAL}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.10.252
-    - dnsName: pve1.${SECRET_DOMAIN_INTERNAL}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.1.11
-    - dnsName: pve2.${SECRET_DOMAIN_INTERNAL}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.1.12
-    - dnsName: pve3.${SECRET_DOMAIN_INTERNAL}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.1.13
-    - dnsName: pve4.${SECRET_DOMAIN_INTERNAL}
-      recordTTL: 180
-      recordType: A
-      targets:
-        - 192.168.1.14
----
-apiVersion: externaldns.k8s.io/v1alpha1
-kind: DNSEndpoint
-metadata:
   name: unifi
 spec:
   endpoints:
-    - dnsName: unifi.${SECRET_DOMAIN_INTERNAL}
+    - dnsName: unifi.${SECRET_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.1.1
-    - dnsName: unifi.${SECRET_DOMAIN_INTERNAL}
+    - dnsName: unifi.${SECRET_DOMAIN}
       recordTTL: 180
       recordType: AAAA
       targets:
@@ -108,7 +76,7 @@ metadata:
   name: doorbell
 spec:
   endpoints:
-    - dnsName: doorbell.${SECRET_DOMAIN_INTERNAL}
+    - dnsName: doorbell.${SECRET_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
@@ -120,12 +88,12 @@ metadata:
   name: home
 spec:
   endpoints:
-    - dnsName: home.${SECRET_DOMAIN_INTERNAL}
+    - dnsName: home.${SECRET_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
         - 192.168.30.107
-    - dnsName: home.${SECRET_DOMAIN_INTERNAL}
+    - dnsName: home.${SECRET_DOMAIN}
       recordTTL: 180
       recordType: AAAA
       targets:

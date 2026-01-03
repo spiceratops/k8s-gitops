@@ -20,7 +20,7 @@ spec:
               tag: v1.4.4@sha256:c946dd24542ab3cf6b0d56ab1d69e1ea1ff1d84f8a293ceeeaf3f53f09e50db6
             env:
               TZ: ${TIMEZONE}
-              PUBLIC_URL: https://recommendarr.${SECRET_DOMAIN_INTERNAL}
+              PUBLIC_URL: https://recommendarr.${SECRET_DOMAIN}
               DOCKER_ENV: true
               FORCE_SECURE_COOKIES: true
             securityContext:
@@ -47,7 +47,7 @@ spec:
     route:
       app:
         hostnames:
-          - recommend.${SECRET_DOMAIN_INTERNAL}
+          - recommend.${SECRET_DOMAIN}
         parentRefs:
           - name: envoy-internal
             namespace: networking

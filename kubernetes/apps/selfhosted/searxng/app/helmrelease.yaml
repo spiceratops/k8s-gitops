@@ -24,8 +24,8 @@ spec:
               tag: 2025.12.9-b719d559b@sha256:95e59f5ba7d48b4c7ee92f2705907e52c5b98715b0d8c4802863322a502a8c4a
             env:
               TZ: ${TIMEZONE}
-              SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN_INTERNAL}
-              SEARXNG_URL: https://search.${SECRET_DOMAIN_INTERNAL}
+              SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
+              SEARXNG_URL: https://search.${SECRET_DOMAIN}
               SEARXNG_PORT: &port 8080
               SEARXNG_REDIS_URL: redis://dragonfly.databases.svc.cluster.local:6379
               UWSGI_WORKERS: 1
@@ -51,7 +51,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

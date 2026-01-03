@@ -26,10 +26,10 @@ spec:
               DATA_DIR: /data
               MEILI_ADDR: http://karakeep-meilisearch:7700
               BROWSER_WEB_URL: http://karakeep-chrome:9222
-              NEXTAUTH_URL: https://karakeep.${SECRET_DOMAIN_INTERNAL}
+              NEXTAUTH_URL: https://karakeep.${SECRET_DOMAIN}
               # OAuth setup
               # OAUTH_PROVIDER_NAME: Authelia
-              # OAUTH_WELLKNOWN_URL: https://auth.${SECRET_DOMAIN_INTERNAL}/.well-known/openid-configuration
+              # OAUTH_WELLKNOWN_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
               # DISABLE_PASSWORD_AUTH: "true"
             envFrom: &envFrom
               - secretRef:
@@ -84,9 +84,9 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
-          - keep.${SECRET_DOMAIN_INTERNAL}
-          - hoarder.${SECRET_DOMAIN_INTERNAL}
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - keep.${SECRET_DOMAIN}
+          - hoarder.${SECRET_DOMAIN}
         parentRefs:
           - name: envoy-internal
             namespace: networking

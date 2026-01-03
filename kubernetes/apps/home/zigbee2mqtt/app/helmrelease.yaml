@@ -51,7 +51,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: warning
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
               ZIGBEE2MQTT_CONFIG_ADVANCED_CHANNEL: 25
-              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://z2m.${SECRET_DOMAIN_INTERNAL}
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://z2m.${SECRET_DOMAIN}
               ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
@@ -80,7 +80,7 @@ spec:
     route:
       app:
         hostnames:
-          - "z2m.${SECRET_DOMAIN_INTERNAL}"
+          - "z2m.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

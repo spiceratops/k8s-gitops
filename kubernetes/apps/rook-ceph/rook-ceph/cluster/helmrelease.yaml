@@ -36,7 +36,7 @@ spec:
     route:
       dashboard:
         host:
-          name: rook.${SECRET_DOMAIN_INTERNAL}
+          name: rook.${SECRET_DOMAIN}
           path: /
           pathType: PathPrefix
         parentRefs:

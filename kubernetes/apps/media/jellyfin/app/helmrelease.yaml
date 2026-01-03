@@ -81,7 +81,7 @@ spec:
     route:
       internal:
         hostnames:
-          - jellyfin.${SECRET_DOMAIN_INTERNAL}
+          - jellyfin.${SECRET_DOMAIN}
         parentRefs:
           - name: envoy-internal
             namespace: networking

@@ -49,7 +49,7 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${WYOMING_OPENWAKEWORD_LB_IP}
-          external-dns.alpha.kubernetes.io/hostname: openwakeword.${SECRET_DOMAIN_INTERNAL}
+          external-dns.alpha.kubernetes.io/hostname: openwakeword.${SECRET_DOMAIN}
         ports:
           http:
             port: &port 10400
@@ -59,7 +59,7 @@ spec:
     #     enabled: true
     #     className: internal
     #     hosts:
-    #       - host: &host openwakeword.${SECRET_DOMAIN_INTERNAL}
+    #       - host: &host openwakeword.${SECRET_DOMAIN}
     #         paths:
     #           - path: /
     #             service:

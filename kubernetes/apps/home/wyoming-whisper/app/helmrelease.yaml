@@ -43,7 +43,7 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${WYOMING_WHISPER_LB_IP}
-          # external-dns.alpha.kubernetes.io/hostname: whisper.${SECRET_DOMAIN_INTERNAL}
+          # external-dns.alpha.kubernetes.io/hostname: whisper.${SECRET_DOMAIN}
         ports:
           http:
             enabled: true
@@ -57,8 +57,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
-          - "whisper.${SECRET_DOMAIN_INTERNAL}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "whisper.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

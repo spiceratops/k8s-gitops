@@ -29,7 +29,7 @@ spec:
       angular_support_enabled: "true"
     server:
       enable_gzip: "true"
-      root_url: https://grafana.${SECRET_DOMAIN_INTERNAL}
+      root_url: https://grafana.${SECRET_DOMAIN}
   deployment:
     spec:
       strategy:

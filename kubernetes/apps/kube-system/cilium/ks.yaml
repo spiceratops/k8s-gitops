@@ -22,7 +22,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: hubble.${SECRET_DOMAIN_INTERNAL}
+      HOSTNAME: hubble.${SECRET_DOMAIN}
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

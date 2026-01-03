@@ -64,8 +64,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
-          - photos.${SECRET_DOMAIN_INTERNAL}
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - photos.${SECRET_DOMAIN}
         parentRefs:
           - name: envoy-internal
             namespace: networking
@@ -85,7 +85,7 @@ spec:
           gethomepage.dev/name: Immich
           gethomepage.dev/widget.type: immich
           gethomepage.dev/widget.fields: '["photos", "videos", "storage"]'
-          gethomepage.dev/widget.url: https://photos.${SECRET_DOMAIN_INTERNAL}
+          gethomepage.dev/widget.url: https://photos.${SECRET_DOMAIN}
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_IMMICH_API_KEY}}` }}"
     persistence:
       library:

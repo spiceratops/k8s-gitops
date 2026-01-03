@@ -11,5 +11,5 @@ spec:
   targets:
     staticConfig:
       static:
-        - home.${SECRET_DOMAIN_INTERNAL}
+        - home.${SECRET_DOMAIN}
         - nas.${SECRET_DOMAIN}

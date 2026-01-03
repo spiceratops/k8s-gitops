@@ -9,21 +9,6 @@ spec:
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: ${SECRET_DOMAIN_INTERNAL}
-  dnsNames:
-    - ${SECRET_DOMAIN_INTERNAL}
-    - "*.${SECRET_DOMAIN_INTERNAL}"
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: wildcard-sp
-  namespace: networking
-spec:
-  secretName: wildcard-sp-tls
-  issuerRef:
-    name: letsencrypt-prod-sp
-    kind: ClusterIssuer
   commonName: ${SECRET_DOMAIN}
   dnsNames:
     - ${SECRET_DOMAIN}

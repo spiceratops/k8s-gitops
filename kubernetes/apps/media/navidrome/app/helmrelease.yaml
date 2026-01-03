@@ -58,8 +58,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
-          - "music.${SECRET_DOMAIN_INTERNAL}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "music.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
