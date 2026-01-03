@@ -22,7 +22,7 @@ spec:
               memory: 1Gi
       envoyService:
         externalTrafficPolicy: Local
-  ipFamily: DualStack
+  # ipFamily: DualStack
   shutdown:
     drainTimeout: 180s
   telemetry:
@@ -56,7 +56,7 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
-      lbipam.cilium.io/ips: "${ENVOY_EXT_LB_IP},${ENVOY_EXT_LB_IPV6}"
+      lbipam.cilium.io/ips: "${ENVOY_EXT_LB_IP}"
   listeners:
     - name: http
       protocol: HTTP
@@ -73,7 +73,7 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: wildcard-sp-tls
+            name: wildcard-tls
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/gateway_v1.json
 apiVersion: gateway.networking.k8s.io/v1
@@ -87,7 +87,7 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
-      lbipam.cilium.io/ips: "${ENVOY_INT_LB_IP},${ENVOY_INT_LB_IPV6}"
+      lbipam.cilium.io/ips: "${ENVOY_INT_LB_IP}"
   listeners:
     - name: http
       protocol: HTTP
