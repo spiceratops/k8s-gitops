@@ -54,9 +54,9 @@ spec:
         - 192.168.1.100
     - dnsName: nas.${SECRET_DOMAIN}
       recordTTL: 180
-      recordType: A
+      recordType: CNAME
       targets:
-        - 192.168.1.100
+        - nas.${PUBLIC_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
