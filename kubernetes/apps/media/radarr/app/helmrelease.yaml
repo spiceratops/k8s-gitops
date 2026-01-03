@@ -161,7 +161,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
+              - name: radarr-concerts
                 port: *port
         annotations:
           gethomepage.dev/enabled: "true"

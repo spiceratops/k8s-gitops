@@ -93,7 +93,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
+              - name: karakeep-app
                 port: *port
         annotations:
           gethomepage.dev/enabled: "true"
