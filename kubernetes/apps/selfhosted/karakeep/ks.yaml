@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   components:
-    - ../../../../components/volsync/nfs-nas-migration-test
+    - ../../../../components/volsync/nfs-nas-migration
   dependsOn:
     - name: volsync
       namespace: volsync-system
