@@ -28,9 +28,9 @@ spec:
               BROWSER_WEB_URL: http://karakeep-chrome:9222
               NEXTAUTH_URL: https://keep.${SECRET_DOMAIN}
               # OAuth setup
-              OAUTH_PROVIDER_NAME: Pocket-ID
-              OAUTH_WELLKNOWN_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
-              DISABLE_PASSWORD_AUTH: "true"
+              # OAUTH_PROVIDER_NAME: Pocket-ID
+              # OAUTH_WELLKNOWN_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
+              # DISABLE_PASSWORD_AUTH: "true"
             envFrom: &envFrom
               - secretRef:
                   name: karakeep-secret
