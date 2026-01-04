@@ -48,7 +48,7 @@ spec:
               KEYS_STORAGE: database
               UI_CONFIG_DISABLED: true
               LDAP_ENABLED: true
-              LDAP_URL: ldaps://lldap.security.svc.cluster.local
+              LDAP_URL: ldap://lldap.security.svc.cluster.local
               LDAP_SKIP_CERT_VERIFY: true
               LDAP_USER_GROUP_SEARCH_FILTER: (&(objectClass=group)(cn=ID*))
               LDAP_ATTRIBUTE_USER_UNIQUE_IDENTIFIER: objectGUID
