@@ -51,8 +51,8 @@ spec:
               LDAP_URL: ldap://lldap.security.svc.cluster.local:3389
               LDAP_SKIP_CERT_VERIFY: true
               LDAP_USER_GROUP_SEARCH_FILTER: (&(objectClass=group)(cn=ID*))
-              LDAP_ATTRIBUTE_USER_UNIQUE_IDENTIFIER: objectGUID
-              LDAP_ATTRIBUTE_GROUP_UNIQUE_IDENTIFIER: objectGUID
+              LDAP_ATTRIBUTE_USER_UNIQUE_IDENTIFIER: uuid
+              LDAP_ATTRIBUTE_GROUP_UNIQUE_IDENTIFIER: uuid
               LDAP_ATTRIBUTE_USER_FIRST_NAME: givenName
               LDAP_ATTRIBUTE_USER_LAST_NAME: sn
               LDAP_ATTRIBUTE_USER_USERNAME: sAMAccountName
