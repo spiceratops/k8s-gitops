@@ -55,7 +55,7 @@ spec:
               LDAP_ATTRIBUTE_GROUP_UNIQUE_IDENTIFIER: uuid
               LDAP_ATTRIBUTE_USER_FIRST_NAME: givenName
               LDAP_ATTRIBUTE_USER_LAST_NAME: sn
-              LDAP_ATTRIBUTE_USER_USERNAME: sAMAccountName
+              LDAP_ATTRIBUTE_USER_USERNAME: uid
               LDAP_ATTRIBUTE_USER_EMAIL: mail
               LDAP_ATTRIBUTE_GROUP_MEMBER: member
               LDAP_ATTRIBUTE_GROUP_NAME: cn
