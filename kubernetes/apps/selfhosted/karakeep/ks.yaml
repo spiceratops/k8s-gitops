@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   components:
-    - ../../../../components/volsync/nfs-nas-migration
+    - ../../../../components/volsync/nfs-nas-migration-test
   dependsOn:
     - name: volsync
       namespace: volsync-system
@@ -29,4 +29,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
+      PREVAPP: hoarder
       VOLSYNC_CAPACITY: 20Gi
