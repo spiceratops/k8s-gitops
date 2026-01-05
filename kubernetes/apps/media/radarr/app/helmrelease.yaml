@@ -99,7 +99,7 @@ spec:
               RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
               RADARR__LOG__DBENABLED: "False"
               RADARR__LOG__LEVEL: info
-              RADARR__SERVER__PORT: &port 80
+              RADARR__SERVER__PORT: &port2 81
             envFrom:
               - secretRef:
                   name: radarr-concerts-secret
@@ -145,7 +145,7 @@ spec:
         controller: radarr-concerts
         ports:
           http:
-            port: *port
+            port: *port2
     route:
       movies:
         hostnames:
@@ -177,7 +177,7 @@ spec:
         rules:
           - backendRefs:
               - name: radarr-concerts
-                port: *port
+                port: *port2
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Concerts Downloader
