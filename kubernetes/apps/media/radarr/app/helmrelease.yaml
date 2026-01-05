@@ -169,7 +169,7 @@ spec:
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_RADARR_TOKEN}}` }}"
       concerts:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "{{ .Release.Name }}-concerts.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
