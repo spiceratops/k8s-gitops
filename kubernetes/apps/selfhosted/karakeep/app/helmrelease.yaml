@@ -31,6 +31,7 @@ spec:
               OAUTH_PROVIDER_NAME: Pocket-ID
               OAUTH_WELLKNOWN_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
               DISABLE_PASSWORD_AUTH: "true"
+              OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING: "true"
             envFrom: &envFrom
               - secretRef:
                   name: karakeep-secret
