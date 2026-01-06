@@ -14,6 +14,7 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
+        runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
@@ -40,12 +41,14 @@ spec:
               tag: 4.0.16.2946@sha256:3597fd572f4599c67abbeb8afd3cb85bce8a9e389f0779b7ea1273781544d15c
             env:
               TZ: ${TIMEZONE}
-              SONARR__AUTHENTICATION_METHOD: External
-              SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              SONARR__INSTANCE_NAME: Sonarr
-              SONARR__PORT: &port 8989
-              SONARR__LOG_LEVEL: info
-              SONARR__THEME: dark
+              SONARR__APP__INSTANCENAME: Sonarr
+              SONARR__APP__THEME: dark
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG__DBENABLED: "False"
+              SONARR__LOG__LEVEL: info
+              SONARR__SERVER__PORT: &port 80
+              SONARR__UPDATE__BRANCH: develop
             envFrom:
               - secretRef:
                   name: sonarr-secret
@@ -62,24 +65,15 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 10m
-                memory: 256M
+                cpu: 100m
               limits:
-                memory: 1024M
-        pod:
-          affinity:
-            podAntiAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                - labelSelector:
-                    matchExpressions:
-                      - key: app.kubernetes.io/name
-                        operator: In
-                        values: ["sonarr"]
-                  topologyKey: kubernetes.io/hostname
+                memory: 4Gi
     service:
       app:
         controller: sonarr
@@ -105,12 +99,22 @@ spec:
           gethomepage.dev/icon: sonarr.png
           gethomepage.dev/name: Sonarr
           gethomepage.dev/widget.type: sonarr
-          gethomepage.dev/widget.url: "http://sonarr.media.svc.cluster.local:7878"
+          gethomepage.dev/widget.url: "http://sonarr.media.svc.cluster.local:80"
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_SONARR_TOKEN}}` }}"
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      scripts:
+        type: configMap
+        name: sonarr-configmap
+        defaultMode: 0775
+        globalMounts:
+          - readOnly: true
       media:
-        existingClaim: nfs-media
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/media
         globalMounts:
           - path: /media
+      tmp:
+        type: emptyDir

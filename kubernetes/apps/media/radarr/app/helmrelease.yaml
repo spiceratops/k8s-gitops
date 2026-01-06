@@ -49,6 +49,7 @@ spec:
               RADARR__LOG__DBENABLED: "False"
               RADARR__LOG__LEVEL: info
               RADARR__SERVER__PORT: &port 80
+              RADARR__UPDATE__BRANCH: develop
             envFrom:
               - secretRef:
                   name: radarr-secret
@@ -201,6 +202,10 @@ spec:
       #       app:
       #         - path: /config
       media:
-        existingClaim: nfs-media
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/media
         globalMounts:
           - path: /media
+      tmp:
+        type: emptyDir
