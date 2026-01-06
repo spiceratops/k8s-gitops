@@ -60,7 +60,8 @@ spec:
             "name":"multus-vpn",
             "namespace": "networking",
             "ips": ["192.168.80.101/24"],
-            "mac": "2e:54:30:22:2f:77"
+            "mac": "2e:54:30:22:2f:77",
+            "default-route": ["192.168.80.1"]
           }]
       securityContext:
         runAsNonRoot: true
