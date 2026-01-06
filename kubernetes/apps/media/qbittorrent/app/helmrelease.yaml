@@ -34,6 +34,7 @@ spec:
               tag: v3.40.4
             env:
               DOT: "off"
+              DOT_IPV6: "off"
               DNS_ADDRESS: "127.0.0.2"
               HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH: &gluetunAuthPath /gluetun/auth.toml
               VPN_SERVICE_PROVIDER: custom
@@ -58,6 +59,8 @@ spec:
               limits:
                 squat.ai/tun: "1"
             securityContext:
+              runAsUser: 0
+              runAsNonRoot: false
               capabilities:
                 add:
                   - NET_ADMIN
