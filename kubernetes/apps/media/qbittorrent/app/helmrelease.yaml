@@ -43,7 +43,7 @@ spec:
               WIREGUARD_ENDPOINT_PORT: 51820
               VPN_PORT_FORWARDING: on
               VPN_PORT_FORWARDING_PROVIDER: protonvpn
-              FIREWALL_INPUT_PORTS: 80
+              FIREWALL_INPUT_PORTS: 8080
               FIREWALL_OUTBOUND_SUBNETS: 10.245.0.0/16,10.244.0.0/16 # Allow access to k8s subnets
             envFrom:
               - secretRef:
@@ -73,7 +73,7 @@ spec:
               tag: 5.1.4@sha256:e9c2c24ad2b39fa0ee44de682bf26b14bf23cffea1de9e1f082f26caed4277f9
             env:
               TZ: ${TIMEZONE}
-              QBITTORRENT_WEBUI_PORT: &port 80
+              QBITTORRENT_WEBUI_PORT: &port 8080
             probes:
               liveness: &probes
                 enabled: true
@@ -163,7 +163,7 @@ spec:
         data:
           .qbt.toml: |-
             [qbittorrent]
-            addr = "http://localhost:80"
+            addr = "http://localhost:8080"
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
