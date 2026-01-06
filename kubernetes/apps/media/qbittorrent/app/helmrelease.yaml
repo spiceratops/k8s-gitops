@@ -166,6 +166,10 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /config
       config-file:
         type: configMap
         identifier: config
