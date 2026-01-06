@@ -11,7 +11,7 @@ spec:
       "name": "multus-vpn",
       "plugins": [
         {
-          "type": "macvlan",
+          "type": "ipvlan",
           "master": "bond0.80",
           "mode": "bridge",
           "ipam": {
