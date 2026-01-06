@@ -34,12 +34,13 @@ spec:
               tag: 2.3.1.5238@sha256:4394dff2311238bf5c31e006872122ed4e5f6bf042d33528d80acd44a09c57f7
             env:
               TZ: ${TIMEZONE}
-              PROWLARR__AUTHENTICATION_METHOD: External
-              PROWLARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              PROWLARR__INSTANCE_NAME: Prowlarr
-              PROWLARR__PORT: &port 9696
-              PROWLARR__LOG_LEVEL: info
-              PROWLARR__THEME: dark
+              PROWLARR__APP__INSTANCENAME: Prowlarr
+              PROWLARR__APP__THEME: dark
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              PROWLARR__LOG__DBENABLED: "False"
+              PROWLARR__LOG__LEVEL: info
+              PROWLARR__SERVER__PORT: &port 80
               PROWLARR__UPDATE__BRANCH: develop
             envFrom: *envFrom
             probes:
@@ -55,20 +56,22 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 10m
-                memory: 256M
+                cpu: 100m
               limits:
-                memory: 512M
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
+                memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: prowlarr
@@ -89,10 +92,12 @@ spec:
                 port: *port
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Dowmloaders Config
+          gethomepage.dev/description: Downloaders Config
           gethomepage.dev/group: Downloaders
           gethomepage.dev/icon: prowlarr.png
           gethomepage.dev/name: Prowlarr
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      tmp:
+        type: emptyDir
