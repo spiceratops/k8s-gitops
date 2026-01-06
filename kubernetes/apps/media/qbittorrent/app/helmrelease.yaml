@@ -185,6 +185,12 @@ spec:
         globalMounts:
           - path: /media/downloads/qbittorrent
             subPath: downloads/qbittorrent
+      games:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/games
+        globalMounts:
+          - path: /games
       tmp:
         type: emptyDir
       gluetun-auth:
