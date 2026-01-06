@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app qbittorrent
+  name: &app qui
   namespace: media
 spec:
   chartRef:
@@ -14,53 +14,45 @@ spec:
 
   values:
     controllers:
-      qbittorrent:
+      qui:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/qbittorrent
-              tag: 5.1.4@sha256:e9c2c24ad2b39fa0ee44de682bf26b14bf23cffea1de9e1f082f26caed4277f9
+              repository: ghcr.io/autobrr/qui
+              tag: v1.12.0@sha256:b3b18f82f340642fc19ffb8935c112673008e7e6ae0ead5b6e8bb39c9b4462a3
             env:
+              QUI__HOST: 0.0.0.0
+              QUI__PORT: &port 80
+              QUI__LOG_LEVEL: INFO
               TZ: ${TIMEZONE}
-              QBT_WEBUI_PORT: &port 80
-              QBT_TORRENTING_PORT: 50469
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /api/v2/app/version
+                    path: /health
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: true
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 100m
-              limits:
-                memory: 8Gi
     defaultPodOptions:
-      annotations:
-        k8s.v1.cni.cncf.io/networks: |-
-          [{
-            "name":"multus-vpn",
-            "namespace": "networking",
-            "ips": ["192.168.80.101/24"]
-          }]
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -69,6 +61,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
+        controller: qui
         ports:
           http:
             port: *port
@@ -79,31 +72,18 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
+            sectionName: https
         rules:
           - backendRefs:
-              - identifier: *app
+              - name: *app
                 port: *port
-    configMaps:
-      config:
-        data:
-          .qbt.toml: |-
-            [qbittorrent]
-            addr = "http://localhost:80"
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      config-file:
-        type: configMap
-        identifier: config
-        globalMounts:
-          - path: /config/.qbt.toml
-            subPath: .qbt.toml
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/media
         globalMounts:
-          - path: /media/downloads/qbittorrent
-            subPath: downloads/qbittorrent
-      tmp:
-        type: emptyDir
+          - path: /media/downloads
+            subPath: downloads
