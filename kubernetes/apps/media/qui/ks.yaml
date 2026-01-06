@@ -9,8 +9,10 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  components:
+    - ../../../../components/volsync/nfs-nas
   dependsOn:
-    - name: navidrome
+    - name: qbittorrent
   path: ./kubernetes/apps/media/qui/app
   prune: true
   sourceRef:
