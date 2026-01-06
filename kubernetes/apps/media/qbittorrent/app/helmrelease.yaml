@@ -169,9 +169,11 @@ spec:
       config-file:
         type: configMap
         identifier: config
-        globalMounts:
-          - path: /config/.qbt.toml
-            subPath: .qbt.toml
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /config/.qbt.toml
+                subPath: .qbt.toml
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
