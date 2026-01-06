@@ -81,7 +81,7 @@ spec:
             namespace: networking
         rules:
           - backendRefs:
-              - identifier: *app
+              - identifier: app
                 port: *port
     configMaps:
       config:
