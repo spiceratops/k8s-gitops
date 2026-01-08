@@ -9,8 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  components:
-    - ../../../../components/nfs-scaler
+  # components:
+  #   - ../../../../components/nfs-scaler
   dependsOn:
     - name: volsync
   path: ./kubernetes/apps/volsync-system/kopia/app
