@@ -12,7 +12,7 @@ resources:
   - ./homebox/ks.yaml
   - ./homepage/ks.yaml
   - ./drawio/ks.yaml
-  - ./paperless/ks.yaml
+  # - ./paperless/ks.yaml
   - ./ocis/ks.yaml
   - ./libmedium/ks.yaml
   # - ./hajimari/ks.yaml
