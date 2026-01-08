@@ -52,11 +52,6 @@ spec:
       recordType: A
       targets:
         - 192.168.1.100
-    - dnsName: nas.${SECRET_DOMAIN}
-      recordTTL: 180
-      recordType: CNAME
-      targets:
-        - nas.${PUBLIC_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -69,11 +64,7 @@ spec:
       recordType: A
       targets:
         - 192.168.1.1
-    - dnsName: unifi.${SECRET_DOMAIN}
-      recordTTL: 180
-      recordType: AAAA
-      targets:
-        - ${PUBLIC_IPV6_PREFIX}::1
+
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -98,8 +89,3 @@ spec:
       recordType: A
       targets:
         - 192.168.30.107
-    - dnsName: home.${SECRET_DOMAIN}
-      recordTTL: 180
-      recordType: AAAA
-      targets:
-        - ${PUBLIC_IPV6_PREFIX}:1:58a4:8b05:f5ca:e10a
