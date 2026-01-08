@@ -99,8 +99,7 @@ spec:
       name: k8s
     cni:
       exclusive: false
-    devices:
-      - bond0
+    devices: bond+
     enableIPv6Masquerade: true
     enableRuntimeDeviceDetection: true
     endpointRoutes:
