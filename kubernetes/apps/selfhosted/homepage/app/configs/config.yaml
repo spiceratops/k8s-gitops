@@ -16,6 +16,9 @@ data:
               href: https://kubesearch.dev
   kubernetes.yaml: |
     mode: cluster
+    gateway: true
+    ingress: false
+    traefik: false
   settings.yaml: |
     color: slate
     useEqualHeights: true
