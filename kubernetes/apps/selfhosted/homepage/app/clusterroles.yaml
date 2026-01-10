@@ -14,10 +14,10 @@ rules:
       - get
       - list
   - apiGroups:
-      - extensions
-      - networking.k8s.io
+      - gateway.networking.k8s.io
     resources:
-      - ingresses
+      - httproutes
+      - gateways
     verbs:
       - get
       - list
@@ -39,12 +39,12 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: homepage
+  name: &app homepage
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: homepage
 subjects:
   - kind: ServiceAccount
-    name: ${APP}
+    name: *app
     namespace: selfhosted

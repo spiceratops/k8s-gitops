@@ -36,6 +36,8 @@ spec:
         ports:
           http:
             port: &port 3000
+    serviceAccount:
+      homepage: {}
     persistence:
       config:
         enabled: true
