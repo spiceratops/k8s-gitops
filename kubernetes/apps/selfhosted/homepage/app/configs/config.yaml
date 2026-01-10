@@ -74,7 +74,7 @@ data:
       Data:
         icon: mdi-postgresql
         tab: Admin
-      observability:
+      Observability:
         icon: mdi-grafana
         tab: Admin
   services.yaml: |
@@ -89,30 +89,6 @@ data:
               accountid: {{HOMEPAGE_VAR_CLOUDFLARED_ACCOUNTID}}
               tunnelid: {{HOMEPAGE_VAR_CLOUDFLARED_TUNNELID}}
               key: {{HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN}}
-        - Nextdns:
-            href: https://my.nextdns.io
-            icon: nextdns.png
-            description: NextDNS
-            widget:
-              type: nextdns
-              profile: {{HOMEPAGE_VAR_NEXTDNS_PROFILE}}
-              key: {{HOMEPAGE_VAR_NEXTDNS_API_KEY}}
-        - Proxmox (Main Cluster):
-            icon: proxmox.png
-            href: https://pve.${SECRET_DOMAIN}
-            description: Proxmox Cluster
-        - Proxmox (Solo):
-            icon: proxmox.png
-            href: https://pve-hass.${SECRET_DOMAIN}
-            description: Proxmox Solo
-        - Opnsense:
-            icon: opnsense.png
-            href: https://opnsense.${SECRET_DOMAIN}
-            description: Opnsense
-            widget:
-              type: opnsense
-              username: {{HOMEPAGE_VAR_OPNSENSE_KEY}}
-              password: {{HOMEPAGE_VAR_OPNSENSE_SECRET}}
         - UniFi:
             icon: unifi.png
             href: https://unifi-web.${SECRET_DOMAIN}
@@ -122,10 +98,6 @@ data:
               url: unifi.${SECRET_DOMAIN}
               username: {{HOMEPAGE_VAR_UNIFI_USER}}
               password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
-        - Omada:
-            icon: omada.png
-            href: https://omada-web.${SECRET_DOMAIN}
-            description: Omada Console
     - Home:
         - Home Assistant:
             icon: home-assistant.png
@@ -157,9 +129,3 @@ data:
           dateStyle: long
           timeStyle: short
           hourCycle: h23
-
-  docker.yaml: |
-    ---
-    docker:
-      host: docker.${SECRET_DOMAIN}
-      port: 2375
