@@ -188,7 +188,7 @@ spec:
         #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN}, https://piped-api.${SECRET_DOMAIN}, https://piped-proxy.${SECRET_DOMAIN}"
       frontend:
         hostnames:
-          - "piped.${SECRET_DOMAIN}"
+          - "youtube.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking

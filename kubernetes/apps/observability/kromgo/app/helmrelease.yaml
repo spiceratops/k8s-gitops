@@ -92,5 +92,5 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/icon: kromgo.png
           gethomepage.dev/name: Kromgo
-          gethomepage.dev/group: observability
+          gethomepage.dev/group: Observability
           gethomepage.dev/description: Cluster Metrics

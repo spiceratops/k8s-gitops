@@ -83,6 +83,7 @@ spec:
           gethomepage.dev/group: Home
           gethomepage.dev/icon: immich.png
           gethomepage.dev/name: Immich
+          gethomepage.dev/url: https://photos.${SECRET_DOMAIN}
           gethomepage.dev/widget.type: immich
           gethomepage.dev/widget.fields: '["photos", "videos", "storage"]'
           gethomepage.dev/widget.url: https://photos.${SECRET_DOMAIN}

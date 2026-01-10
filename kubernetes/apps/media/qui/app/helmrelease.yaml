@@ -81,6 +81,12 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: qBittorrent UI
+          gethomepage.dev/group: Downloaders
+          gethomepage.dev/icon: qbittorrent.png
+          gethomepage.dev/name: QUI
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

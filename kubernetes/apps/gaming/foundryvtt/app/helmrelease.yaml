@@ -74,6 +74,12 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Virtual Tabletop
+          gethomepage.dev/group: Tabletop
+          gethomepage.dev/icon: foundryvtt.png
+          gethomepage.dev/name: Foundry VTT
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"

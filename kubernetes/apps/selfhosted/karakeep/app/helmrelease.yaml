@@ -98,8 +98,9 @@ spec:
                 port: *port
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/icon: si-bookmark
+          gethomepage.dev/icon: karakeep.png
           gethomepage.dev/name: Karakeep
+          gethomepage.dev/url: keep.${SECRET_DOMAIN}
           gethomepage.dev/group: Tools
           gethomepage.dev/description: Saved Web Content
     persistence:

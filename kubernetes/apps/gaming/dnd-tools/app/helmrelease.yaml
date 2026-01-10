@@ -55,3 +55,9 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: DnD 5e Tools
+          gethomepage.dev/group: Tabletop
+          gethomepage.dev/icon: mdi-dice-d20-outline
+          gethomepage.dev/name: DnD Tools

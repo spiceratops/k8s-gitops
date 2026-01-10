@@ -103,11 +103,6 @@ data:
             icon: home-assistant.png
             href: https://home.${SECRET_DOMAIN}
             description: Home Automation
-    - Tabletop:
-        - Dungeon Master's Vault:
-            icon: mdi-dice-d20-outline
-            href: https://dnd.${SECRET_DOMAIN}
-            description: DnD Resources
 
   widgets.yaml: |
     - search:

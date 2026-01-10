@@ -74,6 +74,7 @@ spec:
           gethomepage.dev/group: Media
           gethomepage.dev/icon: navidrome.png
           gethomepage.dev/name: Navidrome
+          gethomepage.dev/url: https://music.${SECRET_DOMAIN}
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
