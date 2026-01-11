@@ -69,7 +69,6 @@ spec:
         name: config
         globalMounts:
           - path: /config
-            subPath: config.yaml
       tmp:
         enabled: true
         type: emptyDir
