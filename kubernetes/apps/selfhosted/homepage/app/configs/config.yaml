@@ -29,21 +29,21 @@ data:
       searchDescriptions: true
     statusStyle: "dot"
     layout:
-      Home:
+      The Internets:
         style: row
-        columns: 4
+        columns: 5
         tab: Main
       Bookmarks:
         style: row
-        columns: 4
+        columns: 5
         tab: Admin
+      Home:
+        style: row
+        columns: 5
+        tab: Main
       Media:
         style: row
-        columns: 4
-        tab: Main
-      Reading:
-        style: row
-        columns: 4
+        columns: 5
         tab: Main
       Tabletop:
         icon: mdi-dice-d20-outline
@@ -53,20 +53,20 @@ data:
         tab: Main
       Finance:
         style: row
-        columns: 4
+        columns: 5
         tab: Main
       Downloaders:
         style: row
-        columns: 4
+        columns: 5
         tab: Admin
       Tools:
         style: row
-        columns: 4
+        columns: 5
         tab: Main
       Host Widgets:
         icon: mdi-chart-box
         style: row
-        columns: 4
+        columns: 5
         tab: Main
       Infrastructure:
         icon: mdi-wan
