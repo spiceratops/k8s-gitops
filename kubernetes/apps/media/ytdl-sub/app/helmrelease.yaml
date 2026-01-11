@@ -53,16 +53,16 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 2048Mi
-        pod:
-          enableServiceLinks: false
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 10000
-              - 568
+        # pod:
+        #   enableServiceLinks: false
+        #   securityContext:
+        #     runAsUser: 1000
+        #     runAsGroup: 1000
+        #     fsGroup: 1000
+        #     fsGroupChangePolicy: "OnRootMismatch"
+        #     supplementalGroups:
+        #       - 10000
+        #       - 568
     persistence:
       config:
         type: configMap
