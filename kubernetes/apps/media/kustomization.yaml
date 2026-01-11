@@ -29,6 +29,7 @@ resources:
   - ./tidarr/ks.yaml
   - ./cleanuparr/ks.yaml
   - ./recommendarr/ks.yaml
+  - ./metube/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
