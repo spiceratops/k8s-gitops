@@ -64,7 +64,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/icon: searxng.png
           gethomepage.dev/name: Searxng
-          gethomepage.dev/group: Tools
+          gethomepage.dev/group: The Internets
           gethomepage.dev/description: Search Engine
     persistence:
       config:

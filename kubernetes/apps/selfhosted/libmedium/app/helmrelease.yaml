@@ -49,7 +49,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Medium Reader
-          gethomepage.dev/group: Reading
+          gethomepage.dev/group: The Internets
           gethomepage.dev/icon: medium.png
           gethomepage.dev/name: Libmedium
           hajimari.io/enable: "true"

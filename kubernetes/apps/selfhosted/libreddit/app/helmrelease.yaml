@@ -77,7 +77,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Reddit Reader
-          gethomepage.dev/group: Reading
+          gethomepage.dev/group: The Internets
           gethomepage.dev/icon: reddit.png
           gethomepage.dev/name: Libreddit
           hajimari.io/enable: "true"

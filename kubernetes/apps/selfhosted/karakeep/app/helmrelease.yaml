@@ -85,8 +85,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
           - keep.${SECRET_DOMAIN}
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
           - hoarder.${SECRET_DOMAIN}
         parentRefs:
           - name: envoy-internal
@@ -101,7 +101,7 @@ spec:
           gethomepage.dev/icon: karakeep.png
           gethomepage.dev/name: Karakeep
           gethomepage.dev/url: keep.${SECRET_DOMAIN}
-          gethomepage.dev/group: Tools
+          gethomepage.dev/group: The Internets
           gethomepage.dev/description: Saved Web Content
     persistence:
       config:
