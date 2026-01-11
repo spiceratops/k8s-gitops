@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: config
+  name: ytdl-sub-config
   namespace: ytdl-sub
 data:
   config.yaml: |-

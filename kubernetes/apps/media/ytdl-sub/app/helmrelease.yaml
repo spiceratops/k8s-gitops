@@ -64,18 +64,15 @@ spec:
               - 568
     persistence:
       config:
-        enabled: true
         type: configMap
-        name: config
-        advancedMounts:
-          ytdl-sub:
-            ytdl-sub:
-              - path: /config/config.yaml
-                subPath: config.yaml
-                readOnly: true
-              - path: /config/subscriptions.yaml
-                subPath: subscriptions.yaml
-                readOnly: true
+        name: ytdl-sub-config
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
+          - path: /config/subscriptions.yaml
+            subPath: subscriptions.yaml
+            readOnly: true
       tmp:
         enabled: true
         type: emptyDir
