@@ -67,8 +67,15 @@ spec:
         enabled: true
         type: configMap
         name: config
-        globalMounts:
-          - path: /config
+        advancedMounts:
+          ytdl-sub:
+            ytdl-sub:
+              - path: /config/config.yaml
+                subPath: config.yaml
+                readOnly: true
+              - path: /config/subscriptions.yaml
+                subPath: subscriptions.yaml
+                readOnly: true
       tmp:
         enabled: true
         type: emptyDir
