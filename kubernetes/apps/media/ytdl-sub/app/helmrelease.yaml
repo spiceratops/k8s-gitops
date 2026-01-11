@@ -38,6 +38,7 @@ spec:
               TZ: ${TIMEZONE}
               PUID: 1000
               PGID: 1000
+              MEDIA_FOLDER: /media/youtube
             command:
               - bash
               - -c
