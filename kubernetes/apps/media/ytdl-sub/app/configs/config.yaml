@@ -48,7 +48,7 @@ data:
 
         date_range:
           before: "today-7days"
-          after: "20200101"
+          after: "20210101"
 
       ###############################################################################
       # base preset to use on all TV Show-based subscriptions
@@ -192,9 +192,7 @@ data:
         "Numberblocks": "https://www.youtube.com/@Numberblocks"
         "Peppa Pig": "https://www.youtube.com/@PeppaPigOfficial"
         "PJ Masks": "https://www.youtube.com/@PJMasksOfficial"
-        "~Shiloh & Bros":
-          url: "https://www.youtube.com/@shilohandbros"
-          date_range: "20210101-today"
+        "Shiloh & Bros": "https://www.youtube.com/@shilohandbros"
         "Super Simple Songs": "https://www.youtube.com/@SuperSimpleSongs"
         "Sweat Kids TV": "https://www.youtube.com/@sweatkidstv9093"
         "The Bumble Nums": "https://www.youtube.com/@BumbleNums"
