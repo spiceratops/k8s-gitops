@@ -3,8 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: selfhosted
 resources:
-  - ./redis
-  - ./configmap.yaml
   - ./externalsecret.yaml
-  - ./machine-learning
-  - ./server
+  - ./pvc.yaml
+  - ./helmrelease.yaml

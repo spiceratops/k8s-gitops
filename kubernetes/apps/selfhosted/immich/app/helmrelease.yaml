@@ -1,0 +1,108 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: immich
+spec:
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 0.10.3
+  url: oci://ghcr.io/immich-app/immich-charts/immich
+---
+# yaml-language-server: $schema=https://kube-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app immich
+  namespace: selfhosted
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: immich
+  dependsOn: []
+  interval: 1h
+
+  values:
+    controllers:
+      main:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18.1
+            envFrom:
+              - secretRef:
+                  name: immich-secret
+        containers:
+          main:
+            image:
+              tag: v2.2.3
+            env:
+              TZ: ${TIMEZONE}
+              REDIS_HOSTNAME: immich-valkey
+              PUBLIC_IMMICH_SERVER_URL: https://photos.${SECRET_DOMAIN}
+            envFrom:
+              - secretRef:
+                  name: immich-secret
+    immich:
+      persistence:
+        library:
+          type: nfs
+          server: nas.${PUBLIC_DOMAIN}
+          path: /mnt/tank/photos
+          globalMounts:
+            - path: /usr/src/app/upload
+        cache:
+          existingClaim: "{{ .Release.Name }}"
+          globalMounts:
+            - path: /cache
+    valkey:
+      enabled: true
+      persistence:
+        data:
+          existingClaim: immich-valkey
+    server:
+      route:
+        app:
+          hostnames:
+            - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            - photos.${SECRET_DOMAIN}
+          parentRefs:
+            - name: envoy-internal
+              namespace: networking
+              sectionName: https
+          rules:
+            - backendRefs:
+                - name: *app
+                  port: 2283
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/description: Photo Gallery
+            gethomepage.dev/group: Home
+            gethomepage.dev/icon: immich.png
+            gethomepage.dev/name: Immich
+            gethomepage.dev/url: https://photos.${SECRET_DOMAIN}
+            gethomepage.dev/widget.type: immich
+            gethomepage.dev/widget.fields: '["photos", "videos", "storage"]'
+            gethomepage.dev/widget.url: https://photos.${SECRET_DOMAIN}
+            gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_IMMICH_API_KEY}}` }}"
+      controllers:
+        main:
+          containers:
+            main:
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 350Mi
+    machine-learning:
+      controllers:
+        main:
+          containers:
+            main:
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 300Mi
