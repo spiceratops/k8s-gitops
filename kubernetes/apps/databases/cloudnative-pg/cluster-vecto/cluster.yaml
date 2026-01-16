@@ -6,7 +6,7 @@ metadata:
   namespace: databases
 spec:
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16-0.5.3
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.2-v0.2.0
   inheritedMetadata:
     annotations:
       kyverno.io/exclude: "true"
@@ -22,7 +22,7 @@ spec:
       max_connections: "600"
       shared_buffers: 512MB
     shared_preload_libraries:
-      - "vchord.so"
+      - "vectors.so"
   resources:
     requests:
       cpu: 500m
