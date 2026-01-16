@@ -33,7 +33,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: postgres-vecto-v24
+      source: postgres-vecto-v25
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
@@ -42,7 +42,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://postgresql/
       endpointURL: https://nas.${PUBLIC_DOMAIN}:9000
-      serverName: postgres-vecto-v25
+      serverName: postgres-vecto-v26
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -51,7 +51,7 @@ spec:
           name: cloudnative-pg-secret
           key: AWS_SECRET_ACCESS_KEY
   externalClusters:
-    - name: postgres-vecto-v24
+    - name: postgres-vecto-v25
       barmanObjectStore:
         wal:
           compression: bzip2
