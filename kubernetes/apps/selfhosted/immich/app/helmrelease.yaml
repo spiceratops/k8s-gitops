@@ -49,16 +49,14 @@ spec:
                   name: immich-secret
     immich:
       persistence:
-        library:
-          type: nfs
-          server: nas.${PUBLIC_DOMAIN}
-          path: /mnt/tank/photos
-          globalMounts:
-            - path: /usr/src/app/upload
         cache:
           existingClaim: "{{ .Release.Name }}"
           globalMounts:
             - path: /cache
+        library:
+          existingClaim: immich-library
+          globalMounts:
+            - path: /usr/src/app/upload
     valkey:
       enabled: true
       persistence:
