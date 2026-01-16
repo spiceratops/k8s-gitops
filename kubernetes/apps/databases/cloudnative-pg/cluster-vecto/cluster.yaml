@@ -32,9 +32,6 @@ spec:
   monitoring:
     enablePodMonitor: true
   bootstrap:
-    initdb:
-      postInitSQL:
-        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
     recovery:
       source: postgres-vecto-v24
   backup:
