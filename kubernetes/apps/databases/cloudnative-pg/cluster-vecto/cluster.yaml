@@ -6,7 +6,7 @@ metadata:
   namespace: databases
 spec:
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16-0.5.3
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.2-v0.2.0
   inheritedMetadata:
     annotations:
       kyverno.io/exclude: "true"
@@ -22,7 +22,7 @@ spec:
       max_connections: "600"
       shared_buffers: 512MB
     shared_preload_libraries:
-      - "vchord.so"
+      - "vectors.so"
   resources:
     requests:
       cpu: 500m
@@ -32,7 +32,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: postgres-vecto-v26
+      source: postgres-vecto-v25
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
@@ -41,7 +41,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://postgresql/
       endpointURL: https://nas.${PUBLIC_DOMAIN}:9000
-      serverName: postgres-vecto-v27
+      serverName: postgres-vecto-v26
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -50,7 +50,7 @@ spec:
           name: cloudnative-pg-secret
           key: AWS_SECRET_ACCESS_KEY
   externalClusters:
-    - name: postgres-vecto-v26
+    - name: postgres-vecto-v25
       barmanObjectStore:
         wal:
           compression: bzip2
