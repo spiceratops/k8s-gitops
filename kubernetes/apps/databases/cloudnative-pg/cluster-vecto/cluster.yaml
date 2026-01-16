@@ -6,7 +6,7 @@ metadata:
   namespace: databases
 spec:
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.11
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16-0.5.3
   inheritedMetadata:
     annotations:
       kyverno.io/exclude: "true"
