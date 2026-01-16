@@ -6,7 +6,7 @@ metadata:
   namespace: databases
 spec:
   instances: 3
-  imageName: ghcr.io/tensorchord/vchord-postgres:pg16-v1.0.0
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.11
   inheritedMetadata:
     annotations:
       kyverno.io/exclude: "true"
@@ -32,6 +32,9 @@ spec:
   monitoring:
     enablePodMonitor: true
   bootstrap:
+    initdb:
+      postInitSQL:
+        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
     recovery:
       source: postgres-vecto-v24
   backup:
