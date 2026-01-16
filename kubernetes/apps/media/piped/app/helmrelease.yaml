@@ -86,7 +86,6 @@ spec:
               capabilities:
                 drop:
                   - ALL
-              readOnlyRootFilesystem: true
 
       ytproxy:
         strategy: RollingUpdate
