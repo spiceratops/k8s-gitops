@@ -76,6 +76,6 @@ spec:
           gethomepage.dev/description: Budgeting
     persistence:
       config:
-        existingClaim: "{ .Release.Name }"
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data
