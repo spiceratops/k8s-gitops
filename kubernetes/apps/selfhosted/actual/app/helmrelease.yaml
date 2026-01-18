@@ -22,10 +22,22 @@ spec:
             image:
               repository: ghcr.io/actualbudget/actual-server
               tag: 26.1.0
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            env:
+              ACTUAL_PORT: &port 5006
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
             resources:
               requests:
                 cpu: 12m
@@ -33,11 +45,9 @@ spec:
               limits:
                 memory: 512M
         pod:
-          enableServiceLinks: false
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
-            runAsNonRoot: true
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
     service:
@@ -45,7 +55,7 @@ spec:
         controller: actual
         ports:
           http:
-            port: &port 5006
+            port: *port
     route:
       app:
         hostnames:
