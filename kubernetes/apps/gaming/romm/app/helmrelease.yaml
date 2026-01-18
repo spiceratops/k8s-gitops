@@ -131,6 +131,6 @@ spec:
       library:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/games/roms
+        path: /mnt/tank/games
         globalMounts:
           - path: /romm/library
