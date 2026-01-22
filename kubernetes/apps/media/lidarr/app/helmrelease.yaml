@@ -106,7 +106,7 @@ spec:
       downloads:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/media/downloads
+        path: /mnt/tank/media/downloads/tidarr
         globalMounts:
           - path: /downloads
       music:
