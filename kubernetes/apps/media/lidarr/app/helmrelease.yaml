@@ -15,6 +15,15 @@ spec:
     mode: enabled
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        supplementalGroups:
+          - 568
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       lidarr:
         annotations:
