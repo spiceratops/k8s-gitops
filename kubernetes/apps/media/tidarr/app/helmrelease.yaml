@@ -63,9 +63,15 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /shared
-      media:
+      music:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/media
+        path: /mnt/tank/media/music
         globalMounts:
-          - path: /media
+          - path: /music
+      downloads:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/media/downloads/tidarr
+        globalMounts:
+          - path: /shared/nzb_downloads
