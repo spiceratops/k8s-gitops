@@ -103,9 +103,15 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      media:
+      music:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/media
+        path: /mnt/tank/media/music
         globalMounts:
-          - path: /media
+          - path: /music
+      downloads:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/media/downloads/tidarr
+        globalMounts:
+          - path: /downloads
