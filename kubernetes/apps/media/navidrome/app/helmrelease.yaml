@@ -78,10 +78,12 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      media:
-        existingClaim: nfs-media
+      music:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/media/music
         globalMounts:
-          - path: /data/nfs-media
+          - path: /music
     resources:
       requests:
         cpu: 10m
