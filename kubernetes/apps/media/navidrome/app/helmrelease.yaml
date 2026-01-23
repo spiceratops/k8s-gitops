@@ -33,7 +33,7 @@ spec:
               ND_DATAFOLDER: /config
               ND_ENABLEGRAVATAR: "true"
               ND_LOGLEVEL: info
-              ND_MUSICFOLDER: /data/nfs-media/music
+              ND_MUSICFOLDER: /music
               ND_PORT: &port 8080
               ND_PROMETHEUS_ENABLED: "true"
               ND_REVERSEPROXYUSERHEADER: "Remote-User"
