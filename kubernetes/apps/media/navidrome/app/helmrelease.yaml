@@ -84,6 +84,12 @@ spec:
         path: /mnt/tank/media/music
         globalMounts:
           - path: /music
+      djsets:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/media/djsets
+        globalMounts:
+          - path: /djsets
     resources:
       requests:
         cpu: 10m
