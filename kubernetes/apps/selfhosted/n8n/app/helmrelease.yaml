@@ -13,6 +13,13 @@ spec:
   interval: 1h
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       n8n:
         annotations:
@@ -21,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/n8n-io/n8n
-              tag: 1.123.17
+              tag: 2.5.1@sha256:c0909dfdb975c76f50ec54d45212e1ecc2e821c63011f320ceceaeed25527767
             env:
               DB_SQLITE_VACUUM_ON_STARTUP: true
               EXECUTIONS_DATA_PRUNE: true
@@ -34,6 +41,7 @@ spec:
               N8N_HOST: &hostname n8n.${SECRET_DOMAIN}
               N8N_LOG_LEVEL: info
               N8N_LOG_OUTPUT: console
+              N8N_RUNNERS_ENABLED: true
               N8N_ENCRYPTION_KEY:
                 valueFrom:
                   secretKeyRef:
@@ -45,12 +53,10 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 2Gi
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
     service:
       app:
         controller: n8n
@@ -75,6 +81,19 @@ spec:
           gethomepage.dev/name: N8N
           gethomepage.dev/group: Selfhosted
           gethomepage.dev/description: Automation
+      webhooks:
+        hostnames:
+          - n8n-webhook.${SECRET_DOMAIN}
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+            sectionName: https
+        rules:
+          - matches:
+              - path:
+                  value: /webhook
+            backendRefs:
+              - {}
     persistence:
       data:
         existingClaim: "{ .Release.Name }"
