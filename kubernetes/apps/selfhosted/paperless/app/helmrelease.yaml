@@ -39,14 +39,24 @@ spec:
               PAPERLESS_ENABLE_HTTP_REMOTE_USER: "true"
               PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_X_AUTH_REQUEST_EMAIL
               PAPERLESS_OCR_LANGUAGE: eng
-              PAPERLESS_PORT: &port 8000
+              PAPERLESS_PORT: &port 80
               PAPERLESS_DBNAME: paperless
               PAPERLESS_REDIS: redis://dragonfly.databases.svc.cluster.local.:6379
               PAPERLESS_TASK_WORKERS: 2
               PAPERLESS_TIME_ZONE: ${TIMEZONE}
-              PAPERLESS_URL: https://${HOSTNAME}
+              PAPERLESS_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}
               PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: "false"
-              PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
+              PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "true"
+              PAPERLESS_DISABLE_REGULAR_LOGIN: "true"
+              PAPERLESS_WEBSERVER_WORKERS: 2
+              PAPERLESS_CONSUMPTION_DIR: /data/nas/incoming
+              PAPERLESS_DATA_DIR: /data/local/data
+              PAPERLESS_EXPORT_DIR: /data/nas/export
+              PAPERLESS_MEDIA_ROOT: /data/local/media
+              PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
+              PAPERLESS_TIKA_ENABLED: 1
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
+              PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
               USERMAP_UID: 1000
               USERMAP_GID: 1000
             envFrom: *envFrom
@@ -56,6 +66,35 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 6Gi
+          gotenberg:
+            image:
+              repository: docker.io/gotenberg/gotenberg
+              tag: 8.25.1
+            ports:
+              - containerPort: 3000
+            command:
+              - "gotenberg"
+              - "--chromium-disable-javascript=true"
+              - "--chromium-allow-list=file:///tmp/.*"
+            resources:
+              limits:
+                cpu: 500m
+                memory: 512Mi
+              requests:
+                cpu: 10m
+                memory: 256Mi
+          tika:
+            image:
+              repository: docker.io/apache/tika
+              tag: 3.2.3.0-full@sha256:21d8052de04e491ccf66e8680ade4da6f3d453a56d59f740b4167e54167219b7
+            ports:
+              - containerPort: 9998
+            resources:
+              limits:
+                memory: 512Mi
+              requests:
+                cpu: 10m
+                memory: 256Mi
         pod:
           enableServiceLinks: false
           securityContext:
@@ -83,14 +122,25 @@ spec:
                 port: *port
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/icon: paperless.png
           gethomepage.dev/name: Paperless
           gethomepage.dev/group: Home
           gethomepage.dev/description: Document Library
+          gethomepage.dev/icon: paperless-ngx.png
+          gethomepage.dev/widget.type: paperlessngx
+          gethomepage.dev/widget.url: http://{{ .Release.Name }}.selfhosted.svc.cluster.local
+          gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_PAPERLESS_TOKEN}}`}}"
     persistence:
-      config:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        advancedMounts:
+          paperless:
+            app:
+              - path: /data/local
+      nas:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/documents/paperless
-        globalMounts:
-          - path: /data/local
+        advancedMounts:
+          paperless:
+            app:
+              - path: /data/nas
