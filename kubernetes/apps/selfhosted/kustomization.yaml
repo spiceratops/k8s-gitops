@@ -12,7 +12,7 @@ resources:
   - ./homebox/ks.yaml
   - ./homepage/ks.yaml
   - ./drawio/ks.yaml
-  # - ./paperless/ks.yaml
+  - ./paperless/ks.yaml
   - ./ocis/ks.yaml
   - ./libmedium/ks.yaml
   # - ./hajimari/ks.yaml
@@ -20,6 +20,7 @@ resources:
   - ./karakeep/ks.yaml
   - ./searxng/ks.yaml
   # - ./n8n/ks.yaml
+  - ./shelfmark/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
