@@ -31,19 +31,19 @@ spec:
               tag: nightly@sha256:d845f15065ef5dd9b724cdb482d0dd04508648238981127a397a0fdee55e8344
             env:
               TZ: ${TIMEZONE}
-              APP_URL: https://tinyauth.${SECRET_DOMAIN}
-              DISABLE_ANALYTICS: true
+              APPURL: https://tinyauth.${SECRET_DOMAIN}
+              DISABLEANALYTICS: true
               PROVIDERS_POCKETID_NAME: Pocket-ID
               PROVIDERS_POCKETID_AUTH_URL: https://id.${SECRET_DOMAIN}/authorize
               PROVIDERS_POCKETID_TOKE_NURL: https://id.${SECRET_DOMAIN}/api/oidc/token
               PROVIDERS_POCKETID_USER_INFO_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
               PROVIDERS_POCKETID_REDIRECT_URL: https://tinyauth.${SECRET_DOMAIN}/api/oauth/callback/pocketid
               PROVIDERS_POCKETID_SCOPES: openid email profile groups
-              SECURE_COOKIE: true
-              SESSION_EXPIRY: 604800
-              RESOURCES_DIR: /data/resources
-              DATABASE_PATH: /data/tinyauth.db
-              TRUSTED_PROXIES: 10.244.0.0/16
+              SECURECOOKIE: true
+              SESSIONEXPIRY: 604800
+              RESOURCESDIR: /data/resources
+              DATABASEPATH: /data/tinyauth.db
+              TRUSTEDPROXIES: 10.244.0.0/16
             envFrom:
               - secretRef:
                   name: tinyauth-secret
