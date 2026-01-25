@@ -33,12 +33,12 @@ spec:
               TZ: ${TIMEZONE}
               TINYAUTH_APPURL: https://tinyauth.${SECRET_DOMAIN}
               TINYAUTH_DISABLEANALYTICS: true
-              PROVIDERS_POCKETID_NAME: Pocket-ID
-              PROVIDERS_POCKETID_AUTH_URL: https://id.${SECRET_DOMAIN}/authorize
-              PROVIDERS_POCKETID_TOKE_NURL: https://id.${SECRET_DOMAIN}/api/oidc/token
-              PROVIDERS_POCKETID_USER_INFO_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
-              PROVIDERS_POCKETID_REDIRECT_URL: https://tinyauth.${SECRET_DOMAIN}/api/oauth/callback/pocketid
-              PROVIDERS_POCKETID_SCOPES: openid email profile groups
+              TINYAUTH_PROVIDERS_POCKETID_NAME: Pocket-ID
+              TINYAUTH_PROVIDERS_POCKETID_AUTH_URL: https://id.${SECRET_DOMAIN}/authorize
+              TINYAUTH_PROVIDERS_POCKETID_TOKE_NURL: https://id.${SECRET_DOMAIN}/api/oidc/token
+              TINYAUTH_PROVIDERS_POCKETID_USER_INFO_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
+              TINYAUTH_PROVIDERS_POCKETID_REDIRECT_URL: https://tinyauth.${SECRET_DOMAIN}/api/oauth/callback/pocketid
+              TINYAUTH_PROVIDERS_POCKETID_SCOPES: openid email profile groups
               TINYAUTH_AUTH_SECURECOOKIE: true
               TINYAUTH_AUTH_SESSIONEXPIRY: 604800
               TINYAUTH_RESOURCESDIR: /data/resources
