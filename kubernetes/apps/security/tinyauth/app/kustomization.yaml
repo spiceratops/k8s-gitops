@@ -6,3 +6,9 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./referencegrant.yaml
+configMapGenerator:
+  - name: tinyauth-configmap
+    files:
+      - ./resources/config.yaml
+generatorOptions:
+  disableNameSuffixHash: true
