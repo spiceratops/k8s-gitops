@@ -81,19 +81,19 @@ spec:
           gethomepage.dev/name: N8N
           gethomepage.dev/group: Selfhosted
           gethomepage.dev/description: Automation
-      webhooks:
-        hostnames:
-          - n8n-webhook.${SECRET_DOMAIN}
-        parentRefs:
-          - name: envoy-external
-            namespace: networking
-            sectionName: https
-        rules:
-          - matches:
-              - path:
-                  value: /webhook
-            backendRefs:
-              - {}
+      # webhooks:
+      #   hostnames:
+      #     - n8n-webhook.${SECRET_DOMAIN}
+      #   parentRefs:
+      #     - name: envoy-external
+      #       namespace: networking
+      #       sectionName: https
+      #   rules:
+      #     - matches:
+      #         - path:
+      #             value: /webhook
+      #       backendRefs:
+      #         - {}
     persistence:
       data:
         existingClaim: "{ .Release.Name }"
