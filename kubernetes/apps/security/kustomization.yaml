@@ -5,7 +5,7 @@ namespace: security
 resources:
   - ./lldap/ks.yaml
   - ./pocket-id/ks.yaml
-  # - ./tinyauth/ks.yaml
+  - ./tinyauth/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
