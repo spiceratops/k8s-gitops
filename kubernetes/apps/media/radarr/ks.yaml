@@ -12,6 +12,7 @@ spec:
   components:
     - ../../../../components/volsync/nfs-nas-migration
     - ../../../../components/tinyauth
+  dependsOn:
     - name: volsync
       namespace: volsync-system
     - name: rook-ceph
