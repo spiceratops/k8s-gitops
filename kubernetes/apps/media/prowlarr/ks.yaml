@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *appname
   components:
     - ../../../../components/volsync/nfs-nas
+    - ../../../../components/tinyauth
   dependsOn:
     - name: volsync
       namespace: volsync-system

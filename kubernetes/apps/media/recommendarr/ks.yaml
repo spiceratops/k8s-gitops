@@ -14,6 +14,7 @@ spec:
       namespace: volsync-system
   components:
     - ../../../../components/volsync/nfs-nas
+    - ../../../../components/tinyauth
   path: ./kubernetes/apps/media/recommendarr/app
   prune: true
   sourceRef:
