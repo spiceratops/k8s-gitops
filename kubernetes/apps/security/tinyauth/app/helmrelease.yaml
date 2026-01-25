@@ -31,19 +31,19 @@ spec:
               tag: nightly@sha256:1c73d4c716274b5c094392c7ed95f5967bfdacf8a2be9a727e0e31055d9018da
             env:
               TZ: ${TIMEZONE}
-              # TINYAUTH_APPURL: https://tinyauth.${SECRET_DOMAIN}
-              # TINYAUTH_DISABLEANALYTICS: true
-              # TINYAUTH_OAUTH_PROVIDERS_POCKETID_NAME: Pocket-ID
-              # TINYAUTH_OAUTH_PROVIDERS_POCKETID_AUTHURL: https://id.${SECRET_DOMAIN}/authorize
-              # TINYAUTH_OAUTH_PROVIDERS_POCKETID_TOKENURL: https://id.${SECRET_DOMAIN}/api/oidc/token
-              # TINYAUTH_OAUTH_PROVIDERS_POCKETID_USERINFOURL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
-              # TINYAUTH_OAUTH_PROVIDERS_POCKETID_REDIRECTURL: https://tinyauth.${SECRET_DOMAIN}/api/oauth/callback/pocketid
-              # TINYAUTH_OAUTH_PROVIDERS_POCKETID_SCOPES: openid email profile groups
-              # TINYAUTH_AUTH_SECURECOOKIE: true
-              # TINYAUTH_AUTH_SESSIONEXPIRY: 604800
-              # TINYAUTH_RESOURCESDIR: /data/resources
-              # TINYAUTH_DATABASEPATH: /data/tinyauth.db
-              # TINYAUTH_SERVER_TRUSTEDPROXIES: 10.244.0.0/16
+              TINYAUTH_APPURL: https://tinyauth.${SECRET_DOMAIN}
+              TINYAUTH_DISABLEANALYTICS: true
+              TINYAUTH_OAUTH_PROVIDERS_POCKETID_NAME: Pocket-ID
+              TINYAUTH_OAUTH_PROVIDERS_POCKETID_AUTHURL: https://id.${SECRET_DOMAIN}/authorize
+              TINYAUTH_OAUTH_PROVIDERS_POCKETID_TOKENURL: https://id.${SECRET_DOMAIN}/api/oidc/token
+              TINYAUTH_OAUTH_PROVIDERS_POCKETID_USERINFOURL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
+              TINYAUTH_OAUTH_PROVIDERS_POCKETID_REDIRECTURL: https://tinyauth.${SECRET_DOMAIN}/api/oauth/callback/pocketid
+              TINYAUTH_OAUTH_PROVIDERS_POCKETID_SCOPES: openid email profile groups
+              TINYAUTH_AUTH_SECURECOOKIE: true
+              TINYAUTH_AUTH_SESSIONEXPIRY: 604800
+              TINYAUTH_RESOURCESDIR: /data/resources
+              TINYAUTH_DATABASEPATH: /data/tinyauth.db
+              TINYAUTH_SERVER_TRUSTEDPROXIES: 10.244.0.0/16
             envFrom:
               - secretRef:
                   name: tinyauth-secret
@@ -96,10 +96,3 @@ spec:
             app:
               - path: /data
                 subPath: data
-      config-file:
-        type: configMap
-        name: tinyauth-configmap
-        globalMounts:
-          - path: /data/config.yaml
-            subPath: config.yaml
-            readOnly: true
