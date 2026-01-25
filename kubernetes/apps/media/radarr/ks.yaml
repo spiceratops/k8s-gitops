@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: *appname
   components:
     - ../../../../components/volsync/nfs-nas-migration
-  dependsOn:
+    - ../../../../components/tinyauth
     - name: volsync
       namespace: volsync-system
     - name: rook-ceph
