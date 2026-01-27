@@ -48,6 +48,8 @@ spec:
             env:
               MEILI_NO_ANALYTICS: "true"
             envFrom: *envFrom
+            command:
+              - rm -R /meili_data/data.ms
             resources:
               requests:
                 cpu: 10m
