@@ -27,6 +27,8 @@ spec:
               MEILI_ADDR: http://karakeep-meilisearch:7700
               BROWSER_WEB_URL: http://karakeep-chrome:9222
               NEXTAUTH_URL: https://keep.${SECRET_DOMAIN}
+              CRAWLER_DOWNLOAD_BANNER_IMAGE: true
+              CRAWLER_ENABLE_ADBLOCKER: true
               # OAuth setup
               OAUTH_PROVIDER_NAME: Pocket-ID
               OAUTH_WELLKNOWN_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
@@ -61,6 +63,7 @@ spec:
               tag: 124@sha256:1a0046448e0bb6c275c88f86e01faf0de62b02ec8572901256ada0a8c08be23f
             command:
               - chromium-browser
+            args:
               - --headless
               - --no-sandbox
               - --disable-gpu
@@ -68,6 +71,15 @@ spec:
               - --remote-debugging-address=0.0.0.0
               - --remote-debugging-port=9222
               - --hide-scrollbars
+            securityContext:
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
     service:
       app:
         controller: karakeep
