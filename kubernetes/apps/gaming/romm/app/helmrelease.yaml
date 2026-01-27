@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: rommapp/romm
-              tag: 4.5.0
+              tag: 4.6.1
             resources:
               requests:
                 cpu: 10m
