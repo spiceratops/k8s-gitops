@@ -43,21 +43,21 @@ spec:
                 memory: 256Mi
               limits:
                 memory: 750Mi
-          # meilisearch:
-          #   image:
-          #     repository: getmeili/meilisearch
-          #     tag: v1.34.1@sha256:ed207d965b25fe533b39f367f13ce26abff22152acfbf7ab28b1a8c565f22e72
-          #   env:
-          #     MEILI_NO_ANALYTICS: "true"
-          #   envFrom: *envFrom
-          #   args:
-          #     - /bin/meilisearch
-          #     - --experimental-dumpless-upgrade
-          #   resources:
-          #     requests:
-          #       cpu: 10m
-          #     limits:
-          #       memory: 128Mi
+          meilisearch:
+            image:
+              repository: getmeili/meilisearch
+              tag: v1.34.1@sha256:ed207d965b25fe533b39f367f13ce26abff22152acfbf7ab28b1a8c565f22e72
+            env:
+              MEILI_NO_ANALYTICS: "true"
+            envFrom: *envFrom
+            args:
+              - /bin/meilisearch
+              - --experimental-dumpless-upgrade
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 128Mi
           chrome:
             image:
               repository: gcr.io/zenika-hub/alpine-chrome
