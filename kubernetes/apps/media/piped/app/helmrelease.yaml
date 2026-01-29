@@ -182,9 +182,16 @@ spec:
           - backendRefs:
               - name: backend
                 port: *port
-        # annotations:
-        #   nginx.ingress.kubernetes.io/enable-cors: "true"
-        #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN}, https://piped-api.${SECRET_DOMAIN}, https://piped-proxy.${SECRET_DOMAIN}"
+            filters:
+              - type: CORS
+                cors:
+                  allowOrigins:
+                    - "https://piped.${SECRET_DOMAIN}"
+                    - "https://piped-api.${SECRET_DOMAIN}"
+                    - "https://piped-proxy.${SECRET_DOMAIN}"
+                  allowMethods:
+                    - GET
+                    - POST
       frontend:
         hostnames:
           - "youtube.${SECRET_DOMAIN}"
@@ -196,9 +203,17 @@ spec:
           - backendRefs:
               - name: frontend
                 port: *port
+            filters:
+              - type: CORS
+                cors:
+                  allowOrigins:
+                    - "https://piped.${SECRET_DOMAIN}"
+                    - "https://piped-api.${SECRET_DOMAIN}"
+                    - "https://piped-proxy.${SECRET_DOMAIN}"
+                  allowMethods:
+                    - GET
+                    - POST
         annotations:
-          # nginx.ingress.kubernetes.io/enable-cors: "true"
-          # nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN}, https://piped-api.${SECRET_DOMAIN}, https://piped-proxy.${SECRET_DOMAIN}"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: YT Proxy
           gethomepage.dev/group: The Internets
@@ -215,9 +230,16 @@ spec:
           - backendRefs:
               - name: ytproxy
                 port: *port
-        # annotations:
-        #   nginx.ingress.kubernetes.io/enable-cors: "true"
-        #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.${SECRET_DOMAIN}, https://piped-api.${SECRET_DOMAIN}, https://piped-proxy.${SECRET_DOMAIN}"
+            filters:
+              - type: CORS
+                cors:
+                  allowOrigins:
+                    - "https://piped.${SECRET_DOMAIN}"
+                    - "https://piped-api.${SECRET_DOMAIN}"
+                    - "https://piped-proxy.${SECRET_DOMAIN}"
+                  allowMethods:
+                    - GET
+                    - POST
 
     persistence:
       config:
