@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app libreddit
+  name: &app redlib
   namespace: selfhosted
 spec:
   chartRef:
@@ -13,22 +13,32 @@ spec:
   interval: 1h
 
   values:
+    defaultPodOptions:
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        runAsNonRoot: true
     controllers:
-      libreddit:
+      redlib:
         replicas: 2
         strategy: RollingUpdate
         containers:
           app:
             image:
-              repository: ghcr.io/auricom/libreddit
-              tag: 0.30.1@sha256:aa1694e09eb6051232766845cedc7bf67e2050cefb074ca700801524169262f4
+              repository: git.ptr.moe/baalajimaestro/redlib
+              tag: latest@sha256:43edfc71d7e3c91c7fad617881dc7c279c382981aefdf466906308a859651886
+            env:
+              REDLIB_ARTI_PATH: /tmp/arti
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: &path /settings
+                    path: /settings
                     port: &port 8080
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -40,27 +50,13 @@ spec:
             resources:
               requests:
                 cpu: 5m
-                memory: 36M
-              limits:
-                memory: 128M
+                memory: 256M
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-          topologySpreadConstraints:
-            - maxSkew: 1
-              topologyKey: kubernetes.io/hostname
-              whenUnsatisfiable: DoNotSchedule
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: ${APP}
     route:
       app:
         hostnames:
@@ -79,13 +75,18 @@ spec:
           gethomepage.dev/description: Reddit Reader
           gethomepage.dev/group: The Internets
           gethomepage.dev/icon: reddit.png
-          gethomepage.dev/name: Libreddit
+          gethomepage.dev/name: redlib
           hajimari.io/enable: "true"
           hajimari.io/icon: simple-icons:reddit
-          hajimari.io/appName: Libreddit
+          hajimari.io/appName: redlib
     service:
       app:
-        controller: libreddit
+        controller: redlib
         ports:
           http:
             port: *port
+    persistence:
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp/arti
