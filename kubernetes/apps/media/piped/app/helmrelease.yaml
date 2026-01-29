@@ -186,7 +186,7 @@ spec:
               - type: CORS
                 cors:
                   allowOrigins:
-                    - "https://piped.${SECRET_DOMAIN}"
+                    - "https://youtube.${SECRET_DOMAIN}"
                     - "https://piped-api.${SECRET_DOMAIN}"
                     - "https://piped-proxy.${SECRET_DOMAIN}"
                   allowMethods:
@@ -207,7 +207,7 @@ spec:
               - type: CORS
                 cors:
                   allowOrigins:
-                    - "https://piped.${SECRET_DOMAIN}"
+                    - "https://youtube.${SECRET_DOMAIN}"
                     - "https://piped-api.${SECRET_DOMAIN}"
                     - "https://piped-proxy.${SECRET_DOMAIN}"
                   allowMethods:
@@ -234,7 +234,7 @@ spec:
               - type: CORS
                 cors:
                   allowOrigins:
-                    - "https://piped.${SECRET_DOMAIN}"
+                    - "https://youtube.${SECRET_DOMAIN}"
                     - "https://piped-api.${SECRET_DOMAIN}"
                     - "https://piped-proxy.${SECRET_DOMAIN}"
                   allowMethods:
