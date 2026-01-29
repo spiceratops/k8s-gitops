@@ -5,7 +5,7 @@ namespace: selfhosted
 resources:
   - ./_pvc/ks.yaml
   - ./excalidraw/ks.yaml
-  - ./libreddit/ks.yaml
+  # - ./libreddit/ks.yaml
   - ./mealie/ks.yaml
   - ./actual/ks.yaml
   - ./immich/ks.yaml
