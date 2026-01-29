@@ -186,7 +186,7 @@ spec:
               - type: CORS
                 cors:
                   allowOrigins:
-                    - "https://youtube.${SECRET_DOMAIN}"
+                    - "https://piped.${SECRET_DOMAIN}"
                     - "https://piped-api.${SECRET_DOMAIN}"
                     - "https://piped-proxy.${SECRET_DOMAIN}"
                   allowMethods:
@@ -194,7 +194,7 @@ spec:
                     - POST
       frontend:
         hostnames:
-          - "youtube.${SECRET_DOMAIN}"
+          - "piped.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking
@@ -207,7 +207,7 @@ spec:
               - type: CORS
                 cors:
                   allowOrigins:
-                    - "https://youtube.${SECRET_DOMAIN}"
+                    - "https://piped.${SECRET_DOMAIN}"
                     - "https://piped-api.${SECRET_DOMAIN}"
                     - "https://piped-proxy.${SECRET_DOMAIN}"
                   allowMethods:
@@ -234,7 +234,7 @@ spec:
               - type: CORS
                 cors:
                   allowOrigins:
-                    - "https://youtube.${SECRET_DOMAIN}"
+                    - "https://piped.${SECRET_DOMAIN}"
                     - "https://piped-api.${SECRET_DOMAIN}"
                     - "https://piped-proxy.${SECRET_DOMAIN}"
                   allowMethods:
