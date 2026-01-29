@@ -28,9 +28,13 @@ spec:
         containers:
           app:
             image:
-              repository: git.ptr.moe/baalajimaestro/redlib
-              tag: latest@sha256:43edfc71d7e3c91c7fad617881dc7c279c382981aefdf466906308a859651886
+              repository: quay.io/redlib/redlib
+              tag: latest@sha256:dffb6c5a22f889d47d8e28e33411db0fb6c5694599f72cf740c912c12f5fc1c6
             env:
+              REDLIB_DEFAULT_SHOW_NSFW: on
+              REDLIB_DEFAULT_WIDE: on
+              REDLIB_DEFAULT_USE_HLS: on
+              REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION: on
               REDLIB_ARTI_PATH: /tmp/arti
             probes:
               liveness: &probes
