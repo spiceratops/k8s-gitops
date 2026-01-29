@@ -46,6 +46,10 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: YT Downloader
+          gethomepage.dev/group: Downloaders
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

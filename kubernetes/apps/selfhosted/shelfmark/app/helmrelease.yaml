@@ -77,6 +77,10 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Book Library Manager
+          gethomepage.dev/group: Downloaders
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

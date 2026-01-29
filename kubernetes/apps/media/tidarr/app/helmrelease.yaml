@@ -58,6 +58,10 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Tidal Downloader
+          gethomepage.dev/group: Downloaders
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

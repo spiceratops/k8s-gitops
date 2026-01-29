@@ -56,6 +56,10 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Media Recommender
+          gethomepage.dev/group: Media
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
