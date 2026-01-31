@@ -96,6 +96,10 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Individual Music Downloader
