@@ -136,3 +136,5 @@ spec:
         path: /mnt/tank/media
         globalMounts:
           - path: /media
+      tmp:
+        type: emptyDir
