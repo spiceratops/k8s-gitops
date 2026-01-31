@@ -30,6 +30,7 @@ resources:
   - ./cleanuparr/ks.yaml
   - ./recommendarr/ks.yaml
   - ./metube/ks.yaml
+  - ./slskd/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
