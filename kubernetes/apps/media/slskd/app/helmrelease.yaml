@@ -20,6 +20,11 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      slskd:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
