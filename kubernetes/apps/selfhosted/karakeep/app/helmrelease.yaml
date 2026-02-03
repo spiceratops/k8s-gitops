@@ -57,7 +57,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 256Mi
+                memory: 2Gi
           chrome:
             image:
               repository: gcr.io/zenika-hub/alpine-chrome
