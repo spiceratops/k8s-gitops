@@ -13,7 +13,11 @@ spec:
       peers:
         - name: peer-64513
           peerASN: 64513
-          peerAddress: 192.168.1.1
+          autoDiscovery:
+            mode: "DefaultGateway"
+            defaultGateway:
+              addressFamily: ipv4 # Can be "ipv4" or "ipv6"
+          # peerAddress: 192.168.1.1
           peerConfigRef:
             name: cilium-peer
     # - name: cilium-v6
