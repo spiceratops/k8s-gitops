@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/steveiliop56/tinyauth
-              tag: nightly@sha256:f4face49b02c98664203ebf0510b732e1da5a0ad643f262ce5c9994f00aa45e7
+              tag: nightly@sha256:72a5792a45548bc9f373218bf25108b4e45db06b4c9c2c2c71de074a049f7f50
             env:
               TZ: ${TIMEZONE}
               TINYAUTH_APPURL: https://tinyauth.${SECRET_DOMAIN}
