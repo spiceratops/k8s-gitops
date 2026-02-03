@@ -31,6 +31,7 @@ resources:
   - ./recommendarr/ks.yaml
   - ./metube/ks.yaml
   - ./slskd/ks.yaml
+  - ./soulsync/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
