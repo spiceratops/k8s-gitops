@@ -100,6 +100,7 @@ spec:
     cni:
       exclusive: false
     devices: bond+
+    directRoutingSkipUnreachable: true
     enableIPv6Masquerade: true
     enableRuntimeDeviceDetection: true
     endpointRoutes:
