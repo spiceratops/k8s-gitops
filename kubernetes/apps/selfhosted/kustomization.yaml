@@ -21,6 +21,7 @@ resources:
   - ./searxng/ks.yaml
   # - ./n8n/ks.yaml
   - ./shelfmark/ks.yaml
+  - ./donetick/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
