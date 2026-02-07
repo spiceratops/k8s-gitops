@@ -7,6 +7,8 @@ resources:
   # - ./ollama/ks.yaml
   # - ./open-webui/ks.yaml
   # - ./swarmui/ks.yaml
+  - ./qdrant/ks.yaml
+  - ./litellm/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos

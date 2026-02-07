@@ -1,0 +1,30 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname litellm
+  namespace: flux-system
+spec:
+  targetNamespace: ai
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  components:
+    - ../../../../components/volsync/nfs-nas
+  path: ./kubernetes/apps/ai/litellm/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+    namespace: flux-system
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  postBuild:
+    substitute:
+      APP: *appname
+      VOLSYNC_CAPACITY: 10Gi
