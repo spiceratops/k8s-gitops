@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: media
 resources:
   - ./externalsecret.yaml
-  # - ./volsync.yaml
   - ./helmrelease.yaml

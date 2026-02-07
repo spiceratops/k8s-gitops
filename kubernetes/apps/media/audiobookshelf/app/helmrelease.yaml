@@ -39,8 +39,7 @@ spec:
               AUDIOBOOKSHELF_GID: 1000
               CONFIG_PATH: /config
               METADATA_PATH: /config/metadata
-              # AUDIOBOOKSHELF_OIDC_DISCOVERY_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
-              # AUDIOBOOKSHELF_OIDC_CLIENT_ID: audiobookshelf
+              AUDIOBOOKSHELF_OIDC_DISCOVERY_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
             probes:
               liveness: &probes
                 enabled: true
@@ -87,6 +86,8 @@ spec:
       config:
         existingClaim: "{{ .Release.Name }}"
       media:
-        existingClaim: nfs-media
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/media
         globalMounts:
           - path: /media
