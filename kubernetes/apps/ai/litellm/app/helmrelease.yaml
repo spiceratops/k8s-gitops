@@ -119,5 +119,3 @@ spec:
         globalMounts:
           - path: /usr/local/lib/python3.13/site-packages/prisma
             subPath: prisma
-          - path: /usr/lib/python3.13/site-packages/litellm
-            subPath: litellm
