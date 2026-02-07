@@ -32,6 +32,7 @@ resources:
   - ./metube/ks.yaml
   - ./slskd/ks.yaml
   - ./soulsync/ks.yaml
+  - ./readmeabook/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
