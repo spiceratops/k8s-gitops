@@ -1,4 +1,30 @@
 model_list:
+  # Google
+  - model_name: Gemini-Flash
+    litellm_params:
+      model: gemini/gemini-3-flash-preview
+      api_key: os.environ/GOOGLE_API_KEY
+
+  - model_name: Gemini-Pro
+    litellm_params:
+      model: gemini/gemini-3-pro-preview
+      api_key: os.environ/GOOGLE_API_KEY
+
+  - model_name: Gemini-Image-Flash
+    litellm_params:
+      model: gemini/gemini-2.5-flash-image
+      api_key: os.environ/GOOGLE_API_KEY
+    model_info:
+      mode: image_generation
+
+  - model_name: Gemini-Image-Pro
+    litellm_params:
+      model: gemini/gemini-3-pro-image-preview
+      api_key: os.environ/GOOGLE_API_KEY
+    model_info:
+      mode: image_generation
+
+  # Ollama
   - model_name: nomic-embed-text
     litellm_params:
       model: ollama/nomic-embed-text:latest
