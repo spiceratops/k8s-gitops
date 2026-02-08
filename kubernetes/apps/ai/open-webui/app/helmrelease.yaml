@@ -56,7 +56,7 @@ spec:
               OPENID_PROVIDER_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
               OAUTH_PROVIDER_NAME: "Pocket ID"
               ENABLE_OAUTH_SIGNUP: true
-              ENABLE_LOGIN_FORM: true
+              ENABLE_LOGIN_FORM: false
               OAUTH_ALLOWED_ROLES: "users, admins"
               OAUTH_ADMIN_ROLES: admins
               OAUTH_ROLES_CLAIM: groups
