@@ -94,6 +94,10 @@ spec:
           - name: internal
             namespace: networking
             sectionName: https
+        rules:
+          - backendRefs:
+              - port: *port
+                name: *app
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: AI
