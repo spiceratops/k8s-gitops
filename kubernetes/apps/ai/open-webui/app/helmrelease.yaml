@@ -90,7 +90,7 @@ spec:
                 # nvidia.com/gpu: 1
     service:
       app:
-        controller: ollama-ui
+        controller: *app
         ports:
           http:
             port: &port 8080
