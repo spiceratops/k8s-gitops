@@ -53,9 +53,9 @@ model_list:
     model_info:
       mode: completion
 
-  - model_name: llama3.1:70b
+  - model_name: llama3.1:8b
     litellm_params:
-      model: ollama_chat/llama3.1:70b
+      model: ollama_chat/llama3.1:8b
       api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
     model_info:
       mode: completion
