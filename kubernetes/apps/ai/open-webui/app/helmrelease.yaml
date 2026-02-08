@@ -53,13 +53,21 @@ spec:
               # RAG_EMBEDDING_ENGINE: ollama
               # COMFYUI_BASE_URL: http://comfyui.ai.svc.cluster.local:8188
               # VECTOR_DB: pgvector
-              # OPENID_PROVIDER_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
-              # OAUTH_PROVIDER_NAME: Authelia
-              # ENABLE_OAUTH_SIGNUP: true
-              # ENABLE_LOGIN_FORM: false
-              # WEBUI_AUTH_TRUSTED_EMAIL_HEADER: Remote-Email
-              # OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
-              # OPENID_REDIRECT_URI: "https://open-webui.${SECRET_DOMAIN}/oauth/oidc/callback"
+              OPENID_PROVIDER_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
+              OAUTH_PROVIDER_NAME: Pocket-ID
+              ENABLE_OAUTH_SIGNUP: true
+              ENABLE_LOGIN_FORM: false
+              OAUTH_ALLOWED_ROLES: "users, admins"
+              OAUTH_ADMIN_ROLES: admins
+              OAUTH_ROLES_CLAIM: groups
+              OAUTH_SCOPES: "openid email profile groups"
+              OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
+              ENABLE_OAUTH_ROLE_MANAGEMENT: true
+              ENABLE_OAUTH_GROUP_MANAGEMENT: true
+              ENABLE_OAUTH_GROUP_CREATION: true
+              DEFAULT_USER_ROLE: user
+              OAUTH_UPDATE_PICTURE_ON_LOGIN: true
+              OPENID_REDIRECT_URI: "https://chat.${SECRET_DOMAIN}/oauth/oidc/callback"
               ENABLE_RAG_WEB_SEARCH: true
               RAG_WEB_SEARCH_ENGINE: searxng
               SEARXNG_QUERY_URL: http://searxng.selfhosted.svc.cluster.local:8080/search?q=<query>
