@@ -34,10 +34,10 @@ spec:
               TZ: ${TIMEZONE}
             resources:
               requests:
-                cpu: 10m
-                memory: 256Mi
+                cpu: 50m
+                memory: 768Mi
               limits:
-                memory: 512Mi
+                memory: 2Gi
     service:
       app:
         controller: huntarr
