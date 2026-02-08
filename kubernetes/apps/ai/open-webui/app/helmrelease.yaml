@@ -13,7 +13,7 @@ spec:
 
   values:
     controllers:
-      ollama-ui:
+      open-webui:
         type: deployment
         annotations:
           reloader.stakater.com/auto: "true"
@@ -26,32 +26,33 @@ spec:
             envFrom:
               - secretRef:
                   name: open-webui-secret
-        pod:
-          nodeSelector:
-            nvidia.feature.node.kubernetes.io/gpu: "true"
-          runtimeClassName: nvidia
+        # pod:
+        #   nodeSelector:
+        #     nvidia.feature.node.kubernetes.io/gpu: "true"
+        #   runtimeClassName: nvidia
         containers:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: 0.7.2-cuda@sha256:1ab28b1bf7cc38a3655c7ca191b61f6e3eb76579d3ace8a7425d9b43aa760616
+              tag: 0.7.2@sha256:16d9a3615b45f14a0c89f7ad7a3bf151f923ed32c2e68f9204eb17d1ce40774b
             env:
-              WEBUI_NAME: Ollama
-              WEBUI_URL: https://${HOSTNAME}
-              ENABLE_OLLAMA_API: true
-              OLLAMA_BASE_URLS: "http://studio-pc.${SECRET_DOMAIN}:11434;http://lounge-pc.${SECRET_DOMAIN}:11434;http://ollama.ai.svc.cluster.local:11434"
-              AUDIO_TTS_ENGINE: openai
-              AUDIO_TTS_VOICE: glados
-              AUDIO_TTS_MODEL: glados
-              AUDIO_TTS_OPENAI_API_BASE_URL: https://glados.${SECRET_DOMAIN}
-              AUDIO_TTS_OPENAI_API_KEY: sk-111111111111 # fake key needed to make ui happy
+              # WEBUI_NAME: Ollama
+              # WEBUI_URL: https://${HOSTNAME}
+              ENABLE_OPENAI_API: true
+              ENABLE_OLLAMA_API: false
+              # OLLAMA_BASE_URLS: "http://studio-pc.${SECRET_DOMAIN}:11434;http://lounge-pc.${SECRET_DOMAIN}:11434;http://ollama.ai.svc.cluster.local:11434"
+              # AUDIO_TTS_ENGINE: openai
+              # AUDIO_TTS_VOICE: glados
+              # AUDIO_TTS_MODEL: glados
+              # AUDIO_TTS_OPENAI_API_BASE_URL: https://glados.${SECRET_DOMAIN}
+              # AUDIO_TTS_OPENAI_API_KEY: sk-111111111111 # fake key needed to make ui happy
               # AUDIO_STT_ENGINE: openai
               # AUDIO_STT_OPENAI_API_BASE_URL: http://wyoming-whisper.home.svc.cluster.local:10300
               # AUDIO_STT_OPENAI_API_KEY: sk-111111111111 # fake key needed to make ui happy
-              WHISPER_MODEL: medium
-              RAG_EMBEDDING_ENGINE: ollama
-              COMFYUI_BASE_URL: http://comfyui.ai.svc.cluster.local:8188
-              VECTOR_DB: pgvector
+              # WHISPER_MODEL: medium
+              # RAG_EMBEDDING_ENGINE: ollama
+              # COMFYUI_BASE_URL: http://comfyui.ai.svc.cluster.local:8188
+              # VECTOR_DB: pgvector
               # OPENID_PROVIDER_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
               # OAUTH_PROVIDER_NAME: Authelia
               # ENABLE_OAUTH_SIGNUP: true
@@ -62,8 +63,8 @@ spec:
               ENABLE_RAG_WEB_SEARCH: true
               RAG_WEB_SEARCH_ENGINE: searxng
               SEARXNG_QUERY_URL: http://searxng.selfhosted.svc.cluster.local:8080/search?q=<query>
-              WEBUI_SESSION_COOKIE_SAME_SITE: "lax"
-              WEBUI_SESSION_COOKIE_SECURE: "True"
+              # WEBUI_SESSION_COOKIE_SAME_SITE: "lax"
+              # WEBUI_SESSION_COOKIE_SECURE: "True"
               # OAUTH_USERNAME_CLAIM: "preferred_username"
               ENABLE_WEBSOCKET_SUPPORT: "true"
               WEBSOCKET_MANAGER: "redis"
@@ -75,10 +76,10 @@ spec:
               requests:
                 cpu: 200m
                 memory: 2Gi
-                nvidia.com/gpu: 1
+                # nvidia.com/gpu: 1
               limits:
                 memory: 4Gi
-                nvidia.com/gpu: 1
+                # nvidia.com/gpu: 1
     service:
       app:
         controller: ollama-ui
@@ -100,4 +101,9 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: AI
-          gethomepage.dev/name: Ollama
+          gethomepage.dev/name: Openwebui
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /app/backend/data
