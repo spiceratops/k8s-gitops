@@ -97,7 +97,7 @@ spec:
     route:
       app:
         hostnames:
-          - chat.${SECRET_DOMAIN}"
+          - "chat.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
