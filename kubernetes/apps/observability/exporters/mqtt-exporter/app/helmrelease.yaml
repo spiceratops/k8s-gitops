@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/kpetremann/mqtt-exporter
-              tag: 1.10.0
+              tag: 1.10.1
             env:
               TZ: "${TIMEZONE}"
               # LOG_LEVEL: DEBUG
