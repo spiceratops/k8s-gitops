@@ -37,11 +37,11 @@ spec:
       create: true
     service:
       name: kube-dns
-      ipFamilyPolicy: PreferDualStack
+      # ipFamilyPolicy: PreferDualStack
       clusterIP: 10.245.0.10
-      clusterIPs:
-        - 10.245.0.10
-        - fdad:cafe:245::a
+      # clusterIPs:
+      #   - 10.245.0.10
+      #   - fdad:cafe:245::a
     servers:
       - zones:
           - zone: .

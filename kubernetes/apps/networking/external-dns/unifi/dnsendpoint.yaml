@@ -10,7 +10,7 @@ spec:
       recordType: A
       targets:
         - 192.168.1.250
-    - dnsName: cp01.${PUBLIC_DOMAIN}
+    - dnsName: k8s-cp01.${PUBLIC_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
@@ -20,7 +20,7 @@ spec:
     #   recordType: AAAA
     #   targets:
     #     - ${PUBLIC_IPV6_PREFIX}:0:8c94:cff:fe67:cc84
-    - dnsName: cp02.${PUBLIC_DOMAIN}
+    - dnsName: k8s-cp02.${PUBLIC_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
@@ -30,7 +30,7 @@ spec:
     #   recordType: AAAA
     #   targets:
     #     - ${PUBLIC_IPV6_PREFIX}:0:d01b:40ff:fe68:2ebe
-    - dnsName: cp03.${PUBLIC_DOMAIN}
+    - dnsName: k8s-cp03.${PUBLIC_DOMAIN}
       recordTTL: 180
       recordType: A
       targets:
