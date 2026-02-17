@@ -43,7 +43,7 @@ spec:
               TINYAUTH_AUTH_SESSIONEXPIRY: 604800
               TINYAUTH_RESOURCESDIR: /data/resources
               TINYAUTH_DATABASEPATH: /data/tinyauth.db
-              TINYAUTH_SERVER_TRUSTEDPROXIES: 10.244.0.0/16
+              TINYAUTH_TRUSTEDPROXIES: 10.244.0.0/16
             envFrom:
               - secretRef:
                   name: tinyauth-secret
