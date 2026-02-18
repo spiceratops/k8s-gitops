@@ -106,7 +106,9 @@ spec:
         enabled: true
         existingClaim: "{{ .Release.Name }}"
       media:
-        existingClaim: nfs-media
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/media
         globalMounts:
           - path: /media
       transcode:
@@ -121,3 +123,5 @@ spec:
         defaultMode: 0775
         globalMounts:
           - readOnly: true
+      tmp:
+        type: emptyDir
