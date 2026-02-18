@@ -31,7 +31,6 @@ spec:
               repository: ghcr.io/atuinsh/atuin
               tag: v18.12.0
             args:
-              - server
               - start
             envFrom: *envFrom
             env:

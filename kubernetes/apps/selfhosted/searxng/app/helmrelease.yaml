@@ -50,7 +50,7 @@ spec:
     route:
       app:
         hostnames:
-          - search.${SECRET_DOMAIN}"
+          - "search.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
