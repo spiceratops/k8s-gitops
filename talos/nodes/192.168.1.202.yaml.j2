@@ -8,6 +8,9 @@ machine:
   nodeLabels:
     topology.kubernetes.io/zone: m
     node.kubernetes.io/intel-gpu: "true"
+  udev:
+    rules:
+      - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
 ---
 apiVersion: v1alpha1
 kind: HostnameConfig
