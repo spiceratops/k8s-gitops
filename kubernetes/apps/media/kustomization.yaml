@@ -5,7 +5,7 @@ namespace: media
 resources:
   - ./_pvc/ks.yaml
   - ./bazarr/ks.yaml
-  # - ./jellyfin/ks.yaml
+  - ./jellyfin/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
@@ -31,8 +31,8 @@ resources:
   - ./recommendarr/ks.yaml
   - ./metube/ks.yaml
   - ./slskd/ks.yaml
-  # - ./soulsync/ks.yaml
-  # - ./readmeabook/ks.yaml
+  - ./soulsync/ks.yaml
+  - ./readmeabook/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
