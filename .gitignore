@@ -45,3 +45,4 @@ paths.env
 Brewfile.lock.json
 # Other
 *.psql
+.secrets*

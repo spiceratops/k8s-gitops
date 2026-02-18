@@ -64,7 +64,7 @@ tasks:
       - for:
           matrix:
             PHASE: [Failed, Pending, Succeeded]
-        cmd: kubectl --context {{.CLUSTER}} delete pods --field-selector status.phase={{.ITEM.PHASE}} -A --ignore-not-found=true
+        cmd: kubectl delete pods --field-selector status.phase={{.ITEM.PHASE}} -A --ignore-not-found=true
     requires:
       vars: [CLUSTER]
 

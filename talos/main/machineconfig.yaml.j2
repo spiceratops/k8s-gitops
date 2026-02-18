@@ -1,11 +1,13 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/refs/heads/release-1.11/website/content/v1.11/schemas/config.schema.json
 version: v1alpha1
-persist: true
 machine:
+  ca:
+    crt: op://kubernetes/talos/MACHINE_CA_CRT
+    {% if ENV.IS_CONTROLLER %}
+    key: op://kubernetes/talos/MACHINE_CA_KEY
+    {% endif %}
   features:
     rbac: true
-    stableHostname: true
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     kubePrism:
@@ -14,7 +16,16 @@ machine:
     hostDNS:
       enabled: true
       resolveMemberNames: true
-      forwardKubeDNSToHost: false
+      forwardKubeDNSToHost: true # Requires Cilium socketLB features
+    {% if ENV.IS_CONTROLLER %}
+    kubernetesTalosAPIAccess:
+      allowedKubernetesNamespaces:
+        - actions-runner-system
+        - system
+      allowedRoles:
+        - os:admin
+      enabled: true
+    {% endif %}
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
@@ -35,45 +46,23 @@ machine:
         noatime=True
         rsize=1048576
         wsize=1048576
-  install:
-    diskSelector:
-      model: "Samsung SSD 980 500GB"
+  kernel:
+    modules:
+      - name: nbd
   kubelet:
     # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
     image: ghcr.io/siderolabs/kubelet:v1.35.1
     extraArgs:
       max-pods: "200"
     extraConfig:
-      featureGates:
-        ImageVolume: true
-        ResourceHealthStatus: true
       serializeImagePulls: false
+      shutdownGracePeriod: 60s
+      allowedUnsafeSysctls:
+      - "net.ipv6.conf.net1.*" # Allow IPv6 syscalls, required for matter/thread
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets:
         - 192.168.1.0/24
-        - op://sc-secrets/talos-main/VALID_IPV6_SUBNET
-    disableManifestsDirectory: true
-  network:
-    interfaces:
-      - # 10G
-        interface: bond0
-        bond:
-          deviceSelectors: [{ hardwareAddr: "6c:92:bf:*", driver: i40e }]
-          mode: active-backup
-        mtu: 9000
-        dhcp: true
-        vip:
-          ip: 192.168.1.250
-        vlans:
-          - # Servers VLAN
-            { vlanId: 10, dhcp: false, mtu: 9000 }
-          - # Clients VLAN
-            { vlanId: 20, dhcp: false, mtu: 9000 }
-          - # IOT VLAN
-            { vlanId: 30, dhcp: false, mtu: 9000 }
-    nameservers: ["192.168.1.1"]
-    disableSearchDomain: true
   sysctls:
     fs.inotify.max_user_watches: "1048576"     # Watchdog
     fs.inotify.max_user_instances: "8192"      # Watchdog
@@ -88,18 +77,18 @@ machine:
     net.ipv4.tcp_mtu_probing: "1"              # 10Gb/s | Jumbo frames
     net.ipv4.tcp_rmem: 4096 87380 33554432     # 10Gb/s
     net.ipv4.tcp_wmem: 4096 65536 33554432     # 10Gb/s
+    net.ipv4.tcp_slow_start_after_idle: "0"
     net.ipv4.tcp_window_scaling: "1"           # 10Gb/s
-    net.ipv6.conf.all.accept_ra: "2"           # Accept Router Advertisements even if forwarding is enabled
-    net.ipv6.conf.all.forwarding: "1"          # Enable IPv6 forwarding
     sunrpc.tcp_slot_table_entries: "128"       # 10Gb/s | NFS
     sunrpc.tcp_max_slot_table_entries: "128"   # 10Gb/s | NFS
     user.max_user_namespaces: "11255"          # User Namespaces
     vm.nr_hugepages: "1024"                    # PostgreSQL
-
-  time:
-    disabled: false
-    servers: ["time.cloudflare.com"]
 cluster:
+  ca:
+    crt: op://kubernetes/talos/CLUSTER_CA_CRT
+    {% if ENV.IS_CONTROLLER %}
+    key: op://kubernetes/talos/CLUSTER_CA_KEY
+    {% endif %}
   clusterName: main
   controlPlane:
     endpoint: https://k8s.internal:6443
@@ -115,10 +104,134 @@ cluster:
     cni:
       name: none
     dnsDomain: cluster.local
-    podSubnets: ["10.244.0.0/16", "fdad:cafe:244::/112"]
-    serviceSubnets: ["10.245.0.0/16", "fdad:cafe:245::/112"]
+    podSubnets: ["10.244.0.0/16"]
+    serviceSubnets: ["10.245.0.0/16"]
   secret: op://sc-secrets/talos-main/CLUSTER_SECRET
   token: op://sc-secrets/talos-main/CLUSTER_TOKEN
+  {% if ENV.IS_CONTROLLER %}
+  aggregatorCA:
+    crt: op://kubernetes/talos/CLUSTER_AGGREGATORCA_CRT
+    key: op://kubernetes/talos/CLUSTER_AGGREGATORCA_KEY
+  allowSchedulingOnControlPlanes: true
+  apiServer:
+    auditPolicy:
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+        - level: Metadata
+    certSANs:
+      - k8s.internal
+    disablePodSecurityPolicy: true
+    extraArgs:
+      enable-aggregator-routing: "true"
+      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
+      runtime-config: admissionregistration.k8s.io/v1beta1=true
+    image: registry.k8s.io/kube-apiserver:v1.35.1
+  controllerManager:
+    extraArgs:
+      bind-address: 0.0.0.0
+    image: registry.k8s.io/kube-controller-manager:v1.35.1
+  coreDNS:
+    disabled: true
+  etcd:
+    advertisedSubnets:
+      - 192.168.1.0/24
+    ca:
+      crt: op://kubernetes/talos/CLUSTER_ETCD_CA_CRT
+      key: op://kubernetes/talos/CLUSTER_ETCD_CA_KEY
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
+  proxy:
+    disabled: true
+    image: registry.k8s.io/kube-proxy:v1.35.1
+  scheduler:
+    config:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: KubeSchedulerConfiguration
+      profiles:
+        - schedulerName: default-scheduler
+          plugins:
+            score:
+              disabled:
+                - name: ImageLocality
+          pluginConfig:
+            - name: PodTopologySpread
+              args:
+                defaultingType: List
+                defaultConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: ScheduleAnyway
+    extraArgs:
+      bind-address: 0.0.0.0
+    image: registry.k8s.io/kube-scheduler:v1.35.1
+  secretboxEncryptionSecret: op://kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
+  serviceAccount:
+    key: op://kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
+  {% endif %}
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: link.driver == "ixgbe" && mac(link.permanent_addr).startsWith("6c:92:bf:")
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - net0
+bondMode: active-backup
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: bond0
+clientIdentifier: mac
+---
+apiVersion: v1alpha1
+kind: TimeSyncConfig
+ntp:
+  servers:
+  - time.cloudflare.com
+  - 0.ca.pool.ntp.org
+  - 1.ca.pool.ntp.org
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.20
+vlanID: 20
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.30
+vlanID: 30
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.90
+vlanID: 90
+parent: bond0
+mtu: 9000
+{% if ENV.IS_CONTROLLER %}
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: 192.168.1.250
+link: bond0
+{% endif %}
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: system_disk
+  maxSize: 256GiB
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
@@ -132,3 +245,9 @@ apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0
 timeout: 5m
+---
+apiVersion: v1alpha1
+kind: OOMConfig
+triggerExpression: "false"
+cgroupRankingExpression: "0.0"
+sampleInterval: 5s

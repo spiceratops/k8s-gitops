@@ -1,4 +1,6 @@
 ---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+
 helmDefaults:
   cleanupOnFail: true
   wait: true
@@ -7,57 +9,73 @@ helmDefaults:
 releases:
   - name: cilium
     namespace: kube-system
-    chart: oci://ghcr.io/home-operations/charts-mirror/cilium
-    version: 1.18.6
-    values: ["../templates/values.yaml.gotmpl"]
+    chart: oci://quay.io/cilium/charts/cilium
+    version: 1.19.1
+    values:
+      - ./templates/values.yaml.gotmpl
     hooks:
-      - events: ["postsync"]
+      - # Wait for Cilium CRDs to be available
+        command: bash
+        args:
+          - -c
+          - until kubectl get crd ciliumloadbalancerippools.cilium.io ciliumbgpadvertisements.cilium.io ciliumbgppeerconfigs.cilium.io ciliumbgpclusterconfigs.cilium.io &>/dev/null; do sleep 5; done
+        events:
+          - postsync
+        showlogs: true
+      - # Apply Cilium Resources
         command: kubectl
         args:
           - apply
-          - --server-side
           - --namespace=kube-system
+          - --server-side
           - --field-manager=kustomize-controller
-          - --kustomize
-          - ../../kubernetes/apps/kube-system/cilium/configs
+          - --filename=../../kubernetes/apps/kube-system/cilium/app/networking.yaml
+        events:
+          - postsync
         showlogs: true
 
   - name: coredns
     namespace: kube-system
-    atomic: true
     chart: oci://ghcr.io/coredns/charts/coredns
     version: 1.45.2
-    values: ["../templates/values.yaml.gotmpl"]
-    needs: ["kube-system/cilium"]
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - kube-system/cilium
 
   - name: spegel
     namespace: kube-system
-    atomic: true
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: 0.6.0
-    values: ["../templates/values.yaml.gotmpl"]
-    needs: ["kube-system/coredns"]
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - kube-system/coredns
 
   - name: cert-manager
     namespace: cert-manager
-    atomic: true
     chart: oci://quay.io/jetstack/charts/cert-manager
     version: v1.19.3
-    values: ["../templates/values.yaml.gotmpl"]
-    needs: ["kube-system/spegel"]
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - kube-system/spegel
 
   - name: external-secrets
     namespace: external-secrets
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
-    version: 1.3.2
-    values: ["../templates/values.yaml.gotmpl"]
-    needs: ["cert-manager/cert-manager"]
+    version: 2.0.0
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - cert-manager/cert-manager
 
   - name: onepassword
     namespace: external-secrets
     chart: oci://ghcr.io/bjw-s-labs/helm/app-template
     version: 4.6.2
-    values: ["../templates/values.yaml.gotmpl"]
+    values:
+      - ./templates/values.yaml.gotmpl
     hooks:
       - # Wait for ExternalSecrets CRDs to be available
         command: bash
@@ -77,20 +95,23 @@ releases:
         events:
           - postsync
         showlogs: true
-    needs: ["external-secrets/external-secrets"]
+    needs:
+      - external-secrets/external-secrets
 
   - name: flux-operator
     namespace: flux-system
-    atomic: true
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.41.1
-    values: ["../templates/values.yaml.gotmpl"]
-    needs: ["external-secrets/onepassword"]
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - external-secrets/onepassword
 
   - name: flux-instance
     namespace: flux-system
-    atomic: true
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-instance
     version: 0.41.1
-    values: ["../templates/values.yaml.gotmpl"]
-    needs: ["flux-system/flux-operator"]
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - flux-system/flux-operator

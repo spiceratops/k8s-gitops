@@ -1,5 +1,14 @@
 ---
 apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: lb-pool
+spec:
+  allowFirstLastIPs: "No"
+  blocks:
+    - cidr: "192.168.11.0/24"
+---
+apiVersion: cilium.io/v2
 kind: CiliumBGPClusterConfig
 metadata:
   name: cilium-bgp
