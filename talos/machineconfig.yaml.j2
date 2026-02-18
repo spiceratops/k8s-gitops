@@ -2,10 +2,12 @@
 version: v1alpha1
 machine:
   ca:
-    crt: op://kubernetes/talos/MACHINE_CA_CRT
-    {% if ENV.IS_CONTROLLER %}
-    key: op://kubernetes/talos/MACHINE_CA_KEY
-    {% endif %}
+    crt: op://sc-secrets/talos/MACHINE_CA_CRT
+    key: op://sc-secrets/talos/MACHINE_CA_KEY
+  certSANs:
+    - k8s.internal
+    - 192.168.1.250
+    - 127.0.0.1
   features:
     rbac: true
     apidCheckExtKeyUsage: true
@@ -17,7 +19,6 @@ machine:
       enabled: true
       resolveMemberNames: true
       forwardKubeDNSToHost: true # Requires Cilium socketLB features
-    {% if ENV.IS_CONTROLLER %}
     kubernetesTalosAPIAccess:
       allowedKubernetesNamespaces:
         - actions-runner-system
@@ -25,7 +26,6 @@ machine:
       allowedRoles:
         - os:admin
       enabled: true
-    {% endif %}
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
@@ -83,12 +83,11 @@ machine:
     sunrpc.tcp_max_slot_table_entries: "128"   # 10Gb/s | NFS
     user.max_user_namespaces: "11255"          # User Namespaces
     vm.nr_hugepages: "1024"                    # PostgreSQL
+  token: op://sc-secrets/talos/MACHINE_TOKEN
 cluster:
   ca:
-    crt: op://kubernetes/talos/CLUSTER_CA_CRT
-    {% if ENV.IS_CONTROLLER %}
-    key: op://kubernetes/talos/CLUSTER_CA_KEY
-    {% endif %}
+    crt: op://sc-secrets/talos/CLUSTER_CA_CRT
+    key: op://sc-secrets/talos/CLUSTER_CA_KEY
   clusterName: main
   controlPlane:
     endpoint: https://k8s.internal:6443
@@ -99,19 +98,18 @@ cluster:
         disabled: true
       service:
         disabled: false
-  id: op://sc-secrets/talos-main/CLUSTER_ID
+  id: op://sc-secrets/talos/CLUSTER_ID
   network:
     cni:
       name: none
     dnsDomain: cluster.local
     podSubnets: ["10.244.0.0/16"]
     serviceSubnets: ["10.245.0.0/16"]
-  secret: op://sc-secrets/talos-main/CLUSTER_SECRET
-  token: op://sc-secrets/talos-main/CLUSTER_TOKEN
-  {% if ENV.IS_CONTROLLER %}
+  secret: op://sc-secrets/talos/CLUSTER_SECRET
+  token: op://sc-secrets/talos/CLUSTER_TOKEN
   aggregatorCA:
-    crt: op://kubernetes/talos/CLUSTER_AGGREGATORCA_CRT
-    key: op://kubernetes/talos/CLUSTER_AGGREGATORCA_KEY
+    crt: op://sc-secrets/talos/CLUSTER_AGGREGATORCA_CRT
+    key: op://sc-secrets/talos/CLUSTER_AGGREGATORCA_KEY
   allowSchedulingOnControlPlanes: true
   apiServer:
     auditPolicy:
@@ -121,6 +119,8 @@ cluster:
         - level: Metadata
     certSANs:
       - k8s.internal
+      - 192.168.1.250
+      - 127.0.0.1
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
@@ -137,8 +137,8 @@ cluster:
     advertisedSubnets:
       - 192.168.1.0/24
     ca:
-      crt: op://kubernetes/talos/CLUSTER_ETCD_CA_CRT
-      key: op://kubernetes/talos/CLUSTER_ETCD_CA_KEY
+      crt: op://sc-secrets/talos/CLUSTER_ETCD_CA_CRT
+      key: op://sc-secrets/talos/CLUSTER_ETCD_CA_KEY
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
@@ -165,16 +165,9 @@ cluster:
     extraArgs:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.35.1
-  secretboxEncryptionSecret: op://kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
+  secretboxEncryptionSecret: op://sc-secrets/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   serviceAccount:
-    key: op://kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
-  {% endif %}
----
-apiVersion: v1alpha1
-kind: LinkAliasConfig
-name: net0
-selector:
-  match: link.driver == "ixgbe" && mac(link.permanent_addr).startsWith("6c:92:bf:")
+    key: op://sc-secrets/talos/CLUSTER_SERVICEACCOUNT_KEY
 ---
 apiVersion: v1alpha1
 kind: BondConfig
@@ -217,13 +210,11 @@ name: bond0.90
 vlanID: 90
 parent: bond0
 mtu: 9000
-{% if ENV.IS_CONTROLLER %}
 ---
 apiVersion: v1alpha1
 kind: Layer2VIPConfig
 name: 192.168.1.250
 link: bond0
-{% endif %}
 ---
 apiVersion: v1alpha1
 kind: VolumeConfig
@@ -238,7 +229,7 @@ kind: UserVolumeConfig
 name: local-hostpath
 provisioning:
   diskSelector:
-    match: disk.model == "KINGSTON*" && !system_disk
+    match: disk.model == "KINGSTON SKC3000S1024G" && !system_disk
   minSize: 1TB
 ---
 apiVersion: v1alpha1

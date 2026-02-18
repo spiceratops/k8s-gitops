@@ -11,4 +11,9 @@ machine:
 apiVersion: v1alpha1
 kind: HostnameConfig
 hostname: k8s-cp03
-
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: link.driver == "ixgbe" && mac(link.permanent_addr).startsWith("6c:92:bf:60:16:d4")

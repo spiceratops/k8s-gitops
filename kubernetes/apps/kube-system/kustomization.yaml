@@ -14,6 +14,7 @@ resources:
   # - ./nvidia-device-plugin/ks.yaml
   - ./generic-device-plugin/ks.yaml
 components:
+  - ../../components/namespace
   - ../../components/repos
   - ../../components/substitutions
   - ../../components/alerts
