@@ -105,6 +105,12 @@ spec:
         path: /mnt/tank/backup/k8s/volsync
         globalMounts:
           - path: /repository
+      restore:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/backup/k8s/volsync-restore
+        globalMounts:
+          - path: /restore
       tmpfs:
         type: emptyDir
         advancedMounts:
