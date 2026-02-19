@@ -16,4 +16,10 @@ apiVersion: v1alpha1
 kind: LinkAliasConfig
 name: net0
 selector:
-  match: link.driver == "ixgbe" && mac(link.permanent_addr).startsWith("6c:92:bf:60:16:d4")
+  match: mac(link.permanent_addr).startsWith("6c:92:bf:60:16:d4")
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net1
+selector:
+  match: mac(link.permanent_addr).startsWith("6c:92:bf:60:16:d5")
