@@ -23,13 +23,23 @@ spec:
       readmeabook:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18
+            envFrom: &envFrom
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
         containers:
           app:
             image:
               repository: ghcr.io/kikootwo/readmeabook
               tag: 1.0.8@sha256:40510ad8e0222be5e927860437d174f4d6ee2e69ebad35d0b94f3fcc510db443
+            envFrom: *envFrom
             env:
-              PUBLIC_URL: "https://readmeabook.${SECRET_DOMAIN}"
+              PUBLIC_URL: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+              REDIS_URL: redis://dragonfly.databases.svc.cluster.local:6379
               TZ: ${TIMEZONE}
               PUID: 1000
               PGID: 1000
@@ -79,10 +89,6 @@ spec:
                 subPath: config
               - path: /app/cache
                 subPath: cache
-              - path: /var/lib/postgresql/data
-                subPath: postgres
-              - path: /var/lib/redis
-                subPath: redis
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}

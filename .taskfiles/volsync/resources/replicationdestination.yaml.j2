@@ -8,18 +8,19 @@ spec:
   trigger:
     manual: restore-once
   kopia:
-    accessModes: {{ ENV.ACCESS_MODES }}
+    repository: {{ ENV.APP }}-volsync-secret
+    destinationPVC: {{ ENV.CLAIM }}
+    copyMethod: Direct
+    enableFileDeletion: true
     cleanupCachePVC: true
     cleanupTempPVC: true
-    copyMethod: Direct
-    destinationPVC: {{ ENV.CLAIM }}
-    enableFileDeletion: true
+    previous: {{ ENV.PREVIOUS }}
+    restoreAsOf: {{ ENV.RESTORE_AS_OF }}
     moverSecurityContext:
       runAsUser: {{ ENV.PUID }}
       runAsGroup: {{ ENV.PGID }}
-      fsGroup: {{ ENV.PGID }}
-    previous: {{ ENV.PREVIOUS }}
-    repository: {{ ENV.APP }}-volsync
+      fsGroup: {{ ENV.PUID }}
     sourceIdentity:
       sourceName: {{ ENV.APP }}
-    storageClassName: {{ ENV.STORAGE_CLASS_NAME }}
+      sourceNamespace: {{ ENV.NS }}
+    volumeSnapshotClassName: csi-rbdplugin-snapclass
