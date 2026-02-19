@@ -15,7 +15,6 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
@@ -29,7 +28,7 @@ spec:
           app:
             image:
               repository: boulderbadgedad/soulsync
-              tag: latest@sha256:9551204242e8e1d6a36bcb6b0f78cb91bf5efa03b5bfbc6edfb2af4bfa86c3e9
+              tag: latest@sha256:cdc33cf8b75f61f197642413ed37675272444300e94cca53f6411a90993c0630
             env:
               TZ: ${TIMEZONE}
               PUID: 1000
