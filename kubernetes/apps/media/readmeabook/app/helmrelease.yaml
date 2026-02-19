@@ -31,6 +31,8 @@ spec:
             env:
               PUBLIC_URL: "https://readmeabook.${SECRET_DOMAIN}"
               TZ: ${TIMEZONE}
+              PUID: 1000
+              PGID: 1000
             probes:
               liveness: &probes
                 enabled: true
