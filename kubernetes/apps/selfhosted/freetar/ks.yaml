@@ -9,8 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  components:
-    - ../../../../components/tinyauth
+  # components:
+  #   - ../../../../components/tinyauth
   path: ./kubernetes/apps/selfhosted/freetar/app
   prune: true
   sourceRef:
