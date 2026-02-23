@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: kmille2/freetar
-              tag: 0.16.0
+              tag: 0.17.0
             env:
               TZ: ${TIMEZONE}
             securityContext:
