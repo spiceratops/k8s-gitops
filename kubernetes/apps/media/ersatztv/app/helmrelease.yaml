@@ -38,6 +38,7 @@ spec:
             resources:
               claims:
                 - name: gpu
+                  resourceClaimTemplateName: ersatztv-gpu
               requests:
                 cpu: 10m
                 memory: 256Mi
