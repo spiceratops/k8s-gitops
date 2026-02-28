@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *appname
   components:
     - ../../../../components/volsync
+    - ../../../../components/gpu
   dependsOn:
     - name: intel-gpu-resource-driver
       namespace: kube-system
