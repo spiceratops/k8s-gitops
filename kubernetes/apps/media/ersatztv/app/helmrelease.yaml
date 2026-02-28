@@ -21,8 +21,9 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-      nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: ersatztv-gpu
     controllers:
       ersatztv:
         annotations:
@@ -38,7 +39,6 @@ spec:
             resources:
               claims:
                 - name: gpu
-                  resourceClaimTemplateName: ersatztv-gpu
               requests:
                 cpu: 10m
                 memory: 256Mi
