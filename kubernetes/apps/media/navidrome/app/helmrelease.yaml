@@ -23,6 +23,8 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     controllers:
       navidrome:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
