@@ -96,7 +96,7 @@ spec:
       #         - {}
     persistence:
       data:
-        existingClaim: "{ .Release.Name }"
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           n8n:
             app:
