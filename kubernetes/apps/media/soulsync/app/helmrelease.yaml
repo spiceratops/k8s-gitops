@@ -87,8 +87,8 @@ spec:
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/media
+        path: /mnt/tank/media/musicsync
         globalMounts:
-          - path: /media
+          - path: /app/Transfer
       tmp:
         type: emptyDir
