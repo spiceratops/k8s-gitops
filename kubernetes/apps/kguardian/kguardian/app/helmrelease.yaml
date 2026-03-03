@@ -25,3 +25,17 @@ spec:
     controller:
       excludedNamespaces:
         - kguardian
+    broker:
+      resources:
+        limits:
+          memory: 1024Mi
+        requests:
+          cpu: "2"
+          memory: 512Mi
+    database:
+      resources:
+        limits:
+          memory: 512Mi
+        requests:
+          cpu: "1"
+          memory: 256Mi
