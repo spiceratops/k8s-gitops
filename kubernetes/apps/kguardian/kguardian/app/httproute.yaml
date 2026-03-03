@@ -14,9 +14,3 @@ spec:
         - name: kguardian-frontend
           namespace: kguardian
           port: 5173
-  annotations:
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/description: Network Flow Monitoring
-    gethomepage.dev/group: Observability
-    gethomepage.dev/icon: kguardian.png
-    gethomepage.dev/name: KGuardian
