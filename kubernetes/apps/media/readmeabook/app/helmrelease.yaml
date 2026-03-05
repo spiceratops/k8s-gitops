@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/kikootwo/readmeabook
-              tag: 1.0.16@sha256:1ed7af5bcbf7d217b7ead5d898f13a3cc1db89cf0353a9e90c86245332681305
+              tag: 1.1.3@sha256:459729f7e6e10f5ad5f86b88f6f845d44e18e984109a4b74cce73b31c0901f43
             envFrom: *envFrom
             env:
               PUBLIC_URL: "{{ .Release.Name }}.${SECRET_DOMAIN}"
