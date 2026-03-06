@@ -12,7 +12,7 @@ spec:
     - name: KARAKEEP_API_ADDR
       value: http://karakeep.selfhosted.svc.cluster.local:3000
   secrets:
-    - name: toolhive-secrets
+    - name: toolhive-secret
       key: KARAKEEP_API_KEY
   toolConfigRef:
     name: *name
