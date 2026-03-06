@@ -23,7 +23,7 @@ spec:
           app:
             image:
               repository: docker.io/jgraph/drawio
-              tag: 29.5.2
+              tag: 29.6.1
     service:
       app:
         controller: drawio
