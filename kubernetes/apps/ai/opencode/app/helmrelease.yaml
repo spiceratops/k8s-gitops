@@ -93,12 +93,18 @@ spec:
           gethomepage.dev/group: AI
           gethomepage.dev/name: Opencode
     persistence:
-      config:
-        existingClaim: *app
-        globalMounts:
-          - path: /home/opencode/.config/opencode
+      # config:
+      #   existingClaim: *app
+      #   globalMounts:
+      #     - path: /home/opencode/.config/opencode
       config-file:
         type: configMap
         name: opencode-config
         globalMounts:
           - path: /config
+      code:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/code/opencode
+        globalMounts:
+          - path: /home/opencode
