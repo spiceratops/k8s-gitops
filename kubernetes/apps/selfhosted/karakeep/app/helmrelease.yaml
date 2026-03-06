@@ -29,6 +29,7 @@ spec:
               NEXTAUTH_URL: https://keep.${SECRET_DOMAIN}
               CRAWLER_DOWNLOAD_BANNER_IMAGE: true
               CRAWLER_ENABLE_ADBLOCKER: true
+              OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local
               # OAuth setup
               OAUTH_PROVIDER_NAME: Pocket-ID
               OAUTH_WELLKNOWN_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
