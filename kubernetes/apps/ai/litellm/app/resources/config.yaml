@@ -93,3 +93,11 @@ litellm_settings:
 #    qdrant_collection_name: litellm
 #    qdrant_quantization_config: binary
 #    similarity_threshold: 0.8
+
+mcp_servers:
+  resources:
+    url: "http://vmcp-resources.ai.svc.cluster.local:4483/mcp"
+  search:
+    url: "http://vmcp-search.ai.svc.cluster.local:4483/mcp"
+  observability:
+    url: "http://vmcp-observability.ai.svc.cluster.local:4483/mcp"

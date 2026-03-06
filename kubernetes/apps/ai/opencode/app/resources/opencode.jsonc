@@ -7,11 +7,6 @@
     "oh-my-opencode-slim"
   ],
   "mcp": {
-    "flux": {
-      "type": "remote",
-      "url": "http://vmcp-flux.ai.svc.cluster.local:4483/mcp",
-      "enabled": true
-    },
     "observability": {
       "type": "remote",
       "url": "http://vmcp-observability.ai.svc.cluster.local:4483/mcp",
