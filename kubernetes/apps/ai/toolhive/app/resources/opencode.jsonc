@@ -1,0 +1,46 @@
+{
+  "$schema": "https://toolhive.ai/config.json",
+  "model": "toolhive/minimax-m2.5-free",
+  "plugin": [
+    "cc-safety-net",
+    "@tarquinen/toolhive-dcp@latest",
+    "oh-my-toolhive-slim"
+  ],
+  "mcp": {
+    "flux": {
+      "type": "remote",
+      "url": "http://vmcp-flux.ai.svc.cluster.local:4483/mcp",
+      "enabled": true
+    },
+    "observability": {
+      "type": "remote",
+      "url": "http://vmcp-observability.ai.svc.cluster.local:4483/mcp",
+      "enabled": true
+    },
+    "search": {
+      "type": "remote",
+      "url": "http://vmcp-search.ai.svc.cluster.local:4483/mcp",
+      "enabled": true
+    },
+    "resources": {
+      "type": "remote",
+      "url": "http://vmcp-resources.ai.svc.cluster.local:4483/mcp",
+      "enabled": true
+    }
+  },
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LiteLLM",
+      "options": {
+        "baseURL": "http://litellm.ai.svc.cluster.local:11434/v1",
+        "apiKey": "{env:LITELLM_API_KEY}"
+      },
+      "models": {
+        "gpt-oss:20b": {
+          "name": "GPT OSS 20b"
+        }
+      }
+    }
+  }
+}

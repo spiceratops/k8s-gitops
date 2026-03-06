@@ -1,0 +1,21 @@
+---
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPGroup
+metadata:
+  name: observability
+spec:
+  description: Dashboards, alerts
+---
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPGroup
+metadata:
+  name: search
+spec:
+  description: Web search
+---
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPGroup
+metadata:
+  name: resources
+spec:
+  description: Repos, thinking, bookmarks
