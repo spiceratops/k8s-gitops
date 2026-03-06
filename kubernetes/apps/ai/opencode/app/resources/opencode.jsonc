@@ -33,7 +33,7 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "LiteLLM",
       "options": {
-        "baseURL": "http://litellm.ai.svc.cluster.local:11434/v1",
+        "baseURL": "http://litellm.ai.svc.cluster.local/v1",
         "apiKey": "{env:LITELLM_API_KEY}"
       },
       "models": {
