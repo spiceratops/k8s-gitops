@@ -110,6 +110,7 @@ spec:
                 port: *port
         annotations:
           gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: Slskd
           gethomepage.dev/description: Individual Music Downloader
           gethomepage.dev/group: Downloaders
     configMaps:

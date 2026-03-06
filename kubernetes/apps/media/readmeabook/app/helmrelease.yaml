@@ -71,6 +71,7 @@ spec:
             sectionName: https
         annotations:
           gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: ReadMeABook
           gethomepage.dev/description: Audiobook Manager
           gethomepage.dev/group: Media
     persistence:

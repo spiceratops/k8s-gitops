@@ -79,6 +79,7 @@ spec:
             namespace: networking
         annotations:
           gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: Shelfmark
           gethomepage.dev/description: Book Library Manager
           gethomepage.dev/group: Downloaders
     persistence:
