@@ -21,6 +21,11 @@
       "type": "remote",
       "url": "http://vmcp-resources.ai.svc.cluster.local:4483/mcp",
       "enabled": true
+    },
+    "diagrams": {
+      "type": "remote",
+      "url": "https://mcp.draw.io/mcp",
+      "enabled": true
     }
   },
   "provider": {
