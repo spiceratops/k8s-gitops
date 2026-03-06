@@ -33,6 +33,7 @@ resources:
   - ./soulsync/ks.yaml
   - ./readmeabook/ks.yaml
   - ./ersatztv/ks.yaml
+  - ./shelfmark/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos

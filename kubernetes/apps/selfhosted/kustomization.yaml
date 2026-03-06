@@ -20,7 +20,6 @@ resources:
   - ./karakeep/ks.yaml
   - ./searxng/ks.yaml
   - ./n8n/ks.yaml
-  - ./shelfmark/ks.yaml
   - ./donetick/ks.yaml
   - ./freetar/ks.yaml
 components:

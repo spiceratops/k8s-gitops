@@ -5,7 +5,7 @@ metadata:
   name: &appname shelfmark
   namespace: flux-system
 spec:
-  targetNamespace: selfhosted
+  targetNamespace: media
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
@@ -15,7 +15,7 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
-  path: ./kubernetes/apps/selfhosted/shelfmark/app
+  path: ./kubernetes/apps/media/shelfmark/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -4,7 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app shelfmark
-  namespace: selfhosted
+  namespace: media
 spec:
   chartRef:
     kind: OCIRepository
