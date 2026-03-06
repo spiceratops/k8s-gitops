@@ -5,9 +5,4 @@ namespace: ai
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: toolhive-config
-    files:
-      - resources/toolhive.jsonc
-generatorOptions:
-  disableNameSuffixHash: true
+  - ./httproute.yaml
