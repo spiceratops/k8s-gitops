@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: toolhive-crds
   path: ./kubernetes/apps/ai/toolhive/app
   prune: true
   sourceRef:
@@ -57,6 +59,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: toolhive
   path: ./kubernetes/apps/ai/toolhive/mcps
   prune: true
   sourceRef:
