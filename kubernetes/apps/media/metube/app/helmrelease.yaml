@@ -48,6 +48,7 @@ spec:
             namespace: networking
         annotations:
           gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: MeTube
           gethomepage.dev/description: YT Downloader
           gethomepage.dev/group: Downloaders
     persistence:
