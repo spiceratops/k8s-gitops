@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: ghcr.io/cleanuparr/cleanuparr
-              tag: 2.7.7@sha256:7701be7b364b2ac2097ff13b80f2d3e98de0f51ac331743b4ea0291fccd57692
+              tag: 2.7.8@sha256:18978713a216ec507511523deb112e6115b84d5284c21aaffe455d132dbfb4be
             env:
               TZ: ${TIMEZONE}
               PORT: &port 9705
