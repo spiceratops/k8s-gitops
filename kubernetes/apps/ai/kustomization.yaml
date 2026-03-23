@@ -10,7 +10,7 @@ resources:
   - ./qdrant/ks.yaml
   - ./litellm/ks.yaml
   - ./opencode/ks.yaml
-  - ./toolhive/ks.yaml
+  # - ./toolhive/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
