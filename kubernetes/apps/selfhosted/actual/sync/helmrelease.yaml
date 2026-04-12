@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: timsmart/actualbudget-sync
-              tag: 0.4.10
+              tag: main
             args:
               - "--bank"
               - up
