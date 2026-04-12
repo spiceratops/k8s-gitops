@@ -24,7 +24,11 @@ spec:
               tag: 26.4.0
             env:
               ACTUAL_PORT: &port 5006
-              ACTUAL_ALLOWED_LOGIN_METHODS: password, openid
+              ACTUAL_TOKEN_EXPIRATION: "never"
+              ACTUAL_LOGIN_METHOD: openid
+              ACTUAL_ALLOWED_LOGIN_METHODS: openid,password
+              ACTUAL_OPENID_ENFORCE: false
+              ACTUAL_OPENID_AUTH_METHOD: openid
             probes:
               liveness:
                 enabled: true
