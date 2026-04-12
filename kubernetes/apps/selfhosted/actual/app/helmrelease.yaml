@@ -24,6 +24,7 @@ spec:
               tag: 26.4.0
             env:
               ACTUAL_PORT: &port 5006
+              ACTUAL_ALLOWED_LOGIN_METHODS: ["password", "openid"]
             probes:
               liveness:
                 enabled: true
