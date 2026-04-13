@@ -35,13 +35,13 @@ spec:
               - "--bank"
               - up
               - "--accounts"
-              - actual-account-id=${UP_ACCOUNT_ID}
+              - ${UP_ACCOUNT_ID}
               - "--accounts"
-              - actual-account-id2=${UP_ACCOUNT_ID2}
+              - ${UP_ACCOUNT_ID2}
               - "--accounts"
-              - actual-account-id3=${UP_ACCOUNT_ID3}
+              - ${UP_ACCOUNT_ID3}
               - "--accounts"
-              - actual-account-id4=${UP_ACCOUNT_ID4}
+              - ${UP_ACCOUNT_ID4}
               - "--categorize"
             envFrom:
               - secretRef:
