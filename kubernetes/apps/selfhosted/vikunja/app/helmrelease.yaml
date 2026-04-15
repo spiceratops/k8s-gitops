@@ -13,6 +13,13 @@ spec:
   interval: 1h
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       vikunja:
         annotations:
@@ -111,4 +118,4 @@ spec:
       config:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
-          - path: /vikunja-data
+          - path: /app/vikunja/files
