@@ -119,3 +119,10 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/vikunja/files
+      config-file:
+        type: secret
+        name: vikunja-secret
+        globalMounts:
+          - path: /etc/vikunja/config.yml
+            subPath: config.yml
+            readOnly: true
