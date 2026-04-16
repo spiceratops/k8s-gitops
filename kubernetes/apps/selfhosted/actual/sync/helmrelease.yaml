@@ -35,13 +35,13 @@ spec:
               - "--bank"
               - up
               - "--accounts"
-              - $UP_ACCOUNT_ID
+              - $(UP_ACCOUNT_ID)
               - "--accounts"
-              - $UP_ACCOUNT_ID2
+              - $(UP_ACCOUNT_ID2)
               - "--accounts"
-              - $UP_ACCOUNT_ID3
+              - $(UP_ACCOUNT_ID3)
               - "--accounts"
-              - $UP_ACCOUNT_ID4
+              - $(UP_ACCOUNT_ID4)
               - "--categorize"
             envFrom:
               - secretRef:
