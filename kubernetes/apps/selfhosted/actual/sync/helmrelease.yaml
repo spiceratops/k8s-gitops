@@ -42,7 +42,8 @@ spec:
               - $(UP_ACCOUNT_ID3)
               - "--accounts"
               - $(UP_ACCOUNT_ID4)
-              - "--categorize"
+              - "--sync-days"
+              - "14"
             envFrom:
               - secretRef:
                   name: actualsync-secret
