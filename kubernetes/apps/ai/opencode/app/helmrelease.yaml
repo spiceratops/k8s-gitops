@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: ghcr.io/anomalyco/opencode
-              tag: 1.14.26@sha256:716be7041ccb40bdff4da52813c13cf1fdbac83d3a2551ae2a2272421aa80647
+              tag: 1.14.27@sha256:8b15ffc7bdfe9a02d6e668dceb8deaa802802350d2471714f9e6ad3c8b9747e5
             env:
               TZ: ${TIMEZONE}
               CORS_DOMAIN: ${SECRET_DOMAIN}
