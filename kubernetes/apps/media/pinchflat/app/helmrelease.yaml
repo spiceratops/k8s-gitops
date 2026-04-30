@@ -101,7 +101,7 @@ spec:
       tmp:
         type: emptyDir
         advancedMounts:
-          main:
+          pinchflat:
             app:
               - subPath: tmp
                 path: /tmp
