@@ -65,6 +65,6 @@ spec:
       downloads:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/downloads/metube
+        path: /mnt/tank/media/downloads/metube
         globalMounts:
           - path: /downloads
