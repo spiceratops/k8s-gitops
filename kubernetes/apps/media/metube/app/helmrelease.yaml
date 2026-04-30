@@ -27,7 +27,9 @@ spec:
               DOWNLOAD_MODE: limited
               MAX_CONCURRENT_DOWNLOADS: 5 #only used with limited, default to 3
               STATE_DIR: "/config"
-              YTDL_OPTIONS: '{"http_headers":{"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0"},"cookiefile":"/config/cookies.txt"}'
+              YTDL_OPTIONS: "{\"http_headers\":{\"User-Agent\": \"Mozilla/5.0 (Windows NT
+                10.0; Win64; x64; rv:123.0) Gecko/20100101
+                Firefox/123.0\"},\"cookiefile\":\"/config/cookies.txt\"}"
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -42,7 +44,7 @@ spec:
             port: 8081
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
         parentRefs:
           - name: envoy-internal
             namespace: networking
@@ -60,3 +62,9 @@ spec:
         path: /mnt/tank/media
         globalMounts:
           - path: /media
+      downloads:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/downloads/metube
+        globalMounts:
+          - path: /downloads
