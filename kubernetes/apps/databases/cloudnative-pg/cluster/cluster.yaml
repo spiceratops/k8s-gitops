@@ -30,15 +30,11 @@ spec:
     enablePodMonitor: true
     # Ref: https://github.com/cloudnative-pg/cloudnative-pg/issues/2501
     podMonitorMetricRelabelings:
-      - {
-          sourceLabels: ["cluster"],
-          targetLabel: cnpg_cluster,
-          action: replace,
-        }
+      - { sourceLabels: [ "cluster" ], targetLabel: cnpg_cluster, action: replace }
       - { regex: cluster, action: labeldrop }
   bootstrap:
     recovery:
-      source: postgres-v30
+      source: postgres-v31
       # recoveryTarget:
       #   targetTLI: "69"
   backup:
@@ -49,7 +45,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://postgresql/
       endpointURL: https://nas.${PUBLIC_DOMAIN}:9000
-      serverName: postgres-v31
+      serverName: postgres-v32
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -58,7 +54,7 @@ spec:
           name: cloudnative-pg-secret
           key: AWS_SECRET_ACCESS_KEY
   externalClusters:
-    - name: postgres-v30
+    - name: postgres-v31
       barmanObjectStore:
         wal:
           compression: bzip2
