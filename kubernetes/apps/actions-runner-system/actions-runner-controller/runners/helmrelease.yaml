@@ -33,11 +33,12 @@ spec:
     containerMode:
       type: kubernetes
       kubernetesModeWorkVolumeClaim:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: openebs-hostpath
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: ${CLUSTER_STORAGE_BLOCK}
         resources:
           requests:
-            storage: 25Gi
+            storage: 10Gi
     controllerServiceAccount:
       name: actions-runner-controller
       namespace: actions-runner-system
