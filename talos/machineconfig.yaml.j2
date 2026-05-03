@@ -189,34 +189,34 @@ kind: TimeSyncConfig
 ntp:
   servers:
   - time.cloudflare.com
-# ---
-# apiVersion: v1alpha1
-# kind: VLANConfig
-# name: bond0.20
-# vlanID: 20
-# parent: bond0
-# mtu: 9000
-# ---
-# apiVersion: v1alpha1
-# kind: VLANConfig
-# name: bond0.30
-# vlanID: 30
-# parent: bond0
-# mtu: 9000
-# ---
-# apiVersion: v1alpha1
-# kind: VLANConfig
-# name: bond0.80
-# vlanID: 80
-# parent: bond0
-# mtu: 9000
-# ---
-# apiVersion: v1alpha1
-# kind: VLANConfig
-# name: bond0.90
-# vlanID: 90
-# parent: bond0
-# mtu: 9000
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.20
+vlanID: 20
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.30
+vlanID: 30
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.80
+vlanID: 80
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.90
+vlanID: 90
+parent: bond0
+mtu: 9000
 ---
 apiVersion: v1alpha1
 kind: Layer2VIPConfig
