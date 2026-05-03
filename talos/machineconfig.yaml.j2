@@ -6,7 +6,7 @@ machine:
     key: op://sc-secrets/talos/MACHINE_CA_KEY
   certSANs:
     - k8s.internal
-    - 192.168.1.250
+    - 192.168.10.250
     - 127.0.0.1
   features:
     rbac: true
@@ -62,7 +62,7 @@ machine:
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets:
-        - 192.168.1.0/24
+        - 192.168.10.0/24
   sysctls:
     fs.inotify.max_user_watches: "1048576"     # Watchdog
     fs.inotify.max_user_instances: "8192"      # Watchdog
@@ -121,7 +121,7 @@ cluster:
         - level: Metadata
     certSANs:
       - k8s.internal
-      - 192.168.1.250
+      - 192.168.10.250
       - 127.0.0.1
     disablePodSecurityPolicy: true
     extraArgs:
@@ -137,7 +137,7 @@ cluster:
     disabled: true
   etcd:
     advertisedSubnets:
-      - 192.168.1.0/24
+      - 192.168.10.0/24
     ca:
       crt: op://sc-secrets/talos/CLUSTER_ETCD_CA_CRT
       key: op://sc-secrets/talos/CLUSTER_ETCD_CA_KEY
@@ -189,38 +189,38 @@ kind: TimeSyncConfig
 ntp:
   servers:
   - time.cloudflare.com
----
-apiVersion: v1alpha1
-kind: VLANConfig
-name: bond0.20
-vlanID: 20
-parent: bond0
-mtu: 9000
----
-apiVersion: v1alpha1
-kind: VLANConfig
-name: bond0.30
-vlanID: 30
-parent: bond0
-mtu: 9000
----
-apiVersion: v1alpha1
-kind: VLANConfig
-name: bond0.80
-vlanID: 80
-parent: bond0
-mtu: 9000
----
-apiVersion: v1alpha1
-kind: VLANConfig
-name: bond0.90
-vlanID: 90
-parent: bond0
-mtu: 9000
+# ---
+# apiVersion: v1alpha1
+# kind: VLANConfig
+# name: bond0.20
+# vlanID: 20
+# parent: bond0
+# mtu: 9000
+# ---
+# apiVersion: v1alpha1
+# kind: VLANConfig
+# name: bond0.30
+# vlanID: 30
+# parent: bond0
+# mtu: 9000
+# ---
+# apiVersion: v1alpha1
+# kind: VLANConfig
+# name: bond0.80
+# vlanID: 80
+# parent: bond0
+# mtu: 9000
+# ---
+# apiVersion: v1alpha1
+# kind: VLANConfig
+# name: bond0.90
+# vlanID: 90
+# parent: bond0
+# mtu: 9000
 ---
 apiVersion: v1alpha1
 kind: Layer2VIPConfig
-name: 192.168.1.250
+name: 192.168.10.250
 link: bond0
 ---
 apiVersion: v1alpha1
