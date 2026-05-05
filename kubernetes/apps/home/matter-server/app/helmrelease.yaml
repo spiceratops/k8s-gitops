@@ -49,8 +49,6 @@ spec:
             args:
               - --storage-path=/data
               - --primary-interface=net1
-              - --log-level=debug
-              - --log-level-sdk=info
             resources:
               limits:
                 memory: 256Mi
