@@ -37,14 +37,15 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/home-assistant-libs/python-matter-server
-              tag: 8.1.0@sha256:170aa093ce91c76cde4cc390918307590f0f5558fcec93f913af3cb019e6562a
+              repository: ghcr.io/matter-js/matterjs-server
+              tag: 0.6.5@sha256:326993de99c44cc9611e7ca8ff74c3685c482993658d2a007c26f198da774e7d
             env:
               TZ: ${TIMEZONE}
               MATTER_SERVER__INSTANCE_NAME: "{{ .Release.Name }}"
               MATTER_SERVER__PORT: &port 5580
-              MATTER_SERVER__APPLICATION_URL: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+              MATTER_SERVER__APPLICATION_URL: &host "matter.${SECRET_DOMAIN}"
               MATTER_SERVER__LOG_LEVEL: info
+              PRODUCTION_MODE: true
             args:
               - --storage-path=/data
               - --primary-interface=net1
@@ -72,10 +73,10 @@ spec:
                 port: *port
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Home Automation
+          gethomepage.dev/description: Matter Admin
           gethomepage.dev/group: Home
-          gethomepage.dev/icon: home-assistant.png
-          gethomepage.dev/name: home-assistant
+          gethomepage.dev/icon: matter.png
+          gethomepage.dev/name: Matter Server
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
