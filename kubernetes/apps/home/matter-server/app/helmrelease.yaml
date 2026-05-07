@@ -47,7 +47,7 @@ spec:
           app:
             image:
               repository: ghcr.io/matter-js/matterjs-server
-              tag: 0.6.5@sha256:326993de99c44cc9611e7ca8ff74c3685c482993658d2a007c26f198da774e7d
+              tag: 0.6.6@sha256:010f17857cf63695891beb3453b7e44e4808063cc124784b2cd875181a65582f
             env:
               TZ: ${TIMEZONE}
               MATTER_SERVER__INSTANCE_NAME: "{{ .Release.Name }}"
