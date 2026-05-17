@@ -91,4 +91,3 @@ spec:
         globalMounts:
           - path: /config/youtube_cookies.txt
             subPath: youtube_cookies.txt
-            readOnly: true
