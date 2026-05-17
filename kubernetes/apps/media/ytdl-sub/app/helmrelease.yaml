@@ -85,3 +85,10 @@ spec:
         path: /mnt/tank/media
         globalMounts:
           - path: /media
+      cookies:
+        type: secret
+        name: ytdl-sub-secret
+        globalMounts:
+          - path: /config/youtube_cookies.txt
+            subPath: youtube_cookies.txt
+            readOnly: true
