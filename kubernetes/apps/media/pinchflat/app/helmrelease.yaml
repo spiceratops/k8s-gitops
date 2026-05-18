@@ -116,5 +116,5 @@ spec:
         type: secret
         name: pinchflat-secret
         globalMounts:
-          - path: /config/youtube_cookies.txt
+          - path: /config/extras/cookies.txt
             subPath: youtube_cookies.txt
