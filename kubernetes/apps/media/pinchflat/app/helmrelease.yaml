@@ -95,7 +95,7 @@ spec:
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/media/pinchflat
+        path: /mnt/tank/media/youtube
         globalMounts:
           - path: /downloads
       tmp:
