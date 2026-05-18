@@ -112,10 +112,3 @@ spec:
             01-support-ytdlp-updates:
               - subPath: local
                 path: /local
-      cookies:
-        type: secret
-        name: pinchflat-secret
-        globalMounts:
-          - path: /config/extras/cookies.txt
-            subPath: youtube_cookies.txt
-            readOnly: false
