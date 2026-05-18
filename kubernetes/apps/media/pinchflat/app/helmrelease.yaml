@@ -42,7 +42,7 @@ spec:
             securityContext: &sc
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: [ "ALL" ] }
+              capabilities: { drop: ["ALL"] }
             resources:
               claims:
                 - name: gpu
@@ -80,7 +80,7 @@ spec:
             port: *port
     route:
       app:
-        hostnames: [ "{{ .Release.Name }}.${SECRET_DOMAIN}" ]
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
         parentRefs:
           - name: envoy-internal
             namespace: networking
@@ -112,3 +112,9 @@ spec:
             01-support-ytdlp-updates:
               - subPath: local
                 path: /local
+      cookies:
+        type: secret
+        name: pinchflat-secret
+        globalMounts:
+          - path: /config/youtube_cookies.txt
+            subPath: youtube_cookies.txt
