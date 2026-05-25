@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: haveagitgat/tdarr_node
-              tag: 2.73.01@sha256:8d7fccd5d31a4523b13018b7c4a949c2656158e0abece7a3b04f489b4690af38
+              tag: 2.75.01@sha256:db2b52a1a6fb545a9b0a45952d7f1172e1e23979af638845aea2a76ce2e2e7e6
             env:
               - name: nodeID
                 value: kube-node
