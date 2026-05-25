@@ -40,7 +40,7 @@
 
         - name: Write kubeconfig
           id: kubeconfig
-          uses: timheuer/base64-to-file@784a1a4a994315802b7d8e2084e116e783d157be # v1.2.4
+          uses: timheuer/base64-to-file@dfa5a5dd38803cb4f5c3a081eeb28e8362d43e9c # v2.0.0
           with:
             encodedString: "${{ secrets.KUBECONFIG }}"
             fileName: kubeconfig
