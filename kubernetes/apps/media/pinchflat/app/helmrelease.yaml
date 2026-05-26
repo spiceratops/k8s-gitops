@@ -109,6 +109,8 @@ spec:
                 path: /etc/yt-dlp
               - subPath: local
                 path: /usr/local/bin
+              - subPath: .cache
+                path: /.cache
             01-support-ytdlp-updates:
               - subPath: local
                 path: /local
