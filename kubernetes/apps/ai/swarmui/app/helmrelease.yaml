@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/spiceratops/swarmui
-              tag: 0.9.5@sha256:5dae778dc7ef2c6f66bc1ab058cab524c7a92924bf8f4432a56c5aad8a9b93e6
+              tag: 0.9.5@sha256:7f416b79746a14a8bd0736f4961f2e4ff0a4dcc751bb6986af2a6e62caaaeaca
             env:
               TZ: ${TIMEZONE}
             resources:
