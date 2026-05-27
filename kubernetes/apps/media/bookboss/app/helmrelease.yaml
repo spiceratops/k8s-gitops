@@ -33,7 +33,7 @@ spec:
             env:
               BOOKBOSS__DATABASE__DATABASE_URL: sqlite:///data/bookboss.db?mode=rwc
               BOOKBOSS__FRONTEND__BASE_URL: https://books.${SECRET_DOMAIN}
-              BOOKBOSS__FRONTEND__LISTEN_PORT: &httpPort 80
+              BOOKBOSS__FRONTEND__LISTEN_PORT: &port 80
               BOOKBOSS__LIBRARY__LIBRARY_PATH: /library/books
               BOOKBOSS__IMPORT__BOOKDROP_PATH: /library/bookdrop
               BOOKBOSS__IMPORT__POLL_INTERVAL_SECS: 60
@@ -52,7 +52,7 @@ spec:
                 spec:
                   httpGet:
                     path: /healthz
-                    port: &port 8080
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -81,11 +81,6 @@ spec:
         ports:
           http:
             port: *port
-            primary: true
-          grpc:
-            port: 8081
-            targetPort: 8081
-            appProtocol: grpc
     route:
       app:
         hostnames:
