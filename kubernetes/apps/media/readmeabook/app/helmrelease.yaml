@@ -91,7 +91,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
+              - name: readmeabook-app
                 port: *port
         annotations:
           gethomepage.dev/enabled: "true"
