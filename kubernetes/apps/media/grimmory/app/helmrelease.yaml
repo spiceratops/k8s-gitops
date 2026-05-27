@@ -156,8 +156,8 @@ spec:
         server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/media
         advancedMounts:
-          bookboss:
-            bookboss:
+          grimmory:
+            app:
               - path: /library/books
                 subPath: books
               - path: /library/bookdrop
