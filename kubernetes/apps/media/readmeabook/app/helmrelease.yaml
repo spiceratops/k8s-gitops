@@ -95,6 +95,10 @@ spec:
           - name: envoy-internal
             namespace: networking
             sectionName: https
+        rules:
+          - backendRefs:
+              - name: app
+                port: *port
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: ReadMeABook
