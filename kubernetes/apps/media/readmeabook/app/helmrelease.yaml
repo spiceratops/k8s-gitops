@@ -33,7 +33,7 @@ spec:
             envFrom: *envFrom
             env:
               PUBLIC_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
-              REDIS_URL: redis://dragonfly.databases.svc.cluster.local:6379
+              REDIS_URL: redis://dragonfly.databases.svc.cluster.local:6379/6
               TZ: ${TIMEZONE}
               PUID: 1000
               PGID: 1000
