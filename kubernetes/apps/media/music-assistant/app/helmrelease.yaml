@@ -112,5 +112,3 @@ spec:
         path: /mnt/tank/media/music
         globalMounts:
           - path: /music
-      tmp:
-        type: emptyDir
