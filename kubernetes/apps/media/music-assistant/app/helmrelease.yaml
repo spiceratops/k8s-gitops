@@ -32,11 +32,6 @@ spec:
               tag: 2.9.0b14@sha256:9bb8e53041892b4b5be13d2a77fab688a06a6fb49818ac1e91c7c340203cfe5d
             env:
               TZ: ${TIMEZONE}
-            probes:
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
