@@ -34,8 +34,8 @@ resources:
   - ./readmeabook/ks.yaml
   - ./ersatztv/ks.yaml
   - ./shelfmark/ks.yaml
-  - ./booklore/ks.yaml
   - ./pinchflat/ks.yaml
+  - ./bookboss/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
