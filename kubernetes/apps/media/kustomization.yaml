@@ -35,7 +35,7 @@ resources:
   - ./ersatztv/ks.yaml
   - ./shelfmark/ks.yaml
   - ./pinchflat/ks.yaml
-  - ./bookboss/ks.yaml
+  - ./grimmory/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
