@@ -22,7 +22,7 @@ resources:
   # - ./tdarr/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./qui/ks.yaml
-  - ./piped/ks.yaml
+  # - ./piped/ks.yaml
   - ./music-assistant/ks.yaml
   - ./jellystat/ks.yaml
   - ./tidarr/ks.yaml
