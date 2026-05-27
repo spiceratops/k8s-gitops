@@ -33,7 +33,7 @@ spec:
             envFrom: *envFrom
             env:
               PUBLIC_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
-              REDIS_URL: redis://dragonfly.databases.svc.cluster.local:6379/6
+              REDIS_URL: redis://readmeabook-valkey:6379
               TZ: ${TIMEZONE}
               PUID: 1000
               PGID: 1000
@@ -55,12 +55,38 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
+          redis:
+            image:
+              repository: ghcr.io/valkey-io/valkey
+              tag: 9.1.0@sha256:4963247afc4cd33c7d3b2d2816b9f7f8eeebab148d29056c2ca4d7cbc966f2d9
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 20m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
     service:
       app:
         controller: readmeabook
         ports:
           http:
             port: *port
+      redis:
+        controller: readmeabook
+        ports:
+          http:
+            port: 6379
     route:
       app:
         hostnames:
