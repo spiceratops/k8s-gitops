@@ -61,7 +61,6 @@ spec:
       app:
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
-          - "music.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
@@ -76,7 +75,7 @@ spec:
           gethomepage.dev/group: Media
           gethomepage.dev/icon: navidrome.png
           gethomepage.dev/name: Navidrome
-          gethomepage.dev/url: https://music.${SECRET_DOMAIN}
+          gethomepage.dev/url: "{{ .Release.Name }}.${SECRET_DOMAIN}"
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
