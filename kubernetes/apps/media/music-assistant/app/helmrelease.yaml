@@ -82,6 +82,7 @@ spec:
       app:
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "music.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
