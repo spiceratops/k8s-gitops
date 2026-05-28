@@ -105,6 +105,9 @@ spec:
                 memory: 500Mi
               limits:
                 memory: 2Gi
+        pod:
+          labels:
+            pod-security.kantai.xyz/allow-seccomp-unconfined: "true"
     service:
       app:
         ports:
