@@ -23,6 +23,7 @@ resources:
   - ./donetick/ks.yaml
   - ./freetar/ks.yaml
   - ./vikunja/ks.yaml
+  - ./bambuddy/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
