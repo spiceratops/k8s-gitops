@@ -114,3 +114,9 @@ spec:
                 subPath: tmp
               - path: /app/logs
                 subPath: logs
+      media:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/maker/3dprinting
+        globalMounts:
+          - path: /mnt/nas/3dprinting
