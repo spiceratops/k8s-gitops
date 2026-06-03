@@ -149,23 +149,30 @@ spec:
           gethomepage.dev/group: AI
           gethomepage.dev/name: Hermes Code Server
     persistence:
-      config:
+      data:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /opt/data
-      configmap:
+      config:
         type: configMap
-        name: "{{ .Release.Name }}-config"
-        defaultMode: 0755
-        globalMounts:
-          - path: /tmp/config.yaml
-            subPath: config.yaml
+        name: hermes-config
+        defaultMode: 0o755
+        advancedMounts:
+          hermes:
+            init:
+              - path: /run/config/config.yaml
+                subPath: config.yaml
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/ai/output
         globalMounts:
           - path: /mnt/gallery
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
     serviceAccount:
       hermes: {}
     rbac:
