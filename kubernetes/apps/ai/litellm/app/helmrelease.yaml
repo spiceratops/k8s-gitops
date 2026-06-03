@@ -12,6 +12,13 @@ spec:
   interval: 1h
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       litellm:
         annotations:
@@ -28,8 +35,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/berriai/litellm
-              tag: v1.83.14-stable@sha256:c81eb79cd4333c6cfe374c0ec929110fd23f0ee5f7fd198855a6fbddc77b83ba
+              repository: ghcr.io/berriai/litellm-non_root
+              tag: v1.87.0@sha256:08e3bb79c5773cab4c160409e790c30f735c8fcc35e97f47f7d0a2e22c135f64
             args:
               - --port
               - "4000"
