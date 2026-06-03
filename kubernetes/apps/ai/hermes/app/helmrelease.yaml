@@ -30,7 +30,7 @@ spec:
               - -c
               - |
                 set -euo pipefail
-                cp /tmp/config.yaml /opt/data/config.yaml
+                cp /run/config/config.yaml /opt/data/config.yaml
                 chown 10000:10000 /opt/data/config.yaml
         containers:
           app:
