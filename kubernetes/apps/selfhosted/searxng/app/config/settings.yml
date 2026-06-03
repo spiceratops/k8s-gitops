@@ -8,15 +8,24 @@ server:
   public_instance: false
 
 search:
-  autocomplete: google
+  safe_search: 0
+  autocomplete: duckduckgo
   favicon_resolver: duckduckgo
   languages:
     - all
     - en
     - en-AU
+  formats:
+    - html
+    - json
+  max_page: 0
 
 general:
   instance_name: Strallow Search
+  privacypolicy_url: false
+  donation_url: false
+  contact_url: false
+  enable_metrics: false
 
 ui:
   default_theme: simple
