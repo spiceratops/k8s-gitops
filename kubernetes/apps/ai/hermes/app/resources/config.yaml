@@ -45,9 +45,9 @@ agent:
   api_max_retries: 2
   reasoning_effort: medium
   tool_use_enforcement: auto
-mcp_servers:
-  homelab:
-    url: http://vmcp-mcp-gateway-internal.ai.svc.cluster.local:4483/mcp
+# mcp_servers:
+#   homelab:
+#     url: http://vmcp-mcp-gateway-internal.ai.svc.cluster.local:4483/mcp
 web:
   search_backend: searxng
 whatsapp:
