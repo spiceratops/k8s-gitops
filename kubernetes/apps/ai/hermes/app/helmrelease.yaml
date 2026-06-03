@@ -1,0 +1,289 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app hermes
+  namespace: ai
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  dependsOn: []
+  interval: 1h
+
+  values:
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 10000
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      hermes:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init:
+            image:
+              repository: docker.io/library/alpine
+              tag: "3.23"
+            command:
+              - sh
+              - -c
+              - |
+                set -euo pipefail
+                cp /tmp/config.yaml /opt/data/config.yaml
+                chown 10000:10000 /opt/data/config.yaml
+        containers:
+          app:
+            image: &image
+              repository: nousresearch/hermes-agent
+              tag: v2026.5.29@sha256:192a40783e9227b5f162b76af4d133050557adebd46e1c9cb40cb79a1317a9f7
+            args: ["gateway", "run", "--no-supervise"]
+            env:
+              HERMES_HOME: /opt/data
+              HOME: /opt/data
+              TZ: ${TIMEZONE}
+              WHATSAPP_ENABLED: true
+              WHATSAPP_MODE: bot
+              SEARXNG_URL: http://searxng.selfhosted.svc.cluster.local:8080
+            envFrom:
+              - secretRef:
+                  name: hermes-secret
+            resources:
+              requests:
+                cpu: 500m
+              limits:
+                memory: 2Gi
+            ports:
+              - containerPort: &port 8642
+                name: http
+                protocol: TCP
+          dashboard:
+            image: *image
+            env:
+              TZ: ${TIMEZONE}
+              GATEWAY_HEALTH_URL: http://localhost:8642
+            args:
+              - dashboard
+              - --host
+              - "0.0.0.0"
+              - --insecure
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+            resources:
+              requests:
+                cpu: 500m
+              limits:
+                memory: 1Gi
+            ports:
+              - containerPort: &dashboard_port 9119
+                name: http
+                protocol: TCP
+          codeserver:
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.122.0@sha256:dbe5b1cf5c1f0edf47da6363fdadb89c456fb14b3d7e2a1545cabe20f5d7402a
+            env:
+              TZ: ${TIMEZONE}
+            args:
+              [
+                "--auth",
+                "none",
+                "--user-data-dir",
+                "/home/node/.vscode",
+                "--extensions-dir",
+                "/home/node/.vscode",
+                "--port",
+                "12321",
+                "/config",
+              ]
+            ports:
+              - containerPort: &codeserverPort 12321
+                name: codeserver
+                protocol: TCP
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: *port
+          codeserver:
+            port: *codeserverPort
+      dashboard:
+        controller: *app
+        ports:
+          http:
+            port: *dashboard_port
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: dashboard
+                port: http
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: AI
+          gethomepage.dev/name: Hermes Dashboard
+      codeserver:
+        hostnames: ["{{ .Release.Name }}-code.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: codeserver
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: AI
+          gethomepage.dev/name: Hermes Code Server
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /opt/data
+      configmap:
+        type: configMap
+        name: "{{ .Release.Name }}-config"
+        defaultMode: 0755
+        globalMounts:
+          - path: /tmp/config.yaml
+            subPath: config.yaml
+      media:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/ai/output
+        globalMounts:
+          - path: /mnt/gallery
+    serviceAccount:
+      hermes: {}
+    rbac:
+      roles:
+        # Broad read-only access across cluster resources. Secrets intentionally excluded.
+        hermes-read-all:
+          type: ClusterRole
+          rules:
+            - apiGroups: [""]
+              resources:
+                [
+                  "pods",
+                  "pods/log",
+                  "nodes",
+                  "services",
+                  "namespaces",
+                  "configmaps",
+                  "persistentvolumes",
+                  "persistentvolumeclaims",
+                  "endpoints",
+                  "resourcequotas",
+                  "limitranges",
+                  "serviceaccounts",
+                  "events",
+                ]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["apps"]
+              resources:
+                [
+                  "deployments",
+                  "daemonsets",
+                  "statefulsets",
+                  "replicasets",
+                  "controllerrevisions",
+                ]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["batch"]
+              resources: ["jobs", "cronjobs"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["networking.k8s.io"]
+              resources: ["ingresses", "ingressclasses", "networkpolicies"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["storage.k8s.io"]
+              resources:
+                [
+                  "storageclasses",
+                  "csinodes",
+                  "csidrivers",
+                  "volumeattachments",
+                ]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["autoscaling"]
+              resources: ["horizontalpodautoscalers"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["policy"]
+              resources: ["poddisruptionbudgets"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["coordination.k8s.io"]
+              resources: ["leases"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["rbac.authorization.k8s.io"]
+              resources:
+                ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["apiextensions.k8s.io"]
+              resources: ["customresourcedefinitions"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["apiregistration.k8s.io"]
+              resources: ["apiservices"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["metrics.k8s.io"]
+              resources: ["nodes", "pods"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["helm.toolkit.fluxcd.io"]
+              resources: ["helmreleases"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["kustomize.toolkit.fluxcd.io"]
+              resources: ["kustomizations"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["source.toolkit.fluxcd.io"]
+              resources:
+                [
+                  "gitrepositories",
+                  "helmrepositories",
+                  "ocirepositories",
+                  "buckets",
+                  "helmcharts",
+                ]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["external-secrets.io"]
+              resources:
+                ["externalsecrets", "secretstores", "clustersecretstores"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["monitoring.coreos.com"]
+              resources:
+                [
+                  "prometheuses",
+                  "alertmanagers",
+                  "servicemonitors",
+                  "podmonitors",
+                  "prometheusrules",
+                  "thanosrulers",
+                  "probes",
+                ]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["snapshot.storage.k8s.io"]
+              resources:
+                [
+                  "volumesnapshots",
+                  "volumesnapshotcontents",
+                  "volumesnapshotclasses",
+                ]
+              verbs: ["get", "list", "watch"]
+      bindings:
+        hermes-read-all:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: hermes-read-all
+          subjects:
+            - identifier: hermes
+              serviceAccount: hermes

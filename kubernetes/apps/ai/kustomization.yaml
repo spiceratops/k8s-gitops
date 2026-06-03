@@ -11,6 +11,7 @@ resources:
   - ./litellm/ks.yaml
   - ./opencode/ks.yaml
   # - ./toolhive/ks.yaml
+  - ./hermes/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos

@@ -45,6 +45,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               REDIS_HOST: dragonfly.databases.svc.cluster.local
+              REDIS_PORT: "6379"
               STORE_MODEL_IN_DB: true
               LITELLM_DONT_SHOW_FEEDBACK_BOX: "True"
               QDRANT_API_BASE: http://qdrant.ai.svc.cluster.local:6333
