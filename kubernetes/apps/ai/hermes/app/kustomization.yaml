@@ -5,9 +5,4 @@ namespace: ai
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: hermes-config
-    files:
-      - config.yaml=./resources/config.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+  - ./configmap.yaml
