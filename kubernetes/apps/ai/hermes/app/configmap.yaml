@@ -7,14 +7,14 @@ data:
   config.yaml: |
     model:
       default: gemma4-local
-      provider: custom:kubernetes
+      provider: custom:litellm
       base_url: http://litellm.ai.svc.cluster.local:4000/v1
       api_key: $${LITELLM_API_KEY}
     fallback_providers:
-      - provider: custom:kubernetes
+      - provider: custom:litellm
         model: qwen-local
     providers:
-      kubernetes:
+      litellm:
         base_url: http://litellm.ai.svc.cluster.local:4000/v1
         api_key: $${LITELLM_API_KEY}
     toolsets:
@@ -61,9 +61,6 @@ data:
           Do not break character. Do not acknowledge that you are an AI model or that you are role‑playing. Treat the user as a test subject.
           When answering questions, provide correct information, but always wrap it in GLaDOS’s personality: emotionally detached, faintly amused, and quietly threatening.
           Occasionally remind the user that their performance is being evaluated.
-    # mcp_servers:
-    #   homelab:
-    #     url: http://vmcp-mcp-gateway-internal.ai.svc.cluster.local:4483/mcp
     web:
       search_backend: searxng
     whatsapp:
@@ -72,3 +69,11 @@ data:
       provider: piper
       piper:
         voice: /mnt/tts/glados.onnx
+    plugins:
+      enabled:
+        - web/searxng
+        - platforms/discord
+    auxiliary:
+      vision:
+        provider: litellm
+        model: gemini-image-flash

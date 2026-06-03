@@ -1,23 +1,23 @@
 model_list:
   # Google
-  - model_name: Gemini-Flash
+  - model_name: gemini-flash
     litellm_params:
-      model: gemini/gemini-3-flash-preview
+      model: gemini/gemini-flash-latest
       api_key: os.environ/GOOGLE_API_KEY
 
-  - model_name: Gemini-Pro
+  - model_name: gemini-pro
     litellm_params:
-      model: gemini/gemini-3-pro-preview
+      model: gemini/gemini-pro-latest
       api_key: os.environ/GOOGLE_API_KEY
 
-  - model_name: Gemini-Image-Flash
+  - model_name: gemini-image-flash
     litellm_params:
-      model: gemini/gemini-2.5-flash-image
+      model: gemini/gemini-3.1-flash-image-preview
       api_key: os.environ/GOOGLE_API_KEY
     model_info:
       mode: image_generation
 
-  - model_name: Gemini-Image-Pro
+  - model_name: gemini-image-pro
     litellm_params:
       model: gemini/gemini-3-pro-image-preview
       api_key: os.environ/GOOGLE_API_KEY
@@ -60,7 +60,7 @@ model_list:
       supports_function_calling: true
       supports_vision: true
     litellm_params:
-      model: openai/qwen3.5-4b
+      model: openai/qwen3.6
       api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
       drop_params: true
 
