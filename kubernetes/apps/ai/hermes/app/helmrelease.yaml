@@ -162,12 +162,18 @@ spec:
             init:
               - path: /run/config/config.yaml
                 subPath: config.yaml
-      media:
+      gallery:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/ai/output
         globalMounts:
           - path: /mnt/gallery
+      tts:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/ai/tts
+        globalMounts:
+          - path: /mnt/tts
       tmpfs:
         type: emptyDir
         globalMounts:
