@@ -88,12 +88,8 @@ litellm_settings:
   set_verbose: false
 
 mcp_servers:
-  resources:
-    url: "http://vmcp-resources.ai.svc.cluster.local:4483/mcp"
-  search:
-    url: "http://vmcp-search.ai.svc.cluster.local:4483/mcp"
-  observability:
-    url: "http://vmcp-observability.ai.svc.cluster.local:4483/mcp"
+  homelab:
+    url: "http://vmcp-mcp-gateway-internal.ai.svc.cluster.local:4483/mcp"
 
 environment:
   - GOOGLE_API_KEY
