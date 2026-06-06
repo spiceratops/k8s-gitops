@@ -60,7 +60,7 @@ model_list:
       supports_function_calling: true
       supports_vision: true
     litellm_params:
-      model: openai/qwen3.6
+      model: ollama/qwen3.6
       api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
       drop_params: true
 
