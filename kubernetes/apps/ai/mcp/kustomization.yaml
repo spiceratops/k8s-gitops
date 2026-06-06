@@ -6,3 +6,4 @@ resources:
   - ./grafana-mcp/ks.yaml
   - ./searxng-mcp/ks.yaml
   - ./memory-mcp/ks.yaml
+  - ./comfyui-mcp/ks.yaml
