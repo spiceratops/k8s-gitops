@@ -34,17 +34,25 @@ spec:
                 memory: 16Gi
     service:
       app:
-        type: LoadBalancer
-        externalTrafficPolicy: Cluster
+        controller: *app
         ports:
           http:
-            port: 8188
+            port: &port 8188
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
         parentRefs:
           - name: envoy-internal
             namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - port: *port
+                name: *app
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: AI
+          gethomepage.dev/name: Comfyui
     persistence:
       comfyui:
         existingClaim: "{{ .Release.Name }}"
