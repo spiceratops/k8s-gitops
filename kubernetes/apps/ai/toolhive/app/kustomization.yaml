@@ -10,3 +10,4 @@ resources:
   - ./virtualmcpserver.yaml
   - ./httproute.yaml
   - ./embeddingserver.yaml
+  - ./rbac.yaml
