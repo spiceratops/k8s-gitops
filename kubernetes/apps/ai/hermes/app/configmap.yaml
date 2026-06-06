@@ -77,3 +77,6 @@ data:
       vision:
         provider: litellm
         model: gemini-image-flash
+    mcp_servers:
+      homelab:
+        url: http://vmcp-mcp-gateway-internal.ai.svc.cluster.local:4483/mcp
