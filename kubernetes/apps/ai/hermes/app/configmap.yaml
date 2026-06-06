@@ -6,10 +6,7 @@ metadata:
 data:
   config.yaml: |
     model:
-      default: qwen-local
-      provider: custom:litellm
-      base_url: http://litellm.ai.svc.cluster.local:4000/v1
-      api_key: $${LITELLM_API_KEY}
+      provider: nous
     fallback_providers:
       - provider: custom:litellm
         model: gemma4-local
