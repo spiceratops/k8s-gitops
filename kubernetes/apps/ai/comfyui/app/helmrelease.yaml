@@ -24,8 +24,7 @@ spec:
             securityContext:
               privileged: true
             env:
-              PYTORCH_HIP_ALLOC_CONF: "max_split_size_mb:256,garbage_collection_threshold:0.6"
-              CLI_ARGS: "--listen 0.0.0.0 --port 8188 --use-pytorch-cross-attention --disable-mmap"
+              CLI_ARGS: "--listen 0.0.0.0 --port 8188 --disable-mmap"
             resources:
               requests:
                 cpu: 1
