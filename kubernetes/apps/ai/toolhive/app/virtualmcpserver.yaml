@@ -1,0 +1,28 @@
+---
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: VirtualMCPServer
+metadata:
+  name: mcp-gateway-internal
+spec:
+  groupRef:
+    name: mcp-tools
+  config:
+    aggregation:
+      conflictResolution: prefix
+      conflictResolutionConfig:
+        prefixFormat: "{workload}_"
+  embeddingServerRef:
+    name: mcp-tools-embedding
+  incomingAuth:
+    type: anonymous
+  outgoingAuth:
+    source: discovered
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: vmcp
+          resources:
+            requests:
+              memory: 256Mi
+            limits:
+              memory: 1Gi
