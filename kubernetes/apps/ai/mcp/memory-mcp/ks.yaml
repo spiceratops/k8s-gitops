@@ -14,7 +14,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   components:
-    - ../../../../components/volsync/nfs-nas
+    - ../../../../../components/volsync/nfs-nas
   path: ./kubernetes/apps/ai/mcp/memory-mcp/mcp
   prune: true
   sourceRef:
