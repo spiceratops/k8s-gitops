@@ -60,7 +60,7 @@ spec:
           - path: /root/ComfyUI/
       data:
         type: nfs
-        server: nfs.${PUBLIC_DOMAIN}
+        server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/ai
         globalMounts:
           - path: /root/ComfyUI/output
