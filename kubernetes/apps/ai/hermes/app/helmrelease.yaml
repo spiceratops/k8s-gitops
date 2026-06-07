@@ -63,6 +63,9 @@ spec:
             env:
               TZ: ${TIMEZONE}
               GATEWAY_HEALTH_URL: http://localhost:8642
+            envFrom:
+              - secretRef:
+                  name: hermes-secret
             args:
               - dashboard
               - --host
