@@ -72,6 +72,8 @@ spec:
               - "0.0.0.0"
               - --insecure
               - --tui
+              - --no-open
+              - --skip-build
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
