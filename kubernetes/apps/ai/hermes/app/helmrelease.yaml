@@ -41,6 +41,7 @@ spec:
             env:
               HERMES_HOME: /opt/data
               HOME: /opt/data
+              API_SERVER_ENABLED: true
               TZ: ${TIMEZONE}
               WHATSAPP_ENABLED: true
               WHATSAPP_MODE: bot
