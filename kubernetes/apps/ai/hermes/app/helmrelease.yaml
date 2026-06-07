@@ -37,7 +37,7 @@ spec:
             image: &image
               repository: nousresearch/hermes-agent
               tag: v2026.5.29@sha256:192a40783e9227b5f162b76af4d133050557adebd46e1c9cb40cb79a1317a9f7
-            args: ["gateway", "run", "--no-supervise", "--tui"]
+            args: ["gateway", "run", "--no-supervise"]
             env:
               HERMES_HOME: /opt/data
               HOME: /opt/data
@@ -68,6 +68,7 @@ spec:
               - --host
               - "0.0.0.0"
               - --insecure
+              - --tui
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
