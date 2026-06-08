@@ -119,6 +119,12 @@ spec:
         globalMounts:
           - path: /mnt/skills
             readOnly: true
+      wiki:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/ai/wiki
+        globalMounts:
+          - path: /mnt/wiki
       tmpfs:
         type: emptyDir
         globalMounts:
