@@ -25,7 +25,7 @@ spec:
             image: &image
               repository: nousresearch/hermes-agent
               tag: v2026.6.5@sha256:9ad3b04ec916ea2c2da22358fd43b024c788d74073210695af88bfc2e63869b4
-            args: &args ["gateway", "run", "--no-supervise"]
+            args: ["gateway", "run", "--no-supervise"]
             env:
               HERMES_HOME: /opt/data/1
               HOME: /opt/data/1
@@ -41,11 +41,7 @@ spec:
                 protocol: TCP
           agent2:
             image: *image
-            args: *args
-            env:
-              HERMES_HOME: /opt/data/2
-              HOME: /opt/data/2
-              TZ: ${TIMEZONE}
+            args: ["glados", "gateway", "run", "--no-supervise"]
             resources:
               requests:
                 cpu: 500m
