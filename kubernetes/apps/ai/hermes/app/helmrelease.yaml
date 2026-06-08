@@ -46,7 +46,6 @@ spec:
               WHATSAPP_ENABLED: true
               WHATSAPP_MODE: bot
               SEARXNG_URL: http://searxng.selfhosted.svc.cluster.local:8080
-              SKILLS_REPO: /mnt/skills
             envFrom:
               - secretRef:
                   name: hermes-secret
