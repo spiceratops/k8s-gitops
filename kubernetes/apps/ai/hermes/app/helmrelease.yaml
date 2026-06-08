@@ -27,8 +27,6 @@ spec:
               tag: v2026.6.5@sha256:9ad3b04ec916ea2c2da22358fd43b024c788d74073210695af88bfc2e63869b4
             args: ["gateway", "run", "--no-supervise"]
             env:
-              HERMES_HOME: /opt/data/1
-              HOME: /opt/data/1
               TZ: ${TIMEZONE}
             resources:
               requests:
