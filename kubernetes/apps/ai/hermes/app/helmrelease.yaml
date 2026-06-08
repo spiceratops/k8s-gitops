@@ -28,6 +28,13 @@ spec:
             command: ["hermes", "gateway", "run", "--no-supervise"]
             env:
               TZ: ${TIMEZONE}
+              API_SERVER_ENABLED: true
+              API_SERVER_HOST: 0.0.0.0
+              API_SERVER_PORT: &port 8642
+              HERMES_HOME: /opt/data
+              HOME: /opt/data
+              WHATSAPP_ENABLED: true
+              WHATSAPP_MODE: bot
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -37,7 +44,7 @@ spec:
               limits:
                 memory: 2Gi
             ports:
-              - containerPort: &port 8642
+              - containerPort: *port
                 name: http
                 protocol: TCP
           dashboard:
