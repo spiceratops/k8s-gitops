@@ -21,7 +21,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          agent1:
+          app:
             image: &image
               repository: nousresearch/hermes-agent
               tag: v2026.6.5@sha256:9ad3b04ec916ea2c2da22358fd43b024c788d74073210695af88bfc2e63869b4
@@ -36,19 +36,7 @@ spec:
               limits:
                 memory: 2Gi
             ports:
-              - containerPort: &port1 8642
-                name: http
-                protocol: TCP
-          agent2:
-            image: *image
-            args: ["glados", "gateway", "run", "--no-supervise"]
-            resources:
-              requests:
-                cpu: 500m
-              limits:
-                memory: 2Gi
-            ports:
-              - containerPort: &port2 8643
+              - containerPort: &port 8642
                 name: http
                 protocol: TCP
           dashboard:
@@ -74,16 +62,11 @@ spec:
                 name: http
                 protocol: TCP
     service:
-      agent1:
+      app:
         controller: *app
         ports:
           http:
-            port: *port1
-      agent2:
-        controller: *app
-        ports:
-          http:
-            port: *port2
+            port: *port
       dashboard:
         controller: *app
         ports:
