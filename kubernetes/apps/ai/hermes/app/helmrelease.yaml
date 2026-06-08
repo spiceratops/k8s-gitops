@@ -28,6 +28,9 @@ spec:
             command: ["glados", "gateway", "run", "--no-supervise"]
             env:
               TZ: ${TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             resources:
               requests:
                 cpu: 500m
