@@ -25,10 +25,8 @@ spec:
             image: &image
               repository: nousresearch/hermes-agent
               tag: v2026.6.5@sha256:9ad3b04ec916ea2c2da22358fd43b024c788d74073210695af88bfc2e63869b4
-            command: ["hermes-gateways", "run", "--no-supervise"]
+            command: ["/opt/hermes/hermes-gateways", "run", "--no-supervise"]
             env:
-              HERMES_HOME: /opt/data
-              HOME: /opt/data/
               TZ: ${TIMEZONE}
             resources:
               requests:
