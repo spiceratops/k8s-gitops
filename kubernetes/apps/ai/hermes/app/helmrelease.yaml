@@ -35,7 +35,7 @@ spec:
               HOME: /opt/data
               WHATSAPP_ENABLED: true
               WHATSAPP_MODE: bot
-              WIKI: /mnt/wiki
+              WIKI_PATH: /mnt/wiki
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
