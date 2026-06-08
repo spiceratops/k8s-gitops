@@ -20,42 +20,39 @@ spec:
       hermes:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init:
-            image:
-              repository: docker.io/library/alpine
-              tag: "3.23"
-            command:
-              - sh
-              - -c
-              - |
-                set -euo pipefail
-                cp /run/config/config.yaml /opt/data/config.yaml
-                chown 10000:10000 /opt/data/config.yaml
         containers:
-          app:
+          agent1:
             image: &image
               repository: nousresearch/hermes-agent
               tag: v2026.6.5@sha256:9ad3b04ec916ea2c2da22358fd43b024c788d74073210695af88bfc2e63869b4
-            args: ["gateway", "run", "--no-supervise"]
+            args: &args ["gateway", "run", "--no-supervise"]
             env:
-              HERMES_HOME: /opt/data
-              HOME: /opt/data
-              API_SERVER_ENABLED: true
+              HERMES_HOME: /opt/data/1
+              HOME: /opt/data/1
               TZ: ${TIMEZONE}
-              WHATSAPP_ENABLED: true
-              WHATSAPP_MODE: bot
-              SEARXNG_URL: http://searxng.selfhosted.svc.cluster.local:8080
-            envFrom:
-              - secretRef:
-                  name: hermes-secret
             resources:
               requests:
                 cpu: 500m
               limits:
                 memory: 2Gi
             ports:
-              - containerPort: &port 8642
+              - containerPort: &port1 8642
+                name: http
+                protocol: TCP
+          agent2:
+            image: *image
+            args: *args
+            env:
+              HERMES_HOME: /opt/data/2
+              HOME: /opt/data/2
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 500m
+              limits:
+                memory: 2Gi
+            ports:
+              - containerPort: &port2 8643
                 name: http
                 protocol: TCP
           dashboard:
@@ -80,41 +77,17 @@ spec:
               - containerPort: &dashboard_port 9119
                 name: http
                 protocol: TCP
-          codeserver:
-            image:
-              repository: ghcr.io/coder/code-server
-              tag: 4.123.0@sha256:6d46b83ea0687ab1826ec029b6d0e6342bbd55cc5c29b98258463e7faee16d1e
-            env:
-              TZ: ${TIMEZONE}
-            args:
-              [
-                "--auth",
-                "none",
-                "--user-data-dir",
-                "/home/node/.vscode",
-                "--extensions-dir",
-                "/home/node/.vscode",
-                "--port",
-                "12321",
-                "/config",
-              ]
-            ports:
-              - containerPort: &codeserverPort 12321
-                name: codeserver
-                protocol: TCP
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 1Gi
     service:
-      app:
+      agent1:
         controller: *app
         ports:
           http:
-            port: *port
-          codeserver:
-            port: *codeserverPort
+            port: *port1
+      agent2:
+        controller: *app
+        ports:
+          http:
+            port: *port2
       dashboard:
         controller: *app
         ports:
@@ -135,34 +108,11 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: AI
           gethomepage.dev/name: Hermes Dashboard
-      codeserver:
-        hostnames: ["{{ .Release.Name }}-code.${SECRET_DOMAIN}"]
-        parentRefs:
-          - name: envoy-internal
-            namespace: networking
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: codeserver
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: AI
-          gethomepage.dev/name: Hermes Code Server
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /opt/data
-      config:
-        type: configMap
-        name: hermes-config
-        defaultMode: 0o755
-        advancedMounts:
-          hermes:
-            init:
-              - path: /run/config/config.yaml
-                subPath: config.yaml
       gallery:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
