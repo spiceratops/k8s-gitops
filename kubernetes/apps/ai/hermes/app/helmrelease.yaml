@@ -46,6 +46,7 @@ spec:
               WHATSAPP_ENABLED: true
               WHATSAPP_MODE: bot
               SEARXNG_URL: http://searxng.selfhosted.svc.cluster.local:8080
+              SKILLS_REPO: /mnt/skills
             envFrom:
               - secretRef:
                   name: hermes-secret
@@ -175,6 +176,13 @@ spec:
         path: /mnt/tank/ai/tts
         globalMounts:
           - path: /mnt/tts
+      skills:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/ai/skills
+        globalMounts:
+          - path: /mnt/skills
+            readOnly: true
       tmpfs:
         type: emptyDir
         globalMounts:
