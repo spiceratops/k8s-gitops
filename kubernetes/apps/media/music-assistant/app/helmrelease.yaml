@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/music-assistant/server
-              tag: 2.9.0rc6@sha256:228205aea69c7b258adb5822e94a550baa29695f43781d099e9f59ca9537d504
+              tag: 2.9.0rc7@sha256:22e702740acbc7f9294b62befe66cdb667f7c9a7037c34737e198ee5e31519a7
             env:
               TZ: ${TIMEZONE}
     defaultPodOptions:
