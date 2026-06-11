@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: toolhive
+    - name: toolhive-crds
   path: ./kubernetes/apps/ai/mcp/grafana-mcp/mcp
   prune: true
   sourceRef:

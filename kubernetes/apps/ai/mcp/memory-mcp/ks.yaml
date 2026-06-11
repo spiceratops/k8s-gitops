@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: toolhive
+    - name: toolhive-crds
     - name: volsync
       namespace: volsync-system
   components:
