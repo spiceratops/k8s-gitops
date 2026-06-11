@@ -10,6 +10,11 @@ spec:
   proxyMode: streamable-http
   groupRef:
     name: mcp-tools
+  env:
+    - name: HOME
+      value: /tmp
+    - name: NPM_CONFIG_CACHE
+      value: /tmp/.npm
   secrets:
     - name: agentmail-mcp-secret
       key: API_KEY
