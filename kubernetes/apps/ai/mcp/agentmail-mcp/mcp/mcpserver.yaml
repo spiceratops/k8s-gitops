@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/toolhive.stacklok.dev/mcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: agentmail-mcp
+spec:
+  image: docker.io/node:24-alpine
+  transport: stdio
+  proxyMode: streamable-http
+  groupRef:
+    name: mcp-tools
+  secrets:
+    - name: agentmail-mcp-secret
+      key: API_KEY
+      targetEnvName: AGENTMAIL_API_KEY
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          image: docker.io/node:24-alpine
+          command:
+            - npx
+          args:
+            - -y
+            - agentmail-mcp@0.2.2
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}

@@ -11,3 +11,4 @@ resources:
   - ./kubectl-mcp/ks.yaml
   - ./flux-mcp/ks.yaml
   - ./talos-mcp/ks.yaml
+  - ./agentmail-mcp/ks.yaml
