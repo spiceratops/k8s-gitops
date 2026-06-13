@@ -37,8 +37,8 @@ spec:
               tag: 0.8.2
             env:
               TZ: ${TIMEZONE}
-              HINDSIGHT_API_LLM_PROVIDER: "opencode-go"
-              HINDSIGHT_API_LLM_BASE_URL: "https://opencode.ai/zen/go/v1/chat/completions"
+              HINDSIGHT_API_LLM_PROVIDER: gemini
+              HINDSIGHT_API_LLM_MODEL: gemini-3.5-flash
             envFrom:
               - secretRef:
                   name: hindsight-secret
