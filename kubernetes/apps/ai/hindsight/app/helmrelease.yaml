@@ -37,6 +37,7 @@ spec:
               tag: 0.8.2
             env:
               TZ: ${TIMEZONE}
+              HINDSIGHT_API_LLM_PROVIDER: "opencode-go"
               HINDSIGHT_API_LLM_MODEL: "deepseek-v4-flash"
             envFrom:
               - secretRef:
@@ -65,10 +66,10 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 512Mi
+                memory: 1Gi
               limits:
                 cpu: 500m
-                memory: 2Gi
+                memory: 4Gi
           controlplane:
             image:
               repository: ghcr.io/vectorize-io/hindsight-control-plane
