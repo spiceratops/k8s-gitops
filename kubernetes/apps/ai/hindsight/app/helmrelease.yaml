@@ -114,12 +114,12 @@ spec:
         controller: *app
         ports:
           http:
-            port: *port
+            port: &port 8888
       controlplane:
         controller: *app
         ports:
           http:
-            port: *portCP
+            port: 3000
     route:
       api:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
