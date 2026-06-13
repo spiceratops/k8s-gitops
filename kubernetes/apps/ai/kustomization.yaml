@@ -13,6 +13,7 @@ resources:
   - ./toolhive/ks.yaml
   - ./mcp
   - ./hermes/ks.yaml
+  - ./hindsight/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
