@@ -115,6 +115,11 @@ spec:
         ports:
           http:
             port: *port
+      controlplane:
+        controller: *app
+        ports:
+          http:
+            port: *portCP
     route:
       api:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
