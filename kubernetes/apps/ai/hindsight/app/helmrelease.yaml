@@ -80,6 +80,7 @@ spec:
               HINDSIGHT_CP_HOSTNAME: "0.0.0.0"
               HINDSIGHT_CP_PORT: "3000"
               HINDSIGHT_CP_DATAPLANE_API_URL: "http://localhost:8888"
+              HINDSIGHT_ENABLE_API: "true"
             envFrom:
               - secretRef:
                   name: hindsight-secret
