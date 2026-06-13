@@ -42,27 +42,27 @@ spec:
             envFrom:
               - secretRef:
                   name: hindsight-secret
-            probes:
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet: &probe
-                    path: /health
-                    port: 8888
-                  initialDelaySeconds: 30
-                  periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 3
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet: *probe
-                  initialDelaySeconds: 10
-                  periodSeconds: 5
-                  timeoutSeconds: 3
-                  failureThreshold: 3
+            # probes:
+            #   liveness:
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       httpGet: &probe
+            #         path: /health
+            #         port: 8888
+            #       initialDelaySeconds: 30
+            #       periodSeconds: 10
+            #       timeoutSeconds: 5
+            #       failureThreshold: 3
+            #   readiness:
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       httpGet: *probe
+            #       initialDelaySeconds: 10
+            #       periodSeconds: 5
+            #       timeoutSeconds: 3
+            #       failureThreshold: 3
             resources:
               requests:
                 cpu: 100m
@@ -121,7 +121,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: 3000
+            port: &portCP 3000
     route:
       api:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
@@ -131,7 +131,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - port: *port
+              - port: *portCP
                 name: *app
         annotations:
           gethomepage.dev/enabled: "true"
