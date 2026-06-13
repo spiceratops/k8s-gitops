@@ -130,7 +130,7 @@ spec:
         rules:
           - backendRefs:
               - port: *portCP
-                name: controlplane
+                name: hindsight-controlplane
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: AI
