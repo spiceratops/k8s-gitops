@@ -42,27 +42,27 @@ spec:
             envFrom:
               - secretRef:
                   name: hindsight-secret
-            probes:
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet: &probe
-                    path: /health
-                    port: &port 8888
-                  initialDelaySeconds: 30
-                  periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 3
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet: *probe
-                  initialDelaySeconds: 10
-                  periodSeconds: 5
-                  timeoutSeconds: 3
-                  failureThreshold: 3
+            # probes:
+            #   liveness:
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       httpGet: &probe
+            #         path: /health
+            #         port: &port 8888
+            #       initialDelaySeconds: 30
+            #       periodSeconds: 10
+            #       timeoutSeconds: 5
+            #       failureThreshold: 3
+            #   readiness:
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       httpGet: *probe
+            #       initialDelaySeconds: 10
+            #       periodSeconds: 5
+            #       timeoutSeconds: 3
+            #       failureThreshold: 3
             resources:
               requests:
                 cpu: 100m
@@ -82,26 +82,26 @@ spec:
             envFrom:
               - secretRef:
                   name: hindsight-secret
-            probes:
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  tcpSocket: &probeCP
-                    port: &portCP 3000
-                  initialDelaySeconds: 30
-                  periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 3
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  tcpSocket: *probeCP
-                  initialDelaySeconds: 10
-                  periodSeconds: 5
-                  timeoutSeconds: 3
-                  failureThreshold: 3
+            # probes:
+            #   liveness:
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       tcpSocket: &probeCP
+            #         port: &portCP 3000
+            #       initialDelaySeconds: 30
+            #       periodSeconds: 10
+            #       timeoutSeconds: 5
+            #       failureThreshold: 3
+            #   readiness:
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       tcpSocket: *probeCP
+            #       initialDelaySeconds: 10
+            #       periodSeconds: 5
+            #       timeoutSeconds: 3
+            #       failureThreshold: 3
             resources:
               requests:
                 cpu: 100m
