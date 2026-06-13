@@ -38,7 +38,6 @@ spec:
             env:
               TZ: ${TIMEZONE}
               HINDSIGHT_API_LLM_PROVIDER: "opencode-go"
-              HINDSIGHT_API_LLM_MODEL: "deepseek-v4-flash"
             envFrom:
               - secretRef:
                   name: hindsight-secret
@@ -131,7 +130,7 @@ spec:
         rules:
           - backendRefs:
               - port: *portCP
-                name: *app
+                name: controlplane
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: AI
