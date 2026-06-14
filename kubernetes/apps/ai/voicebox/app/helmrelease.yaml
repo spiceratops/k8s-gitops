@@ -36,6 +36,8 @@ spec:
         ports:
           http:
             port: &port 8000
+          backend:
+            port: 17493
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
@@ -46,7 +48,7 @@ spec:
         rules:
           - backendRefs:
               - port: *port
-                name: *app
+                name: voicebox-app
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: AI
