@@ -59,10 +59,10 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/data
-      output:
+      models:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/ai
         globalMounts:
-          - path: /app/data/generations
-            subPath: output
+          - path: /home/voicebox/.cache/huggingface
+            subPath: models
