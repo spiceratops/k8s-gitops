@@ -35,9 +35,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: &port 8000
-          backend:
-            port: 17493
+            port: &port 17493
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
