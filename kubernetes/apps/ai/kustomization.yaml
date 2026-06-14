@@ -14,7 +14,6 @@ resources:
   - ./mcp
   - ./hermes/ks.yaml
   - ./hindsight/ks.yaml
-  - ./voicebox/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
