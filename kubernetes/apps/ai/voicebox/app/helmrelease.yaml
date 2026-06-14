@@ -1,0 +1,71 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app voicebox
+  namespace: ai
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  dependsOn: []
+  interval: 1h
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      voicebox:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jamiepine/voicebox
+              tag: latest@sha256:6b2539dd44682daab1fe5658068e5c9906154e4c014ba8fdd938dffcc65ddbc1
+            env:
+              TZ: ${TIMEZONE}
+              LOG_LEVEL: info
+            resources:
+              requests:
+                cpu: 100m
+                memory: 2Gi
+              limits:
+                cpu: 500m
+                memory: 8Gi
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: &port 17493
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - port: *port
+                name: *app
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: AI
+          gethomepage.dev/name: Voicebox
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /app/data
+      output:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/ai
+        globalMounts:
+          - path: /app/data/generations
+            subPath: output
