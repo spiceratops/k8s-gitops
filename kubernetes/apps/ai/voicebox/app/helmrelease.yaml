@@ -48,7 +48,7 @@ spec:
         rules:
           - backendRefs:
               - port: *port
-                name: voicebox-app
+                name: *app
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: AI
