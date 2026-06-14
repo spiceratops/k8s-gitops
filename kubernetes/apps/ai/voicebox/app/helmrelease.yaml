@@ -33,24 +33,28 @@ spec:
     service:
       app:
         controller: *app
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 192.168.11.222
+          external-dns.alpha.kubernetes.io/hostname: voicebox.${SECRET_DOMAIN}
         ports:
           http:
             port: &port 17493
-    route:
-      app:
-        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
-        parentRefs:
-          - name: envoy-internal
-            namespace: networking
-            sectionName: https
-        rules:
-          - backendRefs:
-              - port: *port
-                name: *app
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: AI
-          gethomepage.dev/name: Voicebox
+    # route:
+    #   app:
+    #     hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+    #     parentRefs:
+    #       - name: envoy-internal
+    #         namespace: networking
+    #         sectionName: https
+    #     rules:
+    #       - backendRefs:
+    #           - port: *port
+    #             name: *app
+    #     annotations:
+    #       gethomepage.dev/enabled: "true"
+    #       gethomepage.dev/group: AI
+    #       gethomepage.dev/name: Voicebox
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
