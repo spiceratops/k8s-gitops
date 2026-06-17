@@ -11,9 +11,12 @@ spec:
       app.kubernetes.io/name: *appname
   components:
     - ../../../../components/volsync/nfs-nas
+    - ../../../../components/dragonfly
   dependsOn:
     - name: onepassword
       namespace: external-secrets
+    - name: dragonfly-operator
+      namespace: databases
   path: ./kubernetes/apps/selfhosted/paperless/app
   prune: true
   sourceRef:

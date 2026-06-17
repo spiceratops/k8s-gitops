@@ -11,11 +11,14 @@ spec:
       app.kubernetes.io/name: *appname
   components:
     - ../../../../components/volsync/nfs-nas
+    - ../../../../components/dragonfly
   dependsOn:
     - name: volsync
       namespace: volsync-system
     - name: rook-ceph
       namespace: rook-ceph
+    - name: dragonfly-operator
+      namespace: databases
   path: ./kubernetes/apps/selfhosted/vikunja/app
   prune: true
   sourceRef:

@@ -9,6 +9,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: dragonfly-operator
+      namespace: databases
+  components:
+    - ../../../../components/dragonfly
   path: ./kubernetes/apps/ai/litellm/app
   prune: true
   sourceRef:

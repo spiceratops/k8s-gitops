@@ -55,7 +55,7 @@ spec:
               ENABLE_SCHEDULED_UPDATE_SWITCH_TITLEDB: "false"
               RESCAN_ON_FILESYSTEM_CHANGE_DELAY: 5
               DB_PORT: 5432
-              REDIS_HOST: dragonfly.databases.svc.cluster.local
+              REDIS_HOST: romm-dragonfly-db.gaming.svc.cluster.local
               REDIS_PORT: 6379
               REDIS_DB: 5
               OIDC_ENABLED: true

@@ -62,6 +62,16 @@
       "separateMinorPatch": true
     },
     {
+      description: "Dragonfly Operator Group",
+      groupName: "dragonfly-operator",
+      matchDatasources: ["docker", "github-releases"],
+      matchPackageNames: ["/dragonfly-operator/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
       "description": "Talos Group",
       "groupName": "Talos",
       "matchPackagePatterns": [
