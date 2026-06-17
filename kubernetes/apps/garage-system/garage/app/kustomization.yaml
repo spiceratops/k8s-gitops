@@ -8,7 +8,7 @@ resources:
 configMapGenerator:
   - name: garage-configmap
     files:
-      - resources/garage_config.yaml
+      - resources/garage.toml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
