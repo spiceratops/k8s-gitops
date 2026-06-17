@@ -24,6 +24,9 @@ spec:
               tag: 0.1.1@sha256:d89788b79c1dca0ba44967e17db6bdcdbd9cb22c6e36514d2f09cdabbbf0a5d1
             env:
               TZ: ${TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             resources:
               requests:
                 cpu: 100m
