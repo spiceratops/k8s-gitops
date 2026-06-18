@@ -6,7 +6,7 @@ resources:
   - ./_pvc/ks.yaml
   - ./comfyui/ks.yaml
   - ./qdrant/ks.yaml
-  - ./litellm/ks.yaml
+  # - ./litellm/ks.yaml
   - ./opencode/ks.yaml
   - ./toolhive/ks.yaml
   - ./mcp

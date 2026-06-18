@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: gaming
 resources:
   - ./_pvc/ks.yaml
-  - ./romm/ks.yaml
+  # - ./romm/ks.yaml
   - ./satisfactory/ks.yaml
   - ./minecraft/ks.yaml
   - ./dnd-tools/ks.yaml
