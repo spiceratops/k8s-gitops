@@ -3,6 +3,8 @@ data_dir = "/data"
 db_engine = "lmdb"
 metadata_auto_snapshot_interval = "6h"
 
+bootstrap_peers = ["{{ .NAS_NODE_ID }}@192.168.1.100:30187"]
+
 replication_factor = 1
 compression_level = 2
 
