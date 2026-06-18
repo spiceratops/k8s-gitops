@@ -19,7 +19,7 @@ spec:
       namespace: rook-ceph
     - name: onepassword
       namespace: external-secrets
-    - name: dragonfly-operator
+    - name: dragonfly
       namespace: databases
   path: ./kubernetes/apps/gaming/romm/app
   prune: true

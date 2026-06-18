@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   dependsOn:
-    - name: dragonfly-operator
+    - name: dragonfly
       namespace: databases
   components:
     - ../../../../components/dragonfly

@@ -15,7 +15,7 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
-    - name: dragonfly-operator
+    - name: dragonfly
       namespace: databases
   path: ./kubernetes/apps/selfhosted/paperless/app
   prune: true
