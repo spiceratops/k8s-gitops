@@ -12,7 +12,7 @@ resources:
   - ./homebox/ks.yaml
   - ./homepage/ks.yaml
   - ./drawio/ks.yaml
-  # - ./paperless/ks.yaml
+  - ./paperless/ks.yaml
   - ./ocis/ks.yaml
   - ./libmedium/ks.yaml
   # - ./hajimari/ks.yaml
@@ -22,7 +22,7 @@ resources:
   - ./n8n/ks.yaml
   - ./donetick/ks.yaml
   - ./freetar/ks.yaml
-  # - ./vikunja/ks.yaml
+  - ./vikunja/ks.yaml
   - ./bambuddy/ks.yaml
 components:
   - ../../components/namespace
