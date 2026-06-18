@@ -17,12 +17,12 @@ spec:
       valueFrom:
         secretKeyRef:
           key: AWS_ACCESS_KEY_ID
-          name: dragonfly-secret
+          name: ${APP}-dragonfly-secret
     - name: AWS_SECRET_ACCESS_KEY
       valueFrom:
         secretKeyRef:
           key: AWS_SECRET_ACCESS_KEY
-          name: dragonfly-secret
+          name: ${APP}-dragonfly-secret
   args:
     - --maxmemory=$(MAX_MEMORY)Mi
     - --cluster_mode=emulated
