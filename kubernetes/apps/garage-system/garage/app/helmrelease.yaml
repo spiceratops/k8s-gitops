@@ -43,9 +43,14 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: ${GARAGE_LB_IP}
         ports:
           s3:
             port: 3900
+          rpc:
+            port: 3901
           api:
             port: 3903
     route:
