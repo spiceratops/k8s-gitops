@@ -1,0 +1,83 @@
+---
+alerting:
+  gotify:
+    title: Gatus (Kubernetes)
+    server-url: http://gotify.observability.svc.cluster.local
+    token: $${GOTIFY_TOKEN}
+    default-alert:
+      description: health-check failed
+      send-on-resolved: true
+      failure-threshold: 3
+      success-threshold: 3
+
+connectivity:
+  checker:
+    target: 9.9.9.9:53
+    interval: 1m
+
+endpoints:
+  - name: Cloudflare
+    group: connectivity
+    url: icmp://1.1.1.1
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: Google
+    group: connectivity
+    url: icmp://8.8.8.8
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: Quad9
+    group: connectivity
+    url: icmp://9.9.9.9
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: nas
+    group: internal
+    url: https://nas.${SECRET_DOMAIN}
+    interval: 1m
+    ui:
+      hide-hostname: true
+      hide-url: true
+    conditions:
+      - "[STATUS] == 403"
+    alerts:
+      - type: gotify
+
+  - name: home-assistant
+    group: internal
+    url: https://home.${SECRET_DOMAIN}
+    interval: 1m
+    ui:
+      hide-hostname: true
+      hide-url: true
+    conditions:
+      - "[STATUS] == 403"
+    alerts:
+      - type: gotify
+
+metrics: true
+
+storage:
+  type: postgres
+  path: $${POSTGRES_URI}?sslmode=require
+  caching: true
+
+ui:
+  title: Status | Gatus
+  header: Status
+  logo: https://avatars.githubusercontent.com/u/141093654
+  link: https://github.com/spiceratops
+  buttons:
+    - name: Github
+      link: https://github.com/spiceratops
+    - name: Homelab
+      link: https://github.com/spiceratops/k8s-gitops
+
+web:
+  port: $${WEB_PORT}

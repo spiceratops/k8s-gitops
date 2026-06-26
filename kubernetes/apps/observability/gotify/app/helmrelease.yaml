@@ -1,0 +1,89 @@
+---
+# yaml-language-server: $schema=https://kube-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app gotify
+  namespace: observability
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  dependsOn: []
+  interval: 1h
+
+  values:
+    controllers:
+      gotify:
+        labels:
+          postgres: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18@sha256:ebd9d30add17acdf935d73eb004758c7dfd9388aaa605fda70ad74378ab92aec
+            envFrom: &envFrom
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/gotify/server
+              tag: 2.9.1@sha256:a3af47067ce6aad76aadf5ba32d6ddfecd1ae576a961359f039fd1831e8b7652
+            env:
+              TZ: ${TIMEZONE}
+              GOTIFY_DATABASE_DIALECT: postgres
+            envFrom: *envFrom
+            securityContext:
+              allowPrivilegeEscalation: true
+              readOnlyRootFilesystem: true
+              capabilities: { add: ["CHMOD"], drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 5m
+                memory: 50Mi
+              limits:
+                memory: 150Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: &port 80
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /app/data
+    networkpolicies:
+      gotify:
+        enabled: true
+        controller: *app
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: networking
+                  podSelector:
+                    matchLabels:
+                      gateway.networking.k8s.io/gateway-name: envoy-internal
+              ports:
+                - port: *port

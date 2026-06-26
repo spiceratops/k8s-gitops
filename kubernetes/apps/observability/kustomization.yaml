@@ -3,7 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: observability
 resources:
-  - ./gatus/ks.yaml
+  - ./gatus-sidecar/ks.yaml
   - ./grafana/ks.yaml
   - ./karma/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
@@ -14,6 +14,7 @@ resources:
   # - ./netalertx/ks.yaml
   - ./victoria-logs/ks.yaml
   - ./fluent-bit/ks.yaml
+  - ./gotify/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
