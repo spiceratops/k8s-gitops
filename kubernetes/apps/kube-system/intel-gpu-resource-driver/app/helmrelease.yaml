@@ -27,8 +27,8 @@ spec:
     crds: CreateReplace
   values:
     cdi:
-      staticPath: /run/cdi
-      dynamicPath: /run/cdi
+      staticPath: /var/cdi/static
+      dynamicPath: /var/cdi/dynamic
     kubeletPlugin:
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
