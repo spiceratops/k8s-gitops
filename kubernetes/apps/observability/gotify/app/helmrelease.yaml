@@ -70,22 +70,22 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/data
-    networkpolicies:
-      gotify:
-        enabled: true
-        controller: *app
-        policyTypes:
-          - Egress
-          - Ingress
-        rules:
-          egress: []
-          ingress:
-            - from:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: networking
-                  podSelector:
-                    matchLabels:
-                      gateway.networking.k8s.io/gateway-name: envoy-internal
-              ports:
-                - port: *port
+    # networkpolicies:
+    #   gotify:
+    #     enabled: true
+    #     controller: *app
+    #     policyTypes:
+    #       - Egress
+    #       - Ingress
+    #     rules:
+    #       egress: []
+    #       ingress:
+    #         - from:
+    #             - namespaceSelector:
+    #                 matchLabels:
+    #                   kubernetes.io/metadata.name: networking
+    #               podSelector:
+    #                 matchLabels:
+    #                   gateway.networking.k8s.io/gateway-name: envoy-internal
+    #           ports:
+    #             - port: *port
