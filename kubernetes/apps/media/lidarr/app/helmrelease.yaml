@@ -32,7 +32,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 17.6.0
+              tag: 18@sha256:ebd9d30add17acdf935d73eb004758c7dfd9388aaa605fda70ad74378ab92aec
               pullPolicy: IfNotPresent
             envFrom:
               - secretRef:
@@ -72,7 +72,7 @@ spec:
                 cpu: 10m
                 memory: 250Mi
               limits:
-                memory: 2000Mi
+                memory: 1Gi
     service:
       app:
         controller: lidarr
@@ -115,3 +115,12 @@ spec:
         path: /mnt/tank/media/downloads/tidarr
         globalMounts:
           - path: /downloads
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          lidarr:
+            app:
+              - path: /config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
