@@ -55,7 +55,6 @@ spec:
               # Redis
               VIKUNJA_REDIS_ENABLED: true
               VIKUNJA_REDIS_HOST: vikunja-dragonfly-db.selfhosted.svc.cluster.local:6379
-              VIKUNJA_REDIS_DB: 7
               VIKUNJA_KEYVALUE_TYPE: redis
 
               # SMTP
