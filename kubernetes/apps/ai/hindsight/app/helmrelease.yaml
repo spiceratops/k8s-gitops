@@ -34,7 +34,7 @@ spec:
           api:
             image:
               repository: ghcr.io/vectorize-io/hindsight-api
-              tag: 0.8.3
+              tag: 0.8.4
             env:
               TZ: ${TIMEZONE}
               HINDSIGHT_API_LLM_PROVIDER: gemini
