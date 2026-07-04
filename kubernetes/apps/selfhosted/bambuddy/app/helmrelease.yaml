@@ -117,7 +117,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
+              - name: app
                 port: *httpPort
         annotations:
           gethomepage.dev/enabled: "true"
