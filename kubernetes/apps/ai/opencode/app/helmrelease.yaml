@@ -22,17 +22,6 @@ spec:
       opencode:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          copy-config:
-            image:
-              repository: busybox
-              tag: 1.38
-            securityContext:
-              runAsUser: 0
-            command:
-              - sh
-              - -c
-              - cp /config/opencode.jsonc /home/opencode/.config/opencode/opencode.jsonc
         containers:
           app:
             image:
@@ -42,6 +31,7 @@ spec:
               TZ: ${TIMEZONE}
               CORS_DOMAIN: ${SECRET_DOMAIN}
               HOME: /home/opencode
+              OPENCODE_CONFIG: /config/opencode.jsonc
             envFrom:
               - secretRef:
                   name: opencode-secret
@@ -100,15 +90,16 @@ spec:
           gethomepage.dev/group: AI
           gethomepage.dev/name: Opencode
     persistence:
-      # config:
-      #   existingClaim: *app
-      #   globalMounts:
-      #     - path: /home/opencode/.config/opencode
+      home:
+        existingClaim: *app
+        globalMounts:
+          - path: /home/opencode
       config-file:
         type: configMap
         name: opencode-config
         globalMounts:
-          - path: /config
+          - path: /config/opencode.jsonc
+            subPath: opencode.jsonc
       code:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
