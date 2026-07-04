@@ -18,6 +18,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+      automountServiceAccountToken: true
     controllers:
       homepage:
         replicas: 2
@@ -90,3 +91,5 @@ spec:
           - path: /app/config/widgets.yaml
             subPath: widgets.yaml
             readOnly: true
+    serviceAccount:
+      homepage: {}
