@@ -70,7 +70,7 @@ spec:
           - path: /app/config
       homepage-config:
         type: configMap
-        name: homepage-config
+        name: homepage-configmap
         globalMounts:
           - path: /app/config/settings.yaml
             subPath: settings.yaml
