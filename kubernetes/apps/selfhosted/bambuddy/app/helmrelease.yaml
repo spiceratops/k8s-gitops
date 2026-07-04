@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/maziggy/bambuddy
-              tag: 0.2.4.8
+              tag: 0.2.4.8@sha256:b1ef7231005c246d33b1f1e85e7d3466180aab185692c28f1d050aad09c0bcbe
             env:
               PORT: &httpPort 8000
             probes:
@@ -74,11 +74,54 @@ spec:
                   - NET_BIND_SERVICE
                 drop:
                   - ALL
+          slicer:
+            image:
+              repository: ghcr.io/maziggy/orca-slicer-api
+              tag: bambuddy-0.2.4.8@sha256:a6eeb4cf157989cf5ddaec063efffae423fad7d3680f8d610354a80e700c08c4
+            env:
+              PORT: &slicerPort 3003
+            probes:
+              liveness:
+                enabled: true
+                spec:
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *slicerPort
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            resources:
+              requests:
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
     service:
       app:
         ports:
           http:
             port: *httpPort
+      slicer:
+        ports:
+          http:
+            port: *slicerPort
     route:
       app:
         hostnames:
