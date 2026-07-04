@@ -37,6 +37,7 @@ spec:
               WHATSAPP_MODE: bot
               WIKI_PATH: /mnt/wiki
               HINDSIGHT_API_URL: http://hindsight-api
+              HERMES_DASHBOARD_OIDC_ISSUER: https://id.${SECRET_DOMAIN}
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
