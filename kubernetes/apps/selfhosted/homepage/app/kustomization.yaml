@@ -13,5 +13,7 @@ configMapGenerator:
       - kubernetes.yaml=./resources/kubernetes.yaml
       - services.yaml=./resources/services.yaml
       - settings.yaml=./resources/settings.yaml
+      - bookmarks.yaml=./resources/bookmarks.yaml
+      - widgets.yaml=./resources/widgets.yaml
 generatorOptions:
   disableNameSuffixHash: true

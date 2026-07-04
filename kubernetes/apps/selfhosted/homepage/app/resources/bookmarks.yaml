@@ -1,7 +1,8 @@
 ---
-- GitHub Repo (k8s-gitops):
-    - icon: si-github
-      href: https://github.com/spiceratops/k8s-gitops
-- Kubesearch:
-    - icon: si-kubernetes
-      href: https://kubesearch.dev
+- Bookmarks:
+    - GitHub Repo (k8s-gitops):
+        - icon: si-github
+          href: https://github.com/spiceratops/k8s-gitops
+    - Kubesearch:
+        - icon: si-kubernetes
+          href: https://kubesearch.dev
