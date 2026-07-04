@@ -1,0 +1,11 @@
+---
+- search:
+    provider: custom
+    url: https://search.${SECRET_DOMAIN}/q=%s
+    target: _blank
+- datetime:
+    text_size: l
+    format:
+      dateStyle: long
+      timeStyle: short
+      hourCycle: h23

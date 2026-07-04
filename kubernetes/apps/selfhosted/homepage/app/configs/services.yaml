@@ -1,0 +1,33 @@
+---
+- Infrastructure:
+    - Cloudflare:
+        href: https://dash.cloudflare.com/
+        icon: cloudflare-zero-trust.png
+        description: Cloudflared Tunnel
+        widget:
+          type: cloudflared
+          accountid: { { HOMEPAGE_VAR_CLOUDFLARED_ACCOUNTID } }
+          tunnelid: { { HOMEPAGE_VAR_CLOUDFLARED_TUNNELID } }
+          key: { { HOMEPAGE_VAR_CLOUDFLARED_API_TOKEN } }
+    - UniFi:
+        icon: unifi.png
+        href: https://unifi.${SECRET_DOMAIN}
+        description: Unifi Console
+        widget:
+          type: unifi
+          url: unifi.${SECRET_DOMAIN}
+          username: { { HOMEPAGE_VAR_UNIFI_USER } }
+          password: { { HOMEPAGE_VAR_UNIFI_PASSWORD } }
+- Home:
+    - Home Assistant:
+        icon: home-assistant.png
+        href: https://home.${SECRET_DOMAIN}
+        description: Home Automation
+- Observability:
+    - Gatus:
+        href: https://status.${SECRET_DOMAIN_INTERNAL}
+        icon: gatus.png
+        description: Gatus
+        widget:
+          type: gatus
+          url: http://gatus-sidecar.observability.svc.cluster.local:8080

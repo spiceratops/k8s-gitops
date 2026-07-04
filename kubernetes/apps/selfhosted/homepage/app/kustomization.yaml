@@ -4,6 +4,14 @@ kind: Kustomization
 namespace: selfhosted
 resources:
   - ./externalsecret.yaml
-  - ./clusterroles.yaml
+  - ./rbac.yaml
   - ./helmrelease.yaml
-  - ./configs/config.yaml
+configMapGenerator:
+  - name: homepage-configmap
+    files:
+      - custom.css=./resources/custom.css
+      - kubernetes.yaml=./resources/kubernetes.yaml
+      - services.yaml=./resources/services.yaml
+      - settings.yaml=./resources/settings.yaml
+generatorOptions:
+  disableNameSuffixHash: true

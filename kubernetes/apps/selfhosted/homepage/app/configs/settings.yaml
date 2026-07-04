@@ -1,0 +1,57 @@
+---
+color: slate
+useEqualHeights: true
+headerStyle: clean
+target: _self
+title: Homepage
+searchDescriptions: true
+statusStyle: "dot"
+layout:
+  The Internets:
+    style: row
+    columns: 5
+    tab: Main
+  Bookmarks:
+    style: row
+    columns: 5
+    tab: Admin
+  Home:
+    style: row
+    columns: 5
+    tab: Main
+  Media:
+    style: row
+    columns: 5
+    tab: Main
+  Tabletop:
+    icon: mdi-dice-d20-outline
+    tab: Main
+  Gaming:
+    icon: mdi-controller
+    tab: Main
+  Finance:
+    style: row
+    columns: 5
+    tab: Main
+  Downloaders:
+    style: row
+    columns: 5
+    tab: Admin
+  Tools:
+    style: row
+    columns: 5
+    tab: Main
+  Host Widgets:
+    icon: mdi-chart-box
+    style: row
+    columns: 5
+    tab: Main
+  Infrastructure:
+    icon: mdi-wan
+    tab: Admin
+  Data:
+    icon: mdi-postgresql
+    tab: Admin
+  Observability:
+    icon: mdi-grafana
+    tab: Admin
