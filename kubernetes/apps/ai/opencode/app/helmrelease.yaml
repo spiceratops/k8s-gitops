@@ -100,9 +100,3 @@ spec:
         globalMounts:
           - path: /config/opencode.jsonc
             subPath: opencode.jsonc
-      code:
-        type: nfs
-        server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/code/opencode
-        globalMounts:
-          - path: /home/opencode
