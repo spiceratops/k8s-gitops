@@ -37,7 +37,6 @@ spec:
               WHATSAPP_MODE: bot
               WIKI_PATH: /mnt/wiki
               HINDSIGHT_API_URL: http://hindsight-api
-              HERMES_DASHBOARD_OIDC_ISSUER: https://id.${SECRET_DOMAIN}
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -55,6 +54,10 @@ spec:
             env:
               TZ: ${TIMEZONE}
               GATEWAY_HEALTH_URL: http://localhost:8642
+              HERMES_DASHBOARD_OIDC_ISSUER: https://id.${SECRET_DOMAIN}
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             args:
               - dashboard
               - --host
