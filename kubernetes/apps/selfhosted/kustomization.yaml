@@ -24,6 +24,7 @@ resources:
   - ./freetar/ks.yaml
   - ./vikunja/ks.yaml
   - ./bambuddy/ks.yaml
+  - ./spoolman/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
