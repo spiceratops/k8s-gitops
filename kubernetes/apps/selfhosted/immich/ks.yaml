@@ -12,6 +12,7 @@ spec:
   components:
     - ../../../../components/volsync/nfs-nas
     - ../../../../components/dragonfly
+    - ../../../../components/gpu
   dependsOn:
     - name: cloudnative-pg-cluster
       namespace: databases
