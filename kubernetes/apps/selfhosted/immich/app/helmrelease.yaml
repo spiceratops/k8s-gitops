@@ -184,8 +184,8 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
-                port: 2283
+              - name: server
+                port: *serverport
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Photo Gallery
