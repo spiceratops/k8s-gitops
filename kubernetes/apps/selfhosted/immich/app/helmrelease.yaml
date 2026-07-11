@@ -135,6 +135,7 @@ spec:
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__RECOGNITION: buffalo_l
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__DETECTION: buffalo_l
               MPLCONFIGDIR: /cache/matplotlib
+            resources:
               requests:
                 cpu: 100m
                 memory: 250Mi
