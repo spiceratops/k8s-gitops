@@ -42,7 +42,7 @@ spec:
               TZ: ${TIMEZONE}
               IMMICH_CONFIG_FILE: /config/immich-config.yaml
               IMMICH_WORKERS_INCLUDE: api
-              PUBLIC_IMMICH_SERVER_URL: https://photos.${SECRET_DOMAIN}
+              IMMICH_METRICS_INCLUDE: all
             envFrom:
               - secretRef:
                   name: *secret
@@ -58,7 +58,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /api/server/ping
+                    path: /server-info/ping
                     port: &serverport 2283
                   initialDelaySeconds: 0
                   periodSeconds: 10
