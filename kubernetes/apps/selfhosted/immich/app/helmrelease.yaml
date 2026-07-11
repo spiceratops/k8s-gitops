@@ -1,17 +1,4 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
-metadata:
-  name: immich
-spec:
-  interval: 15m
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
-  ref:
-    tag: 0.13.1
-  url: oci://ghcr.io/immich-app/immich-charts/immich
----
 # yaml-language-server: $schema=https://kube-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -21,86 +8,246 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: immich
+    name: app-template
   dependsOn: []
   interval: 1h
 
   values:
     controllers:
-      main:
+      server:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
         initContainers:
           init-db:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 18.1
+              tag: 18.4
             envFrom:
               - secretRef:
-                  name: immich-secret
+                  name: &secret immich-secret
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
         containers:
-          main:
+          server:
             image:
-              tag: v2.2.3
+              repository: ghcr.io/immich-app/immich-server
+              tag: v3.0.2
             env:
               TZ: ${TIMEZONE}
-              REDIS_HOSTNAME: immich-valkey
+              IMMICH_CONFIG_FILE: /config/immich-config.yaml
+              IMMICH_WORKERS_INCLUDE: api
               PUBLIC_IMMICH_SERVER_URL: https://photos.${SECRET_DOMAIN}
             envFrom:
               - secretRef:
-                  name: immich-secret
-    immich:
-      persistence:
-        cache:
-          existingClaim: "{{ .Release.Name }}"
-          globalMounts:
-            - path: /cache
-        library:
-          existingClaim: immich-library
-          globalMounts:
-            - path: /usr/src/app/upload
-    valkey:
-      enabled: true
-      persistence:
-        data:
-          existingClaim: immich-valkey
-    server:
-      route:
-        app:
-          hostnames:
-            - "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            - photos.${SECRET_DOMAIN}
-          parentRefs:
-            - name: envoy-internal
-              namespace: networking
-              sectionName: https
-          rules:
-            - backendRefs:
-                - name: *app
-                  port: 2283
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/description: Photo Gallery
-            gethomepage.dev/group: Home
-            gethomepage.dev/icon: immich.png
-            gethomepage.dev/name: Immich
-            gethomepage.dev/url: https://photos.${SECRET_DOMAIN}
-            gethomepage.dev/widget.type: immich
-            gethomepage.dev/widget.fields: '["photos", "videos", "storage"]'
-            gethomepage.dev/widget.url: https://photos.${SECRET_DOMAIN}
-            gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_IMMICH_API_KEY}}` }}"
-      controllers:
-        main:
-          containers:
-            main:
-              resources:
-                requests:
-                  cpu: 50m
-                  memory: 350Mi
-    machine-learning:
-      controllers:
-        main:
-          containers:
-            main:
-              resources:
-                requests:
-                  cpu: 50m
-                  memory: 300Mi
+                  name: *secret
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                memory: 2000Mi
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/server/ping
+                    port: &serverport 2283
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 5
+              readiness: *probes
+              startup:
+                enabled: false
+      microservices:
+        strategy: RollingUpdate
+        annotations:
+          secret.reloader.stakater.com/reload: *secret
+        pod:
+          resourceClaims:
+            - name: gpu
+              resourceClaimTemplateName: immich-gpu
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/instance: *app
+                  app.kubernetes.io/controller: microservices
+        containers:
+          microservices:
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v3.0.2
+            envFrom:
+              - secretRef:
+                  name: *secret
+            env:
+              IMMICH_CONFIG_FILE: /config/immich-config.yaml
+              IMMICH_WORKERS_EXCLUDE: api
+            resources:
+              claims:
+                - name: gpu
+              requests:
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                memory: 2500Mi
+      machine-learning:
+        strategy: RollingUpdate
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/instance: *app
+                  app.kubernetes.io/controller: machine-learning
+        containers:
+          machine-learning:
+            image:
+              repository: ghcr.io/immich-app/immich-machine-learning
+              tag: v3.0.2
+            env:
+              MACHINE_LEARNING_PRELOAD__CLIP__TEXTUAL: ViT-B-16-SigLIP__webli
+              MACHINE_LEARNING_PRELOAD__CLIP__VISUAL: ViT-B-16-SigLIP__webli
+              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__RECOGNITION: buffalo_l
+              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__DETECTION: buffalo_l
+              MPLCONFIGDIR: /cache/matplotlib
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                memory: 4000Mi
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: &mlport 3003
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 5
+              readiness: *probes
+              startup:
+                enabled: false
+    service:
+      server:
+        controller: server
+        ports:
+          http:
+            port: *serverport
+          metrics:
+            port: 8081
+      microservices:
+        controller: microservices
+        ports:
+          metrics:
+            port: 8081
+      machine-learning:
+        controller: machine-learning
+        ports:
+          http:
+            port: *mlport
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - photos.${SECRET_DOMAIN}
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: 2283
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Photo Gallery
+          gethomepage.dev/group: Home
+          gethomepage.dev/icon: immich.png
+          gethomepage.dev/name: Immich
+          gethomepage.dev/url: https://photos.${SECRET_DOMAIN}
+          gethomepage.dev/widget.type: immich
+          gethomepage.dev/widget.url: http://immich-server.selfhosted:2283
+          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_IMMICH_API_KEY}}` }}"
+          gethomepage.dev/widget.version: "2"
+    persistence:
+      config:
+        type: secret
+        name: immich-secret
+        advancedMounts:
+          server:
+            server:
+              - path: /config/immich-config.yaml
+                subPath: immich-config.yaml
+          microservices:
+            microservices:
+              - path: /config/immich-config.yaml
+                subPath: immich-config.yaml
+      model-cache:
+        existingClaim: "{{ .Release.Name }}"
+        advancedMounts:
+          machine-learning:
+            machine-learning:
+              - path: /cache
+                subPath: cache
+              - path: /.cache
+                subPath: dotCache
+      library:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/photos
+        advancedMounts:
+          server:
+            server:
+              - path: /data
+          microservices:
+            microservices:
+              - path: /data
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          server:
+            server:
+              - path: /usr/src/app/.reverse-geocoding-dump
+                subPath: geocoding-dump
+              - path: /usr/src/app/.transformers_cache
+                subPath: transformers-cache
+          microservices:
+            microservices:
+              - path: /usr/src/app/.reverse-geocoding-dump
+                subPath: geocoding-dump
+              - path: /usr/src/app/node_modules/local-reverse-geocoder/geonames_dump
+                subPath: geonames
+              - path: /usr/src/app/.transformers_cache
+                subPath: transformers-cache
+          machine-learning:
+            machine-learning:
+              - path: /config/matplotlib

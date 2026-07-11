@@ -4,6 +4,4 @@ kind: Kustomization
 namespace: selfhosted
 resources:
   - ./externalsecret.yaml
-  - ./pvc.yaml
-  - ./nfs.yaml
   - ./helmrelease.yaml

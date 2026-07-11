@@ -11,8 +11,11 @@ spec:
       app.kubernetes.io/name: *appname
   components:
     - ../../../../components/volsync/nfs-nas
+    - ../../../../components/dragonfly
   dependsOn:
     - name: cloudnative-pg-cluster
+      namespace: databases
+    - name: dragonfly
       namespace: databases
     - name: onepassword
       namespace: external-secrets
