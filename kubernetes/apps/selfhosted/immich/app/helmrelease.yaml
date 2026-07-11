@@ -185,7 +185,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: server
+              - name: immich-server
                 port: *serverport
         annotations:
           gethomepage.dev/enabled: "true"
