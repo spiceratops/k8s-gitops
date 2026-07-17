@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jmbannon/ytdl-sub
-              tag: 2026.06.23
+              tag: 2026.07.16
             env:
               TZ: ${TIMEZONE}
               PUID: 1000
