@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/felddy/foundryvtt
-              tag: 14.364.0
+              tag: 14.365.0
             resources:
               requests:
                 memory: 512Mi
