@@ -106,12 +106,12 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /opt/data
-      gallery:
+      share:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/ai/output
+        path: /mnt/tank/ai/share
         globalMounts:
-          - path: /mnt/gallery
+          - path: /mnt/share
       tts:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
@@ -125,12 +125,18 @@ spec:
         globalMounts:
           - path: /mnt/skills
             readOnly: true
-      wiki:
+      wikis:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/ai/wiki
+        path: /mnt/tank/ai/wikis
         globalMounts:
-          - path: /mnt/wiki
+          - path: /mnt/wikis
+      vaults:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/ai/vaults
+        globalMounts:
+          - path: /mnt/vaults
       tmpfs:
         type: emptyDir
         globalMounts:
