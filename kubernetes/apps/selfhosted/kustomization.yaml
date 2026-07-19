@@ -16,10 +16,8 @@ resources:
   - ./ocis/ks.yaml
   - ./libmedium/ks.yaml
   # - ./hajimari/ks.yaml
-  - ./wallos/ks.yaml
   - ./karakeep/ks.yaml
   - ./searxng/ks.yaml
-  - ./n8n/ks.yaml
   - ./donetick/ks.yaml
   - ./freetar/ks.yaml
   - ./vikunja/ks.yaml
