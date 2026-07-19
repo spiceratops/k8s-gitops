@@ -52,7 +52,7 @@ spec:
               - name: STEAMCMD
                 value: "1"
               - name: WINE
-                value: "1"
+                value: "0"
 
     service:
       app:
