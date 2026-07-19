@@ -44,7 +44,7 @@ spec:
               requests:
                 cpu: 500m
               limits:
-                memory: 2Gi
+                memory: 4Gi
             ports:
               - containerPort: *port
                 name: http
@@ -124,7 +124,6 @@ spec:
         path: /mnt/tank/ai/skills
         globalMounts:
           - path: /mnt/skills
-            readOnly: true
       wikis:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
