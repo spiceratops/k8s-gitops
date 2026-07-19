@@ -9,6 +9,7 @@ resources:
   - ./minecraft/ks.yaml
   - ./dnd-tools/ks.yaml
   - ./foundryvtt/ks.yaml
+  - ./lancommander/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
