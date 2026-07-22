@@ -73,7 +73,7 @@ spec:
           controlplane:
             image:
               repository: ghcr.io/vectorize-io/hindsight-control-plane
-              tag: 0.8.4
+              tag: 0.8.5
             env:
               TZ: ${TIMEZONE}
               NODE_ENV: "production"
