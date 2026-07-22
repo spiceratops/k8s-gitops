@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: boulderbadgedad/soulsync
-              tag: latest@sha256:6a5721b1bcab904e8f54a973e4e8db23e4eebb2fd04cb3616d15a76bd3361e26
+              tag: latest@sha256:1653d3028e102b02ff3620974bc853ac50c54999f439a8f136235238d55efdf6
             env:
               TZ: ${TIMEZONE}
               PUID: 1000
