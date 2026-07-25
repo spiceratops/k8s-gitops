@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/maziggy/bambuddy
-              tag: 0.2.4.9@sha256:d68ab4746f18c51a6e22f5cd536533a4ae3c1eb48f4eecccbb68c2be23d0ef52
+              tag: 1.2.5@sha256:9fd7ae3e59e8ce5713306d33ca034422f1b2150b788b6c6848a41726065084fd
             env:
               PORT: &httpPort 8000
             probes:
@@ -77,7 +77,7 @@ spec:
           slicer:
             image:
               repository: ghcr.io/maziggy/orca-slicer-api
-              tag: bambuddy-0.2.4.8@sha256:a6eeb4cf157989cf5ddaec063efffae423fad7d3680f8d610354a80e700c08c4
+              tag: bambuddy-1.2.5@sha256:2e3db1b8564cf0711a2512282c31049f439d707d0db63324f4f384840aaef54d
             env:
               PORT: &slicerPort 3003
             probes:
