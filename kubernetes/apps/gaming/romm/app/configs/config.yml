@@ -8,6 +8,7 @@ exclude:
       extensions:
         - "xml"
         - "txt"
+        - "directory"
       names:
         - "info.txt"
         - "metadata.txt"
