@@ -15,6 +15,7 @@ exclude:
         - "systeminfo.txt"
         - "psy.ggjud.iso"
         - "psy.ggjud.nfo"
+        - ".directory"
     multi_file:
       names:
         - "roms"
