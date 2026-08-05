@@ -135,11 +135,12 @@ spec:
                 subPath: data
       tmpfs:
         type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
         advancedMounts:
           bambuddy:
             app:
-              - path: /tmp
-                subPath: tmp
               - path: /app/logs
                 subPath: logs
       media:
