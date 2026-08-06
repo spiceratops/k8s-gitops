@@ -97,6 +97,12 @@ spec:
         path: /mnt/tank/media/musicsync
         globalMounts:
           - path: /musicsync
+      music-willow:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/media/music-willow
+        globalMounts:
+          - path: /music-willow
     resources:
       requests:
         cpu: 10m
