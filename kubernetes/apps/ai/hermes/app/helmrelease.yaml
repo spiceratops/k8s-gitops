@@ -33,8 +33,8 @@ spec:
               API_SERVER_PORT: &port 8642
               HERMES_HOME: /opt/data
               HOME: /opt/data
-              WHATSAPP_ENABLED: true
-              WHATSAPP_MODE: bot
+              # WHATSAPP_ENABLED: true
+              # WHATSAPP_MODE: bot
               WIKI_PATH: /mnt/wiki
               HINDSIGHT_API_URL: http://hindsight-api
             envFrom:
