@@ -11,6 +11,8 @@ spec:
   groupRef:
     name: mcp-tools
   env:
+    - name: HOME
+      value: /data
     - name: BAMBUDDY_URL
       value: bambuddy.selfhosted.svc.cluster.local:8000
   secrets:
@@ -20,3 +22,14 @@ spec:
   args:
     - uvx
     - bambuddy-mcp@0.2.0
+  podTemplateSpec:
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: bambuddy-mcp
+      containers:
+        - name: mcp
+          volumeMounts:
+            - name: data
+              mountPath: /data
