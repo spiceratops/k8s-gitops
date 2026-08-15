@@ -17,8 +17,8 @@ spec:
       value: bambuddy.selfhosted.svc.cluster.local
   secrets:
     - name: bambuddy-mcp-secret
-      key: API_KEY
-      targetEnvName: BABYBUDDY_API_KEY
+      key: BAMBUDDY_API_KEY
+      targetEnvName: BAMBUDDY_API_KEY
   podTemplateSpec:
     spec:
       containers:
