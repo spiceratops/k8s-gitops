@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/toolhive.stacklok.dev/mcpserver_v1alpha1.json
-apiVersion: toolhive.stacklok.dev/v1alpha1
+apiVersion: toolhive.stacklok.dev/v1beta1
 kind: MCPServer
 metadata:
   name: bambuddy-mcp
@@ -14,7 +14,7 @@ spec:
     - name: HOME
       value: /tmp
     - name: BAMBUDDY_URL
-      value: bambuddy.selfhosted.svc.cluster.local
+      value: bambuddy.selfhosted.svc.cluster.local:8000
   secrets:
     - name: bambuddy-mcp-secret
       key: BAMBUDDY_API_KEY
