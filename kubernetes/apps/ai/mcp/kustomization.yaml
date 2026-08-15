@@ -12,3 +12,4 @@ resources:
   - ./flux-mcp/ks.yaml
   # - ./talos-mcp/ks.yaml
   - ./agentmail-mcp/ks.yaml
+  - ./bambuddy-mcp/ks.yaml

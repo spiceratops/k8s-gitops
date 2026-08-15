@@ -1,0 +1,37 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/toolhive.stacklok.dev/mcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: bambuddy-mcp
+spec:
+  image: docker.io/node:24-alpine
+  transport: stdio
+  proxyMode: streamable-http
+  groupRef:
+    name: mcp-tools
+  env:
+    - name: HOME
+      value: /tmp
+    - name: BAMBUDDY_URL
+      value: bambuddy.selfhosted.svc.cluster.local
+  secrets:
+    - name: bambuddy-mcp-secret
+      key: API_KEY
+      targetEnvName: BABYBUDDY_API_KEY
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          image: docker.io/node:24-alpine
+          command:
+            - uvx
+          args:
+            - -y
+            - bambuddy-mcp@0.2.0
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}
