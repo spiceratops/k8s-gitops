@@ -5,7 +5,7 @@ kind: MCPServer
 metadata:
   name: bambuddy-mcp
 spec:
-  image: docker.io/node:24-alpine
+  image: ghcr.io/astral-sh/uv:alpine
   transport: stdio
   proxyMode: streamable-http
   groupRef:
@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: mcp
-          image: docker.io/node:24-alpine
+          image: ghcr.io/astral-sh/uv:alpine
           command:
             - uvx
           args:
