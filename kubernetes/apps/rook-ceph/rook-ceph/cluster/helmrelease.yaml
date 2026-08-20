@@ -29,7 +29,7 @@ spec:
   values:
     image:
       repository: ghcr.io/rook/ceph
-      tag: v1.19.9
+      tag: v1.19.10
     monitoring:
       enabled: true
       createPrometheusRules: true
