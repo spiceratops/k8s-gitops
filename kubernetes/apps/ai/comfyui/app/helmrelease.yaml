@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: yanwk/comfyui-boot
-              tag: cpu@sha256:5929225fd5f3370c9f24cf9a47f0632e9cc0e607cc078cbab701634f44a545fe
+              tag: cpu@sha256:e2fcd47ee9b2b374f88763a91ad3fbd4fc927ed29c25f875dc5051c2d58b65b6
             securityContext:
               privileged: true
             env:
