@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: docker.io/lancommander/lancommander
-              tag: v2.1.11@sha256:d6ffaefe191d0d9cdcca0aa6c6bac4f8b4e8a47326f138cc4d96a1c81d721568
+              tag: v2.1.11@sha256:b9f94a50759c4fb659f642f65f4d1b61bb4c70bd0e23687a6eb2a0fbfef0f9a5
             resources:
               requests:
                 cpu: 20m
