@@ -59,6 +59,12 @@ machine:
       shutdownGracePeriod: 60s
       allowedUnsafeSysctls:
         - "net.ipv6.conf.net1.*" # Allow IPv6 syscalls, required for matter/thread
+      imageGCHighThresholdPercent: 70
+      imageGCLowThresholdPercent: 50
+      imageMinimumGCAge: 2m
+      terminatedPodGCThreshold: 1000
+      containerLogMaxSize: "5Mi"
+      containerLogMaxFiles: "3"
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets:
