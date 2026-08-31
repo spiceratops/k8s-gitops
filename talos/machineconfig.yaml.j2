@@ -62,7 +62,6 @@ machine:
       imageGCHighThresholdPercent: 70
       imageGCLowThresholdPercent: 50
       imageMinimumGCAge: 2m
-      terminatedPodGCThreshold: 1000
       containerLogMaxSize: "5Mi"
       containerLogMaxFiles: "3"
     defaultRuntimeSeccompProfileEnabled: true
@@ -138,6 +137,9 @@ cluster:
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
+      enable-garbage-collector: "true"
+      concurrent-gc-syncs: "30"
+      terminated-pod-gc-threshold: "1000"
     image: registry.k8s.io/kube-controller-manager:v1.36.4
   coreDNS:
     disabled: true
