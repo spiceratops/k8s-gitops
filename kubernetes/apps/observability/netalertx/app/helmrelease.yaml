@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: jokobsk/netalertx
-              tag: 26.8.5
+              tag: 26.9.0
             env:
               TZ: ${TIMEZONE}
               PUID: 1000
