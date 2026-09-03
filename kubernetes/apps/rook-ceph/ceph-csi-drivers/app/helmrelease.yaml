@@ -103,8 +103,9 @@ spec:
         controllerPlugin:
           replicas: 2
       cephfs:
-        enabled: false
+        enabled: true
         name: rook-ceph.cephfs.csi.ceph.com
+        snapshotPolicy: volumeGroupSnapshot
       nfs:
         enabled: false
         name: rook-ceph.nfs.csi.ceph.com
