@@ -4,9 +4,9 @@ kind: Kustomization
 namespace: media
 resources:
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: jellyfin-scripts
-    files:
-      - ./scripts/intel-runtimes.sh
-generatorOptions:
-  disableNameSuffixHash: true
+# configMapGenerator:
+#   - name: jellyfin-scripts
+#     files:
+#       - ./scripts/intel-runtimes.sh
+# generatorOptions:
+#   disableNameSuffixHash: true
