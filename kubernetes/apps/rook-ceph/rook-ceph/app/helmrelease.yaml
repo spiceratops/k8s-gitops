@@ -26,26 +26,12 @@ spec:
     name: rook-ceph
   dependsOn: []
   values:
-    crds:
-      enabled: true
     image:
       repository: ghcr.io/rook/ceph
-      tag: v1.20.7
-    cephCommandsTimeoutSeconds: "20"
-    csi:
-      cephFSKernelMountOptions: ms_mode=prefer-crc
-      enableCephfsDriver: true
-      enableCephfsSnapshotter: true
-      enableLiveness: true
-      serviceMonitor:
-        enabled: true
-    enableDiscoveryDaemon: true
-
     monitoring:
       enabled: true
     resources:
       requests:
-        cpu: 10m
-        memory: 128Mi
-      limits:
-        memory: 512Mi
+        cpu: 100m # unchangable
+        memory: 128Mi # unchangable
+      limits: {}

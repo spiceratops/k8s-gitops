@@ -27,9 +27,6 @@ spec:
   dependsOn: []
 
   values:
-    image:
-      repository: ghcr.io/rook/ceph
-      tag: v1.20.7
     monitoring:
       enabled: true
       createPrometheusRules: true
@@ -46,7 +43,6 @@ spec:
       enabled: true
     cephClusterSpec:
       network:
-        provider: host
         connections:
           requireMsgr2: true
       cephConfig:
@@ -66,9 +62,21 @@ spec:
         urlPrefix: /
         ssl: false
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
+      healthCheck:
+        muteHealthWarning:
+          AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_CLIENT_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_KEYS_ALLOWED:
+            policy: mute
+          AUTH_INSECURE_KEYS_CREATABLE:
+            policy: mute
       csi:
+        cephfs:
+          kernelMountOptions: ms_mode=prefer-crc
         readAffinity:
-          enabled: true
+          enabled: false
       mgr:
         modules:
           - name: diskprediction_local
