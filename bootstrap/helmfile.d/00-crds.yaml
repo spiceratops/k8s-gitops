@@ -6,12 +6,12 @@ helmDefaults:
 
 releases:
   - name: cloudflare-dns
-    namespace: network
+    namespace: networking
     chart: oci://ghcr.io/home-operations/charts-mirror/external-dns
     version: 1.21.1
 
   - name: envoy-gateway
-    namespace: network
+    namespace: networking
     chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
     version: v1.9.1
 
