@@ -41,7 +41,7 @@ spec:
               DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
               JELLYFIN_FFmpeg__probesize: 100000000
               JELLYFIN_FFmpeg__analyzeduration: 100000000
-              JELLYFIN_PublishedServerUrl: "${HOSTNAME}"
+              JELLYFIN_PublishedServerUrl: "jellyfin.${SECRET_DOMAIN}"
               TZ: ${TIMEZONE}
             args:
               - /bin/bash
