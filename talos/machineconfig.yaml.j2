@@ -61,9 +61,7 @@ machine:
         - "net.ipv6.conf.net1.*" # Allow IPv6 syscalls, required for matter/thread
       imageGCHighThresholdPercent: 70
       imageGCLowThresholdPercent: 50
-      imageMinimumGCAge: 2m
-      containerLogMaxSize: "5Mi"
-      containerLogMaxFiles: "3"
+      imageMaximumGCAge: 168h
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets:
@@ -237,15 +235,15 @@ name: EPHEMERAL
 provisioning:
   diskSelector:
     match: system_disk
-  maxSize: 256GiB
+  maxSize: 768GiB
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
 name: local-hostpath
 provisioning:
   diskSelector:
-    match: disk.model == "KINGSTON SKC3000S1024G" && !system_disk
-  minSize: 1TB
+    match: disk.model == "Samsung SSD 980 500GB" && !system_disk
+  minSize: 500GiB
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
