@@ -47,6 +47,13 @@ spec:
               SLSKD_NO_HTTPS: true
               SLSKD_NO_VERSION_CHECK: true
               SLSKD_SLSK_LISTEN_PORT: &soulseekPort 50429
+              SLSKD_RETENTION_LOGS: 1440
+              SLSKD_RETENTION_TRANSFERS_UPLOAD_SUCCEEDED: 20160
+              SLSKD_RETENTION_TRANSFERS_UPLOAD_ERRORED: 1440
+              SLSKD_RETENTION_TRANSFERS_UPLOAD_CANCELLED: 5
+              SLSKD_RETENTION_TRANSFERS_DOWNLOAD_SUCCEEDED: 20160
+              SLSKD_RETENTION_TRANSFERS_DOWNLOAD_ERRORED: 1440
+              SLSKD_RETENTION_TRANSFERS_DOWNLOAD_CANCELLED: 5
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -120,9 +127,6 @@ spec:
             directories:
               downloads: /media/downloads/soulseek/complete
               incomplete: /media/downloads/soulseek/incomplete
-            permissions:
-              file:
-                mode: 750
             shares:
               directories:
                 - /media/downloads/soulseek/shared
