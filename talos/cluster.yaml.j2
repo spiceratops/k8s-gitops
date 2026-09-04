@@ -1,0 +1,344 @@
+---
+version: v1alpha1
+machine:
+  ca:
+    crt: op://sc-secrets/talos/MACHINE_CA_CRT
+    key: op://sc-secrets/talos/MACHINE_CA_KEY
+  features:
+    rbac: true
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+  sysctls:
+    fs.inotify.max_user_watches: "1048576"     # Watchdog
+    fs.inotify.max_user_instances: "8192"      # Watchdog
+    net.core.default_qdisc: fq                 # 10Gb/s
+    net.core.rmem_max: "67108864"              # 10Gb/s | Cloudflared / QUIC
+    net.core.wmem_max: "67108864"              # 10Gb/s | Cloudflared / QUIC
+    net.ipv4.neigh.default.gc_thresh1: "4096"  # Prevent ARP cache overflows
+    net.ipv4.neigh.default.gc_thresh2: "8192"  # Prevent ARP cache overflows
+    net.ipv4.neigh.default.gc_thresh3: "16384" # Prevent ARP cache overflows
+    net.ipv4.tcp_congestion_control: bbr       # 10Gb/s
+    net.ipv4.tcp_fastopen: "3"                 # Send and accept data in the opening SYN packet
+    net.ipv4.tcp_mtu_probing: "1"              # 10Gb/s | Jumbo frames
+    net.ipv4.tcp_rmem: 4096 87380 33554432     # 10Gb/s
+    net.ipv4.tcp_wmem: 4096 65536 33554432     # 10Gb/s
+    net.ipv4.tcp_slow_start_after_idle: "0"
+    net.ipv4.tcp_window_scaling: "1"           # 10Gb/s
+    sunrpc.tcp_slot_table_entries: "128"       # 10Gb/s | NFS
+    sunrpc.tcp_max_slot_table_entries: "128"   # 10Gb/s | NFS
+    user.max_user_namespaces: "11255"          # User Namespaces
+    vm.nr_hugepages: "1024"                    # PostgreSQL
+  token: op://sc-secrets/talos/MACHINE_TOKEN
+cluster:
+  ca:
+    crt: op://sc-secrets/talos/CLUSTER_CA_CRT
+    key: op://sc-secrets/talos/CLUSTER_CA_KEY
+  clusterName: main
+  controlPlane:
+    endpoint: https://k8s.internal:6443
+  token: op://sc-secrets/talos/CLUSTER_TOKEN
+  aggregatorCA:
+    crt: op://sc-secrets/talos/CLUSTER_AGGREGATORCA_CRT
+    key: op://sc-secrets/talos/CLUSTER_AGGREGATORCA_KEY
+  etcd:
+    advertisedSubnets:
+      - 192.168.10.0/24
+    ca:
+      crt: op://sc-secrets/talos/CLUSTER_ETCD_CA_CRT
+      key: op://sc-secrets/talos/CLUSTER_ETCD_CA_KEY
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
+  serviceAccount:
+    key: op://sc-secrets/talos/CLUSTER_SERVICEACCOUNT_KEY
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - net0
+bondMode: active-backup
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: bond0
+clientIdentifier: mac
+---
+apiVersion: v1alpha1
+kind: TimeSyncConfig
+ntp:
+  servers:
+  - time.cloudflare.com
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.20
+vlanID: 20
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.30
+vlanID: 30
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.80
+vlanID: 80
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.90
+vlanID: 90
+parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: 192.168.10.250
+link: bond0
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: system_disk
+  maxSize: 384GiB
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+provisioning:
+  diskSelector:
+    match: disk.model == "KINGSTON SKC3000S1024G" && !system_disk
+  minSize: 1TB
+---
+apiVersion: v1alpha1
+kind: WatchdogTimerConfig
+device: /dev/watchdog0
+timeout: 5m
+---
+apiVersion: v1alpha1
+kind: OOMConfig
+triggerExpression: "false"
+cgroupRankingExpression: "0.0"
+sampleInterval: 5s
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+searchDomains:
+  domains: []
+hostDNS:
+  enabled: true
+  forwardKubeDNSToHost: true # Requires Cilium socketLB features
+  resolveMemberNames: true
+---
+apiVersion: v1alpha1
+kind: DiscoveryServiceConfig
+name: default
+endpoint: https://discovery.talos.dev/
+---
+apiVersion: v1alpha1
+kind: DiscoveryIdentityConfig
+clusterID: op://sc-secrets/talos/CLUSTER_ID
+clusterSecret: op://sc-secrets/talos/CLUSTER_SECRET
+---
+apiVersion: v1alpha1
+kind: FilesystemTrimConfig
+interval: 168h0m0s
+---
+apiVersion: v1alpha1
+kind: FilesystemScrubConfig
+interval: 168h0m0s
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nbd
+---
+apiVersion: v1alpha1
+kind: SysctlConfig
+params:
+  fs.inotify.max_user_instances: "8192"
+  fs.inotify.max_user_watches: "1048576"
+  net.core.default_qdisc: fq
+  net.core.rmem_max: "67108864"
+  net.core.wmem_max: "67108864"
+  net.ipv4.ip_local_port_range: 1024 65535
+  net.ipv4.neigh.default.gc_thresh1: "4096"
+  net.ipv4.neigh.default.gc_thresh2: "8192"
+  net.ipv4.neigh.default.gc_thresh3: "16384"
+  net.ipv4.ping_group_range: 0 2147483647
+  net.ipv4.tcp_congestion_control: bbr
+  net.ipv4.tcp_fastopen: "3"
+  net.ipv4.tcp_mtu_probing: "1"
+  net.ipv4.tcp_notsent_lowat: "131072"
+  net.ipv4.tcp_rmem: 4096 131072 67108864
+  net.ipv4.tcp_slow_start_after_idle: "0"
+  net.ipv4.tcp_window_scaling: "1"
+  net.ipv4.tcp_wmem: 4096 65536 67108864
+  net/ipv6/conf/bond0.30/disable_ipv6: "1" # keep the host off IPv6 on the IoT segment
+  sunrpc.tcp_max_slot_table_entries: "128"
+  sunrpc.tcp_slot_table_entries: "128"
+  user.max_user_namespaces: "11255"
+---
+apiVersion: v1alpha1
+kind: EtcFileConfig
+name: nfsmount.conf
+mode: 0o644
+contents: |
+  [ NFSMount_Global_Options ]
+  nfsvers=4.2
+  hard=True
+  nconnect=16
+  noatime=True
+  rsize=1048576
+  wsize=1048576
+---
+apiVersion: v1alpha1
+kind: CRICustomizationConfig
+name: containerd
+content: |
+  [plugins."io.containerd.cri.v1.images"]
+    discard_unpacked_layers = false
+  [plugins."io.containerd.cri.v1.runtime"]
+    device_ownership_from_security_context = true
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+nodeIP:
+  validSubnets:
+    - 192.168.10.0/24
+---
+apiVersion: v1alpha1
+kind: KubeletConfig
+config:
+  crashLoopBackOff:
+    maxContainerRestartPeriod: 60s
+  imageMaximumGCAge: 168h
+  maxParallelImagePulls: 3
+  serializeImagePulls: false
+  shutdownGracePeriod: 90s
+  shutdownGracePeriodCriticalPods: 60s
+  allowedUnsafeSysctls:
+    - "net.ipv6.conf.net1.*" # Allow IPv6 syscalls, required for matter/thread
+defaultRuntimeSeccompProfileEnabled: true
+image: ghcr.io/siderolabs/kubelet:v1.37.0
+---
+apiVersion: v1alpha1
+kind: KubeNetworkConfig
+dnsDomain: cluster.local
+podSubnets:
+  - 10.244.0.0/16
+serviceSubnets:
+  - 10.245.0.0/16
+---
+apiVersion: v1alpha1
+kind: KubePrismConfig
+port: 7445
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+labels:
+  node-role.kubernetes.io/control-plane: ""
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerConfig
+certExtraSANs:
+  - k8s.internal
+extraArgs:
+  enable-aggregator-routing: "true"
+  feature-gates: HPAScaleToZero=true
+image: registry.k8s.io/kube-apiserver:v1.37.0
+---
+apiVersion: v1alpha1
+kind: KubeAuditPolicyConfig
+configuration:
+  apiVersion: audit.k8s.io/v1
+  kind: Policy
+  rules:
+    - level: Metadata
+---
+apiVersion: v1alpha1
+kind: KubeAuthenticationConfig
+configuration:
+  anonymous:
+    conditions:
+      - path: /livez
+      - path: /readyz
+      - path: /healthz
+    enabled: true
+  jwt: []
+---
+apiVersion: v1alpha1
+kind: KubeAuthorizerConfig
+name: node
+type: Node
+---
+apiVersion: v1alpha1
+kind: KubeAuthorizerConfig
+name: rbac
+type: RBAC
+---
+apiVersion: v1alpha1
+kind: KubeControllerManagerConfig
+extraArgs:
+  bind-address: 0.0.0.0
+  feature-gates: HPAScaleToZero=true
+image: registry.k8s.io/kube-controller-manager:v1.37.0
+---
+apiVersion: v1alpha1
+kind: KubeCoreDNSConfig
+enabled: false
+---
+apiVersion: v1alpha1
+kind: KubeEtcdEncryptionConfig
+config:
+  resources:
+    - providers:
+        - secretbox:
+            keys:
+              - name: key2
+                secret: op://sc-secrets/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
+        - identity: {}
+      resources:
+        - secrets
+---
+apiVersion: v1alpha1
+kind: KubeProxyConfig
+enabled: false
+image: registry.k8s.io/kube-proxy:v1.37.0
+---
+apiVersion: v1alpha1
+kind: KubeSchedulerConfig
+config:
+  profiles:
+    - schedulerName: default-scheduler
+      plugins:
+        score:
+          disabled:
+            - name: ImageLocality
+      pluginConfig:
+        - name: PodTopologySpread
+          args:
+            defaultingType: List
+            defaultConstraints:
+              - maxSkew: 1
+                topologyKey: kubernetes.io/hostname
+                whenUnsatisfiable: ScheduleAnyway
+extraArgs:
+  bind-address: 0.0.0.0
+image: registry.k8s.io/kube-scheduler:v1.37.0
+---
+apiVersion: v1alpha1
+kind: KubeTalosAPIAccessConfig
+allowedRoles:
+  - os:admin
+allowedKubernetesNamespaces:
+  - actions-runner-system
+  - system-upgrade

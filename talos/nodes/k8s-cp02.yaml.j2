@@ -1,10 +1,6 @@
 ---
 machine:
   type: controlplane
-  install:
-    diskSelector:
-      model: "Samsung SSD 980 500GB"
-    image: factory.talos.dev/metal-installer/49dec2d91f152a19c65a7860e48cb585b6b6972c918273279ba4207a9a1b910d:v1.13.9
   nodeLabels:
     topology.kubernetes.io/zone: m
     node.kubernetes.io/intel-gpu: "true"
@@ -21,4 +17,13 @@ kind: LinkAliasConfig
 name: net0
 selector:
   match: mac(link.permanent_addr).startsWith("6c:92:bf:61:58:ee")
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/metal-installer/49dec2d91f152a19c65a7860e48cb585b6b6972c918273279ba4207a9a1b910d:v1.14.0
+provisioning:
+  diskSelector:
+    match: disk.model == "Samsung SSD 980 500GB"
+  wipe: false
 
