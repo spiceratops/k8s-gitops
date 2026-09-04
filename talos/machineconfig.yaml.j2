@@ -210,12 +210,6 @@ content: |
     device_ownership_from_security_context = true
 ---
 apiVersion: v1alpha1
-kind: KubeNodeConfig
-nodeIP:
-  validSubnets:
-    - 192.168.10.0/24
----
-apiVersion: v1alpha1
 kind: KubeletConfig
 config:
   crashLoopBackOff:
@@ -241,11 +235,6 @@ serviceSubnets:
 apiVersion: v1alpha1
 kind: KubePrismConfig
 port: 7445
----
-apiVersion: v1alpha1
-kind: KubeNodeConfig
-labels:
-  node-role.kubernetes.io/control-plane: ""
 ---
 apiVersion: v1alpha1
 kind: KubeAPIServerConfig

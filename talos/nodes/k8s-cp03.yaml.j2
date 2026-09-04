@@ -1,8 +1,10 @@
 ---
 machine:
   type: controlplane
-  nodeLabels:
-    topology.kubernetes.io/zone: m
+  install:
+    diskSelector:
+      model: "Samsung SSD 980 500GB"
+    image: factory.talos.dev/metal-installer/c85c268119d3b5caca9b2c4070045ce99c7f19dad8650064ea66ee3d010c3169:v1.14.0
 ---
 apiVersion: v1alpha1
 kind: HostnameConfig
@@ -15,10 +17,10 @@ selector:
   match: mac(link.permanent_addr).startsWith("6c:92:bf:60:16:d4")
 ---
 apiVersion: v1alpha1
-kind: UnattendedInstallConfig
-installer:
-  image: factory.talos.dev/metal-installer/c85c268119d3b5caca9b2c4070045ce99c7f19dad8650064ea66ee3d010c3169:v1.14.0
-provisioning:
-  diskSelector:
-    match: disk.model == "Samsung SSD 980 500GB"
-  wipe: false
+kind: KubeNodeConfig
+nodeIP:
+  validSubnets:
+    - 192.168.10.0/24
+labels:
+  topology.kubernetes.io/zone: m
+  node-role.kubernetes.io/control-plane: ""
