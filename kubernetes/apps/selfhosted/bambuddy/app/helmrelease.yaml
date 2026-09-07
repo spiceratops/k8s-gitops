@@ -77,7 +77,7 @@ spec:
           slicer:
             image:
               repository: ghcr.io/maziggy/orca-slicer-api
-              tag: bambuddy-1.2.5.5@sha256:dc627d618cc3d3252ae4ab33af74c4679c66a9a06e0e3bbb7aefa32d1a4d4a07
+              tag: bambuddy-1.2.5.5@sha256:b28abf35f6ecf61b4d464dba485e87687401784f9b5bf3730b66fa5ac9084fdc
             env:
               PORT: &slicerPort 3003
             probes:
