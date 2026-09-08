@@ -87,7 +87,7 @@ spec:
                 custom: true
                 spec:
                   tcpSocket:
-                    port: 9222
+                    port: 3000
               readiness: *probe
             securityContext:
               allowPrivilegeEscalation: false
