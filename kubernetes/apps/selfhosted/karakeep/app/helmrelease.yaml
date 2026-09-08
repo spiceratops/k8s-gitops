@@ -86,7 +86,7 @@ spec:
                 custom: true
                 spec:
                   tcpSocket:
-                    port: 3000
+                    port: 9222
               readiness: *probe
             securityContext:
               allowPrivilegeEscalation: false
@@ -138,3 +138,21 @@ spec:
             meilisearch:
               - path: /meili_data
                 subPath: meili_data
+      browserless:
+        type: emptyDir
+        sizeLimit: 1Gi
+        advancedMounts:
+          browserless:
+            browserless:
+              - path: /profile
+                subPath: profile
+              - path: /downloads
+                subPath: downloads
+      run:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 100Mi
+      tmp:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 1Gi
