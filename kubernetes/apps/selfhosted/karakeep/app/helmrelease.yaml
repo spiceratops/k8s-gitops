@@ -143,7 +143,7 @@ spec:
         type: emptyDir
         sizeLimit: 1Gi
         advancedMounts:
-          browserless:
+          karakeep:
             browserless:
               - path: /profile
                 subPath: profile
