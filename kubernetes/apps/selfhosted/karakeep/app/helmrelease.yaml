@@ -35,6 +35,7 @@ spec:
               OAUTH_WELLKNOWN_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
               DISABLE_PASSWORD_AUTH: "true"
               OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING: "true"
+              PORT: &port 3001
             envFrom: &envFrom
               - secretRef:
                   name: karakeep-secret
@@ -95,7 +96,7 @@ spec:
         controller: karakeep
         ports:
           http:
-            port: &port 3000
+            port: *port
       browserless:
         controller: karakeep
         ports:
