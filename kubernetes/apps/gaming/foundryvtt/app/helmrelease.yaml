@@ -54,6 +54,7 @@ spec:
               FOUNDRY_PROXY_SSL: "true"
               FOUNDRY_COMPRESS_WEBSOCKET: "true"
               FOUNDRY_TELEMETRY: "false"
+              FOUNDRY_UPNP: "false"
               FOUNDRY_CSS_THEME: foundry
               # CONTAINER_PATCH_URLS: https://gist.githubusercontent.com/felddy/a02d66c3817f8223652d96febe580153/raw/foundryvtt-module-check.sh
     service:
@@ -87,3 +88,7 @@ spec:
           foundryvtt:
             app:
               - path: /data
+      npm-cache:
+        type: emptyDir
+        globalMounts:
+          - path: /home/node/.npm

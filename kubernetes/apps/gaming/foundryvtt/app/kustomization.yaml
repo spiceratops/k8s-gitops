@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: gaming
 resources:
   - ./externalsecret.yaml
-  # - ./volsync.yaml
   - ./helmrelease.yaml
