@@ -6,6 +6,9 @@ metadata:
 spec:
   image: ghcr.io/enuno/unifi-mcp-server:0.2.6
   transport: streamable-http
+  proxyMode: streamable-http
+  proxyPort: 8080
+  mcpPort: 3000
   groupRef:
     name: mcp-tools
   env:
