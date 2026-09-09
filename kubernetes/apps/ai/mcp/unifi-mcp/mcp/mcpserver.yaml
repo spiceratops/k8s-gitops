@@ -24,13 +24,18 @@ spec:
       value: 0.0.0.0
     - name: MCP_SERVER_PORT
       value: "3000"
-    - name: UNIFI_NETWORK_USERNAME
-      valueFrom:
-        secretKeyRef:
-          name: unifi-mcp-secret
-          key: UNIFI_NETWORK_USERNAME
-    - name: UNIFI_NETWORK_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: unifi-mcp-secret
-          key: UNIFI_NETWORK_PASSWORD
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          env:
+            - name: UNIFI_NETWORK_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: unifi-mcp-secret
+                  key: UNIFI_NETWORK_USERNAME
+            - name: UNIFI_NETWORK_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: unifi-mcp-secret
+                  key: UNIFI_NETWORK_PASSWORD
