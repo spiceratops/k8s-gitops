@@ -39,3 +39,8 @@ spec:
                 secretKeyRef:
                   name: unifi-mcp-secret
                   key: UNIFI_NETWORK_PASSWORD
+            - name: UNIFI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: unifi-mcp-secret
+                  key: UNIFI_API_KEY
