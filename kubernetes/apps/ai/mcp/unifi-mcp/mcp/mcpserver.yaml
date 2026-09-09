@@ -9,14 +9,10 @@ spec:
   groupRef:
     name: mcp-tools
   env:
-    - name: UNIFI_API_TYPE
-      value: local
-    - name: UNIFI_LOCAL_HOST
-      value: /tmp
-    - name: UNIFI_LOCAL_PORT
+    - name: UNIFI_NETWORK_HOST
+      value: unifi.${PRIVATE_DOMAIN}
+    - name: UNIFI_NETWORK_PORT
       value: "443"
-    - name: UNIFI_LOCAL_VERIFY_SSL
-      value: "false"
     - name: UNIFI_DEFAULT_SITE
       value: default
     - name: MCP_SERVER_TRANSPORT
