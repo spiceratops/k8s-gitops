@@ -24,5 +24,5 @@ spec:
             MCP_SERVER_PORT: "3000"
   secrets:
     - name: unifi-mcp-secret
-      key: UNIFI_API_KEY
+      key: UNIFI_MCP_API_KEY
       targetEnvName: UNIFI_API_KEY
