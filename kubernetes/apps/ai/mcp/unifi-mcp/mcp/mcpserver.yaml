@@ -1,0 +1,28 @@
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServer
+metadata:
+  name: unifi-mcp
+spec:
+  image: ghcr.io/enuno/unifi-mcp-server:0.2.6
+  transport: streamable-http
+  groupRef:
+    name: mcp-tools
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          env:
+            # Local UDM SE controller (not the cloud Site Manager API).
+            UNIFI_API_TYPE: local
+            UNIFI_LOCAL_HOST: 192.168.1.1
+            UNIFI_LOCAL_PORT: "443"
+            UNIFI_LOCAL_VERIFY_SSL: "false"
+            UNIFI_DEFAULT_SITE: default
+            MCP_SERVER_TRANSPORT: http
+            MCP_SERVER_HOST: 0.0.0.0
+            MCP_SERVER_PORT: "3000"
+  secrets:
+    - name: unifi-mcp-secret
+      key: UNIFI_API_KEY
+      targetEnvName: UNIFI_API_KEY

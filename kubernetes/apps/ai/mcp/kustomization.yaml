@@ -13,3 +13,4 @@ resources:
   # - ./talos-mcp/ks.yaml
   - ./agentmail-mcp/ks.yaml
   # - ./bambuddy-mcp/ks.yaml
+  - ./unifi-mcp/ks.yaml
