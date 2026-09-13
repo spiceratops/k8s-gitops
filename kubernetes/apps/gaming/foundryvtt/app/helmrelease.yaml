@@ -52,7 +52,7 @@ spec:
               FOUNDRY_PROTOCOL: "4"
               FOUNDRY_PROXY_PORT: "443"
               FOUNDRY_PROXY_SSL: "true"
-              FOUNDRY_COMPRESS_WEBSOCKET: "true"
+              FOUNDRY_COMPRESS_WEBSOCKET: "false"
               FOUNDRY_TELEMETRY: "false"
               FOUNDRY_UPNP: "false"
               FOUNDRY_CSS_THEME: foundry
