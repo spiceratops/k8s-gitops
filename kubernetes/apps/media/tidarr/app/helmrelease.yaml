@@ -21,7 +21,7 @@ spec:
           app:
             image:
               repository: docker.io/cstaelen/tidarr
-              tag: 1.2.6@sha256:5d843dab8eee816ffeb6b794ce38ffe15bc72c5d164b913e522b88d35e1e9d48
+              tag: 1.2.7@sha256:7e0399ceff77ffb00d1878c9447ba6a8954f3525ddc2ebd0587284302a2faf22
             env:
               TZ: "${TIMEZONE}"
               ENABLE_BEETS: true
