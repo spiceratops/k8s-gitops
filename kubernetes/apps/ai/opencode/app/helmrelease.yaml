@@ -30,9 +30,18 @@ spec:
               - secretRef:
                   name: opencode-secret
             command:
+              - opencode
+            args:
+              # 2026-09-12: opencode 2.0.0 renamed the "web" subcommand to
+              # "serve" ("Start the v2 API and web server") - same
+              # --hostname/--port flags, confirmed via `opencode serve
+              # --help` against the 2.0.0 image. The old "web" invocation
+              # crash-loops on 2.0.0 with "Unrecognized flag: --hostname".
               - serve
               - --hostname
-              - "0.0.0.0"
+              - 0.0.0.0
+              - --port
+              - "4096"
             probes:
               liveness:
                 enabled: true
