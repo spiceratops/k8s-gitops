@@ -23,6 +23,7 @@ resources:
   - ./vikunja/ks.yaml
   - ./bambuddy/ks.yaml
   - ./spoolman/ks.yaml
+  - ./manyfold/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
