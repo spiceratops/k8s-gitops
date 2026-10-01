@@ -92,7 +92,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "3d.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
