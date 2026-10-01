@@ -99,7 +99,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: manyfold-app
+              - name: *app
                 port: *port
         annotations:
           gethomepage.dev/enabled: "true"
