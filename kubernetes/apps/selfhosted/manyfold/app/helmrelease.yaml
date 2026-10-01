@@ -59,6 +59,7 @@ spec:
               OIDC_NAME: Pocket-ID
               TZ: ${TIMEZONE}
               REDIS_URL: redis://manyfold-dragonfly-db.selfhosted.svc.cluster.local:6379
+              PLUGINS_PATH: /mnt/nas/3dprinting/manyfold-plugins
             envFrom: *envFrom
             probes:
               liveness: &probes
