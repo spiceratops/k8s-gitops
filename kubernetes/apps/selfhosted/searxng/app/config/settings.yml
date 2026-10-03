@@ -63,17 +63,10 @@ plugins:
     active: true
   searx.plugins.tor_check.SXNGPlugin:
     active: false
-  searx.plugins.url_rewrite.SXNGPlugin:
-    active: true
 
 hostnames:
-  high_priority:
-    - (.*)\/blog\/(.*)
-    - (.*\.)?wikipedia.org$
-    - (.*\.)?github.com$
-    - (.*\.)?reddit.com$
-    - (.*\.)?docker.com$
-    - (.*\.)?archlinux.org$
-    - (.*\.)?stackoverflow.com$
-    - (.*\.)?askubuntu.com$
-    - (.*\.)?superuser.com$
+  replace:
+    '(.*\\.)?youtube\\.com$': "youtube.${SECRET_DOMAIN}"
+    '(.*\\.)?reddit\\.com$': "reddit.${SECRET_DOMAIN}"
+    '(.*\\.)?medium\\.com$': "medium.${SECRET_DOMAIN}"
+    '(.*\\.)?twitter\\.com$': "twitter.${SECRET_DOMAIN}"

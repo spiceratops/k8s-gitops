@@ -28,8 +28,8 @@ spec:
         containers:
           app:
             image:
-              repository: quay.io/redlib/redlib
-              tag: latest@sha256:e6647a94d553bf3f7c95c53fc6d9da5785e6c278d9002e99ea32abdb5e3c513a
+              repository: ghcr.io/cycneuramus/containers
+              tag: redlib@sha256:4b607fd58f2c170d9bbf073bfedbe570c5b6f29c7e72b3a2285e86d5c7f98af9
             env:
               REDLIB_DEFAULT_WIDE: on
               REDLIB_DEFAULT_USE_HLS: on
