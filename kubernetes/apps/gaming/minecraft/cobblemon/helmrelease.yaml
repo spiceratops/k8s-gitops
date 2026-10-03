@@ -51,7 +51,7 @@ spec:
               VERSION: "1.21.1"
               MODRINTH_ALLOWED_VERSION_TYPE: "release"
               MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
-              MODRINTH_MODPACK: "https://modrinth.com/modpack/cobbleverse"
+              MODRINTH_MODPACK: "https://modrinth.com/modpack/cobblemon-fabric"
               # MODRINTH_PROJECTS: |-
               #   chunky:t8SbUchF
               #   servertick:IOYJbkmQ
@@ -67,12 +67,12 @@ spec:
               #   supermartijn642s-config-lib:LN9BxssP
               #   structurify:yz7AM2zx
               #   waystones:LOpKHB2A
-              LEVEL: "Cobbled Farms v3"
+              LEVEL: "Cobblemon"
               MODE: "survival"
               DIFFICULTY: "peaceful"
-              SERVER_NAME: "Cobbleverse"
+              SERVER_NAME: "Cobblemon"
               MAX_PLAYERS: "8"
-              GENERATE_STRUCTURES: "false"
+              GENERATE_STRUCTURES: "true"
               OVERRIDE_SERVER_PROPERTIES: "true"
               ENABLE_RCON: "true"
               SYNC_CHUNK_WRITES: "true"
