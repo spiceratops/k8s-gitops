@@ -63,6 +63,8 @@ plugins:
     active: true
   searx.plugins.tor_check.SXNGPlugin:
     active: false
+  searx.plugins.url_rewrite.SXNGPlugin:
+    active: true
 
 hostnames:
   high_priority:
