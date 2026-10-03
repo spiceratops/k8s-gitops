@@ -9,9 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  components:
+    - ../../../../components/dragonfly
   dependsOn:
     - name: onepassword
       namespace: external-secrets
+    - name: dragonfly
+      namespace: databases
   path: ./kubernetes/apps/selfhosted/searxng/app
   prune: true
   sourceRef:
