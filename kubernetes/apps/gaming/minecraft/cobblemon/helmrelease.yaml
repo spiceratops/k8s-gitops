@@ -51,7 +51,7 @@ spec:
               VERSION: "1.21.1"
               MODRINTH_ALLOWED_VERSION_TYPE: "release"
               MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
-              MODRINTH_MODPACK: "cobbleverse:Jkb29YJU"
+              MODRINTH_MODPACK: "https://modrinth.com/modpack/cobbleverse"
               # MODRINTH_PROJECTS: |-
               #   chunky:t8SbUchF
               #   servertick:IOYJbkmQ
