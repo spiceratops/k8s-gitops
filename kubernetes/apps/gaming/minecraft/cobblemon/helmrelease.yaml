@@ -78,6 +78,7 @@ spec:
               SYNC_CHUNK_WRITES: "true"
               OPS: |
                 Spiceratops
+                WillowDonut
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
