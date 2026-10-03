@@ -30,6 +30,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname2
+  components:
+    - ../../../../components/volsync/nfs-nas
   dependsOn:
     - name: volsync
       namespace: volsync-system

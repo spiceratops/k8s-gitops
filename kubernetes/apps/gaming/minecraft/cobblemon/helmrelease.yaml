@@ -103,10 +103,15 @@ spec:
             protocol: TCP
     persistence:
       data:
-        existingClaim: nfs-games
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data
-            subPath: gameservers/minecraft-cobblemon
+      # data:
+      #   existingClaim: nfs-games
+      #   globalMounts:
+      #     - path: /data
+      #       subPath: gameservers/minecraft-cobblemon
+
       tmp:
         enabled: true
         type: emptyDir
