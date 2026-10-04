@@ -76,3 +76,5 @@ engines:
     engine: braveapi
     api_key: "$BRAVE_API_KEY" # required
     results_per_page: 20 # optional
+    inactive: false
+    disabled: false
