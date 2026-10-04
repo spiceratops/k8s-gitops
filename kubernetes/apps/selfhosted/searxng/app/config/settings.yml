@@ -84,7 +84,7 @@ hostnames:
 engines:
   - name: braveapi
     engine: braveapi
-    api_key: { { BRAVE_API_KEY } }
+    api_key: "{{ BRAVE_API_KEY }}"
     results_per_page: 20
     inactive: false
     disabled: false
