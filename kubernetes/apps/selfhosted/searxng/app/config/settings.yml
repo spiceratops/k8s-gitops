@@ -9,8 +9,8 @@ server:
 
 search:
   safe_search: 0
-  autocomplete: duckduckgo
-  favicon_resolver: duckduckgo
+  autocomplete: braveapi
+  favicon_resolver: braveapi
   languages:
     - all
     - en
@@ -18,7 +18,25 @@ search:
   formats:
     - html
     - json
+    - rss
   max_page: 0
+  # ban time in seconds after engine errors
+  ban_time_on_fail: 5
+  # max ban time in seconds after engine errors
+  max_ban_time_on_fail: 120
+  suspended_times:
+    # Engine suspension time after error (in seconds; set to 0 to disable)
+    # For error "Access denied" and "HTTP error [402, 403]"
+    SearxEngineAccessDenied: 86400
+    # For error "CAPTCHA"
+    SearxEngineCaptcha: 86400
+    # For error "Too many request" and "HTTP error 429"
+    SearxEngineTooManyRequests: 3600
+    # Cloudflare CAPTCHA
+    cf_SearxEngineCaptcha: 1296000
+    cf_SearxEngineAccessDenied: 86400
+    # ReCAPTCHA
+    recaptcha_SearxEngineCaptcha: 604800
 
 general:
   instance_name: Strallow Search

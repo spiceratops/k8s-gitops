@@ -29,7 +29,7 @@ spec:
               SEARXNG_PORT: &port 8080
               UWSGI_WORKERS: 1
               UWSGI_THREADS: 4
-              SEARXNG_VALKEY_URL: redis://searxng-dragonfly-db.selfhosted.svc.cluster.local:6379
+              SEARXNG_REDIS_URL: redis://searxng-dragonfly-db.selfhosted.svc.cluster.local:6379
             envFrom:
               - secretRef:
                   name: searxng-secret
