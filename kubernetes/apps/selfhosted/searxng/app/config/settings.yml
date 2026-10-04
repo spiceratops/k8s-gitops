@@ -9,8 +9,8 @@ server:
 
 search:
   safe_search: 0
-  autocomplete: braveapi
-  favicon_resolver: braveapi
+  autocomplete: ""
+  favicon_resolver: ""
   languages:
     - all
     - en
