@@ -70,3 +70,9 @@ hostnames:
     '(.*\\.)?reddit\\.com$': "reddit.${SECRET_DOMAIN}"
     '(.*\\.)?medium\\.com$': "medium.${SECRET_DOMAIN}"
     '(.*\\.)?twitter\\.com$': "twitter.${SECRET_DOMAIN}"
+
+engines:
+  - name: braveapi
+    engine: braveapi
+    api_key: "${BRAVE_API_KEY}" # required
+    results_per_page: 20 # optional
