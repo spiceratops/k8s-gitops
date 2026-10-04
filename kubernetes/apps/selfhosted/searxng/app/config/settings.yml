@@ -70,11 +70,21 @@ hostnames:
     '(.*\\.)?reddit\\.com$': "reddit.${SECRET_DOMAIN}"
     '(.*\\.)?medium\\.com$': "medium.${SECRET_DOMAIN}"
     '(.*\\.)?twitter\\.com$': "twitter.${SECRET_DOMAIN}"
+  high_priority:
+    - (.*)\/blog\/(.*)
+    - (.*\.)?wikipedia.org$
+    - (.*\.)?github.com$
+    - (.*\.)?reddit.com$
+    - (.*\.)?docker.com$
+    - (.*\.)?archlinux.org$
+    - (.*\.)?stackoverflow.com$
+    - (.*\.)?askubuntu.com$
+    - (.*\.)?superuser.com$
 
 engines:
   - name: braveapi
     engine: braveapi
-    api_key: "$BRAVE_API_KEY" # required
-    results_per_page: 20 # optional
+    api_key: $BRAVE_API_KEY
+    results_per_page: 20
     inactive: false
     disabled: false
