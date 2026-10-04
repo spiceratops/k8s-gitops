@@ -74,5 +74,5 @@ hostnames:
 engines:
   - name: braveapi
     engine: braveapi
-    api_key: "${{BRAVE_API_KEY}}" # required
+    api_key: "$BRAVE_API_KEY" # required
     results_per_page: 20 # optional
