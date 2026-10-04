@@ -9,8 +9,8 @@ server:
 
 search:
   safe_search: 0
-  autocomplete: ""
-  favicon_resolver: ""
+  autocomplete: duckduckgo
+  favicon_resolver: duckduckgo
   languages:
     - all
     - en
