@@ -47,10 +47,11 @@ spec:
               TZ: ${TIMEZONE}
               MEMORY: "4096M"
               EULA: "TRUE"
-              TYPE: "FABRIC"
-              VERSION: "1.21.8"
+              TYPE: "MODRINTH"
+              VERSION: "1.21.1"
               MODRINTH_ALLOWED_VERSION_TYPE: "release"
               MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
+              MODRINTH_MODPACK: "https://modrinth.com/modpack/fabulously-optimized"
               MODE: "creative"
               DIFFICULTY: "peaceful"
               SERVER_NAME: "Creative Land"
@@ -61,6 +62,7 @@ spec:
               SYNC_CHUNK_WRITES: "true"
               OPS: |
                 Spiceratops
+                WillowDonut
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
