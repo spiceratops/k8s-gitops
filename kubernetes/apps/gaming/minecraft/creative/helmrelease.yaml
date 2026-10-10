@@ -86,10 +86,14 @@ spec:
             protocol: TCP
     persistence:
       data:
-        existingClaim: nfs-games
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data
-            subPath: gameservers/minecraft-creative
+      # data:
+      #   existingClaim: nfs-games
+      #   globalMounts:
+      #     - path: /data
+      #       subPath: gameservers/minecraft-creative
       tmp:
         enabled: true
         type: emptyDir
