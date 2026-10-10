@@ -48,7 +48,7 @@ spec:
               MEMORY: "4096M"
               EULA: "TRUE"
               TYPE: "MODRINTH"
-              VERSION: "1.21.1"
+              VERSION: "26.2"
               MODRINTH_ALLOWED_VERSION_TYPE: "release"
               MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
               MODRINTH_MODPACK: "https://modrinth.com/modpack/fabulously-optimized"
