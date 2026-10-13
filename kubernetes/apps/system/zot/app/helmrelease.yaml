@@ -77,7 +77,7 @@ spec:
             subPath: config.json
             readOnly: true
       oidc-secret:
-        type: Secret
+        type: secret
         name: zot-secret
         globalMounts:
           - path: /oidc/oidc-credentials.json
