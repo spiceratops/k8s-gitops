@@ -57,102 +57,111 @@
       }
     }
   },
-  "log": {
-    "level": "info"
-  },
-  "extensions": {
-    "ui": {
-      "enable": true
+  "accessControl": {
+    "repositories": {
+      "**": {
+        "anonymousPolicy": [
+          "read"
+        ],
+        "defaultPolicy": []
+      }
     },
-    "search": {
-      "enable": true
+    "log": {
+      "level": "info"
     },
-    "scrub": {
-      "enable": false,
-      "interval": "24h"
-    },
-    "sync": {
-      "enable": true,
-      "registries": [
-        {
-          "urls": [
-            "https://index.docker.io"
-          ],
-          "content": [
-            {
-              "prefix": "**",
-              "destination": "/docker.io"
-            }
-          ],
-          "onDemand": true,
-          "tlsVerify": true
-        },
-        {
-          "urls": [
-            "https://gcr.io"
-          ],
-          "content": [
-            {
-              "prefix": "**",
-              "destination": "/gcr.io"
-            }
-          ],
-          "onDemand": true,
-          "tlsVerify": true
-        },
-        {
-          "urls": [
-            "https://ghcr.io"
-          ],
-          "content": [
-            {
-              "prefix": "**",
-              "destination": "/ghcr.io"
-            }
-          ],
-          "onDemand": true,
-          "tlsVerify": true
-        },
-        {
-          "urls": [
-            "https://quay.io"
-          ],
-          "content": [
-            {
-              "prefix": "**",
-              "destination": "/quay.io"
-            }
-          ],
-          "onDemand": true,
-          "tlsVerify": true
-        },
-        {
-          "urls": [
-            "https://registry.k8s.io"
-          ],
-          "content": [
-            {
-              "prefix": "**",
-              "destination": "/registry.k8s.io"
-            }
-          ],
-          "onDemand": true,
-          "tlsVerify": true
-        },
-        {
-          "urls": [
-            "https://public.ecr.aws"
-          ],
-          "content": [
-            {
-              "prefix": "**",
-              "destination": "/public.ecr.aws"
-            }
-          ],
-          "onDemand": true,
-          "tlsVerify": true
-        }
-      ]
+    "extensions": {
+      "ui": {
+        "enable": true
+      },
+      "search": {
+        "enable": true
+      },
+      "scrub": {
+        "enable": false,
+        "interval": "24h"
+      },
+      "sync": {
+        "enable": true,
+        "registries": [
+          {
+            "urls": [
+              "https://index.docker.io"
+            ],
+            "content": [
+              {
+                "prefix": "**",
+                "destination": "/docker.io"
+              }
+            ],
+            "onDemand": true,
+            "tlsVerify": true
+          },
+          {
+            "urls": [
+              "https://gcr.io"
+            ],
+            "content": [
+              {
+                "prefix": "**",
+                "destination": "/gcr.io"
+              }
+            ],
+            "onDemand": true,
+            "tlsVerify": true
+          },
+          {
+            "urls": [
+              "https://ghcr.io"
+            ],
+            "content": [
+              {
+                "prefix": "**",
+                "destination": "/ghcr.io"
+              }
+            ],
+            "onDemand": true,
+            "tlsVerify": true
+          },
+          {
+            "urls": [
+              "https://quay.io"
+            ],
+            "content": [
+              {
+                "prefix": "**",
+                "destination": "/quay.io"
+              }
+            ],
+            "onDemand": true,
+            "tlsVerify": true
+          },
+          {
+            "urls": [
+              "https://registry.k8s.io"
+            ],
+            "content": [
+              {
+                "prefix": "**",
+                "destination": "/registry.k8s.io"
+              }
+            ],
+            "onDemand": true,
+            "tlsVerify": true
+          },
+          {
+            "urls": [
+              "https://public.ecr.aws"
+            ],
+            "content": [
+              {
+                "prefix": "**",
+                "destination": "/public.ecr.aws"
+              }
+            ],
+            "onDemand": true,
+            "tlsVerify": true
+          }
+        ]
+      }
     }
   }
-}
