@@ -67,7 +67,7 @@
       },
       "adminPolicy": {
         "users": [
-          "zot-admin"
+          "zot"
         ],
         "actions": [
           "read",
