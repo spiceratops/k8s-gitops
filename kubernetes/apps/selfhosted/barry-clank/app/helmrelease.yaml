@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://kube-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app barry-clank
+  namespace: selfhosted
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  dependsOn: []
+  interval: 1h
+
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      barry-clank:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: registry.${SECRET_DOMAIN}/barry-clank:v0.1.0
+              tag: v0.1.0@sha256:0cab35eb1b00841b9c3958859bb6c261be444ae310cac220304350e4ce30fd32
+            env:
+              DB_PATH: /data/properties.db
+              HOUSE_DB_PATH: /data/house_fix.db
+            resources:
+              requests:
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+    service:
+      app:
+        ports:
+          http:
+            port: &port 8080
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: Barry Clank
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/description: House Stuff
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"

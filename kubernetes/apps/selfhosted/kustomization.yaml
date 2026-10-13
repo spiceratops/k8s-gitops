@@ -24,6 +24,7 @@ resources:
   - ./bambuddy/ks.yaml
   - ./spoolman/ks.yaml
   - ./manyfold/ks.yaml
+  - ./barry-clank/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
