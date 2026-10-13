@@ -33,6 +33,9 @@
     "port": "5000",
     "auth": {
       "openid": {
+        "callbackAllowOrigins": [
+          "https://registry.${SECRET_DOMAIN}"
+        ],
         "providers": {
           "oidc": {
             "credentialsFile": "/oidc/oidc-credentials.json",
