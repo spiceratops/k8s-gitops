@@ -37,7 +37,7 @@
           "oidc": {
             "credentialsFile": "/oidc/oidc-credentials.json",
             "name": "Pocket-ID",
-            "issuer": "https://id.{SECRET_DOMAIN}",
+            "issuer": "https://id.${SECRET_DOMAIN}",
             "keypath": "",
             "scopes": [
               "openid",
