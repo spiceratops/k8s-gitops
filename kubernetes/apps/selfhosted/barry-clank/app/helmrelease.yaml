@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: registry.${SECRET_DOMAIN}/barry-clank
-              tag: v0.4.0
+              tag: v0.4.1
             env:
               DB_PATH: /data/properties.db
               HOUSE_DB_PATH: /data/house_fix.db
