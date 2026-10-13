@@ -1,0 +1,89 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app zot
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  dependsOn: []
+  interval: 1h
+
+  values:
+    controllers:
+      zot:
+        pod:
+          securityContext:
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            runAsGroup: 1000
+            runAsUser: 1000
+        annotations:
+          reloader.stakater.com/auto: "true"
+          descheduler.alpha.kubernetes.io/prefer-no-eviction: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/project-zot/zot-linux-amd64
+              tag: v2.1.22@sha256:46f688dc26315a35a247e1784368829e66a67bf91de94c7d8d1645044fac1d5b
+            env:
+              TZ: ${TIMEZONE}
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /v2/
+                    port: &httpPort 5000
+                  initialDelaySeconds: 5
+              readiness: *probe
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 50m
+                memory: 512Mi
+              limits:
+                memory: 4Gi
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: *httpPort
+    route:
+      app:
+        hostnames: ["registry.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - port: *httpPort
+                name: *app
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: OCI Registry
+          gethomepage.dev/name: Zot
+    persistence:
+      config-file:
+        type: configMap
+        name: zot-configmap
+        globalMounts:
+          - path: /etc/zot/config.json
+            subPath: config.json
+            readOnly: true
+      oidc-secret:
+        type: Secret
+        name: zot-secret
+        globalMounts:
+          - path: /oidc/oidc-credentials.json
+            subPath: oidc-credentials.json
+            readOnly: true
+      registry:
+        existingClaim: *app
+        globalMounts:
+          - path: /var/lib/registry

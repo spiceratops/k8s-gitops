@@ -1,0 +1,30 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname zot
+  namespace: flux-system
+spec:
+  targetNamespace: system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  components:
+    - ../../../../components/volsync/nfs-nas
+  path: ./kubernetes/apps/system/zot/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+    namespace: flux-system
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  postBuild:
+    substitute:
+      APP: *appname
+      VOLSYNC_CAPACITY: 50Gi
