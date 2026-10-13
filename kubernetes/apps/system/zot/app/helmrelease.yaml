@@ -83,6 +83,13 @@ spec:
           - path: /oidc/oidc-credentials.json
             subPath: oidc-credentials.json
             readOnly: true
+      htpasswd:
+        type: secret
+        name: zot-secret
+        globalMounts:
+          - path: /etc/zot/htpasswd
+            subPath: htpasswd
+            readOnly: true
       registry:
         existingClaim: *app
         globalMounts:

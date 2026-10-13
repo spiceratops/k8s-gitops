@@ -33,6 +33,9 @@
     "port": "5000",
     "externalUrl": "https://registry.${SECRET_DOMAIN}",
     "auth": {
+      "htpasswd": {
+        "path": "/etc/zot/htpasswd"
+      },
       "openid": {
         "callbackAllowOrigins": [
           "https://registry.${SECRET_DOMAIN}"
