@@ -65,6 +65,17 @@
           "defaultPolicy": []
         }
       }
+    },
+    "adminPolicy": {
+      "users": [
+        "zot"
+      ],
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete"
+      ]
     }
   },
   "log": {
