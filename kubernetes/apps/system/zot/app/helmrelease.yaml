@@ -52,7 +52,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: *httpPort
+            port: &httpPort 5000
     route:
       app:
         hostnames: ["registry.${SECRET_DOMAIN}"]
