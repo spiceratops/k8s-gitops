@@ -30,6 +30,7 @@ spec:
               repository: registry.${SECRET_DOMAIN}/barry-clank
               tag: v0.11.3
             env:
+              TZ: ${TIMEZONE}
               DB_PATH: /data/properties.db
               HOUSE_DB_PATH: /data/house_fix.db
               SETTINGS_DB_PATH: /data/settings.db
