@@ -91,6 +91,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.kubernetes.io/hostname: "go2rtc-streams.${SECRET_DOMAIN}"
+          lbipam.cilium.io/ips: ${FRIGATE_LB_IP}
         ports:
           http:
             appProtocol: kubernetes.io/wss
