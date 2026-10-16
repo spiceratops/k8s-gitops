@@ -2,67 +2,59 @@ model_list:
   # Google
   - model_name: gemini-flash
     litellm_params:
-      model: gemini/gemini-flash-latest
+      model: gemini/gemini-3.7-flash
       api_key: os.environ/GOOGLE_API_KEY
 
   - model_name: gemini-pro
     litellm_params:
-      model: gemini/gemini-pro-latest
+      model: gemini/gemini-4-argon
       api_key: os.environ/GOOGLE_API_KEY
 
-  - model_name: gemini-image-flash
+  # Hermes
+  - model_name: glm-5.2
     litellm_params:
-      model: gemini/gemini-3.1-flash-image-preview
-      api_key: os.environ/GOOGLE_API_KEY
-    model_info:
-      mode: image_generation
+      model: z-ai/glm-5.2
+      api_base: "https://hermes.${SECRET_DOMAIN}/v1"
 
-  - model_name: gemini-image-pro
-    litellm_params:
-      model: gemini/gemini-3-pro-image-preview
-      api_key: os.environ/GOOGLE_API_KEY
-    model_info:
-      mode: image_generation
+  # # Ollama
+  # - model_name: nomic-embed-text
+  #   litellm_params:
+  #     model: ollama/nomic-embed-text:latest
+  #     api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
+  #   model_info:
+  #     mode: embedding
 
-  # Ollama
-  - model_name: nomic-embed-text
-    litellm_params:
-      model: ollama/nomic-embed-text:latest
-      api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
-    model_info:
-      mode: embedding
+  # - model_name: all-minilm:22m
+  #   litellm_params:
+  #     model: ollama/all-minilm:22m
+  #     api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
+  #   model_info:
+  #     mode: embedding
 
-  - model_name: all-minilm:22m
-    litellm_params:
-      model: ollama/all-minilm:22m
-      api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
-    model_info:
-      mode: embedding
+  # - model_name: mxbai-embed-large
+  #   litellm_params:
+  #     model: ollama/mxbai-embed-large:latest
+  #     api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
+  #   model_info:
+  #     mode: embedding
 
-  - model_name: mxbai-embed-large
-    litellm_params:
-      model: ollama/mxbai-embed-large:latest
-      api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
-    model_info:
-      mode: embedding
+  # - model_name: gemma4-local
+  #   litellm_params:
+  #     model: ollama_chat/gemma4
+  #     api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
+  #   model_info:
+  #     mode: completion
 
-  - model_name: gemma4-local
-    litellm_params:
-      model: ollama_chat/gemma4
-      api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
-    model_info:
-      mode: completion
-
-  - model_name: qwen-local
-    model_info:
-      max_input_tokens: 16384
-      max_output_tokens: 8192
-      supports_function_calling: true
-      supports_vision: true
-    litellm_params:
-      model: ollama/qwen3.6
-      api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
-      drop_params: true
+  # - model_name: qwen-local
+  #   model_info:
+  #     max_input_tokens: 16384
+  #     max_output_tokens: 8192
+  #     supports_function_calling: true
+  #     supports_vision: true
+  #   litellm_params:
+  #     model: ollama/qwen3.6
+  #     api_base: "http://studio-pc.${SECRET_DOMAIN}:11434"
+  #     drop_params: true
 
 general_settings:
   proxy_batch_write_at: 60 # Batch write spend updates every 60s
@@ -95,3 +87,4 @@ environment:
   - GOOGLE_API_KEY
   - REDIS_HOST
   - REDIS_PORT
+  - HERMES_API_SERVER_KEY

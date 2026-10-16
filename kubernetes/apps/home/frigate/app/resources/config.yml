@@ -1,0 +1,228 @@
+---
+logger:
+  default: info
+
+mqtt:
+  host: mosquitto.home.svc.cluster.local
+  topic_prefix: frigate
+  user: "{{ .FRIGATE_MQTT_USERNAME }}"
+  password: "{{ .FRIGATE_MQTT_PASSWORD }}"
+
+database:
+  path: /data/frigate.db
+
+birdseye:
+  enabled: true
+
+detectors:
+  ov:
+    type: openvino
+    device: GPU
+
+review:
+  genai:
+    enabled: true
+    image_source: recordings
+
+face_recognition:
+  enabled: true
+  model_size: small
+lpr:
+  enabled: true
+
+semantic_search:
+  enabled: true
+  reindex: false
+  model_size: small
+
+genai:
+  litellm:
+    provider: openai
+    base_url: http://litellm.ai.svc.cluster.local:4000/v1
+    api_key: "{{ .FRIGATE_LITELLM_API_KEY }}"
+    model: glm-5.2
+    roles:
+      - chat
+      - descriptions
+      - embeddings
+
+model:
+  # https://docs.frigate.video/configuration/objects
+  labelmap:
+    2: vehicle # car
+    3: vehicle # motorcycle
+    4: vehicle # airplane
+    5: vehicle # bus
+    6: vehicle # train
+    7: vehicle # car
+    8: vehicle # boat
+    15: animal # bird
+    16: animal # cat
+    17: animal # dog
+    18: animal # horse
+    19: animal # sheep
+    20: animal # cow
+    21: animal # elephant
+    22: animal # bear
+    23: animal # zebra
+    24: animal # giraffe
+    26: package # backpack
+    30: package # handbag
+    32: package # suitcase
+
+ffmpeg:
+  global_args: ["-hide_banner", "-loglevel", "warning"]
+  hwaccel_args: preset-intel-qsv-h264
+
+snapshots:
+  enabled: true
+  timestamp: true
+  bounding_box: true
+  retain:
+    default: 2
+
+record:
+  enabled: true
+  continuous:
+    days: 3
+  motion:
+    days: 7
+  alerts:
+    retain:
+      days: 30
+      mode: all
+  detections:
+    retain:
+      days: 30
+      mode: all
+
+objects:
+  track:
+    - person
+    - vehicle
+    - animal
+    - package
+  filters:
+    person:
+      min_area: 5000
+      max_area: 100000
+      threshold: 0.7
+
+audio:
+  enabled: true
+  listen:
+    - alarm
+    - ambulance
+    - bang
+    - break
+    - breaking
+    - emergency_vehicle
+    - fire_alarm
+    - glass
+    - knock
+    - noise
+    - police_car
+    - scream
+    - siren
+    - smash
+    - speech
+    - tap
+    - yell
+
+go2rtc:
+  webrtc:
+    listen: :8555
+    candidates:
+      - 192.168.90.200:8555
+      - stun:8555
+    ice_servers:
+      - urls:
+          - stun:stun.cloudflare.com:3478
+  streams:
+    doorbell_hd:
+      - "ffmpeg:http://reolink_ip/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_DOORBELL_CAMERA_USERNAME}&password={FRIGATE_DOORBELL_CAMERA_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - "rtsp://{FRIGATE_DOORBELL_CAMERA_USERNAME}:{FRIGATE_DOORBELL_CAMERA_PASSWORD}@reolink_ip/Preview_01_sub"
+    doorbell_sd:
+      - "ffmpeg:http://reolink_ip/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_DOORBELL_CAMERA_USERNAME}&password={FRIGATE_DOORBELL_CAMERA_PASSWORD}"
+      - "rtsp://{FRIGATE_DOORBELL_CAMERA_USERNAME}:{FRIGATE_DOORBELL_CAMERA_PASSWORD}@reolink_ip/Preview_01_sub"
+cameras:
+  doorbell:
+    detect:
+      enabled: true
+    objects:
+      genai:
+        enabled: true
+        use_snapshot: True
+        objects:
+          - person
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/doorbell_hd?video=copy&audio=aac
+          input_args: preset-rtsp-restream
+          roles:
+            - audio
+            - record
+        - path: rtsp://127.0.0.1:8554/doorbell_sd?video=copy&audio=aac
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+    live:
+      streams:
+        Main: doorbell_hd
+        Sub: doorbell_sd
+
+    ## TODO: Add motion mask and zones for doorbell camera
+    # motion:
+    #   mask:
+    #     mask1:
+    #       coordinates: "0,0.034,0.259,0.035,0.26,0,0,0"
+    # zones:
+    #   entry:
+    #     friendly_name: Main Entrance Zone
+    #     coordinates: 0.79,1,0.699,0.795,0.553,0.799,0.573,0.318,0.678,0.102,0.671,0.003,0,0,0,1
+    #   driveway:
+    #     friendly_name: Main Driveway
+    #     coordinates: 0.796,1,0.572,0.561,0.574,0.485,0.824,0.497,0.823,0.568,1,0.63,1,1
+
+  # outside:
+  #   lpr:
+  #     enabled: false
+  #   ffmpeg:
+  #     output_args:
+  #       record: preset-record-generic-audio-aac
+  #     inputs:
+  #       - path: rtsp://127.0.0.1:8554/outside_hd?video=copy&audio=aac
+  #         input_args: preset-rtsp-restream-low-latency
+  #         roles:
+  #           - record
+  #           - audio
+  #       - path: rtsp://127.0.0.1:8554/outside_sd?video=copy&audio=aac
+  #         input_args: preset-rtsp-restream-low-latency
+  #         roles:
+  #           - detect
+  #   motion:
+  #     mask:
+  #       mask1:
+  #         coordinates: "0.727,0,0.73,0.074,0.248,0.077,0.248,0"
+  #   live:
+  #     streams:
+  #       Main: outside_hd
+  #       Sub: outside_sd
+  #   # Enable PTZ support
+  #   onvif:
+  #     host: 192.168.200.25
+  #     port: 8000
+  #     user: "{FRIGATE_OUTSIDE_CAMERA_USERNAME}"
+  #     password: "{FRIGATE_OUTSIDE_CAMERA_PASSWORD}"
+
+auth:
+  enabled: false
+
+proxy:
+  header_map:
+    user: remote-user
+    role: remote-groups
+  default_role: admin
+
+tls:
+  enabled: false
