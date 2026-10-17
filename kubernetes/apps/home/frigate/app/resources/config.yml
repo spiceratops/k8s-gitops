@@ -141,10 +141,10 @@ go2rtc:
   streams:
     doorbell_hd:
       - "ffmpeg:http://192.168.1.16/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={{ .FRIGATE_DOORBELL_CAMERA_USERNAME }}&password={{ .FRIGATE_DOORBELL_CAMERA_PASSWORD }}#video=copy#audio=copy#audio=opus"
-      - "rtsp://{{ .FRIGATE_DOORBELL_CAMERA_USERNAME }}:{{ .FRIGATE_DOORBELL_CAMERA_PASSWORD }}@192.168.1.16/Preview_01_main"
+      # - "rtsp://{{ .FRIGATE_DOORBELL_CAMERA_USERNAME }}:{{ .FRIGATE_DOORBELL_CAMERA_PASSWORD }}@192.168.1.16/Preview_01_main"
     doorbell_sd:
       - "ffmpeg:http://192.168.1.16/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={{ .FRIGATE_DOORBELL_CAMERA_USERNAME }}&password={{ .FRIGATE_DOORBELL_CAMERA_PASSWORD }}"
-      - "rtsp://{{ .FRIGATE_DOORBELL_CAMERA_USERNAME }}:{{ .FRIGATE_DOORBELL_CAMERA_PASSWORD }}@192.168.1.16/Preview_01_sub"
+      # - "rtsp://{{ .FRIGATE_DOORBELL_CAMERA_USERNAME }}:{{ .FRIGATE_DOORBELL_CAMERA_PASSWORD }}@192.168.1.16/Preview_01_sub"
 cameras:
   doorbell:
     detect:
