@@ -145,13 +145,13 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /data
-      # config-file:
-      #   type: secret
-      #   name: "{{ .Release.Name }}-secret"
-      #   globalMounts:
-      #     - path: /config/config.yml
-      #       subPath: config.yml
-      #       readOnly: true
+      config-file:
+        type: secret
+        name: "{{ .Release.Name }}-secret"
+        globalMounts:
+          - path: /config/config.yml
+            subPath: config.yml
+            readOnly: false
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
