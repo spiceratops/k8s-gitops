@@ -141,17 +141,17 @@ spec:
                 port: go2rtc
 
     persistence:
-      config:
+      data:
         existingClaim: *app
         globalMounts:
-          - path: /config
+          - path: /data
       config-file:
         type: secret
         name: "{{ .Release.Name }}-secret"
         globalMounts:
           - path: /config/config.yml
             subPath: config.yml
-            readOnly: false
+            readOnly: true
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
