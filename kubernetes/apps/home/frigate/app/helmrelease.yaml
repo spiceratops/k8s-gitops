@@ -141,10 +141,10 @@ spec:
                 port: go2rtc
 
     persistence:
-      data:
+      config:
         existingClaim: *app
         globalMounts:
-          - path: /data
+          - path: /config
       config-file:
         type: secret
         name: "{{ .Release.Name }}-secret"
