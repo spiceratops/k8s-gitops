@@ -132,7 +132,9 @@ go2rtc:
 cameras:
   doorbell:
     detect:
-      enabled: true
+      height: 480
+      width: 704
+      fps: 5
     objects:
       genai:
         enabled: true
