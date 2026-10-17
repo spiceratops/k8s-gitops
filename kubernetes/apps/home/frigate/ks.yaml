@@ -32,3 +32,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
+      APP_UID: 1000
+      APP_GID: 1000

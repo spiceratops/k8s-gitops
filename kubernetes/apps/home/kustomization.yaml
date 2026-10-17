@@ -16,7 +16,7 @@ resources:
   - ./zigbee2mqtt/ks.yaml
   - ./matter-server/ks.yaml
   - ./govee2mqtt/ks.yaml
-  - ./frigate/ks.yaml
+  # - ./frigate/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
