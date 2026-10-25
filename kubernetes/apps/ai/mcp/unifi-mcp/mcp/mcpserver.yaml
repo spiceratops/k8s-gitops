@@ -4,7 +4,7 @@ kind: MCPServer
 metadata:
   name: unifi-mcp
 spec:
-  image: ghcr.io/enuno/unifi-mcp-server:0.6.1
+  image: ghcr.io/enuno/unifi-mcp-server:0.6.4
   transport: streamable-http
   proxyMode: streamable-http
   proxyPort: 8080
