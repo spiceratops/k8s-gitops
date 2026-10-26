@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ownbee/hass-otbr-docker
-              tag: v0.3.0
+              tag: v0.4.0
             env:
               DEVICE: /tmp/ttyOTBR
               NETWORK_DEVICE: "10.5.0.207:6638" ## TODO: Make this yoink my own
