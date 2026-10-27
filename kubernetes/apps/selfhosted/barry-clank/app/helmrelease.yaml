@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: registry.${SECRET_DOMAIN}/barry-clank
-              tag: v0.15.1
+              tag: v0.15.2
             env:
               TZ: ${TIMEZONE}
               DB_PATH: /data/properties.db
