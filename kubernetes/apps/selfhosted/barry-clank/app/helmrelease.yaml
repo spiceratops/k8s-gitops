@@ -34,6 +34,7 @@ spec:
               DB_PATH: /data/properties.db
               HOUSE_DB_PATH: /data/house_fix.db
               SETTINGS_DB_PATH: /data/settings.db
+              ENRICHMENT_WORKER_VERIFIED: true
             envFrom:
               - secretRef:
                   name: barry-clank-secret
