@@ -31,6 +31,7 @@ spec:
               API_SERVER_ENABLED: true
               API_SERVER_HOST: 0.0.0.0
               API_SERVER_PORT: &port 8642
+              WEBHOOK_PORT: &webhookPort 8644
               HERMES_HOME: /opt/data
               HOME: /opt/data
               # WHATSAPP_ENABLED: true
@@ -48,6 +49,9 @@ spec:
             ports:
               - containerPort: *port
                 name: http
+                protocol: TCP
+              - containerPort: *webhookPort
+                name: webhook
                 protocol: TCP
           dashboard:
             image: *image
@@ -81,6 +85,8 @@ spec:
         ports:
           http:
             port: *port
+          webhook:
+            port: *webhookPort
       dashboard:
         controller: *app
         ports:
@@ -101,6 +107,16 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: AI
           gethomepage.dev/name: Hermes Dashboard
+      webhook:
+        hostnames: ["{{ .Release.Name }}-webhook.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: webhook
+                port: webhook
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
