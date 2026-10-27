@@ -35,6 +35,7 @@ spec:
               HOUSE_DB_PATH: /data/house_fix.db
               SETTINGS_DB_PATH: /data/settings.db
               ENRICHMENT_WORKER_VERIFIED: true
+              FORWARDED_ALLOW_IPS: "10.244.0.0/16, 10.245.0.0/16"
             envFrom:
               - secretRef:
                   name: barry-clank-secret
