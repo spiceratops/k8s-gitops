@@ -85,13 +85,16 @@ spec:
         ports:
           http:
             port: *port
-          webhook:
-            port: *webhookPort
       dashboard:
         controller: *app
         ports:
           http:
             port: *dashboard_port
+      webhook:
+        controller: *app
+        ports:
+          webhook:
+            port: *webhookPort
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
