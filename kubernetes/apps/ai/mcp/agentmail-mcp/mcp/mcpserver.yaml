@@ -5,7 +5,7 @@ kind: MCPServer
 metadata:
   name: agentmail-mcp
 spec:
-  image: docker.io/node:24-alpine
+  image: docker.io/node:26-alpine
   transport: stdio
   proxyMode: streamable-http
   groupRef:
@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: mcp
-          image: docker.io/node:24-alpine
+          image: docker.io/node:26-alpine
           command:
             - npx
           args:
