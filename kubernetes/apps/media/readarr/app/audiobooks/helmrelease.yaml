@@ -107,6 +107,8 @@ spec:
           gethomepage.dev/name: Readarr (Audiobooks)
     persistence:
       media:
-        existingClaim: nfs-media
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/media
         globalMounts:
           - path: /media

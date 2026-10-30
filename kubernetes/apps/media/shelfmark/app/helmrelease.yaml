@@ -92,7 +92,7 @@ spec:
         server: nas.${PUBLIC_DOMAIN}
         path: /mnt/tank/media
         globalMounts:
-          - path: /mnt/data/media
+          - path: /media
       tmpfs:
         type: emptyDir
         advancedMounts:
