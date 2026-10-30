@@ -45,7 +45,7 @@ spec:
               - shelfmark.main:app
             env:
               TZ: ${TIMEZONE}
-              INGEST_DIR: /mnt/data/media/nzb/books
+              INGEST_DIR: /media/downloads/sabnzbd/complete
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
