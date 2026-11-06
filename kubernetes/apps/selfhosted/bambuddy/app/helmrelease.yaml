@@ -102,6 +102,7 @@ spec:
       app:
         ports:
           http:
+            appProtocol: kubernetes.io/ws
             port: *httpPort
       slicer:
         ports:
@@ -133,16 +134,16 @@ spec:
             app:
               - path: /app/data
                 subPath: data
+            slicer:
+              - path: /app/data
+                subPath: slicer
       tmpfs:
         type: emptyDir
         globalMounts:
           - path: /tmp
             subPath: tmp
-        advancedMounts:
-          bambuddy:
-            app:
-              - path: /app/logs
-                subPath: logs
+          - path: /app/logs
+            subPath: logs
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
