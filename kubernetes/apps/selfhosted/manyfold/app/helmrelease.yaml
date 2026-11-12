@@ -60,6 +60,7 @@ spec:
               TZ: ${TIMEZONE}
               PUID: "1000"
               PGID: "1000"
+              PLUGINS_PATH: /mnt/nas/3dprinting/manyfold-plugins
               REDIS_URL: redis://manyfold-dragonfly-db.selfhosted.svc.cluster.local:6379
             envFrom: *envFrom
             probes:
@@ -126,12 +127,6 @@ spec:
       library:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/maker/3dprinting/library
+        path: /mnt/tank/maker/3dprinting
         globalMounts:
-          - path: /mnt/nas/3dprinting/library
-      plugins:
-        type: nfs
-        server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/maker/3dprinting/manyfold-plugins
-        globalMounts:
-          - path: /usr/src/app/plugins
+          - path: /mnt/nas/3dprinting
