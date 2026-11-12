@@ -58,6 +58,8 @@ spec:
               OIDC_ISSUER: https://id.${SECRET_DOMAIN}
               OIDC_NAME: Pocket-ID
               TZ: ${TIMEZONE}
+              PUID: "1000"
+              PGID: "1000"
               REDIS_URL: redis://manyfold-dragonfly-db.selfhosted.svc.cluster.local:6379
             envFrom: *envFrom
             probes:
