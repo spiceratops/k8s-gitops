@@ -59,7 +59,6 @@ spec:
               OIDC_NAME: Pocket-ID
               TZ: ${TIMEZONE}
               REDIS_URL: redis://manyfold-dragonfly-db.selfhosted.svc.cluster.local:6379
-              PLUGINS_PATH: /mnt/nas/3dprinting/manyfold-plugins
             envFrom: *envFrom
             probes:
               liveness: &probes
@@ -122,9 +121,15 @@ spec:
                 subPath: app-tmp
                 readOnly: false
             chown-tmpdirs: *tmpdirs
-      media:
+      library:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
-        path: /mnt/tank/maker/3dprinting
+        path: /mnt/tank/maker/3dprinting/library
         globalMounts:
-          - path: /mnt/nas/3dprinting
+          - path: /mnt/nas/3dprinting/library
+      plugins:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /mnt/tank/maker/3dprinting/manyfold-plugins
+        globalMounts:
+          - path: /usr/src/app/plugins
