@@ -19,6 +19,10 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+      hostAliases:
+        - ip: 127.0.0.1
+          hostnames:
+            - api
     controllers:
       printstash:
         annotations:
