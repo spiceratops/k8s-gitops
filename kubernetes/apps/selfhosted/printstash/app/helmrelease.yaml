@@ -64,8 +64,6 @@ spec:
                 drop: ["ALL"]
               runAsUser: 0
               runAsGroup: 0
-              fsGroup: 0
-              fsGroupChangePolicy: OnRootMismatch
             resources:
               requests:
                 cpu: 10m
