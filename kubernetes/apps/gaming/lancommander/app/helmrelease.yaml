@@ -29,8 +29,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/lancommander/lancommander-full
-              tag: v2.1.17
+              repository: docker.io/lancommander/lancommander
+              tag: v2.2.0-rc.1-full@sha256:56b0c8ed3848f3ae634e5bae4d4d7bf26d5b5715f1dfd691042a2cb1da8343d5
             resources:
               requests:
                 cpu: 20m
