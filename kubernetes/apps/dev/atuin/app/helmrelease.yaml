@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/atuinsh/atuin
-              tag: 18.24.7
+              tag: 18.24.8
             args:
               - start
             envFrom: *envFrom
