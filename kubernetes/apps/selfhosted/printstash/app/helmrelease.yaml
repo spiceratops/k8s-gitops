@@ -115,7 +115,5 @@ spec:
               - path: /uv-cache
       data:
         existingClaim: "{{ .Release.Name }}"
-        advancedMounts:
-          printstash:
-            api:
-              - path: /data
+        globalMounts:
+          - path: /data
