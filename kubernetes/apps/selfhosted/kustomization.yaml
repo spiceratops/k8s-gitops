@@ -25,7 +25,7 @@ resources:
   - ./spoolman/ks.yaml
   - ./manyfold/ks.yaml
   - ./barry-clank/ks.yaml
-  - ./printstash/ks.yaml
+  # - ./printstash/ks.yaml
 components:
   - ../../components/namespace
   - ../../components/repos
