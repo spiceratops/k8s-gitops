@@ -19,22 +19,38 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-      hostAliases:
-        - ip: 127.0.0.1
-          hostnames:
-            - api
     controllers:
       printstash:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          frontend:
+          app:
             image:
-              repository: ghcr.io/xiao-villamor/printstash-frontend
+              repository: ghcr.io/xiao-villamor/printstash
               tag: "v0.15.1"
             env:
               TZ: ${TIMEZONE}
-              NGINX_CLIENT_MAX_BODY_SIZE: 512m
+              PUID: 1000
+              PGID: 1000
+              UV_CACHE_DIR: /uv-cache
+              VAULT_SETUP_MODE: trusted_network
+              VAULT_RESTART_ENABLED: "true"
+              VAULT_STORAGE_BACKEND: local
+              VAULT_DATA_DIR: /data/files
+              VAULT_THUMB_DIR: /data/thumbs
+              VAULT_STAGING_DIR: /data/staging
+              VAULT_BACKUP_DIR: /data/backups
+              VAULT_DB_URL: sqlite:////data/db/printstash.sqlite
+              VAULT_MAX_UPLOAD_MB: "512"
+              VAULT_OIDC_ENABLED: "true"
+              VAULT_OIDC_DISPLAY_NAME: Pocket-ID
+              VAULT_OIDC_ISSUER_URL: https://id.${SECRET_DOMAIN}
+              VAULT_OIDC_SCOPES: openid profile email printstash
+              VAULT_OIDC_ADMIN_GROUPS: family
+              VAULT_OIDC_REDIRECT_URI: https://printstash.${SECRET_DOMAIN}/api/v1/auth/oidc/callback
+            envFrom:
+              - secretRef:
+                  name: printstash-secret
             probes:
               liveness:
                 enabled: true
@@ -59,80 +75,13 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
-              capabilities:
-                add: ["CHOWN", "SETUID", "SETGID"]
-                drop: ["ALL"]
-              runAsUser: 0
-              runAsGroup: 0
-            resources:
-              requests:
-                cpu: 10m
-                memory: 64Mi
-              limits:
-                memory: 256Mi
-          api:
-            image:
-              repository: ghcr.io/xiao-villamor/printstash-api
-              tag: "v0.15.1"
-            env:
-              TZ: ${TIMEZONE}
-              PUID: 1000
-              PGID: 1000
-              UV_CACHE_DIR: /uv-cache
-              VAULT_STORAGE_BACKEND: local
-              VAULT_DATA_DIR: /data/files
-              VAULT_THUMB_DIR: /data/thumbs
-              VAULT_STAGING_DIR: /data/staging
-              VAULT_BACKUP_DIR: /data/backups
-              VAULT_DB_URL: sqlite:////data/db/printstash.sqlite
-              VAULT_MAX_UPLOAD_MB: "512"
-              VAULT_OIDC_ENABLED: "true"
-              VAULT_OIDC_DISPLAY_NAME: Pocket-ID
-              VAULT_OIDC_ISSUER_URL: https://id.${SECRET_DOMAIN}
-              VAULT_OIDC_SCOPES: openid profile email printstash
-              VAULT_OIDC_ADMIN_GROUPS: family
-              VAULT_OIDC_REDIRECT_URI: https://printstash.${SECRET_DOMAIN}/api/v1/auth/oidc/callback
-            envFrom:
-              - secretRef:
-                  name: printstash-secret
-            probes:
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api/v1/health
-                    port: 8000
-                  periodSeconds: 30
-                  failureThreshold: 5
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api/v1/health
-                    port: 8000
-                  periodSeconds: 30
-                  failureThreshold: 5
-              startup:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api/v1/health
-                    port: 8000
-                  failureThreshold: 30
-                  periodSeconds: 10
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 25m
                 memory: 256Mi
               limits:
-                memory: 1Gi
+                memory: 2Gi
     service:
       app:
         controller: printstash
