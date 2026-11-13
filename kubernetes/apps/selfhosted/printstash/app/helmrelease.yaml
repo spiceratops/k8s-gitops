@@ -76,6 +76,8 @@ spec:
               tag: "v0.15.1"
             env:
               TZ: ${TIMEZONE}
+              PUID: 1000
+              PGID: 1000
               UV_CACHE_DIR: /uv-cache
               VAULT_STORAGE_BACKEND: local
               VAULT_DATA_DIR: /data/files
