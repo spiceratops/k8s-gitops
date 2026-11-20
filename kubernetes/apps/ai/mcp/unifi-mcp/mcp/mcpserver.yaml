@@ -17,13 +17,13 @@ spec:
     - name: UNIFI_HOST
       value: unifi.${PRIVATE_DOMAIN}
     - name: UNIFI_MCP_HTTP_ENABLED
-      value: true
+      value: "true"
     - name: UNIFI_MCP_ALLOWED_HOSTS
       value: localhost,127.0.0.1,unifi-mcp.${PRIVATE_DOMAIN}
     - name: UNIFI_MCP_HOST
       value: 0.0.0.0
     - name: UNIFI_MCP_PORT
-      value: 3000
+      value: "3000"
   podTemplateSpec:
     spec:
       containers:
