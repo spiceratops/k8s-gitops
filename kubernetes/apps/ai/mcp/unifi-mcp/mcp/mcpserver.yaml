@@ -4,7 +4,7 @@ kind: MCPServer
 metadata:
   name: unifi-mcp
 spec:
-  image: ghcr.io/enuno/unifi-mcp-server:0.9.0
+  image: ghcr.io/sirkirby/unifi-network-mcp:0.48.1@sha256:20651c8da109229f14aa876370150e579b1b9ad42c7d52c30a8844d700b5a2a6
   transport: streamable-http
   proxyMode: streamable-http
   proxyPort: 8080
@@ -12,29 +12,27 @@ spec:
   groupRef:
     name: mcp-tools
   env:
-    - name: UNIFI_NETWORK_HOST
+    - name: UNIFI_HOST
       value: unifi.${PRIVATE_DOMAIN}
-    - name: UNIFI_NETWORK_PORT
-      value: "443"
-    - name: UNIFI_DEFAULT_SITE
-      value: default
-    - name: MCP_SERVER_TRANSPORT
-      value: http
-    - name: MCP_SERVER_HOST
+    - name: UNIFI_MCP_HTTP_ENABLED
+      value: true
+    - name: UNIFI_MCP_ALLOWED_HOSTS
+      value: localhost,127.0.0.1,unifi-mcp.${PRIVATE_DOMAIN}
+    - name: UNIFI_MCP_HOST
       value: 0.0.0.0
-    - name: MCP_SERVER_PORT
-      value: "3000"
+    - name: UNIFI_MCP_PORT
+      value: 3000
   podTemplateSpec:
     spec:
       containers:
         - name: mcp
           env:
-            - name: UNIFI_NETWORK_USERNAME
+            - name: UNIFI_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: unifi-mcp-secret
                   key: UNIFI_NETWORK_USERNAME
-            - name: UNIFI_NETWORK_PASSWORD
+            - name: UNIFI_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: unifi-mcp-secret
@@ -44,3 +42,8 @@ spec:
                 secretKeyRef:
                   name: unifi-mcp-secret
                   key: UNIFI_API_KEY
+            - name: UNIFI_MCP_HTTP_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: unifi-mcp-secret
+                  key: UNIFI_MCP_HTTP_AUTH_TOKEN
