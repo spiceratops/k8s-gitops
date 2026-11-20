@@ -69,7 +69,7 @@ spec:
           gotenberg:
             image:
               repository: docker.io/gotenberg/gotenberg
-              tag: 9.2.0
+              tag: 9.5.1
             ports:
               - containerPort: 3000
             command:
