@@ -12,6 +12,8 @@ spec:
   groupRef:
     name: mcp-tools
   env:
+    - name: TZ
+      value: ${TIMEZONE}
     - name: UNIFI_HOST
       value: unifi.${PRIVATE_DOMAIN}
     - name: UNIFI_MCP_HTTP_ENABLED
