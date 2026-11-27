@@ -43,7 +43,7 @@ spec:
             envFrom:
               - secretRef:
                   name: minihoard-secret
-            command: ["minihoard", "status"]
+            command: ["minihoard", "login", "--headless"]
             resources:
               requests:
                 memory: 64Mi
