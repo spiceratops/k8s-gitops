@@ -22,7 +22,15 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     controllers:
       minihoard:
-        type: cronjob
+        # type: cronjob
+        # cronjob:
+        #   schedule: "0 4 * * *"
+        #   concurrencyPolicy: Forbid
+        #   ttlSecondsAfterFinished: 86400
+        #   startingDeadlineSeconds: 30
+        #   successfulJobsHistory: 1
+        #   failedJobsHistory: 1
+        #   backoffLimit: 6
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -35,6 +43,7 @@ spec:
             envFrom:
               - secretRef:
                   name: minihoard-secret
+            command: ["minihoard", "login", "--headless"]
             resources:
               requests:
                 memory: 64Mi
