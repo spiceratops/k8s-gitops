@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/berriai/litellm-non_root
-              tag: 1.108.18@sha256:e06eff3ef3585ad68af69b7fde887fdaabb8b94ead0c6e008081411b5644ad16
+              tag: 1.108.19@sha256:8180746cd776c78f5a18a7e2fb4ca2f12d307581e5d3e72ff847944a4232e244
             args:
               - --port
               - "4000"
