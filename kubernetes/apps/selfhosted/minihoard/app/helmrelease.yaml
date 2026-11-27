@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: registry.${SECRET_DOMAIN}/minihoard
-              tag: v0.1.0-rc1
+              tag: v0.1.0-rc3
             env:
               TZ: ${TIMEZONE}
             envFrom:
